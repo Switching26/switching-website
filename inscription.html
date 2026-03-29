@@ -29,20 +29,33 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
 .stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
 .phone{color:var(--accent)!important;font-weight:600!important}
 /* HEADER */
-header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.8);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .5s var(--e)}
-header.scrolled{background:rgba(250,251,252,.92);border-bottom-color:rgba(16,171,175,.08);box-shadow:0 4px 24px rgba(0,0,0,.04),0 1px 0 rgba(16,171,175,.06)}
-.hdr{display:flex;align-items:center;justify-content:space-between;height:64px;transition:height .5s var(--e)}
-header.scrolled .hdr{height:56px}
-.logo{text-decoration:none;display:flex;align-items:center;transition:transform .3s var(--e)}.logo:hover{transform:scale(1.04)}.logo img{height:38px;filter:none;transition:height .5s var(--e)}
-header.scrolled .logo img{height:34px}
-nav{display:flex;align-items:center;gap:4px}
-nav a{text-decoration:none;color:var(--sub);font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:var(--rs);transition:all .3s var(--e);position:relative;letter-spacing:.01em}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.82);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .5s var(--e)}
+header.scrolled{background:rgba(250,251,252,.94);border-bottom-color:rgba(16,171,175,.08);box-shadow:0 4px 24px rgba(0,0,0,.04),0 1px 0 rgba(16,171,175,.06)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:72px;transition:height .5s var(--e)}
+header.scrolled .hdr{height:62px}
+.logo{text-decoration:none;display:flex;align-items:center;transition:transform .3s var(--e)}.logo:hover{transform:scale(1.03)}.logo img{height:42px;filter:none;transition:height .5s var(--e)}
+header.scrolled .logo img{height:36px}
+nav{display:flex;align-items:center;gap:2px}
+nav a{text-decoration:none;color:var(--sub);font-size:14.5px;font-weight:500;padding:10px 16px;border-radius:var(--rs);transition:all .3s var(--e);position:relative;letter-spacing:.005em}
 nav a::after{content:'';position:absolute;bottom:4px;left:50%;width:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:all .35s var(--e);transform:translateX(-50%)}
 nav a:hover{color:var(--text);background:rgba(16,171,175,.04)}
-nav a:hover::after{width:calc(100% - 28px)}
+nav a:hover::after{width:calc(100% - 32px)}
 nav a.active{color:var(--accent);font-weight:600}
 nav a.active::after{width:16px;height:3px;background:var(--accent);bottom:2px;opacity:.8}
-.nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;padding:9px 24px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:12.5px!important;letter-spacing:.02em!important;border:none!important;box-shadow:0 2px 12px var(--accent-gl),inset 0 1px 0 rgba(255,255,255,.2)!important;transition:all .35s var(--e)!important}
+/* DROPDOWN */
+.nav-drop{position:relative}
+.nav-drop>a{display:inline-flex;align-items:center;gap:5px}
+.nav-drop>a .dd-arrow{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e)}
+.nav-drop:hover>a .dd-arrow{transform:rotate(180deg)}
+.nav-dd{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(6px);min-width:240px;background:var(--surface);border:1px solid var(--bd2);border-radius:var(--r);padding:8px;box-shadow:0 12px 40px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.02);opacity:0;visibility:hidden;pointer-events:none;transition:all .3s var(--e);z-index:200}
+.nav-drop:hover .nav-dd{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dd a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rs);font-size:13.5px;color:var(--sub);font-weight:500;transition:all .2s var(--e)}
+.nav-dd a::after{display:none}
+.nav-dd a:hover{background:var(--accent-gl2);color:var(--accent)}
+.dd-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--bd);transition:all .25s var(--e)}
+.dd-ico svg{width:16px;height:16px}
+.nav-dd a:hover .dd-ico{border-color:transparent;box-shadow:0 0 12px color-mix(in srgb,var(--dd-c,var(--accent)) 25%,transparent)}
+.nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;padding:10px 26px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important;letter-spacing:.02em!important;border:none!important;box-shadow:0 2px 12px var(--accent-gl),inset 0 1px 0 rgba(255,255,255,.2)!important;transition:all .35s var(--e)!important}
 .nav-cta::after{display:none!important}
 .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 4px 20px rgba(16,171,175,.3),inset 0 1px 0 rgba(255,255,255,.2)!important;filter:brightness(1.08)!important;background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important}
 
@@ -129,7 +142,7 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 
 <header id="hd"><div class="w"><div class="hdr">
 <a href="index.html" class="logo"><img src="images/logo-switching.png" alt="Switching Formation"></a>
-<nav><a href="le-centre.html">Le centre</a><a href="formations.html">Nos formations</a><a href="financement.html">Financement</a><a href="inscription.html" class="active">Devis</a><a href="documentation.html" class="nav-cta">Documentation</a></nav>
+<nav><a href="index.html">Accueil</a><div class="nav-drop"><a href="formations.html">Nos formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="formations.html" style="--dd-c:#3B82F6"><div class="dd-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/></svg></div>Langues</a><a href="formations.html" style="--dd-c:#10B981"><div class="dd-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 8h16"/><path d="M8 4v4"/></svg></div>Bureautique</a><a href="formations.html" style="--dd-c:#F59E0B"><div class="dd-ico" style="background:rgba(245,158,11,.06);color:#F59E0B;border-color:rgba(245,158,11,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme & PAO</a><a href="formations.html" style="--dd-c:#A855F7"><div class="dd-ico" style="background:rgba(168,85,247,.06);color:#A855F7;border-color:rgba(168,85,247,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/></svg></div>Web & Digital</a><a href="formations.html" style="--dd-c:#FB923C"><div class="dd-ico" style="background:rgba(251,146,60,.06);color:#FB923C;border-color:rgba(251,146,60,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>Comptabilité & Paie</a><a href="formations.html" style="--dd-c:#6366F1"><div class="dd-ico" style="background:rgba(99,102,241,.06);color:#6366F1;border-color:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1"/><circle cx="12" cy="14" r="3"/></svg></div>Intelligence Artificielle</a><a href="formations.html" style="--dd-c:#F43F5E"><div class="dd-ico" style="background:rgba(244,63,94,.06);color:#F43F5E;border-color:rgba(244,63,94,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Bilan de compétences</a></div></div><a href="le-centre.html">Le centre</a><a href="financement.html">Financement</a><a href="inscription.html" class="active">Devis</a><a href="documentation.html" class="nav-cta">Documentation</a></nav>
 </div></div></header>
 
 <section class="doc-page">
