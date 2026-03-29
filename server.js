@@ -136,9 +136,13 @@ app.get('/api/export', (req, res, next) => {
   res.send(csv);
 });
 
-// SPA fallback for clean URLs
-app.get('*', (req, res) => {
+// Fallback: serve index.html for root only, 404 for unknown routes
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
