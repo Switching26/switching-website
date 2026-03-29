@@ -2,9 +2,10 @@
   "name": "switching-website",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx serve . -l $PORT"
+    "start": "node server.js"
   },
   "dependencies": {
-    "serve": "^14.2.0"
+    "express": "^4.18.2",
+    "better-sqlite3": "^11.0.0"
   }
 }
