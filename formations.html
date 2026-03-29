@@ -565,7 +565,14 @@ document.querySelectorAll('.flt').forEach(function(btn){
 });
 // Deep-link: formations.html?cat=bureautique
 var urlCat=new URLSearchParams(window.location.search).get('cat');
-if(urlCat)activateFilter(urlCat);
+if(urlCat){
+  activateFilter(urlCat);
+  // Force visible on filtered domains (bypass scroll reveal)
+  document.querySelectorAll('.domain:not(.hidden)').forEach(function(d){d.classList.add('vis')});
+  // Scroll to first visible domain
+  var first=document.querySelector('.domain:not(.hidden)');
+  if(first)setTimeout(function(){first.scrollIntoView({behavior:'smooth',block:'start'})},100);
+}
 
 // SCROLL REVEAL
 document.querySelectorAll('.rv').forEach(function(el){
