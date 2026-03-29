@@ -572,8 +572,9 @@ document.querySelectorAll('.flt').forEach(function(btn){
 });
 
 // Deep-link: formations.html?cat=bureautique
-var urlCat=new URLSearchParams(window.location.search).get('cat');
-if(urlCat){
+function handleDeepLink(){
+  var urlCat=new URLSearchParams(window.location.search).get('cat');
+  if(!urlCat)return;
   activateFilter(urlCat);
   // Force all domains to be fully visible (no scroll-reveal fade)
   document.querySelectorAll('.domain').forEach(function(d){
@@ -591,6 +592,10 @@ if(urlCat){
     },200);
   }
 }
+var urlCat=new URLSearchParams(window.location.search).get('cat');
+handleDeepLink();
+// Also handle back/forward and bfcache
+window.addEventListener('pageshow',function(){handleDeepLink()});
 
 // SCROLL REVEAL (skip domains if deep-linked)
 document.querySelectorAll('.rv').forEach(function(el){
@@ -598,6 +603,27 @@ document.querySelectorAll('.rv').forEach(function(el){
   new IntersectionObserver(function(e){
     if(e[0].isIntersecting){el.classList.add('vis')}
   },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+});
+
+// Intercept dropdown links when already on formations.html
+document.querySelectorAll('.nav-dd a[href*="formations.html?cat="]').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var cat=new URL(link.href).searchParams.get('cat');
+    if(cat){
+      e.preventDefault();
+      activateFilter(cat);
+      document.querySelectorAll('.domain').forEach(function(d){
+        d.classList.add('vis');d.style.opacity='1';d.style.transform='none';
+      });
+      history.replaceState(null,'','formations.html?cat='+cat);
+      var filters=document.querySelector('.filters');
+      if(filters){
+        var headerH=document.getElementById('hd').offsetHeight||72;
+        var y=filters.getBoundingClientRect().top+window.scrollY-headerH-16;
+        window.scrollTo({top:y,behavior:'smooth'});
+      }
+    }
+  });
 });
 
 // STICKY HEADER
