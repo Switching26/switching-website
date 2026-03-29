@@ -313,7 +313,30 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg,.fg{grid-template-columns
 <script>
 var cs=1;function goStep(d){var n=cs+d;if(n<1||n>5)return;document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.querySelector('.step[data-step="'+n+'"]').classList.add('active');cs=n;}
 document.querySelectorAll('.step-opt').forEach(function(b){b.addEventListener('click',function(){b.parentElement.querySelectorAll('.step-opt').forEach(function(s){s.classList.remove('selected')});b.classList.add('selected');setTimeout(function(){goStep(1)},280);});});
-function submitForm(){document.querySelector('.step[data-step="5"]').classList.remove('active');document.getElementById('fOk').classList.add('on');}
+function submitForm(){
+  // Collect form data
+  var data={date:new Date().toISOString(),source:'accueil'};
+  var s1=document.querySelector('.step[data-step="1"] .step-opt.selected');
+  var s2=document.querySelector('.step[data-step="2"] .step-opt.selected');
+  var s3=document.querySelector('.step[data-step="3"] .step-opt.selected');
+  data.secteur=s1?s1.textContent.trim():'';
+  data.statut=s2?s2.textContent.trim():'';
+  data.financement=s3?s3.textContent.trim():'';
+  var inputs=document.querySelectorAll('.step[data-step="4"] input');
+  data.prenom=inputs[0]?inputs[0].value:'';
+  data.nom=inputs[1]?inputs[1].value:'';
+  data.email=inputs[2]?inputs[2].value:'';
+  data.tel=inputs[3]?inputs[3].value:'';
+  var sel=document.querySelector('.step[data-step="4"] select');
+  data.indicatif=sel?sel.value:'';
+  // Save to localStorage
+  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
+  subs.unshift(data);
+  localStorage.setItem('sf_submissions',JSON.stringify(subs));
+  // Show success
+  document.querySelector('.step[data-step="5"]').classList.remove('active');
+  document.getElementById('fOk').classList.add('on');
+}
 document.querySelectorAll('.rv').forEach(function(el){new IntersectionObserver(function(e){if(e[0].isIntersecting)e[0].target.classList.add('vis')},{threshold:.05}).observe(el)});
 window.addEventListener('scroll',function(){document.getElementById('hd').classList.toggle('scrolled',scrollY>10)},{passive:true});
 // title animated via CSS

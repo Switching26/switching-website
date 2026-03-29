@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/fav-sf-web.PNG">
+<title>Admin — Switching Formation</title>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;
+--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:48px 40px;max-width:400px;width:100%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.06)}
+.login-box img{height:42px;margin-bottom:28px}
+.login-box h1{font-family:'Poppins',sans-serif;font-size:24px;font-weight:600;color:#0F172A;margin-bottom:6px;letter-spacing:-.02em}
+.login-box p{font-size:13px;color:var(--muted);margin-bottom:28px}
+.login-input{width:100%;padding:14px 18px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:16px;font-family:var(--f);color:var(--text);text-align:center;letter-spacing:.3em;transition:all .2s;background:var(--surface)}
+.login-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
+.login-input::placeholder{letter-spacing:normal;color:var(--muted)}
+.login-btn{width:100%;margin-top:16px;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:var(--rf);font-size:15px;font-weight:700;font-family:var(--f);cursor:pointer;transition:all .3s var(--e);box-shadow:0 2px 12px var(--accent-gl)}
+.login-btn:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 20px rgba(16,171,175,.3)}
+.login-error{color:#F43F5E;font-size:13px;margin-top:12px;display:none}
+
+/* DASHBOARD */
+.dash{display:none;padding:24px 32px}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.dash-header img{height:36px}
+.dash-title{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;letter-spacing:-.02em}
+.dash-actions{display:flex;gap:10px;align-items:center}
+.dash-btn{padding:9px 20px;border-radius:var(--rf);font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .2s var(--e);border:1px solid var(--bd2);background:var(--surface);color:var(--sub)}
+.dash-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-gl2)}
+.dash-btn.danger{border-color:#F43F5E;color:#F43F5E}.dash-btn.danger:hover{background:rgba(244,63,94,.06)}
+.dash-logout{padding:9px 20px;border-radius:var(--rf);font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;border:none;background:var(--surface2);color:var(--sub);transition:all .2s}
+.dash-logout:hover{color:var(--text)}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:24px 20px;transition:all .3s var(--e)}
+.stat-card:hover{border-color:rgba(16,171,175,.15);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.stat-num{font-family:'Poppins',sans-serif;font-size:32px;font-weight:700;color:var(--accent);letter-spacing:-.02em;line-height:1}
+.stat-label{font-size:12px;color:var(--muted);margin-top:6px;font-weight:500}
+
+/* TABLE */
+.table-wrap{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.table-head{padding:18px 24px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.table-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A}
+.table-count{font-size:12px;color:var(--muted);font-weight:500}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:12px 24px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bd);background:var(--bg)}
+td{padding:14px 24px;font-size:13px;color:var(--sub);border-bottom:1px solid var(--bd)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--accent-gl2)}
+.badge{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge-secteur{background:rgba(59,130,246,.08);color:#3B82F6;border:1px solid rgba(59,130,246,.15)}
+.badge-statut{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.15)}
+.badge-fin{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.15)}
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty svg{width:48px;height:48px;margin-bottom:16px;opacity:.3}
+.empty p{font-size:14px}
+
+@media(max-width:768px){
+.stats-row{grid-template-columns:repeat(2,1fr)}
+.dash{padding:16px}
+table{font-size:12px}
+th,td{padding:10px 12px}
+.login-box{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="loginScreen">
+<div class="login-box">
+<img src="images/logo-switching.png" alt="Switching Formation">
+<h1>Espace administrateur</h1>
+<p>Entrez votre code d'accès pour continuer.</p>
+<input type="password" class="login-input" id="codeInput" placeholder="Code d'accès" maxlength="20" autofocus>
+<button class="login-btn" id="loginBtn">Accéder</button>
+<div class="login-error" id="loginError">Code incorrect. Veuillez réessayer.</div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dashboard">
+<div class="dash-header">
+<div style="display:flex;align-items:center;gap:16px">
+<img src="images/logo-switching.png" alt="SF">
+<div class="dash-title">Administration</div>
+</div>
+<div class="dash-actions">
+<button class="dash-btn" id="exportBtn">Exporter CSV</button>
+<button class="dash-btn danger" id="clearBtn">Tout supprimer</button>
+<button class="dash-logout" id="logoutBtn">Déconnexion</button>
+</div>
+</div>
+
+<div class="stats-row">
+<div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total demandes</div></div>
+<div class="stat-card"><div class="stat-num" id="statToday">0</div><div class="stat-label">Aujourd'hui</div></div>
+<div class="stat-card"><div class="stat-num" id="statWeek">0</div><div class="stat-label">Cette semaine</div></div>
+<div class="stat-card"><div class="stat-num" id="statTop">—</div><div class="stat-label">Secteur le plus demandé</div></div>
+</div>
+
+<div class="table-wrap">
+<div class="table-head">
+<div class="table-title">Demandes de contact</div>
+<div class="table-count" id="tableCount"></div>
+</div>
+<div id="tableBody"></div>
+</div>
+</div>
+
+<script>
+// ADMIN CODE — Change this hash to set your password
+// Default: "switching2026" -> SHA-256 hash
+var ADMIN_HASH='8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
+
+async function sha256(str){
+  var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+
+// LOGIN
+document.getElementById('loginBtn').addEventListener('click',tryLogin);
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin()});
+
+async function tryLogin(){
+  var code=document.getElementById('codeInput').value;
+  var hash=await sha256(code);
+  if(hash===ADMIN_HASH){
+    sessionStorage.setItem('sf_admin','1');
+    showDash();
+  } else {
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('codeInput').value='';
+    document.getElementById('codeInput').focus();
+  }
+}
+
+// Check session
+if(sessionStorage.getItem('sf_admin')==='1')showDash();
+
+function showDash(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  renderDash();
+}
+
+// LOGOUT
+document.getElementById('logoutBtn').addEventListener('click',function(){
+  sessionStorage.removeItem('sf_admin');
+  location.reload();
+});
+
+// RENDER
+function renderDash(){
+  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
+  var now=new Date();
+  var today=now.toISOString().slice(0,10);
+  var weekAgo=new Date(now-7*86400000).toISOString();
+
+  // Stats
+  document.getElementById('statTotal').textContent=subs.length;
+  document.getElementById('statToday').textContent=subs.filter(function(s){return s.date&&s.date.slice(0,10)===today}).length;
+  document.getElementById('statWeek').textContent=subs.filter(function(s){return s.date&&s.date>=weekAgo}).length;
+  document.getElementById('tableCount').textContent=subs.length+' demande'+(subs.length>1?'s':'');
+
+  // Top sector
+  if(subs.length>0){
+    var counts={};
+    subs.forEach(function(s){if(s.secteur){counts[s.secteur]=(counts[s.secteur]||0)+1}});
+    var top=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a]})[0];
+    document.getElementById('statTop').textContent=top||'—';
+  }
+
+  // Table
+  var el=document.getElementById('tableBody');
+  if(subs.length===0){
+    el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg><p>Aucune demande pour le moment.</p></div>';
+    return;
+  }
+
+  var html='<table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th></tr></thead><tbody>';
+  subs.forEach(function(s){
+    var d=s.date?new Date(s.date):null;
+    var dateStr=d?d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+    html+='<tr>';
+    html+='<td>'+dateStr+'</td>';
+    html+='<td>'+(s.prenom||'—')+'</td>';
+    html+='<td>'+(s.nom||'—')+'</td>';
+    html+='<td>'+(s.email||'—')+'</td>';
+    html+='<td>'+(s.indicatif?s.indicatif+' ':'')+(s.tel||'—')+'</td>';
+    html+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+s.secteur+'</span>':'—')+'</td>';
+    html+='<td>'+(s.statut?'<span class="badge badge-statut">'+s.statut+'</span>':'—')+'</td>';
+    html+='<td>'+(s.financement?'<span class="badge badge-fin">'+s.financement+'</span>':'—')+'</td>';
+    html+='<td>'+(s.source||'—')+'</td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  el.innerHTML=html;
+}
+
+// EXPORT CSV
+document.getElementById('exportBtn').addEventListener('click',function(){
+  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
+  if(!subs.length)return;
+  var headers=['Date','Prenom','Nom','Email','Indicatif','Telephone','Secteur','Statut','Financement','Source'];
+  var csv=headers.join(';')+'\n';
+  subs.forEach(function(s){
+    csv+=[s.date||'',s.prenom||'',s.nom||'',s.email||'',s.indicatif||'',s.tel||'',s.secteur||'',s.statut||'',s.financement||'',s.source||''].join(';')+'\n';
+  });
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='switching-demandes-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+});
+
+// CLEAR
+document.getElementById('clearBtn').addEventListener('click',function(){
+  if(confirm('Supprimer toutes les demandes ? Cette action est irréversible.')){
+    localStorage.removeItem('sf_submissions');
+    renderDash();
+  }
+});
+</script>
+</body>
+</html>
