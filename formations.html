@@ -566,16 +566,28 @@ document.querySelectorAll('.flt').forEach(function(btn){
 // Deep-link: formations.html?cat=bureautique
 var urlCat=new URLSearchParams(window.location.search).get('cat');
 if(urlCat){
+  // Activate filter
   activateFilter(urlCat);
-  // Force visible on filtered domains (bypass scroll reveal)
-  document.querySelectorAll('.domain:not(.hidden)').forEach(function(d){d.classList.add('vis')});
-  // Scroll to first visible domain
-  var first=document.querySelector('.domain:not(.hidden)');
-  if(first)setTimeout(function(){first.scrollIntoView({behavior:'smooth',block:'start'})},100);
+  // Force ALL visible domains to show (remove rv opacity)
+  document.querySelectorAll('.domain').forEach(function(d){
+    d.classList.add('vis');
+    d.style.opacity='1';
+    d.style.transform='none';
+  });
+  // Scroll to filters section (not the domain itself — avoids going too low)
+  var filters=document.querySelector('.filters');
+  if(filters){
+    setTimeout(function(){
+      var headerH=document.getElementById('hd').offsetHeight||72;
+      var y=filters.getBoundingClientRect().top+window.scrollY-headerH-16;
+      window.scrollTo({top:y,behavior:'smooth'});
+    },150);
+  }
 }
 
-// SCROLL REVEAL
+// SCROLL REVEAL (skip domains if deep-linked)
 document.querySelectorAll('.rv').forEach(function(el){
+  if(urlCat && el.classList.contains('domain')){el.classList.add('vis');return;}
   new IntersectionObserver(function(e){
     if(e[0].isIntersecting){el.classList.add('vis')}
   },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
