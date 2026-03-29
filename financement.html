@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financement — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);
+--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}
+header.scrolled{background:rgba(250,251,252,.95)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px}
+nav{display:flex;align-items:center;gap:2px}
+nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}
+nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}
+nav a.active{color:var(--accent);font-weight:600}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}
+.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+
+/* HERO */
+.page-hero{padding:52px 0 44px;position:relative;overflow:hidden;text-align:center}
+.page-hero-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.07),transparent),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.05),transparent),radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);pointer-events:none}
+.page-hero .w{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px 6px 12px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.02em}
+.hero-tag svg{width:14px;height:14px;fill:var(--accent)}
+.page-hero h1{font-family:'Poppins',sans-serif;font-size:42px;font-weight:600;line-height:1.1;color:#0F172A;letter-spacing:-.04em;margin-bottom:14px}
+.page-hero h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero p{font-size:16px;color:var(--sub);max-width:640px;margin:0 auto;line-height:1.7}
+.page-hero p b{color:var(--text);font-weight:600}
+
+/* COMMONS */
+.sec-head{text-align:center;margin-bottom:36px}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
+.sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sep{position:relative}.sep::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+
+/* FINANCING OPTIONS — 3 big cards */
+.fin-options{padding:0 0 52px}
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fin-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:32px 24px;transition:all .4s var(--e);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.fin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--fin-c,var(--accent));opacity:0;transition:opacity .3s}
+.fin-card:hover::before{opacity:1}
+.fin-card:hover{border-color:rgba(16,171,175,.2);transform:translateY(-5px);box-shadow:0 12px 36px rgba(0,0,0,.08)}
+.fin-card-ico{width:52px;height:52px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);transition:all .35s var(--e)}
+.fin-card:hover .fin-card-ico{background:var(--fin-c,var(--accent));color:#fff;border-color:transparent;box-shadow:0 0 20px color-mix(in srgb,var(--fin-c,var(--accent)) 30%,transparent)}
+.fin-card-ico svg{width:24px;height:24px}
+.fin-card h3{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.fin-card p{font-size:14px;color:var(--sub);line-height:1.65}
+.fin-card p b{color:var(--text);font-weight:600}
+.fin-card-logo{margin-top:auto;padding-top:12px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:12px}
+.fin-card-logo img{max-height:44px;object-fit:contain;filter:grayscale(.1);opacity:.85}
+.fin-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:var(--rf);text-transform:uppercase;letter-spacing:.03em}
+.fin-badge.pop{background:#FFF8E0;color:#B8860B;border:1px solid #FDCC00}
+
+/* WHO QUALIFIES */
+.who{padding:52px 0}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.who-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:24px 20px;text-align:center;transition:all .4s var(--e);display:flex;flex-direction:column;align-items:center;gap:12px}
+.who-card:hover{border-color:rgba(16,171,175,.2);transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.08)}
+.who-ico{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);transition:all .35s var(--e)}
+.who-card:hover .who-ico{border-color:transparent;box-shadow:0 0 16px color-mix(in srgb,var(--who-c,var(--accent)) 30%,transparent)}
+.who-ico svg{width:22px;height:22px}
+.who-card h3{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A}
+.who-card p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* OPCO DETAIL */
+.opco-sec{padding:52px 0}
+.opco-intro{max-width:760px;margin:0 auto 32px;text-align:center;font-size:15px;color:var(--sub);line-height:1.75}
+.opco-intro b{color:var(--text);font-weight:600}
+.opco-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px 32px;background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:32px;transition:all .4s var(--e)}
+.opco-logos:hover{border-color:rgba(16,171,175,.2);box-shadow:0 10px 32px rgba(0,0,0,.06)}
+.opco-logos img{height:40px;object-fit:contain;filter:grayscale(.15);opacity:.75;transition:all .3s}
+.opco-logos img:hover{filter:grayscale(0);opacity:1}
+.opco-names{text-align:center;font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6}
+
+/* STEPS HOW IT WORKS */
+.how{padding:52px 0}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.how-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:28px 20px;text-align:center;transition:all .4s var(--e);display:flex;flex-direction:column;align-items:center;gap:12px;position:relative}
+.how-card:hover{border-color:rgba(16,171,175,.2);transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.08)}
+.how-num{width:36px;height:36px;border-radius:50%;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:var(--accent)}
+.how-card h3{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A}
+.how-card p{font-size:13px;color:var(--muted);line-height:1.55}
+/* Arrow connectors */
+.how-card:not(:last-child)::after{content:'→';position:absolute;right:-20px;top:40px;font-size:18px;color:var(--muted);font-weight:300}
+
+/* FAQ */
+.faq{padding:52px 0}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--surface);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;transition:all .3s var(--e)}
+.faq-item:hover{border-color:rgba(16,171,175,.15)}
+.faq-item.open{border-color:rgba(16,171,175,.2);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.faq-q{padding:16px 20px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;transition:color .2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q svg{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e);flex-shrink:0}
+.faq-item.open .faq-q svg{transform:rotate(180deg);stroke:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--e)}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 20px 16px;font-size:14px;color:var(--sub);line-height:1.65}
+
+/* CTA */
+.cta-section{padding:56px 0}
+.cta-box{background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);border-radius:20px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 20%,rgba(16,171,175,.15),transparent),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(99,102,241,.1),transparent);pointer-events:none}
+.cta-box h2{font-family:'Poppins',sans-serif;font-size:32px;font-weight:600;color:#fff;letter-spacing:-.03em;margin-bottom:10px;position:relative;z-index:1}
+.cta-box p{color:var(--muted);font-size:15px;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+.btn-glow{background:var(--accent);color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl)}
+.btn-glow:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 0 40px rgba(16,171,175,.25)}
+.btn-ghost-w{background:transparent;color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid rgba(255,255,255,.15)}
+.btn-ghost-w:hover{border-color:var(--accent);background:rgba(16,171,175,.1)}
+.btn-glow svg,.btn-ghost-w svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-glow:hover svg,.btn-ghost-w:hover svg{transform:translateX(3px)}
+
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}
+.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:13px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+
+.chat{position:fixed;bottom:24px;right:24px;width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--accent-gl);z-index:999;cursor:pointer;transition:all .3s var(--e)}.chat:hover{transform:scale(1.1) translateY(-2px)}.chat svg{width:20px;height:20px;fill:#fff}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
+
+@media(max-width:1024px){
+.fin-grid{grid-template-columns:1fr}
+.who-grid{grid-template-columns:repeat(2,1fr)}
+.how-grid{grid-template-columns:repeat(2,1fr)}
+.how-card::after{display:none}
+.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+.w{padding:0 18px}
+.topbar .w{flex-direction:column;gap:4px;text-align:center}
+.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}
+.page-hero{padding:36px 0 28px}.page-hero h1{font-size:28px}
+.sec-h2{font-size:26px}
+.who-grid,.how-grid{grid-template-columns:1fr}
+.cta-box{padding:32px 20px}.cta-box h2{font-size:24px}
+.cta-btns{flex-direction:column;align-items:center}
+.ft-grid{grid-template-columns:1fr}
+.opco-logos img{height:30px}
+.opco-logos{padding:20px;gap:14px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header id="hd"><div class="w"><div class="hdr">
+<a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a>
+<nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement" class="active">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/documentation" class="nav-cta">Documentation</a></nav>
+</div></div></header>
+
+<!-- HERO -->
+<section class="page-hero">
+<div class="page-hero-mesh"></div>
+<div class="w">
+<div class="hero-tag rv"><svg viewBox="0 0 24 24"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>100% finançable</div>
+<h1 class="rv">Financez votre<br><span class="glow">formation</span></h1>
+<p class="rv rv1">Nos formations sont éligibles aux principaux dispositifs de financement. <b>CPF, OPCO, France Travail</b> : nous vous accompagnons dans le montage de votre dossier.</p>
+</div>
+</section>
+
+<!-- 3 GRANDES OPTIONS -->
+<section class="fin-options"><div class="w">
+<div class="fin-grid">
+
+<!-- CPF -->
+<div class="fin-card rv" style="--fin-c:#6366F1">
+<div class="fin-card-ico" style="background:rgba(99,102,241,.06);color:#6366F1;border-color:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><h3>Compte Personnel de Formation</h3><span class="fin-badge pop">Populaire</span></div>
+<p>Le <b>CPF</b> (Compte Personnel de Formation) vous permet de financer votre formation grâce aux droits acquis tout au long de votre carrière. Chaque actif dispose d'un solde consultable sur <b>moncompteformation.gouv.fr</b>.</p>
+<p>Toutes nos formations certifiantes (TOSA, ENI, ICDL, Linguaskill, RNCP) sont éligibles au CPF. Le reste à charge est de <b>102,23 €</b> depuis mai 2024.</p>
+<div class="fin-card-logo">
+<img src="https://static.wixstatic.com/media/5627a4_269d513621974ec0b46f71954db5cde2~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-CPF%20(1).png" alt="CPF">
+<img src="https://static.wixstatic.com/media/5627a4_4b2b3f500d414a83affbe2759e312e9f~mv2.png/v1/crop/x_173,y_208,w_2277,h_1143/fill/w_180,h_90,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo_moncompteformation_rvb%20(2).png" alt="Mon Compte Formation">
+</div>
+</div>
+
+<!-- OPCO -->
+<div class="fin-card rv rv1" style="--fin-c:#10B981">
+<div class="fin-card-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h3>OPCO — Entreprises & salariés</h3>
+<p>Les <b>Opérateurs de Compétences</b> financent les formations des salariés et des entreprises de moins de 50 salariés. Votre employeur cotise auprès d'un OPCO qui prend en charge tout ou partie des frais.</p>
+<p>Nous travaillons avec <b>tous les OPCO</b> : AKTO, AFDAS, Atlas, OPCO EP, AGEFICE, Constructys, OPCO 2i, OPCO Santé, OPCO Mobilités, Uniformation, L'Opcommerce. Nous montons le dossier pour vous.</p>
+<div class="fin-card-logo">
+<img src="https://static.wixstatic.com/media/5627a4_a5b7744ac2c44851b895ba8adc87e018~mv2.png/v1/fill/w_140,h_90,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Design%20sans%20titre%20(56)_edited.png" alt="OPCO">
+</div>
+</div>
+
+<!-- FRANCE TRAVAIL -->
+<div class="fin-card rv rv2" style="--fin-c:#3B82F6">
+<div class="fin-card-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg></div>
+<h3>France Travail — Demandeurs d'emploi</h3>
+<p>Si vous êtes inscrit comme <b>demandeur d'emploi</b>, France Travail peut financer votre formation via l'<b>AIF</b> (Aide Individuelle à la Formation) ou dans le cadre d'un <b>CSP</b> (Contrat de Sécurisation Professionnelle).</p>
+<p>Ce dispositif prend en charge <b>100 % des frais pédagogiques</b>. Votre conseiller France Travail valide la demande. Nous préparons le devis et le programme.</p>
+<div class="fin-card-logo">
+<img src="https://static.wixstatic.com/media/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png/v1/crop/x_0,y_0,w_2306,h_908/fill/w_200,h_80,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png" alt="France Travail">
+</div>
+</div>
+
+</div>
+</div></section>
+
+<!-- QUI PEUT BÉNÉFICIER -->
+<section class="who sep"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Éligibilité</div><div class="sec-h2">Qui peut <span class="glow">en bénéficier ?</span></div></div>
+<div class="who-grid">
+
+<div class="who-card rv" style="--who-c:#3B82F6">
+<div class="who-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg></div>
+<h3>Salariés</h3>
+<p>CPF, Plan de développement des compétences, OPCO. Avec ou sans l'accord de l'employeur (hors temps de travail).</p>
+</div>
+
+<div class="who-card rv rv1" style="--who-c:#10B981">
+<div class="who-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+<h3>Demandeurs d'emploi</h3>
+<p>AIF via France Travail, CSP, CPF. Prise en charge jusqu'à 100 % des frais pédagogiques.</p>
+</div>
+
+<div class="who-card rv rv2" style="--who-c:#F59E0B">
+<div class="who-ico" style="background:rgba(245,158,11,.06);color:#F59E0B;border-color:rgba(245,158,11,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<h3>Indépendants</h3>
+<p>CPF, AGEFICE, FAFCEA, FIF-PL. Les travailleurs non-salariés cotisent aussi pour la formation.</p>
+</div>
+
+<div class="who-card rv" style="--who-c:#A855F7">
+<div class="who-ico" style="background:rgba(168,85,247,.06);color:#A855F7;border-color:rgba(168,85,247,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+<h3>Intermittents du spectacle</h3>
+<p>AFDAS. Financement dédié pour les artistes, techniciens et professionnels du spectacle vivant.</p>
+</div>
+
+<div class="who-card rv rv1" style="--who-c:#FB923C">
+<div class="who-ico" style="background:rgba(251,146,60,.06);color:#FB923C;border-color:rgba(251,146,60,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+<h3>Entreprises (–50 salariés)</h3>
+<p>OPCO, Plan de formation. Prise en charge totale ou partielle selon l'OPCO et la taille de l'entreprise.</p>
+</div>
+
+<div class="who-card rv rv2" style="--who-c:#6366F1">
+<div class="who-ico" style="background:rgba(99,102,241,.06);color:#6366F1;border-color:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+<h3>Financement personnel</h3>
+<p>Possibilité de paiement en plusieurs fois. Cofinancement CPF + personnel disponible.</p>
+</div>
+
+</div>
+</div></section>
+
+<!-- LES OPCO -->
+<section class="opco-sec sep"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">OPCO</div><div class="sec-h2">Les 11 opérateurs de <span class="glow">compétences</span></div></div>
+<div class="opco-intro rv">
+<p>Chaque entreprise cotise auprès d'un OPCO en fonction de sa branche professionnelle. L'OPCO finance tout ou partie de la formation de ses salariés. <b>Nous travaillons avec les 11 OPCO</b> et nous nous chargeons de monter le dossier de A à Z.</p>
+</div>
+<div class="opco-logos rv rv1">
+<img src="https://static.wixstatic.com/media/5627a4_a5b7744ac2c44851b895ba8adc87e018~mv2.png/v1/fill/w_140,h_90,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Design%20sans%20titre%20(56)_edited.png" alt="Les 11 OPCO">
+</div>
+<div class="opco-names rv rv2">AKTO • AFDAS • Atlas • OPCO EP • AGEFICE • Constructys • OPCO 2i • OPCO Santé • OPCO Mobilités • Uniformation • L'Opcommerce</div>
+</div></section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="how sep"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Processus</div><div class="sec-h2">Comment ça <span class="glow">marche ?</span></div></div>
+<div class="how-grid">
+<div class="how-card rv">
+<div class="how-num">1</div>
+<h3>Échange gratuit</h3>
+<p>Vous nous contactez par téléphone ou via le formulaire. Nous identifions ensemble la formation et le financement adaptés.</p>
+</div>
+<div class="how-card rv rv1">
+<div class="how-num">2</div>
+<h3>Devis & programme</h3>
+<p>Nous vous envoyons un devis détaillé et le programme de formation personnalisé sous 24h.</p>
+</div>
+<div class="how-card rv rv2">
+<div class="how-num">3</div>
+<h3>Montage du dossier</h3>
+<p>Nous nous occupons de toutes les démarches administratives auprès de votre financeur (CPF, OPCO, France Travail).</p>
+</div>
+<div class="how-card rv rv3">
+<div class="how-num">4</div>
+<h3>Démarrage</h3>
+<p>Dès validation du financement, vous commencez votre formation. Aucun frais avancé dans la majorité des cas.</p>
+</div>
+</div>
+</div></section>
+
+<!-- FAQ -->
+<section class="faq sep"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Questions fréquentes</div><div class="sec-h2">Tout savoir sur le <span class="glow">financement</span></div></div>
+<div class="faq-list">
+
+<div class="faq-item rv">
+<div class="faq-q" onclick="toggleFaq(this)">Comment connaître mon solde CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Rendez-vous sur <b>moncompteformation.gouv.fr</b> et connectez-vous avec FranceConnect. Votre solde s'affiche directement sur votre tableau de bord. Si vous avez besoin d'aide, nous pouvons vérifier ensemble lors de notre premier échange.</div></div>
+</div>
+
+<div class="faq-item rv rv1">
+<div class="faq-q" onclick="toggleFaq(this)">Quel est le reste à charge avec le CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Depuis mai 2024, un reste à charge de <b>102,23 €</b> s'applique pour toute formation financée via le CPF. Les demandeurs d'emploi en sont exemptés. Le reste est intégralement pris en charge par votre solde CPF.</div></div>
+</div>
+
+<div class="faq-item rv rv2">
+<div class="faq-q" onclick="toggleFaq(this)">Mon employeur peut-il refuser le CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Non. Le CPF est un droit personnel. Si vous suivez la formation <b>hors temps de travail</b>, aucune autorisation n'est requise. En revanche, si vous souhaitez la suivre pendant vos heures de travail, l'accord de l'employeur est nécessaire.</div></div>
+</div>
+
+<div class="faq-item rv">
+<div class="faq-q" onclick="toggleFaq(this)">Comment savoir quel est mon OPCO ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Votre OPCO dépend de la convention collective de votre entreprise. Vous pouvez le retrouver sur votre bulletin de paie ou en consultant le site du Ministère du Travail. Nous pouvons aussi l'identifier pour vous gratuitement.</div></div>
+</div>
+
+<div class="faq-item rv rv1">
+<div class="faq-q" onclick="toggleFaq(this)">Dois-je avancer les frais ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Dans la majorité des cas, <b>non</b>. Le financement CPF est directement versé à l'organisme de formation. Pour les OPCO et France Travail, le paiement est également effectué directement. Seul le reste à charge CPF (102,23 €) est à votre charge.</div></div>
+</div>
+
+<div class="faq-item rv rv2">
+<div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour monter un dossier ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Le CPF est quasi immédiat (validation sous 48h). Pour les OPCO, comptez <b>2 à 4 semaines</b> selon l'organisme. Pour France Travail (AIF), le délai moyen est de <b>2 à 3 semaines</b>. Nous anticipons ces délais pour vous.</div></div>
+</div>
+
+</div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta-section sep"><div class="w">
+<div class="cta-box rv">
+<h2>Besoin d'aide pour votre financement ?</h2>
+<p>Contactez-nous gratuitement. Un conseiller étudie votre situation et identifie la meilleure solution de financement pour vous.</p>
+<div class="cta-btns">
+<a href="https://www.switching-formation.fr/documentation" class="btn-glow">Demander une documentation <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="tel:+33695185057" class="btn-ghost-w">06 95 18 50 57 <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></a>
+</div>
+</div>
+</div></section>
+
+<footer><div class="w">
+<div class="ft-grid">
+<div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div>
+<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="#">CGV</a><span class="d">•</span><a href="#">Mentions légales</a><span class="d">•</span><a href="#">Données</a><span class="d">•</span><a href="#">Qualiopi</a></div></div>
+</div></footer>
+
+<div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+
+<script>
+function toggleFaq(el){
+  var item=el.parentElement;
+  var wasOpen=item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(function(f){f.classList.remove('open')});
+  if(!wasOpen) item.classList.add('open');
+}
+document.querySelectorAll('.rv').forEach(function(el){
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){el.classList.add('vis')}
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+});
+var hd=document.getElementById('hd');
+window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+</body>
+</html>

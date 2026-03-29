@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demander un devis — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);
+--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}
+header.scrolled{background:rgba(250,251,252,.95)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px}
+nav{display:flex;align-items:center;gap:2px}
+nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}
+nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}
+nav a.active{color:var(--accent);font-weight:600}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}
+.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+
+.doc-page{padding:48px 0 56px;position:relative;min-height:calc(100vh - 200px)}
+.doc-page-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.07),transparent),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.05),transparent),radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);pointer-events:none}
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;position:relative;z-index:1}
+.doc-info{padding-top:12px}
+.doc-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px 6px 12px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.02em}
+.doc-tag svg{width:14px;height:14px;fill:var(--accent)}
+.doc-title{font-family:'Poppins',sans-serif;font-size:38px;font-weight:600;line-height:1.1;color:#0F172A;letter-spacing:-.04em;margin-bottom:16px}
+.doc-title .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.doc-sub{font-size:15px;color:var(--sub);line-height:1.7;margin-bottom:28px;max-width:460px}
+.doc-sub b{color:var(--text);font-weight:600}
+.perks{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.perk{display:flex;align-items:flex-start;gap:12px}
+.perk-ico{width:36px;height:36px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--bd)}
+.perk-ico svg{width:16px;height:16px}
+.perk-text h4{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#0F172A;margin-bottom:2px}
+.perk-text p{font-size:12px;color:var(--muted);line-height:1.5}
+.trust-strip{display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--bd)}
+.trust-strip img{height:32px;object-fit:contain;filter:grayscale(.2);opacity:.7;transition:all .3s}
+.trust-strip img:hover{filter:none;opacity:1}
+.trust-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+
+.doc-form-wrap{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:32px 28px;box-shadow:0 16px 48px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.doc-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#0E9599,#3DC8C9)}
+.form-header{text-align:center;margin-bottom:24px}
+.form-header h2{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;margin-bottom:4px}
+.form-header p{font-size:13px;color:var(--muted)}
+.progress{display:flex;align-items:center;gap:4px;margin-bottom:24px}
+.progress-seg{flex:1;height:4px;border-radius:2px;background:var(--surface2);transition:background .4s var(--e)}
+.progress-seg.done{background:var(--accent)}
+.step{display:none;animation:fadeUp .35s var(--e)}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.step-q{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin-bottom:16px;line-height:1.25}
+.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.step-opt{padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:13px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .2s var(--e);background:var(--white);text-align:left;display:flex;align-items:center;gap:8px}
+.step-opt:hover{border-color:var(--accent);color:var(--text);background:var(--accent-gl2)}
+.step-opt.selected{border-color:var(--accent);background:var(--accent-gl);color:var(--accent2);font-weight:600}
+.step-opt .opt-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.ff{margin-bottom:8px}
+.ff select,.ff input,.ff textarea{width:100%;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--text);background:var(--white);transition:all .2s;-webkit-appearance:none;appearance:none}
+.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2371717A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
+.ff input::placeholder,.ff textarea::placeholder{color:var(--muted)}
+.ff textarea{resize:vertical;min-height:80px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.frp{display:grid;grid-template-columns:110px 1fr;gap:8px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin:14px 0;font-size:12px;color:var(--muted);line-height:1.4}
+.consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.btn-back{background:none;border:none;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--f);transition:color .2s;padding:8px 0}.btn-back:hover{color:var(--text)}
+.btn-next,.btn-send{background:var(--accent);color:#fff;padding:11px 26px;border-radius:var(--rf);border:none;font-size:14px;font-weight:700;font-family:var(--f);cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 16px var(--accent-gl)}
+.btn-next:hover,.btn-send:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 0 32px rgba(16,171,175,.2)}
+.btn-next svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.form-ok{display:none;text-align:center;padding:48px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
+.form-ok svg{margin:0 auto 8px}
+.form-ok h3{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;margin:12px 0 6px}
+.form-ok p{color:var(--muted);font-size:14px;line-height:1.6;max-width:340px;margin:0 auto}
+
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}
+.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:13px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+.chat{position:fixed;bottom:24px;right:24px;width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--accent-gl);z-index:999;cursor:pointer;transition:all .3s var(--e)}.chat:hover{transform:scale(1.1) translateY(-2px)}.chat svg{width:20px;height:20px;fill:#fff}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}
+@media(max-width:1024px){.doc-grid{grid-template-columns:1fr;gap:32px}.doc-info{text-align:center;max-width:600px;margin:0 auto}.doc-sub{max-width:100%}.perks{align-items:center}.trust-strip{justify-content:center;flex-wrap:wrap}.ft-grid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}.doc-page{padding:32px 0 40px}.doc-title{font-size:28px}.step-opts,.fr2,.frp{grid-template-columns:1fr}.doc-form-wrap{padding:24px 18px}.ft-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header id="hd"><div class="w"><div class="hdr">
+<a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a>
+<nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription" class="active">Devis</a><a href="https://www.switching-formation.fr/documentation" class="nav-cta">Documentation</a></nav>
+</div></div></header>
+
+<section class="doc-page">
+<div class="doc-page-mesh"></div>
+<div class="w"><div class="doc-grid">
+
+<div class="doc-info rv">
+<div class="doc-tag"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>Gratuit & sans engagement</div>
+<div class="doc-title">Demandez votre<br><span class="glow">devis personnalisé</span></div>
+<p class="doc-sub">Remplissez le formulaire et recevez sous 24h un <b>devis détaillé</b> avec le programme de formation, les modalités et les <b>options de financement</b> adaptées à votre situation.</p>
+
+<div class="perks">
+<div class="perk">
+<div class="perk-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+<div class="perk-text"><h4>Devis sous 24h</h4><p>Un devis clair, détaillé et sans surprise.</p></div>
+</div>
+<div class="perk">
+<div class="perk-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+<div class="perk-text"><h4>Aide au financement</h4><p>On identifie la meilleure option pour vous.</p></div>
+</div>
+<div class="perk">
+<div class="perk-ico" style="background:rgba(245,158,11,.06);color:#F59E0B;border-color:rgba(245,158,11,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+<div class="perk-text"><h4>Conseiller dédié</h4><p>Un interlocuteur unique du début à la fin.</p></div>
+</div>
+</div>
+
+<div class="trust-strip">
+<span class="trust-label">Certifié</span>
+<img src="https://static.wixstatic.com/media/5627a4_ccb43ff30f654a16be983f7307977d3c~mv2.webp/v1/fill/w_120,h_76,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-Qualiopi.webp" alt="Qualiopi">
+<img src="https://static.wixstatic.com/media/5627a4_269d513621974ec0b46f71954db5cde2~mv2.png/v1/fill/w_44,h_44,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-CPF%20(1).png" alt="CPF">
+<img src="https://static.wixstatic.com/media/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png/v1/crop/x_0,y_0,w_2306,h_908/fill/w_180,h_70,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png" alt="France Travail">
+</div>
+</div>
+
+<div class="doc-form-wrap rv rv1">
+<div class="form-header">
+<h2>Votre devis gratuit</h2>
+<p>Répondez en quelques clics.</p>
+</div>
+<div class="progress">
+<div class="progress-seg done" data-seg="1"></div>
+<div class="progress-seg" data-seg="2"></div>
+<div class="progress-seg" data-seg="3"></div>
+<div class="progress-seg" data-seg="4"></div>
+<div class="progress-seg" data-seg="5"></div>
+</div>
+<div id="mf">
+<div class="step active" data-step="1"><div class="step-label">Étape 1/5</div><div class="step-q">Quel secteur ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>Langues</button><button class="step-opt"><span class="opt-dot"></span>Bureautique</button><button class="step-opt"><span class="opt-dot"></span>Graphisme & PAO</button><button class="step-opt"><span class="opt-dot"></span>Web & Digital</button><button class="step-opt"><span class="opt-dot"></span>Bilan de compétences</button><button class="step-opt"><span class="opt-dot"></span>Comptabilité / Paie</button><button class="step-opt"><span class="opt-dot"></span>Intelligence Artificielle</button><button class="step-opt"><span class="opt-dot"></span>Autre / Je ne sais pas</button></div><div class="step-nav"><span></span><span></span></div></div>
+<div class="step" data-step="2"><div class="step-label">Étape 2/5</div><div class="step-q">Votre statut ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>Salarié(e)</button><button class="step-opt"><span class="opt-dot"></span>Demandeur d'emploi</button><button class="step-opt"><span class="opt-dot"></span>Indépendant(e)</button><button class="step-opt"><span class="opt-dot"></span>Intermittent(e)</button><button class="step-opt"><span class="opt-dot"></span>Étudiant(e)</button><button class="step-opt"><span class="opt-dot"></span>Autre</button></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><span></span></div></div>
+<div class="step" data-step="3"><div class="step-label">Étape 3/5</div><div class="step-q">Financement envisagé ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>CPF</button><button class="step-opt"><span class="opt-dot"></span>OPCO</button><button class="step-opt"><span class="opt-dot"></span>France Travail</button><button class="step-opt"><span class="opt-dot"></span>Personnel</button><button class="step-opt"><span class="opt-dot"></span>Entreprise</button><button class="step-opt"><span class="opt-dot"></span>Je ne sais pas</button></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><span></span></div></div>
+<div class="step" data-step="4"><div class="step-label">Étape 4/5</div><div class="step-q">Vos coordonnées</div><div class="fr2"><div class="ff"><input placeholder="Prénom" required></div><div class="ff"><input placeholder="Nom" required></div></div><div class="ff"><input type="email" placeholder="Adresse e-mail" required></div><div class="frp"><div class="ff"><select><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option><option>UK +44</option></select></div><div class="ff"><input type="tel" placeholder="Téléphone" required></div></div><div class="ff"><input placeholder="Entreprise (optionnel)"></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><button class="btn-next" onclick="goStep(1)">Suivant <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div></div>
+<div class="step" data-step="5"><div class="step-label">Étape 5/5</div><div class="step-q">Précisions sur votre projet</div><div class="ff"><select><option value="" disabled selected>Modalité souhaitée</option><option>Présentiel (Paris 12ᵉ)</option><option>Visioconférence</option><option>E-learning</option><option>Pas de préférence</option></select></div><div class="ff"><textarea placeholder="Précisez votre projet : formation souhaitée, objectifs, disponibilités… (optionnel)"></textarea></div><div class="consent"><input type="checkbox" checked><label>J'accepte d'être contacté(e) par Switching Formation pour recevoir mon devis et un accompagnement personnalisé.</label></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><button class="btn-send" onclick="submitForm()">Recevoir mon devis</button></div></div>
+<div class="form-ok" id="fOk"><svg viewBox="0 0 56 56" fill="none" width="56" height="56"><circle cx="28" cy="28" r="28" fill="rgba(16,171,175,.12)"/><path d="M18 28l7 7 13-13" stroke="#10ABAF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Demande envoyée !</h3><p>Votre devis personnalisé vous sera envoyé sous 24h. Un conseiller vous recontacte rapidement.</p></div>
+</div>
+</div>
+
+</div></div>
+</section>
+
+<footer><div class="w">
+<div class="ft-grid">
+<div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div>
+<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="https://www.switching-formation.fr/cgv">CGV</a><span class="d">•</span><a href="https://www.switching-formation.fr/mentions-legales">Mentions légales</a><span class="d">•</span><a href="https://www.switching-formation.fr/donnees">Données</a><span class="d">•</span><a href="https://www.switching-formation.fr/qualiopi">Qualiopi</a></div></div>
+</div></footer>
+
+<div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+
+<script>
+var cs=1;
+function goStep(d){var n=cs+d;if(n<1||n>5)return;document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.querySelector('.step[data-step="'+n+'"]').classList.add('active');cs=n;document.querySelectorAll('.progress-seg').forEach(function(s){s.classList.toggle('done',parseInt(s.dataset.seg)<=cs)})}
+document.querySelectorAll('.step-opt').forEach(function(b){b.addEventListener('click',function(){b.parentElement.querySelectorAll('.step-opt').forEach(function(s){s.classList.remove('selected')});b.classList.add('selected');var sn=parseInt(b.closest('.step').dataset.step);if(sn<=3)setTimeout(function(){goStep(1)},300)})});
+function submitForm(){document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.getElementById('fOk').classList.add('on');document.querySelector('.progress').style.display='none'}
+document.querySelectorAll('.rv').forEach(function(el){new IntersectionObserver(function(e){if(e[0].isIntersecting)el.classList.add('vis')},{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el)});
+var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+</body>
+</html>

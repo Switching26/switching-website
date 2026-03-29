@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protection des données & Qualiopi — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);--r:16px;--rs:12px;--rf:100px;--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}::selection{background:var(--accent);color:var(--bg)}.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}.topbar .w{display:flex;justify-content:space-between;align-items:center}.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}.phone{color:var(--accent)!important;font-weight:600!important}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}header.scrolled{background:rgba(250,251,252,.95)}.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px}nav{display:flex;align-items:center;gap:2px}nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+.legal{padding:48px 0 64px;max-width:800px;margin:0 auto}.legal-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px}.legal h1{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}.legal .updated{font-size:13px;color:var(--muted);margin-bottom:36px}.legal h2{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin:32px 0 12px}.legal h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;margin:20px 0 8px}.legal p{font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:12px}.legal strong{color:var(--text);font-weight:600}.legal a{color:var(--accent);text-decoration:none;font-weight:500}.legal a:hover{text-decoration:underline}
+.qualiopi-box{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:28px 24px;margin:24px 0;display:flex;align-items:center;gap:20px}.qualiopi-box img{height:72px;object-fit:contain;flex-shrink:0}.qualiopi-box p{font-size:14px;color:var(--sub);line-height:1.65;margin:0}
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.copy{font-size:13px;color:var(--muted)}.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+@media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}.legal h1{font-size:28px}.legal{padding:32px 18px 48px}.ft-grid{grid-template-columns:1fr}.qualiopi-box{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="w"><div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div><div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div></div></div>
+<header id="hd"><div class="w"><div class="hdr"><a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a><nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/documentation" class="nav-cta">Documentation</a></nav></div></div></header>
+
+<div class="w"><div class="legal">
+<div class="legal-tag">Document légal</div>
+<h1>Protection des données personnelles</h1>
+<p class="updated">Dernière mise à jour : mars 2026</p>
+
+<h2>Responsable du traitement</h2>
+<p><strong>Switching Formation</strong><br>SIRET : 910 375 716 00016<br>18 rue Coriolis, 75012 Paris<br>E-mail : contact&#64;switchingformation.com<br>Responsable : Samuel Nabet</p>
+
+<h2>Données collectées</h2>
+<p>Dans le cadre de nos formulaires de contact, de demande de devis et d'inscription, nous collectons les données suivantes : nom, prénom, adresse e-mail, numéro de téléphone, statut professionnel, entreprise (optionnel), ville (optionnel), et le domaine de formation souhaité. Ces données sont strictement nécessaires au traitement de votre demande.</p>
+
+<h2>Finalités du traitement</h2>
+<p>Vos données personnelles sont collectées pour les finalités suivantes : traitement de votre demande de devis ou de documentation, contact par un conseiller pédagogique, constitution de votre dossier de formation, gestion administrative (conventions, émargements, certificats), et amélioration de nos services.</p>
+
+<h2>Base légale</h2>
+<p>Le traitement de vos données repose sur votre <strong>consentement</strong> (case à cocher lors de la soumission du formulaire) et sur l'<strong>exécution d'un contrat</strong> ou de mesures précontractuelles (demande de devis, inscription à une formation).</p>
+
+<h2>Destinataires des données</h2>
+<p>Vos données sont destinées exclusivement à l'équipe de Switching Formation. Elles peuvent être transmises à des tiers dans les cas suivants : organismes financeurs (OPCO, CPF, France Travail) dans le cadre du montage de votre dossier de financement, et formateurs sous-traitants dans le cadre de la réalisation de votre formation. Vos données ne sont jamais vendues ni cédées à des fins commerciales.</p>
+
+<h2>Durée de conservation</h2>
+<p>Vos données sont conservées pendant une durée de <strong>3 ans</strong> à compter de votre dernier contact avec nous. Les données relatives aux formations réalisées sont conservées pendant <strong>5 ans</strong> conformément aux obligations légales et réglementaires liées à la certification Qualiopi.</p>
+
+<h2>Vos droits</h2>
+<p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants : droit d'accès, de rectification, d'effacement, de limitation du traitement, de portabilité et d'opposition. Vous pouvez exercer ces droits en nous contactant à <a href="#">contact&#64;switchingformation.com</a>. Nous nous engageons à répondre dans un délai de 30 jours.</p>
+
+<h2>Cookies</h2>
+<p>Le site switching-formation.fr utilise des cookies techniques strictement nécessaires à son fonctionnement. Aucun cookie publicitaire ou de suivi n'est déposé sans votre consentement. Vous pouvez paramétrer votre navigateur pour bloquer les cookies.</p>
+
+<h2>Sécurité</h2>
+<p>Switching Formation met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, modification, divulgation ou destruction. Le site utilise le protocole HTTPS pour sécuriser les échanges de données.</p>
+
+<h2>Réclamation</h2>
+<p>Si vous estimez que le traitement de vos données n'est pas conforme à la réglementation, vous pouvez adresser une réclamation à la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) — <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a>.</p>
+
+<!-- QUALIOPI SECTION -->
+<h1 style="margin-top:56px" id="qualiopi">Certification Qualiopi</h1>
+<p class="updated">Informations sur notre certification</p>
+
+<div class="qualiopi-box">
+<img src="https://static.wixstatic.com/media/5627a4_ccb43ff30f654a16be983f7307977d3c~mv2.webp/v1/fill/w_342,h_220,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-Qualiopi.webp" alt="Qualiopi">
+<div>
+<p><strong>Switching Formation</strong> est certifié <strong>Qualiopi</strong> au titre des catégories d'actions suivantes :</p>
+<p>• Actions de formation<br>• Bilans de compétences</p>
+</div>
+</div>
+
+<h2>Qu'est-ce que Qualiopi ?</h2>
+<p>La certification Qualiopi est délivrée par un organisme certificateur accrédité par le COFRAC (Comité français d'accréditation). Elle atteste de la qualité du processus mis en œuvre par les prestataires d'actions concourant au développement des compétences. Cette certification est obligatoire depuis le 1er janvier 2022 pour tout organisme de formation souhaitant bénéficier de fonds publics ou mutualisés.</p>
+
+<h2>Ce que Qualiopi garantit</h2>
+<p>La certification Qualiopi est basée sur un <strong>référentiel national qualité</strong> organisé autour de 7 critères et 32 indicateurs. Elle garantit la qualité des informations communiquées au public, l'identification des objectifs et l'adaptation des prestations, les moyens pédagogiques et techniques, la qualification des intervenants, l'inscription dans l'environnement professionnel, le recueil des appréciations et la prise en compte des réclamations, et l'amélioration continue.</p>
+
+<h2>Organisme certificateur</h2>
+<p>Notre certification Qualiopi a été délivrée par <strong>ICPF</strong> (Institut de Certification des Professionnels de la Formation). Numéro de déclaration d'activité : <strong>11 94 11 18 99 4</strong>.</p>
+
+<h2>Conséquences pour nos stagiaires</h2>
+<p>La certification Qualiopi vous permet de bénéficier de financements publics et mutualisés pour nos formations : CPF, OPCO, France Travail (AIF, CSP). C'est aussi la garantie d'un accompagnement structuré, évalué et amélioré en continu.</p>
+
+</div></div>
+
+<footer><div class="w"><div class="ft-grid"><div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div><div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div><div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div><div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div></div><div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="https://www.switching-formation.fr/cgv">CGV</a><span class="d">•</span><a href="https://www.switching-formation.fr/mentions-legales">Mentions légales</a><span class="d">•</span><a href="https://www.switching-formation.fr/donnees">Données</a><span class="d">•</span><a href="https://www.switching-formation.fr/qualiopi">Qualiopi</a></div></div></div></footer>
+<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)})</script>
+</body>
+</html>

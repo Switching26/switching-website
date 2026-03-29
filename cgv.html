@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions Générales de Vente — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);--r:16px;--rs:12px;--rf:100px;--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}.topbar .w{display:flex;justify-content:space-between;align-items:center}.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}.phone{color:var(--accent)!important;font-weight:600!important}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}header.scrolled{background:rgba(250,251,252,.95)}.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px}nav{display:flex;align-items:center;gap:2px}nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+.legal{padding:48px 0 64px;max-width:800px;margin:0 auto}
+.legal-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px}
+.legal h1{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}
+.legal .updated{font-size:13px;color:var(--muted);margin-bottom:36px}
+.legal h2{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin:32px 0 12px;letter-spacing:-.01em}
+.legal h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;margin:20px 0 8px}
+.legal p{font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:12px}
+.legal strong{color:var(--text);font-weight:600}
+.legal a{color:var(--accent);text-decoration:none;font-weight:500}.legal a:hover{text-decoration:underline}
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.copy{font-size:13px;color:var(--muted)}.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+@media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}.legal h1{font-size:28px}.legal{padding:32px 18px 48px}.ft-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="w"><div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div><div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div></div></div>
+<header id="hd"><div class="w"><div class="hdr"><a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a><nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/documentation" class="nav-cta">Documentation</a></nav></div></div></header>
+
+<div class="w"><div class="legal">
+<div class="legal-tag">Document légal</div>
+<h1>Conditions Générales de Vente</h1>
+<p class="updated">Dernière mise à jour : mars 2026</p>
+
+<h2>Article 1 — Objet</h2>
+<p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à l'ensemble des prestations de formation professionnelle proposées par <strong>Switching Formation</strong>, organisme de formation enregistré sous le numéro de déclaration d'activité <strong>11 94 11 18 99 4</strong> auprès du Préfet de la région Île-de-France.</p>
+
+<h2>Article 2 — Identification de l'organisme</h2>
+<p><strong>Switching Formation</strong><br>SIRET : 910 375 716 00016<br>Siège social : 18 rue Coriolis, 75012 Paris<br>Téléphone : 06 95 18 50 57<br>E-mail : contact&#64;switchingformation.com<br>Directeur : Samuel Nabet<br>Certification Qualiopi — Actions de formation et Bilans de compétences</p>
+
+<h2>Article 3 — Inscription et convention</h2>
+<p>Toute inscription à une formation est conditionnée à la signature d'une convention de formation ou d'un contrat de formation professionnelle, conformément aux articles L.6353-1 et suivants du Code du travail. La convention précise les objectifs, le programme, la durée, les modalités de déroulement et de sanction, ainsi que le prix et les conditions de règlement.</p>
+
+<h2>Article 4 — Tarifs et modalités de paiement</h2>
+<p>Les tarifs sont communiqués sur devis personnalisé. Ils sont exprimés en euros HT (TVA non applicable, article 261-4-4° a du CGI). Le paiement est exigible à réception de la facture, sauf accord de financement par un OPCO, le CPF ou France Travail. En cas de financement par un organisme tiers, le client reste redevable du solde non pris en charge.</p>
+
+<h2>Article 5 — Rétractation et annulation</h2>
+<p>Conformément à l'article L.6353-5 du Code du travail, le stagiaire dispose d'un délai de <strong>10 jours</strong> à compter de la signature du contrat pour se rétracter par lettre recommandée avec accusé de réception. Passé ce délai, toute annulation intervenant moins de 10 jours ouvrés avant le début de la formation entraînera la facturation de 50 % du montant total. En cas d'absence non justifiée, la totalité du montant reste due.</p>
+
+<h2>Article 6 — Déroulement des formations</h2>
+<p>Les formations se déroulent en présentiel (18 rue Coriolis, 75012 Paris), en visioconférence ou en e-learning selon la modalité convenue. Le stagiaire s'engage à respecter le règlement intérieur de l'organisme. En cas de force majeure, Switching Formation se réserve le droit de reporter la session et proposera de nouvelles dates dans les meilleurs délais.</p>
+
+<h2>Article 7 — Évaluation et attestation</h2>
+<p>À l'issue de la formation, une évaluation des acquis est réalisée. Une attestation de fin de formation et un certificat de réalisation sont remis au stagiaire. Le cas échéant, le passage d'une certification (TOSA, ENI, ICDL, RNCP, Linguaskill) est organisé selon les modalités prévues par l'organisme certificateur.</p>
+
+<h2>Article 8 — Responsabilité</h2>
+<p>Switching Formation s'engage à mettre en œuvre tous les moyens nécessaires à la bonne exécution des formations. Sa responsabilité ne saurait être engagée en cas de force majeure ou d'événement indépendant de sa volonté. L'organisme ne pourra être tenu responsable de l'utilisation faite par le stagiaire des compétences acquises.</p>
+
+<h2>Article 9 — Propriété intellectuelle</h2>
+<p>L'ensemble des supports pédagogiques, documents, contenus e-learning et ressources remis dans le cadre des formations sont la propriété de Switching Formation ou de ses partenaires. Toute reproduction, diffusion ou utilisation à des fins commerciales est strictement interdite sans autorisation écrite préalable.</p>
+
+<h2>Article 10 — Réclamations</h2>
+<p>Toute réclamation doit être adressée par e-mail à <a href="#">contact&#64;switchingformation.com</a> ou par courrier au siège social. Switching Formation s'engage à répondre dans un délai de 15 jours ouvrés. En cas de litige non résolu, les parties s'engagent à rechercher une solution amiable avant toute action judiciaire. À défaut, le tribunal compétent sera celui de Paris.</p>
+
+<h2>Article 11 — Droit applicable</h2>
+<p>Les présentes CGV sont soumises au droit français. Tout litige sera de la compétence exclusive des tribunaux de Paris.</p>
+</div></div>
+
+<footer><div class="w"><div class="ft-grid"><div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div><div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div><div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div><div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div></div><div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="https://www.switching-formation.fr/cgv">CGV</a><span class="d">•</span><a href="https://www.switching-formation.fr/mentions-legales">Mentions légales</a><span class="d">•</span><a href="https://www.switching-formation.fr/donnees">Données</a><span class="d">•</span><a href="https://www.switching-formation.fr/qualiopi">Qualiopi</a></div></div></div></footer>
+<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)})</script>
+</body>
+</html>

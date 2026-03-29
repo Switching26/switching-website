@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);--r:16px;--rs:12px;--rf:100px;--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}::selection{background:var(--accent);color:var(--bg)}.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}.topbar .w{display:flex;justify-content:space-between;align-items:center}.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}.phone{color:var(--accent)!important;font-weight:600!important}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}header.scrolled{background:rgba(250,251,252,.95)}.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px}nav{display:flex;align-items:center;gap:2px}nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+.legal{padding:48px 0 64px;max-width:800px;margin:0 auto}.legal-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px}.legal h1{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}.legal .updated{font-size:13px;color:var(--muted);margin-bottom:36px}.legal h2{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin:32px 0 12px}.legal p{font-size:14px;color:var(--sub);line-height:1.75;margin-bottom:12px}.legal strong{color:var(--text);font-weight:600}.legal a{color:var(--accent);text-decoration:none;font-weight:500}.legal a:hover{text-decoration:underline}
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.copy{font-size:13px;color:var(--muted)}.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+@media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}.legal h1{font-size:28px}.legal{padding:32px 18px 48px}.ft-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="w"><div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div><div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div></div></div>
+<header id="hd"><div class="w"><div class="hdr"><a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a><nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/documentation" class="nav-cta">Documentation</a></nav></div></div></header>
+
+<div class="w"><div class="legal">
+<div class="legal-tag">Document légal</div>
+<h1>Mentions légales</h1>
+<p class="updated">Dernière mise à jour : mars 2026</p>
+
+<h2>Éditeur du site</h2>
+<p><strong>Switching Formation</strong><br>Entreprise individuelle<br>SIRET : 910 375 716 00016<br>Siège social : 18 rue Coriolis, 75012 Paris, France<br>Numéro de déclaration d'activité : 11 94 11 18 99 4 (Préfet de la région Île-de-France)<br>Directeur de la publication : <strong>Samuel Nabet</strong><br>Téléphone : 06 95 18 50 57<br>E-mail : contact&#64;switchingformation.com</p>
+
+<h2>Entité parentale</h2>
+<p><strong>CFORPRO</strong><br>SIRET : 502 187 867 00010<br>Siège social : Créteil, France<br>Dirigeant : Eric Nabet</p>
+
+<h2>Hébergement</h2>
+<p>Le site switching-formation.fr est hébergé par :<br><strong>Railway Corporation</strong><br>Site web : <a href="https://railway.app" target="_blank">railway.app</a><br>Adresse : San Francisco, CA, États-Unis</p>
+
+<h2>Certification qualité</h2>
+<p>Switching Formation est certifié <strong>Qualiopi</strong> au titre des catégories d'actions suivantes : Actions de formation et Bilans de compétences. La certification qualité a été délivrée au titre de la catégorie d'action suivante : actions de formation et bilans de compétences.</p>
+
+<h2>Propriété intellectuelle</h2>
+<p>L'ensemble des éléments figurant sur le site switching-formation.fr (textes, images, logos, graphismes, icônes, contenus pédagogiques) est protégé par les lois relatives à la propriété intellectuelle. Toute reproduction, représentation, modification ou exploitation, totale ou partielle, de ces éléments est strictement interdite sans l'autorisation écrite préalable de Switching Formation.</p>
+
+<h2>Responsabilité</h2>
+<p>Switching Formation s'efforce d'assurer l'exactitude des informations publiées sur le site. Toutefois, il ne saurait être tenu responsable des omissions, inexactitudes ou carences dans la mise à jour, qu'elles soient de son fait ou du fait de tiers partenaires. Les informations sont données à titre indicatif et sont susceptibles d'évoluer.</p>
+
+<h2>Liens hypertextes</h2>
+<p>Le site peut contenir des liens vers d'autres sites internet. Switching Formation n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu ou leur accessibilité.</p>
+
+<h2>Crédits</h2>
+<p>Design et développement : Switching Formation<br>Photographies : Switching Formation, Wix Media</p>
+
+<h2>Droit applicable</h2>
+<p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux de Paris seront seuls compétents.</p>
+</div></div>
+
+<footer><div class="w"><div class="ft-grid"><div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div><div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div><div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div><div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div></div><div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="https://www.switching-formation.fr/cgv">CGV</a><span class="d">•</span><a href="https://www.switching-formation.fr/mentions-legales">Mentions légales</a><span class="d">•</span><a href="https://www.switching-formation.fr/donnees">Données</a><span class="d">•</span><a href="https://www.switching-formation.fr/qualiopi">Qualiopi</a></div></div></div></footer>
+<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)})</script>
+</body>
+</html>
