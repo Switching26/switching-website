@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos formations — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);
+--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* GRAIN OVERLAY */
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}
+header.scrolled{background:rgba(250,251,252,.95)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px;filter:none}
+nav{display:flex;align-items:center;gap:2px}
+nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}
+nav a:hover{color:var(--text);background:rgba(16,171,175,.06)}
+nav a.active{color:var(--accent);font-weight:600}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}
+.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
+
+/* PAGE HERO */
+.page-hero{padding:48px 0 40px;position:relative;overflow:hidden;text-align:center}
+.page-hero-mesh{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.07),transparent),
+  radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.05),transparent),
+  radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);
+pointer-events:none}
+.page-hero .w{position:relative;z-index:1}
+.page-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px 6px 12px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.02em}
+.page-hero-tag svg{width:14px;height:14px;fill:var(--accent)}
+.page-hero h1{font-family:'Poppins',sans-serif;font-size:42px;font-weight:600;line-height:1.1;color:#0F172A;letter-spacing:-.04em;margin-bottom:14px}
+.page-hero h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero p{font-size:16px;color:var(--sub);max-width:600px;margin:0 auto;line-height:1.7}
+
+/* FILTERS */
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:32px 0 40px}
+.flt{padding:9px 20px;border-radius:var(--rf);border:1px solid var(--bd2);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .25s var(--e);background:var(--white);font-family:var(--f)}
+.flt:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-gl2)}
+.flt.on{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 16px var(--accent-gl);font-weight:600}
+
+/* SECTION HEADERS */
+.sec-head{text-align:center;margin-bottom:36px}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
+.sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* DOMAIN SECTIONS */
+.domain{padding:48px 0;position:relative}
+.domain:nth-child(even)::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--bg),rgba(16,171,175,.015),var(--bg));pointer-events:none}
+.domain-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.domain-ico{width:44px;height:44px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);transition:all .35s var(--e)}
+.domain-ico svg{width:20px;height:20px}
+.domain-title{font-family:'Poppins',sans-serif;font-size:24px;font-weight:600;color:#0F172A;letter-spacing:-.02em}
+.domain-count{font-size:12px;color:var(--muted);font-weight:500;margin-left:4px}
+
+/* FORMATION CARDS */
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:1}
+.fc{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:24px 20px;text-decoration:none;color:var(--text);transition:all .4s var(--e);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--fc-c,var(--accent));opacity:0;transition:opacity .3s}
+.fc:hover::before{opacity:1}
+.fc:hover{border-color:rgba(16,171,175,.2);transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.08)}
+.fc h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.fc-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--rf);text-transform:uppercase;letter-spacing:.04em}
+.fc-badge.cpf{background:#FFF8E0;color:#B8860B;border:1px solid #FDCC00}
+.fc-badge.cert{background:rgba(16,171,175,.08);color:var(--accent2);border:1px solid rgba(16,171,175,.2)}
+.fc p{font-size:13px;color:var(--muted);line-height:1.55;flex:1}
+.fc-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.fc-tag{font-size:11px;color:var(--sub);display:inline-flex;align-items:center;gap:4px}
+.fc-tag svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.fc-link{font-size:12px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:4px;opacity:.5;transition:all .3s;margin-top:auto;padding-top:6px}
+.fc-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.fc:hover .fc-link{opacity:1}.fc:hover .fc-link svg{transform:translateX(3px)}
+
+/* CTA SECTION */
+.cta-section{padding:56px 0;position:relative}
+.cta-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.cta-box{background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);border-radius:20px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 20%,rgba(16,171,175,.15),transparent),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(99,102,241,.1),transparent);pointer-events:none}
+.cta-box h2{font-family:'Poppins',sans-serif;font-size:32px;font-weight:600;color:#fff;letter-spacing:-.03em;margin-bottom:10px;position:relative;z-index:1}
+.cta-box p{color:var(--muted);font-size:15px;margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+.btn-glow{background:var(--accent);color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl)}
+.btn-glow:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 0 40px rgba(16,171,175,.25)}
+.btn-ghost-w{background:transparent;color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid rgba(255,255,255,.15)}
+.btn-ghost-w:hover{border-color:var(--accent);background:rgba(16,171,175,.1)}
+.btn-glow svg,.btn-ghost-w svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-glow:hover svg,.btn-ghost-w:hover svg{transform:translateX(3px)}
+
+/* FOOTER */
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px;filter:none}
+.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:13px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+
+.chat{position:fixed;bottom:24px;right:24px;width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--accent-gl);z-index:999;cursor:pointer;transition:all .3s var(--e)}.chat:hover{transform:scale(1.1) translateY(-2px)}.chat svg{width:20px;height:20px;fill:#fff}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
+
+/* HIDE DOMAINS */
+.domain.hidden{display:none}
+
+@media(max-width:1024px){
+.page-hero h1{font-size:36px}
+.fg{grid-template-columns:repeat(2,1fr)}
+.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+.w{padding:0 18px}
+.topbar .w{flex-direction:column;gap:4px;text-align:center}
+.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}
+.page-hero{padding:36px 0 28px}.page-hero h1{font-size:28px}
+.sec-h2{font-size:26px}
+.fg{grid-template-columns:1fr}
+.filters{gap:6px}.flt{padding:7px 14px;font-size:12px}
+.cta-box{padding:32px 20px}.cta-box h2{font-size:24px}.cta-btns{flex-direction:column;align-items:center}
+.ft-grid{grid-template-columns:1fr}
+.domain-title{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header id="hd"><div class="w"><div class="hdr">
+<a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a>
+<nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations" class="active">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/inscription" class="nav-cta">Documentation</a></nav>
+</div></div></header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div class="page-hero-mesh"></div>
+<div class="w">
+<div class="page-hero-tag rv"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Catalogue complet</div>
+<h1 class="rv">Toutes nos <span class="glow">formations</span></h1>
+<p class="rv rv1">Formations individuelles, en présentiel ou en visioconférence. Certifiées et finançables CPF, OPCO, France Travail.</p>
+
+<!-- FILTERS -->
+<div class="filters rv rv2">
+<button class="flt on" data-filter="all">Toutes</button>
+<button class="flt" data-filter="langues">Langues</button>
+<button class="flt" data-filter="bureautique">Bureautique</button>
+<button class="flt" data-filter="graphisme">Graphisme</button>
+<button class="flt" data-filter="web">Web & Digital</button>
+<button class="flt" data-filter="compta">Comptabilité & Paie</button>
+<button class="flt" data-filter="ia">Intelligence Artificielle</button>
+<button class="flt" data-filter="bdc">Bilan de compétences</button>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════ LANGUES ═══════════════════════════ -->
+<section class="domain rv" data-domain="langues">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M14 14l-4 8"/><path d="M10 22l5-10 5 10"/><path d="M13.5 19h3"/></svg></div>
+<div><div class="domain-title">Langues</div><div class="domain-count">2 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#3B82F6">
+<h3>Anglais Professionnel <span class="fc-badge cpf">CPF</span></h3>
+<p>Du niveau A1 au C2. Cours individuels avec formateur natif. Préparation aux certifications TOSA et Linguaskill. Adapté à votre secteur d'activité.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20h à 60h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>TOSA / Linguaskill</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#3B82F6">
+<h3>Français Langue Étrangère</h3>
+<p>Apprentissage ou perfectionnement du français pour les non-francophones. Cours adaptés au contexte professionnel. Niveaux A1 à C2.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20h à 60h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ BUREAUTIQUE ═══════════════════════════ -->
+<section class="domain rv" data-domain="bureautique">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 8h16"/><path d="M8 4v4"/><path d="M8 14h2"/><path d="M8 17h5"/><path d="M14 14h2"/></svg></div>
+<div><div class="domain-title">Bureautique</div><div class="domain-count">4 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#10B981">
+<h3>Excel <span class="fc-badge cpf">CPF</span></h3>
+<p>Débutant à expert. Formules, TCD, macros VBA, Power Query. Certification ENI ou TOSA incluse. Formation 100 % personnalisée.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 36h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>ENI / TOSA</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#10B981">
+<h3>Word <span class="fc-badge cert">TOSA</span></h3>
+<p>Mise en page, styles, publipostage, documents longs. Devenez autonome sur le traitement de texte le plus utilisé au monde.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 28h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#10B981">
+<h3>PowerPoint <span class="fc-badge cert">TOSA</span></h3>
+<p>Créez des présentations professionnelles percutantes. Animations, masques, graphiques. Du débutant au confirmé.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 21h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#10B981">
+<h3>Pack Bureautique Administratif</h3>
+<p>Formation complète Excel + Word + PowerPoint. Idéal pour une montée en compétence globale en bureautique professionnelle.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>28h à 42h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>TOSA / ENI</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ GRAPHISME ═══════════════════════════ -->
+<section class="domain rv" data-domain="graphisme">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(245,158,11,.06);color:#F59E0B;border-color:rgba(245,158,11,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+<div><div class="domain-title">Graphisme & PAO</div><div class="domain-count">4 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#F59E0B">
+<h3>Photoshop <span class="fc-badge cpf">CPF</span></h3>
+<p>Retouche photo, photomontage, création graphique. Du débutant au professionnel. Certification TOSA ou ICDL incluse.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>TOSA / ICDL</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#F59E0B">
+<h3>Illustrator <span class="fc-badge cert">TOSA</span></h3>
+<p>Création vectorielle, logos, illustrations, mise en page. Maîtrisez l'outil de référence pour le design graphique.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#F59E0B">
+<h3>DaVinci Resolve</h3>
+<p>Montage vidéo, étalonnage, effets spéciaux. Apprenez le logiciel professionnel gratuit le plus complet du marché.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#F59E0B">
+<h3>CapCut</h3>
+<p>Montage vidéo simplifié pour les réseaux sociaux. Effets, transitions, sous-titres automatiques. Créez du contenu engageant.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 21h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ WEB & DIGITAL ═══════════════════════════ -->
+<section class="domain rv" data-domain="web">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(168,85,247,.06);color:#A855F7;border-color:rgba(168,85,247,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 7h20"/><path d="M12 17v4"/><path d="M8 21h8"/></svg></div>
+<div><div class="domain-title">Web & Digital</div><div class="domain-count">7 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>Développement Web</h3>
+<p>HTML, CSS, JavaScript, React. Apprenez à concevoir des sites et applications web modernes. Du front-end au back-end.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>35h à 70h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>WordPress</h3>
+<p>Création et gestion de site vitrine ou e-commerce. Thèmes, plugins, SEO, WooCommerce. Aucun pré-requis technique.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>SEO / SEA</h3>
+<p>Référencement naturel et payant. Google Ads, stratégie de mots-clés, analytics. Boostez votre visibilité en ligne.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 28h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>E-commerce</h3>
+<p>Créez et développez votre boutique en ligne. Shopify, WooCommerce, stratégie de vente, logistique et marketing digital.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>Python</h3>
+<p>Programmation, automatisation, data science. Apprenez le langage le plus demandé en entreprise. Projets pratiques.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 42h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>Cybersécurité</h3>
+<p>Sensibilisation et bonnes pratiques. Protégez vos données, identifiez les menaces, sécurisez votre infrastructure.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 28h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#A855F7">
+<h3>Linux</h3>
+<p>Administration système, ligne de commande, serveurs. Maîtrisez l'OS open-source de référence en entreprise.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 35h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ COMPTA & PAIE ═══════════════════════════ -->
+<section class="domain rv" data-domain="compta">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(251,146,60,.06);color:#FB923C;border-color:rgba(251,146,60,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+<div><div class="domain-title">Comptabilité & Paie</div><div class="domain-count">3 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#FB923C">
+<h3>Gestion de la Paie — SILAE <span class="fc-badge cpf">CPF</span></h3>
+<p>Maîtrisez SILAE de A à Z. Bulletins de paie, DSN, charges sociales. Formation éligible CPF avec certification RNCP Gestionnaire de Paie.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>28h à 56h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>RNCP</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#FB923C">
+<h3>Comptabilité — CEGID</h3>
+<p>Saisie comptable, écritures, bilan, compte de résultat. Formation pratique sur le logiciel CEGID, leader en France.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>21h à 42h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#FB923C">
+<h3>Power BI</h3>
+<p>Analyse de données et tableaux de bord interactifs. Connectez vos sources, modélisez et visualisez vos KPI métier.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 28h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ IA ═══════════════════════════ -->
+<section class="domain rv" data-domain="ia">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(99,102,241,.06);color:#6366F1;border-color:rgba(99,102,241,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1.27c.34-.6.99-1 1.73-1a2 2 0 010 4c-.74 0-1.39-.4-1.73-1H20a7 7 0 01-7 7v1.27c.6.34 1 .99 1 1.73a2 2 0 01-4 0c0-.74.4-1.39 1-1.73V20a7 7 0 01-7-7H2.73c-.34.6-.99 1-1.73 1a2 2 0 010-4c.74 0 1.39.4 1.73 1H4a7 7 0 017-7V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2z"/><circle cx="12" cy="14" r="3"/></svg></div>
+<div><div class="domain-title">Intelligence Artificielle</div><div class="domain-count">2 formations</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#6366F1">
+<h3>Agents IA & Automatisation</h3>
+<p>Concevez des agents IA autonomes. ChatGPT, Claude, API, no-code. Automatisez vos processus métier grâce à l'intelligence artificielle.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 28h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#6366F1">
+<h3>IA dans le cycle de vente</h3>
+<p>Intégrez l'IA dans votre prospection, qualification, closing. Prompting avancé, outils de vente augmentée, CRM intelligent.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>14h à 21h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- ═══════════════════════════ BILAN DE COMPÉTENCES ═══════════════════════════ -->
+<section class="domain rv" data-domain="bdc">
+<div class="w">
+<div class="domain-header">
+<div class="domain-ico" style="background:rgba(244,63,94,.06);color:#F43F5E;border-color:rgba(244,63,94,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+<div><div class="domain-title">Bilan de compétences</div><div class="domain-count">1 formation</div></div>
+</div>
+<div class="fg">
+
+<a href="https://www.switching-formation.fr/inscription" class="fc" style="--fc-c:#F43F5E">
+<h3>Bilan de compétences <span class="fc-badge cpf">CPF</span></h3>
+<p>Faites le point sur votre parcours, identifiez vos forces et construisez un projet professionnel aligné avec vos aspirations. Accompagnement personnalisé par un consultant certifié.</p>
+<div class="fc-meta">
+<span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24h</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Éligible CPF</span>
+<span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Présentiel / Visio</span>
+</div>
+<span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+</a>
+
+</div></div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section"><div class="w">
+<div class="cta-box rv">
+<h2>Un projet de formation ?</h2>
+<p>Parlez-nous de vos objectifs. Un conseiller vous rappelle sous 24h pour construire votre parcours personnalisé.</p>
+<div class="cta-btns">
+<a href="https://www.switching-formation.fr/inscription" class="btn-glow">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="tel:+33695185057" class="btn-ghost-w">06 95 18 50 57 <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></a>
+</div>
+</div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="w">
+<div class="ft-grid">
+<div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="https://www.switching-formation.fr/formations">Langues</a><a href="https://www.switching-formation.fr/formations">Bureautique</a><a href="https://www.switching-formation.fr/formations">Graphisme</a><a href="https://www.switching-formation.fr/formations">IA</a></div>
+<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="#">CGV</a><span class="d">•</span><a href="#">Mentions légales</a><span class="d">•</span><a href="#">Données</a><span class="d">•</span><a href="#">Qualiopi</a></div></div>
+</div></footer>
+
+<div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+
+<script>
+// FILTERS
+document.querySelectorAll('.flt').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('on')});
+    btn.classList.add('on');
+    var f=btn.dataset.filter;
+    document.querySelectorAll('.domain').forEach(function(d){
+      if(f==='all'){d.classList.remove('hidden');d.classList.add('vis')}
+      else if(d.dataset.domain===f){d.classList.remove('hidden');d.classList.add('vis')}
+      else{d.classList.add('hidden')}
+    });
+  });
+});
+
+// SCROLL REVEAL
+document.querySelectorAll('.rv').forEach(function(el){
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){el.classList.add('vis')}
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+});
+
+// STICKY HEADER
+var hd=document.getElementById('hd');
+window.addEventListener('scroll',function(){
+  hd.classList.toggle('scrolled',window.scrollY>40);
+});
+</script>
+
+</body>
+</html>
