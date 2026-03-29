@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switching Formation — Formations professionnelles certifiées Qualiopi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&family=Poppins:wght@500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);
+--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* GRAIN OVERLAY */
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bd);transition:all .3s}
+header.scrolled{background:rgba(250,251,252,.95)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px;filter:none}
+nav{display:flex;align-items:center;gap:2px}
+nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}
+nav a:hover{color:var(--white);background:rgba(16,171,175,.06)}
+.nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}
+.nav-cta:hover{;box-shadow:0 0 24px var(--accent-gl)}
+
+/* HERO */
+.hero{padding:52px 0 48px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.07),transparent),
+  radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.05),transparent),
+  radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);
+pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px 6px 12px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.02em}
+.hero-tag svg{width:14px;height:14px;fill:var(--accent)}
+h1{font-family:'Poppins',sans-serif;font-size:42px;font-weight:600;line-height:1.05;color:#0F172A;letter-spacing:-.04em;margin-bottom:20px}
+h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tw{display:inline-block;opacity:0;transform:translateY(20px);animation:slideUp .8s var(--e) .4s forwards}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+.hero-p{font-size:16px;line-height:1.75;color:var(--sub);margin-bottom:10px;max-width:520px}
+.hero-p b{color:var(--text);font-weight:600}
+.hero-p .sf{color:var(--accent);font-weight:600}
+
+.fbox{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--bd2);border-radius:var(--rs);padding:14px 20px;display:inline-flex;align-items:center;gap:14px;margin:16px 0 20px}
+.fbox-text{font-size:12px;color:var(--sub);line-height:1.4}.fbox-text strong{color:var(--white);font-weight:600;display:block}
+.fbox-sep{width:1px;height:28px;background:var(--bd2);flex-shrink:0}
+.fbox-logos{display:flex;align-items:center;gap:10px}.fbox-logos img{height:30px;object-fit:contain;filter:brightness(1.3) grayscale(.2);opacity:.7;transition:all .2s}.fbox-logos img:hover{opacity:1;filter:none grayscale(0)}
+
+.hero-btns{display:flex;gap:12px}
+.btn-glow{background:var(--accent);color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl)}
+.btn-glow:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 0 40px rgba(16,171,175,.25)}
+.btn-ghost{background:transparent;color:var(--text);padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid var(--bd2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-gl2)}
+.btn-glow svg,.btn-ghost svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-glow:hover svg,.btn-ghost:hover svg{transform:translateX(3px)}
+
+.hero-imgs{display:flex;flex-direction:column;gap:12px}
+.hero-imgs img{width:100%;border-radius:var(--r);object-fit:cover;height:220px;border:1px solid var(--bd);box-shadow:0 12px 36px rgba(0,0,0,.1)}
+
+/* SECTIONS */
+.sec-head{text-align:center;margin-bottom:36px}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
+.sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* CERTS */
+.certs{padding:48px 0;background:#fff;position:relative}
+.certs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cc{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:28px 20px 24px;text-align:center;transition:all .4s var(--e)}
+.cc:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-gl),0 8px 28px rgba(0,0,0,.06);transform:translateY(-4px)}
+.cc-logo{height:64px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.cc-logo img{max-height:56px;max-width:140px;object-fit:contain;}
+.cc p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* FORMATIONS */
+.forms{padding:52px 0;position:relative}
+.forms::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--bg),rgba(16,171,175,.02),var(--bg));pointer-events:none}
+.fg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px;position:relative;z-index:1}
+.fg3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:calc(75% - 3px);margin:0 auto;position:relative;z-index:1}
+.fc{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:22px 18px;text-decoration:none;color:var(--text);transition:all .4s var(--e);display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 20%,var(--fc-c,var(--accent)),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
+.fc:hover::before{opacity:.06}
+.fc:hover{border-color:rgba(16,171,175,.2);transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.08)}
+.fc-ico{width:48px;height:48px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;background:rgba(16,171,175,.06);border:1px solid var(--bd);color:var(--fc-c,var(--accent));transition:all .35s var(--e)}
+.fc:hover .fc-ico{background:var(--fc-c,var(--accent));color:#fff;border-color:transparent;box-shadow:0 0 20px color-mix(in srgb,var(--fc-c,var(--accent)) 30%,transparent)}
+.fc-ico svg{width:22px;height:22px}
+.fc h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.fc p{font-size:13px;color:var(--muted);line-height:1.5;flex:1}
+.fc-link{font-size:12px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:4px;opacity:.5;transition:all .3s}
+.fc-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.fc:hover .fc-link{opacity:1}.fc:hover .fc-link svg{transform:translateX(3px)}
+
+/* CONTACT */
+.contact{padding:0;overflow:hidden;position:relative}
+.contact::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.ct-row{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.ct-vis{position:relative;height:100%;min-height:420px;max-height:480px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.ct-vis img{width:100%;height:100%;object-fit:contain;object-position:center bottom;}
+.ct-form{padding:40px 40px 40px 28px}
+.ct-title{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;margin-bottom:6px;letter-spacing:-.03em;line-height:1.1}
+.ct-title .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ct-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+
+.step{display:none;animation:fadeUp .3s var(--e)}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.step-q{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin-bottom:16px}
+.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.step-opt{padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:13px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .2s var(--e);background:var(--white);text-align:left;display:flex;align-items:center;gap:8px}
+.step-opt:hover{border-color:var(--accent);color:var(--text);background:var(--accent-gl2)}
+.step-opt.selected{border-color:var(--accent);background:var(--accent-gl);color:var(--accent2);font-weight:600}
+.step-opt .opt-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.ff{margin-bottom:8px}
+.ff select,.ff input{width:100%;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--white);background:var(--white);transition:all .2s;-webkit-appearance:none;appearance:none}
+.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2371717A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.ff input:focus,.ff select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
+.ff input::placeholder{color:var(--muted)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.frp{display:grid;grid-template-columns:110px 1fr;gap:8px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin:14px 0;font-size:12px;color:var(--muted);line-height:1.4}.consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.dots{display:flex;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--surface2);transition:all .3s}.dot.on{background:var(--accent);width:22px;border-radius:4px}
+.btn-next,.btn-send{background:var(--accent);color:#fff;padding:11px 26px;border-radius:var(--rf);border:none;font-size:14px;font-weight:700;font-family:var(--f);cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 16px var(--accent-gl)}
+.btn-next:hover,.btn-send:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 0 32px rgba(16,171,175,.2)}
+.btn-next svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.btn-back{background:none;border:none;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--f);transition:color .2s}.btn-back:hover{color:var(--white)}
+.form-ok{display:none;text-align:center;padding:40px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
+.form-ok h3{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:var(--white);margin:12px 0 6px}.form-ok p{color:var(--muted)}
+
+/* TESTIMONIALS */
+.testi{padding:48px 0 40px;overflow:hidden;position:relative}
+.testi::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.tt{display:flex;gap:16px;animation:slide 45s linear infinite;width:max-content;padding:4px 0}.tt:hover{animation-play-state:paused}
+@keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tc-wrap{position:relative;height:210px;width:280px;min-width:280px;flex-shrink:0}.tc-wrap .tc{position:absolute;top:0;left:0}
+.tc{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:20px 18px 18px;width:280px;min-width:280px;max-width:280px;height:210px;flex-shrink:0;display:flex;flex-direction:column;transition:all .4s var(--e);position:relative;z-index:1}
+.tc:hover{box-shadow:0 0 24px var(--accent-gl),0 10px 32px rgba(0,0,0,.08);transform:scale(1.04);z-index:10;height:auto;border-color:rgba(16,171,175,.2)}
+.tc:hover .tc-txt{-webkit-line-clamp:unset}
+.tc p{font-size:11px;line-height:1.5;color:var(--muted);flex:1;margin-bottom:10px}.tc-txt{overflow:hidden;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical}
+.tc p strong{color:var(--text);font-weight:600}
+.tc-author{display:flex;align-items:center;gap:7px;padding-top:10px;border-top:1px solid var(--bd);margin-top:auto}
+.tc-avatar{width:26px;height:26px;border-radius:50%;background:var(--accent-gl);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0}
+.tc-name{font-size:12px;font-weight:600;color:var(--text)}.tc-name span{color:var(--accent)}
+.tc-stars{display:flex;gap:1px;margin-bottom:8px}.tc-stars svg{width:11px;height:11px;fill:#FBBF24}
+
+/* FOOTER */
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px;filter:none}
+.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:13px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+
+.chat{position:fixed;bottom:24px;right:24px;width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--accent-gl);z-index:999;cursor:pointer;transition:all .3s var(--e)}.chat:hover{transform:scale(1.1) translateY(-2px)}.chat svg{width:20px;height:20px;fill:#fff}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
+
+@media(max-width:1024px){
+.hero-grid{grid-template-columns:1fr;gap:32px}.hero-imgs{flex-direction:row}.hero-imgs img{height:200px;flex:1}
+h1{font-family:'Poppins',sans-serif;font-size:38px}.cg,.fg{grid-template-columns:repeat(2,1fr)}.fg3{grid-template-columns:repeat(2,1fr);max-width:100%}
+.ct-row{grid-template-columns:1fr}.ct-vis{min-height:300px}.ct-form{padding:36px 28px}.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}
+.hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}
+.hero{padding:40px 0 48px}h1{font-family:'Poppins',sans-serif;font-size:30px}.hero-imgs{flex-direction:column}.hero-imgs img{height:180px}.hero-btns{flex-direction:column}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.cg,.fg,.fg3{grid-template-columns:1fr}.step-opts,.fr2,.frp{grid-template-columns:1fr}
+.ct-title{font-family:'Poppins',sans-serif;font-size:28px}.tc{width:250px;min-width:250px;max-width:250px}.tc-wrap{width:250px;min-width:250px}.ft-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header id="hd"><div class="w"><div class="hdr">
+<a href="https://www.switching-formation.fr" class="logo"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="Switching Formation"></a>
+<nav><a href="https://www.switching-formation.fr/le-centre">Le centre</a><a href="https://www.switching-formation.fr/formations">Nos formations</a><a href="https://www.switching-formation.fr/financement">Financement</a><a href="https://www.switching-formation.fr/inscription">Devis</a><a href="https://www.switching-formation.fr/inscription" class="nav-cta">Documentation</a></nav>
+</div></div></header>
+
+<section class="hero"><div class="hero-mesh"></div><div class="w"><div class="hero-grid">
+<div class="rv">
+<div class="hero-tag"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Certifié Qualiopi</div>
+<h1>Ensemble, faisons grandir <span class="glow tw">vos compétences</span></h1>
+<p class="hero-p"><span class="sf">Switching Formation</span> vous propose des programmes <b>courts et ludiques en e-learning</b>, avec une vingtaine de formations dans sept domaines clés.</p>
+<p class="hero-p">Expert de la formation professionnelle, nous sommes <b>certifiés Qualiopi, gage de qualité et de confiance</b>.</p>
+<p class="hero-p">Référencé et reconnu par les principaux organismes financeurs (CPF, France Travail, OPCO…). Formation <b>accessible à tous</b>.</p>
+<div class="fbox"><div class="fbox-text">Contactez-nous pour connaître<strong>vos options de financement.</strong></div><div class="fbox-sep"></div><div class="fbox-logos"><img src="https://static.wixstatic.com/media/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png/v1/crop/x_0,y_0,w_2306,h_908/fill/w_254,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png" alt="FT"><img src="https://static.wixstatic.com/media/5627a4_269d513621974ec0b46f71954db5cde2~mv2.png/v1/fill/w_62,h_62,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-CPF%20(1).png" alt="CPF"><img src="https://static.wixstatic.com/media/5627a4_a5b7744ac2c44851b895ba8adc87e018~mv2.png/v1/fill/w_264,h_168,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Design%20sans%20titre%20(56)_edited.png" alt="OPCO" style="height:38px"></div></div>
+<div class="hero-btns"><a href="https://www.switching-formation.fr/formations" class="btn-glow">Nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a href="https://www.switching-formation.fr/inscription" class="btn-ghost">Devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+</div>
+<div class="hero-imgs rv rv1">
+<img src="https://static.wixstatic.com/media/5627a4_951b03d34dd64835bf92f05d62a7f831~mv2.jpg/v1/crop/x_0,y_55,w_1288,h_769/fill/w_886,h_528,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Design%20sans%20titre%20(11)_edited.jpg" alt="Stagiaire">
+<img src="https://static.wixstatic.com/media/5627a4_431a80b1596145029bda6fdc9bc86c7df002.jpg/v1/fill/w_846,h_474,al_c,q_85,enc_avif,quality_auto/5627a4_431a80b1596145029bda6fdc9bc86c7df002.jpg" alt="Formation">
+</div>
+</div></div></section>
+
+<section class="certs"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Certifications</div><div class="sec-h2">Notre expertise de la<br><span class="glow">formation professionnelle</span></div></div>
+<div class="cg">
+<div class="cc rv"><div class="cc-logo"><img src="https://static.wixstatic.com/media/5627a4_ccb43ff30f654a16be983f7307977d3c~mv2.webp/v1/fill/w_342,h_220,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo-Qualiopi.webp" alt="Qualiopi"></div><p>Certifié Qualiopi, gage de qualité.</p></div>
+<div class="cc rv rv1"><div class="cc-logo"><img src="https://static.wixstatic.com/media/5627a4_301cd27c6fb84985a1e27ea08030db5c~mv2.png/v1/fill/w_400,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/VTest%20logo_Business%20English.png" alt="VTest"></div><p>VTest Business English – 4 skills.</p></div>
+<div class="cc rv rv2"><div class="cc-logo"><img src="https://static.wixstatic.com/media/5627a4_4b2b3f500d414a83affbe2759e312e9f~mv2.png/v1/crop/x_173,y_208,w_2277,h_1143/fill/w_394,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo_moncompteformation_rvb%20(2).png" alt="CPF"></div><p>Référencé Mon Compte Formation.</p></div>
+<div class="cc rv rv3"><div class="cc-logo"><img src="https://static.wixstatic.com/media/5627a4_f9d9204401c44ed3890acb1d53017c42~mv2.png/v1/crop/x_0,y_0,w_2184,h_908/fill/w_476,h_198,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/France_Travail_2024_svg.png" alt="France Travail"></div><p>Reconnu par France Travail (AIF).</p></div>
+</div></div></section>
+
+<section class="forms"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Nos domaines</div><div class="sec-h2">Découvrez nos <span class="glow">formations</span></div></div>
+<div class="fg"><a href="https://www.switching-formation.fr/formations" class="fc rv"><div class="fc-ico" style="--fc-c:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M14 14l-4 8"/><path d="M10 22l5-10 5 10"/><path d="M13.5 19h3"/></svg></div><h3>Langues</h3><p>Anglais, français. VTest, TOSA, A1 à C2.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+<a href="https://www.switching-formation.fr/copie-de-nos-formations" class="fc rv rv rv1"><div class="fc-ico" style="--fc-c:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 8h16"/><path d="M8 4v4"/><path d="M8 14h2"/><path d="M8 17h5"/><path d="M14 14h2"/></svg></div><h3>Bureautique</h3><p>Excel, Word, PowerPoint.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+<a href="https://www.switching-formation.fr/copie-de-formations-bureautique" class="fc rv rv rv2"><div class="fc-ico" style="--fc-c:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div><h3>Graphisme</h3><p>Photoshop, Illustrator, Canva.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+<a href="https://www.switching-formation.fr/copie-de-formation-graphisme-design" class="fc rv rv rv3"><div class="fc-ico" style="--fc-c:#A855F7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 7h20"/><path d="M12 17v4"/><path d="M8 21h8"/></svg></div><h3>Web &amp; Digital</h3><p>Développement, CMS, marketing.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></div>
+<div class="fg3"><a href="https://www.switching-formation.fr/copie-de-formation-intelligence-artif" class="fc rv"><div class="fc-ico" style="--fc-c:#F43F5E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><h3>Bilan de compétences</h3><p>Accompagnement carrière.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+<a href="https://www.switching-formation.fr/copie-de-formation-bilan-de-comp%C3%A9tences" class="fc rv rv rv1"><div class="fc-ico" style="--fc-c:#FB923C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h3>Comptabilité &amp; Paie</h3><p>SILAE, CEGID, paie.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+<a href="https://www.switching-formation.fr/copie-de-formation-web-digital" class="fc rv rv rv2"><div class="fc-ico" style="--fc-c:#6366F1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1.27c.34-.6.99-1 1.73-1a2 2 0 010 4c-.74 0-1.39-.4-1.73-1H20a7 7 0 01-7 7v1.27c.6.34 1 .99 1 1.73a2 2 0 01-4 0c0-.74.4-1.39 1-1.73V20a7 7 0 01-7-7H2.73c-.34.6-.99 1-1.73 1a2 2 0 010-4c.74 0 1.39.4 1.73 1H4a7 7 0 017-7V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2z"/><circle cx="12" cy="14" r="3"/></svg></div><h3>Intelligence Artificielle</h3><p>Agents IA, automatisation.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></div>
+</div></section>
+
+<section class="contact" id="cs"><div class="ct-row">
+<div class="ct-vis rv"><img src="https://static.wixstatic.com/media/5627a4_e5804d690d8a4c8295162b7bd38efe37~mv2.png/v1/fill/w_978,h_846,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/5627a4_e5804d690d8a4c8295162b7bd38efe37~mv2.png" alt="Contact"></div>
+<div class="ct-form rv rv1">
+<div class="ct-title">Parlez-nous de<br><span class="glow">votre projet !</span></div>
+<p class="ct-sub">Répondez en quelques clics.</p>
+<div id="mf">
+<div class="step active" data-step="1"><div class="step-label">Étape 1/5</div><div class="step-q">Quel secteur ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>Langues</button><button class="step-opt"><span class="opt-dot"></span>Bureautique</button><button class="step-opt"><span class="opt-dot"></span>Graphisme</button><button class="step-opt"><span class="opt-dot"></span>Web &amp; Digital</button><button class="step-opt"><span class="opt-dot"></span>Bilan de comp.</button><button class="step-opt"><span class="opt-dot"></span>Compta / Paie</button><button class="step-opt"><span class="opt-dot"></span>IA</button></div><div class="step-nav"><span></span><div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span></span></div></div>
+<div class="step" data-step="2"><div class="step-label">Étape 2/5</div><div class="step-q">Votre statut ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>Salarié(e)</button><button class="step-opt"><span class="opt-dot"></span>Demandeur d'emploi</button><button class="step-opt"><span class="opt-dot"></span>Indépendant(e)</button><button class="step-opt"><span class="opt-dot"></span>Intermittent(e)</button><button class="step-opt"><span class="opt-dot"></span>Étudiant(e)</button><button class="step-opt"><span class="opt-dot"></span>Autre</button></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span></span></div></div>
+<div class="step" data-step="3"><div class="step-label">Étape 3/5</div><div class="step-q">Financement ?</div><div class="step-opts"><button class="step-opt"><span class="opt-dot"></span>CPF</button><button class="step-opt"><span class="opt-dot"></span>OPCO</button><button class="step-opt"><span class="opt-dot"></span>France Travail</button><button class="step-opt"><span class="opt-dot"></span>Personnel</button><button class="step-opt"><span class="opt-dot"></span>Entreprise</button><button class="step-opt"><span class="opt-dot"></span>Je ne sais pas</button></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div><span></span></div></div>
+<div class="step" data-step="4"><div class="step-label">Étape 4/5</div><div class="step-q">Vos coordonnées</div><div class="fr2"><div class="ff"><input placeholder="Prénom"></div><div class="ff"><input placeholder="Nom"></div></div><div class="ff"><input type="email" placeholder="E-mail"></div><div class="frp"><div class="ff"><select><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option></select></div><div class="ff"><input type="tel" placeholder="Téléphone"></div></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div><button class="btn-next" onclick="goStep(1)">Suivant <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div></div>
+<div class="step" data-step="5"><div class="step-label">Étape 5/5</div><div class="step-q">Confirmez</div><div class="consent"><input type="checkbox" checked><label>J'accepte d'être contacté.e par Switching Formation.</label></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div><button class="btn-send" onclick="submitForm()">Envoyer</button></div></div>
+<div class="form-ok" id="fOk"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="rgba(16,171,175,.12)"/><path d="M16 24l5 5 11-11" stroke="#10ABAF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Envoyé !</h3><p>Un conseiller vous recontacte rapidement.</p></div>
+</div></div></div></section>
+
+<section class="testi"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Témoignages</div><div class="sec-h2">Ils ont été satisfaits de leurs<br><span class="glow">formations</span></div></div>
+</div><div class="tt"><div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Amenée à travailler à l'étranger, j'avais besoin de perfectionner mon anglais. La formation a été une véritable réussite. Grâce à un coach d'une grande qualité, j'ai atteint un niveau C1. <strong>Je recommande Switching Formation pour son sérieux et son accompagnement.</strong></p><div class="tc-author"><div class="tc-avatar">S</div><div class="tc-name">Stéphanie, <span>55 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Expert-comptable, j'avais besoin de consolider mes connaissances sur SILAE. La formation a parfaitement répondu à mes attentes : claire, précise et applicable. <strong>Je recommande vivement pour la qualité et le professionnalisme.</strong></p><div class="tc-author"><div class="tc-avatar">H</div><div class="tc-name">Hugo, <span>35 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">J'ai fait appel à Switching Formation pour former cinq salariés en développement informatique. Réelle montée en compétence et impact concret. <strong>Je recommande aux entreprises souhaitant faire évoluer leurs équipes.</strong></p><div class="tc-author"><div class="tc-avatar">P</div><div class="tc-name">Pierre, <span>44 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Formation complète en bureautique. Formateur très pédagogue, j'ai progressé sur Excel et Word. <strong>Suivi sérieux, cours clairs. Je recommande !</strong></p><div class="tc-author"><div class="tc-avatar">B</div><div class="tc-name">Bastien, <span>36 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Amenée à travailler à l'étranger, j'avais besoin de perfectionner mon anglais. La formation a été une véritable réussite. Grâce à un coach d'une grande qualité, j'ai atteint un niveau C1. <strong>Je recommande Switching Formation pour son sérieux et son accompagnement.</strong></p><div class="tc-author"><div class="tc-avatar">S</div><div class="tc-name">Stéphanie, <span>55 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Expert-comptable, j'avais besoin de consolider mes connaissances sur SILAE. La formation a parfaitement répondu à mes attentes : claire, précise et applicable. <strong>Je recommande vivement pour la qualité et le professionnalisme.</strong></p><div class="tc-author"><div class="tc-avatar">H</div><div class="tc-name">Hugo, <span>35 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">J'ai fait appel à Switching Formation pour former cinq salariés en développement informatique. Réelle montée en compétence et impact concret. <strong>Je recommande aux entreprises souhaitant faire évoluer leurs équipes.</strong></p><div class="tc-author"><div class="tc-avatar">P</div><div class="tc-name">Pierre, <span>44 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Formation complète en bureautique. Formateur très pédagogue, j'ai progressé sur Excel et Word. <strong>Suivi sérieux, cours clairs. Je recommande !</strong></p><div class="tc-author"><div class="tc-avatar">B</div><div class="tc-name">Bastien, <span>36 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Amenée à travailler à l'étranger, j'avais besoin de perfectionner mon anglais. La formation a été une véritable réussite. Grâce à un coach d'une grande qualité, j'ai atteint un niveau C1. <strong>Je recommande Switching Formation pour son sérieux et son accompagnement.</strong></p><div class="tc-author"><div class="tc-avatar">S</div><div class="tc-name">Stéphanie, <span>55 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Expert-comptable, j'avais besoin de consolider mes connaissances sur SILAE. La formation a parfaitement répondu à mes attentes : claire, précise et applicable. <strong>Je recommande vivement pour la qualité et le professionnalisme.</strong></p><div class="tc-author"><div class="tc-avatar">H</div><div class="tc-name">Hugo, <span>35 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">J'ai fait appel à Switching Formation pour former cinq salariés en développement informatique. Réelle montée en compétence et impact concret. <strong>Je recommande aux entreprises souhaitant faire évoluer leurs équipes.</strong></p><div class="tc-author"><div class="tc-avatar">P</div><div class="tc-name">Pierre, <span>44 ans</span></div></div></div></div>
+<div class="tc-wrap"><div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Formation complète en bureautique. Formateur très pédagogue, j'ai progressé sur Excel et Word. <strong>Suivi sérieux, cours clairs. Je recommande !</strong></p><div class="tc-author"><div class="tc-avatar">B</div><div class="tc-name">Bastien, <span>36 ans</span></div></div></div></div></div></section>
+
+<footer><div class="w">
+<div class="ft-grid">
+<div class="ft-brand"><img src="https://web-production-0c02.up.railway.app/static/logo-switching.svg" alt="SF"><p>Organisme certifié Qualiopi. E-learning dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="#">Le centre</a><a href="#">Formations</a><a href="#">Financement</a><a href="#">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="#">Langues</a><a href="#">Bureautique</a><a href="#">Graphisme</a><a href="#">IA</a></div>
+<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="mailto:contact@switchingformation.com">contact@switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="#">CGV</a><span class="d">•</span><a href="#">Mentions légales</a><span class="d">•</span><a href="#">Données</a><span class="d">•</span><a href="#">Qualiopi</a></div></div>
+</div></footer>
+
+<div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+
+<script>
+var cs=1;function goStep(d){var n=cs+d;if(n<1||n>5)return;document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.querySelector('.step[data-step="'+n+'"]').classList.add('active');cs=n;}
+document.querySelectorAll('.step-opt').forEach(function(b){b.addEventListener('click',function(){b.parentElement.querySelectorAll('.step-opt').forEach(function(s){s.classList.remove('selected')});b.classList.add('selected');setTimeout(function(){goStep(1)},280);});});
+function submitForm(){document.querySelector('.step[data-step="5"]').classList.remove('active');document.getElementById('fOk').classList.add('on');}
+document.querySelectorAll('.rv').forEach(function(el){new IntersectionObserver(function(e){if(e[0].isIntersecting)e[0].target.classList.add('vis')},{threshold:.05}).observe(el)});
+window.addEventListener('scroll',function(){document.getElementById('hd').classList.toggle('scrolled',scrollY>10)},{passive:true});
+// title animated via CSS
+</script>
+</body>
+</html>
