@@ -136,21 +136,32 @@ async function sha256(str){
 document.getElementById('loginBtn').addEventListener('click',tryLogin);
 document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin()});
 
+var adminCode='';
+
 async function tryLogin(){
   var code=document.getElementById('codeInput').value;
-  var hash=await sha256(code);
-  if(hash===ADMIN_HASH){
-    sessionStorage.setItem('sf_admin','1');
-    showDash();
-  } else {
+  // Verify against server
+  try{
+    var r=await fetch('/api/stats',{headers:{'X-Admin-Token':code}});
+    if(r.ok){
+      adminCode=code;
+      sessionStorage.setItem('sf_admin_code',code);
+      showDash();
+    } else {
+      document.getElementById('loginError').style.display='block';
+      document.getElementById('codeInput').value='';
+      document.getElementById('codeInput').focus();
+    }
+  }catch(e){
     document.getElementById('loginError').style.display='block';
-    document.getElementById('codeInput').value='';
-    document.getElementById('codeInput').focus();
   }
 }
 
 // Check session
-if(sessionStorage.getItem('sf_admin')==='1')showDash();
+var savedCode=sessionStorage.getItem('sf_admin_code');
+if(savedCode){adminCode=savedCode;showDash();}
+
+function authHeaders(){return{'X-Admin-Token':adminCode,'Content-Type':'application/json'}}
 
 function showDash(){
   document.getElementById('loginScreen').style.display='none';
@@ -160,30 +171,28 @@ function showDash(){
 
 // LOGOUT
 document.getElementById('logoutBtn').addEventListener('click',function(){
-  sessionStorage.removeItem('sf_admin');
+  sessionStorage.removeItem('sf_admin_code');
+  adminCode='';
   location.reload();
 });
 
 // RENDER
-function renderDash(){
-  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
-  var now=new Date();
-  var today=now.toISOString().slice(0,10);
-  var weekAgo=new Date(now-7*86400000).toISOString();
+async function renderDash(){
+  try{
+    var [statsRes,subsRes]=await Promise.all([
+      fetch('/api/stats',{headers:authHeaders()}),
+      fetch('/api/submissions',{headers:authHeaders()})
+    ]);
+    var stats=await statsRes.json();
+    var subs=await subsRes.json();
+  }catch(e){return;}
 
   // Stats
-  document.getElementById('statTotal').textContent=subs.length;
-  document.getElementById('statToday').textContent=subs.filter(function(s){return s.date&&s.date.slice(0,10)===today}).length;
-  document.getElementById('statWeek').textContent=subs.filter(function(s){return s.date&&s.date>=weekAgo}).length;
-  document.getElementById('tableCount').textContent=subs.length+' demande'+(subs.length>1?'s':'');
-
-  // Top sector
-  if(subs.length>0){
-    var counts={};
-    subs.forEach(function(s){if(s.secteur){counts[s.secteur]=(counts[s.secteur]||0)+1}});
-    var top=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a]})[0];
-    document.getElementById('statTop').textContent=top||'—';
-  }
+  document.getElementById('statTotal').textContent=stats.total;
+  document.getElementById('statToday').textContent=stats.today;
+  document.getElementById('statWeek').textContent=stats.week;
+  document.getElementById('statTop').textContent=stats.topSecteur||'—';
+  document.getElementById('tableCount').textContent=stats.total+' demande'+(stats.total>1?'s':'');
 
   // Table
   var el=document.getElementById('tableBody');
@@ -192,46 +201,46 @@ function renderDash(){
     return;
   }
 
-  var html='<table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th></tr></thead><tbody>';
+  var html='<table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th><th></th></tr></thead><tbody>';
   subs.forEach(function(s){
     var d=s.date?new Date(s.date):null;
     var dateStr=d?d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
-    html+='<tr>';
+    var rowClass=s.lu?'':'style="background:rgba(16,171,175,.03)"';
+    html+='<tr '+rowClass+' data-id="'+s.id+'">';
     html+='<td>'+dateStr+'</td>';
-    html+='<td>'+(s.prenom||'—')+'</td>';
-    html+='<td>'+(s.nom||'—')+'</td>';
+    html+='<td><b>'+(s.prenom||'—')+'</b></td>';
+    html+='<td><b>'+(s.nom||'—')+'</b></td>';
     html+='<td>'+(s.email||'—')+'</td>';
     html+='<td>'+(s.indicatif?s.indicatif+' ':'')+(s.tel||'—')+'</td>';
     html+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+s.secteur+'</span>':'—')+'</td>';
     html+='<td>'+(s.statut?'<span class="badge badge-statut">'+s.statut+'</span>':'—')+'</td>';
     html+='<td>'+(s.financement?'<span class="badge badge-fin">'+s.financement+'</span>':'—')+'</td>';
     html+='<td>'+(s.source||'—')+'</td>';
+    html+='<td><button class="dash-btn" onclick="deleteSub('+s.id+')" style="padding:4px 10px;font-size:11px">Suppr.</button></td>';
     html+='</tr>';
+    // Mark as read
+    if(!s.lu)fetch('/api/submissions/'+s.id+'/read',{method:'PATCH',headers:authHeaders()}).catch(function(){});
   });
   html+='</tbody></table>';
   el.innerHTML=html;
 }
 
+// DELETE ONE
+async function deleteSub(id){
+  if(!confirm('Supprimer cette demande ?'))return;
+  await fetch('/api/submissions/'+id,{method:'DELETE',headers:authHeaders()});
+  renderDash();
+}
+
 // EXPORT CSV
 document.getElementById('exportBtn').addEventListener('click',function(){
-  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
-  if(!subs.length)return;
-  var headers=['Date','Prenom','Nom','Email','Indicatif','Telephone','Secteur','Statut','Financement','Source'];
-  var csv=headers.join(';')+'\n';
-  subs.forEach(function(s){
-    csv+=[s.date||'',s.prenom||'',s.nom||'',s.email||'',s.indicatif||'',s.tel||'',s.secteur||'',s.statut||'',s.financement||'',s.source||''].join(';')+'\n';
-  });
-  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='switching-demandes-'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
+  window.open('/api/export?token='+encodeURIComponent(adminCode));
 });
 
-// CLEAR
-document.getElementById('clearBtn').addEventListener('click',function(){
+// CLEAR ALL
+document.getElementById('clearBtn').addEventListener('click',async function(){
   if(confirm('Supprimer toutes les demandes ? Cette action est irréversible.')){
-    localStorage.removeItem('sf_submissions');
+    await fetch('/api/submissions',{method:'DELETE',headers:authHeaders()});
     renderDash();
   }
 });

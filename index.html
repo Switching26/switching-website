@@ -314,8 +314,7 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg,.fg{grid-template-columns
 var cs=1;function goStep(d){var n=cs+d;if(n<1||n>5)return;document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.querySelector('.step[data-step="'+n+'"]').classList.add('active');cs=n;}
 document.querySelectorAll('.step-opt').forEach(function(b){b.addEventListener('click',function(){b.parentElement.querySelectorAll('.step-opt').forEach(function(s){s.classList.remove('selected')});b.classList.add('selected');setTimeout(function(){goStep(1)},280);});});
 function submitForm(){
-  // Collect form data
-  var data={date:new Date().toISOString(),source:'accueil'};
+  var data={source:'accueil'};
   var s1=document.querySelector('.step[data-step="1"] .step-opt.selected');
   var s2=document.querySelector('.step[data-step="2"] .step-opt.selected');
   var s3=document.querySelector('.step[data-step="3"] .step-opt.selected');
@@ -329,10 +328,8 @@ function submitForm(){
   data.tel=inputs[3]?inputs[3].value:'';
   var sel=document.querySelector('.step[data-step="4"] select');
   data.indicatif=sel?sel.value:'';
-  // Save to localStorage
-  var subs=JSON.parse(localStorage.getItem('sf_submissions')||'[]');
-  subs.unshift(data);
-  localStorage.setItem('sf_submissions',JSON.stringify(subs));
+  // Send to API
+  fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){});
   // Show success
   document.querySelector('.step[data-step="5"]').classList.remove('active');
   document.getElementById('fOk').classList.add('on');
