@@ -38,10 +38,13 @@ header.scrolled{background:rgba(250,251,252,.95)}
 .hdr{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{text-decoration:none;display:flex;align-items:center}.logo img{height:38px;filter:none}
 nav{display:flex;align-items:center;gap:2px}
-nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .2s}
-nav a:hover{color:var(--white);background:rgba(16,171,175,.06)}
+nav a{text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:7px 16px;border-radius:var(--rs);transition:all .3s var(--e);position:relative}
+nav a::after{content:'';position:absolute;bottom:2px;left:16px;right:16px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transform:scaleX(0);transition:transform .3s var(--e)}
+nav a:hover{color:var(--accent)}
+nav a:hover::after{transform:scaleX(1)}
 .nav-cta{background:var(--accent)!important;color:var(--bg)!important;padding:8px 22px!important;border-radius:var(--rf)!important;font-weight:700!important;font-size:13px!important}
-.nav-cta:hover{;box-shadow:0 0 24px var(--accent-gl)}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{box-shadow:0 0 24px var(--accent-gl)}
 
 /* HERO */
 .hero{padding:52px 0 48px;position:relative;overflow:hidden}
