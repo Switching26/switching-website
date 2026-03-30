@@ -232,9 +232,9 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .form-hdr h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:8px}
 .form-hdr h2 em{font-style:normal;color:var(--accent)}
 .form-hdr .fsub{font-size:15px;color:var(--sub)}
-.form-card{background:#fff;border-radius:var(--r);padding:36px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid var(--bd);position:relative;overflow:hidden}
-.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#7C3AED,var(--accent));background-size:200% 100%;animation:shimBar 4s ease-in-out infinite}
-@keyframes shimBar{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.form-card{background:#fff;border-radius:var(--r);padding:36px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:none;position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;inset:0;border-radius:var(--r);padding:2px;background:linear-gradient(90deg,var(--accent),#7C3AED,#3DC8C9,var(--accent));background-size:300% 100%;animation:borderGlow 5s ease-in-out infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@keyframes borderGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .ct-vis{opacity:1;transform:none}
 .ct-form-wrap{opacity:1;transform:none}
 
