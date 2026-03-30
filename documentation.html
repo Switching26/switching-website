@@ -491,9 +491,25 @@ document.querySelectorAll('.step-opt').forEach(function(b){
 });
 
 function submitForm(){
+  var data={source:'documentation'};
+  var s1=document.querySelector('.step[data-step="1"] .step-opt.selected');
+  var s2=document.querySelector('.step[data-step="2"] .step-opt.selected');
+  var s3=document.querySelector('.step[data-step="3"] .step-opt.selected');
+  data.secteur=s1?s1.textContent.trim():'';
+  data.statut=s2?s2.textContent.trim():'';
+  data.financement=s3?s3.textContent.trim():'';
+  var inputs=document.querySelectorAll('.step[data-step="4"] input');
+  data.prenom=inputs[0]?inputs[0].value:'';
+  data.nom=inputs[1]?inputs[1].value:'';
+  data.email=inputs[2]?inputs[2].value:'';
+  data.tel=inputs[3]?inputs[3].value:'';
+  var sel=document.querySelector('.step[data-step="4"] select');
+  data.indicatif=sel?sel.value:'';
+  var ta=document.querySelector('.step[data-step="5"] textarea');
+  data.message=ta?ta.value:'';
+  fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){});
   document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');
   document.getElementById('fOk').classList.add('on');
-  // Hide progress
   document.querySelector('.progress').style.display='none';
 }
 
