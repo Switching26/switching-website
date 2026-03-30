@@ -97,8 +97,8 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 
 /* FORMATION CARDS */
 .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:1}
-.fc{background:color-mix(in srgb,var(--fc-c,var(--accent)) 8%,#fff);border:none;border-radius:20px;padding:28px 26px 24px;text-decoration:none;color:var(--text);transition:all .4s var(--e);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.fc:hover{background:color-mix(in srgb,var(--fc-c,var(--accent)) 12%,#fff);transform:translateY(-6px) scale(1.01);box-shadow:0 20px 40px color-mix(in srgb,var(--fc-c,var(--accent)) 15%,transparent),0 0 0 1px color-mix(in srgb,var(--fc-c,var(--accent)) 15%,transparent)}
+.fc{background:#fff;border:none;border-radius:16px;padding:24px 22px;text-decoration:none;color:var(--text);transition:all .4s var(--e);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.fc:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,.10),0 0 0 1px color-mix(in srgb,var(--fc-c,var(--accent)) 20%,transparent)}
 .fc h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;padding-right:50px}
 .fc:hover h3{color:color-mix(in srgb,var(--fc-c,var(--accent)) 80%,#0F172A)}
 .fc-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--rf);text-transform:uppercase;letter-spacing:.04em}
@@ -111,9 +111,9 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .fc-link{font-size:12px;font-weight:600;color:var(--fc-c,var(--accent));display:inline-flex;align-items:center;gap:4px;opacity:0;transform:translateY(4px);transition:all .35s var(--e);margin-top:auto;padding-top:6px}
 .fc-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
 .fc:hover .fc-link{opacity:1;transform:translateY(0)}.fc:hover .fc-link svg{transform:translateX(3px)}
-.fc-icon{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--fc-c,var(--accent)) 8%,transparent);display:flex;align-items:center;justify-content:center;transition:all .35s var(--e)}
+.fc-icon{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--fc-c,var(--accent)) 8%,#fff);display:flex;align-items:center;justify-content:center;transition:all .35s var(--e)}
 .fc-icon svg{width:20px;height:20px;fill:none;stroke:var(--fc-c,var(--accent));stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.6;transition:opacity .35s}
-.fc:hover .fc-icon{background:color-mix(in srgb,var(--fc-c,var(--accent)) 15%,transparent);transform:scale(1.08)}
+.fc:hover .fc-icon{background:color-mix(in srgb,var(--fc-c,var(--accent)) 14%,#fff);transform:scale(1.08)}
 .fc:hover .fc-icon svg{opacity:1}
 .domain[data-domain="bdc"] .fc h3{padding-right:0}
 
