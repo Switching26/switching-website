@@ -64,84 +64,121 @@ nav a.active::after{width:16px;height:3px;background:var(--accent);bottom:2px;op
 .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 4px 20px rgba(16,171,175,.3),inset 0 1px 0 rgba(255,255,255,.2)!important;filter:brightness(1.08)!important;background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important}
 
 /* MAIN LAYOUT */
-.doc-page{padding:48px 0 56px;position:relative;min-height:calc(100vh - 200px)}
-.doc-page-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.07),transparent),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.05),transparent),radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);pointer-events:none}
-.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;position:relative;z-index:1}
+.doc-page{padding:56px 0 64px;position:relative;min-height:calc(100vh - 200px)}
+.doc-page-mesh{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 15% 40%,rgba(16,171,175,.10),transparent),
+  radial-gradient(ellipse 40% 60% at 85% 25%,rgba(99,102,241,.07),transparent);
+pointer-events:none}
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1}
 
 /* LEFT - INFO */
-.doc-info{padding-top:12px}
-.doc-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:6px 16px 6px 12px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.02em}
-.doc-tag svg{width:14px;height:14px;fill:var(--accent)}
-.doc-title{font-family:'Poppins',sans-serif;font-size:38px;font-weight:600;line-height:1.1;color:#0F172A;letter-spacing:-.04em;margin-bottom:16px}
+.doc-info{padding-top:16px}
+.doc-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:20px}
+.doc-tag svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.doc-title{font-family:'Poppins',sans-serif;font-size:44px;font-weight:700;line-height:1.08;color:#0F172A;letter-spacing:-.04em;margin-bottom:18px}
 .doc-title .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.doc-sub{font-size:15px;color:var(--sub);line-height:1.7;margin-bottom:28px;max-width:460px}
+.doc-sub{font-size:16px;color:var(--sub);line-height:1.75;margin-bottom:32px;max-width:480px}
 .doc-sub b{color:var(--text);font-weight:600}
 
 /* PERKS */
-.perks{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
-.perk{display:flex;align-items:flex-start;gap:12px}
-.perk-ico{width:36px;height:36px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--bd);transition:all .3s var(--e)}
-.perk-ico svg{width:16px;height:16px}
-.perk-text h4{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#0F172A;margin-bottom:2px}
-.perk-text p{font-size:12px;color:var(--muted);line-height:1.5}
+.perks{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.perk{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:color-mix(in srgb,var(--pk-c,var(--accent)) 3%,#fff);border-radius:16px;transition:all .35s var(--e);box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.perk:hover{background:color-mix(in srgb,var(--pk-c,var(--accent)) 6%,#fff);transform:translateX(4px);box-shadow:0 8px 24px color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent)}
+.perk-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent);border:none;transition:all .35s var(--e)}
+.perk:hover .perk-ico{transform:scale(1.08)}
+.perk-ico svg{width:18px;height:18px}
+.perk-text h4{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#0F172A;margin-bottom:3px}
+.perk-text p{font-size:12.5px;color:var(--muted);line-height:1.5}
 
 /* TRUST STRIP */
-.trust-strip{display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--bd)}
-.trust-strip img{height:32px;object-fit:contain;filter:grayscale(.2);opacity:.7;transition:all .3s}
-.trust-strip img:hover{filter:none;opacity:1}
-.trust-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.trust-strip{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--bd);flex-wrap:wrap}
+.trust-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-right:4px}
+.trust-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:10px;
+  background:var(--surface2);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;
+  color:var(--sub);letter-spacing:.01em;
+  transition:all .3s var(--e);
+  box-shadow:0 1px 3px rgba(0,0,0,.03);
+}
+.trust-badge:hover{
+  background:color-mix(in srgb,var(--tb-c,var(--accent)) 8%,#fff);
+  color:var(--tb-c,var(--accent));
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px color-mix(in srgb,var(--tb-c,var(--accent)) 10%,transparent);
+}
+.trust-badge svg{width:16px;height:16px;flex-shrink:0}
 
 /* RIGHT - FORM */
-.doc-form-wrap{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:32px 28px;box-shadow:0 16px 48px rgba(0,0,0,.06);position:relative;overflow:hidden}
-.doc-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#0E9599,#3DC8C9)}
-.form-header{text-align:center;margin-bottom:24px}
-.form-header h2{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;margin-bottom:4px}
-.form-header p{font-size:13px;color:var(--muted)}
+.doc-form-wrap{
+  background:var(--surface);border:none;
+  border-radius:24px;padding:36px 32px;
+  position:relative;overflow:hidden;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.07),
+    0 0 0 1px rgba(16,171,175,.08),
+    0 0 40px rgba(16,171,175,.06);
+}
+.doc-form-wrap::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:80%;height:120px;
+  background:radial-gradient(ellipse,rgba(16,171,175,.12),transparent 70%);
+  pointer-events:none;
+}
+.form-header{text-align:center;margin-bottom:28px;position:relative}
+.form-header h2{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin-bottom:6px}
+.form-header p{font-size:13.5px;color:var(--muted)}
 
 /* PROGRESS BAR */
-.progress{display:flex;align-items:center;gap:4px;margin-bottom:24px}
-.progress-seg{flex:1;height:4px;border-radius:2px;background:var(--surface2);transition:background .4s var(--e)}
+.progress{display:flex;align-items:center;gap:6px;margin-bottom:28px}
+.progress-seg{flex:1;height:5px;border-radius:3px;background:var(--surface2);transition:background .4s var(--e)}
 .progress-seg.done{background:var(--accent)}
 
 /* STEPS */
 .step{display:none;animation:fadeUp .35s var(--e)}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.step-label{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.step-q{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin-bottom:16px;line-height:1.25}
+.step-label{font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.step-q{font-family:'Poppins',sans-serif;font-size:21px;font-weight:600;color:#0F172A;margin-bottom:18px;line-height:1.25}
 
 /* OPTIONS */
-.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.step-opt{padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:13px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .2s var(--e);background:var(--white);text-align:left;display:flex;align-items:center;gap:8px}
-.step-opt:hover{border-color:var(--accent);color:var(--text);background:var(--accent-gl2)}
-.step-opt.selected{border-color:var(--accent);background:var(--accent-gl);color:var(--accent2);font-weight:600}
-.step-opt .opt-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.step-opt{padding:14px 18px;border:none;border-radius:14px;font-size:13.5px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .25s var(--e);background:var(--surface2);text-align:left;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.step-opt:hover{color:var(--accent);background:rgba(16,171,175,.06);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.step-opt.selected{background:var(--accent-gl);color:var(--accent2);font-weight:600;box-shadow:0 4px 16px var(--accent-gl)}
+.step-opt .opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .25s;display:flex;align-items:center;justify-content:center}
+.step-opt:hover .opt-dot{border-color:var(--accent)}
+.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
 
 /* FORM FIELDS */
-.ff{margin-bottom:8px}
-.ff label{display:block;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.ff select,.ff input,.ff textarea{width:100%;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--text);background:var(--white);transition:all .2s;-webkit-appearance:none;appearance:none}
-.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2371717A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
-.ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
+.ff{margin-bottom:10px}
+.ff label{display:block;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px}
+.ff select,.ff input,.ff textarea{width:100%;padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:14.5px;font-family:var(--f);color:var(--text);background:var(--bg);transition:all .3s;-webkit-appearance:none;appearance:none;outline:none}
+.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:36px;cursor:pointer}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,171,175,.12);background:#fff}
 .ff input::placeholder,.ff textarea::placeholder{color:var(--muted)}
-.ff textarea{resize:vertical;min-height:80px}
-.fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.frp{display:grid;grid-template-columns:110px 1fr;gap:8px}
-.consent{display:flex;align-items:flex-start;gap:8px;margin:14px 0;font-size:12px;color:var(--muted);line-height:1.4}
+.ff textarea{resize:vertical;min-height:90px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.frp{display:grid;grid-template-columns:110px 1fr;gap:10px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin:16px 0;font-size:12px;color:var(--muted);line-height:1.4}
 .consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
 
 /* NAV */
-.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
-.btn-back{background:none;border:none;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--f);transition:color .2s;padding:8px 0}.btn-back:hover{color:var(--text)}
-.btn-next,.btn-send{background:var(--accent);color:#fff;padding:11px 26px;border-radius:var(--rf);border:none;font-size:14px;font-weight:700;font-family:var(--f);cursor:pointer;transition:all .3s var(--e);display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 16px var(--accent-gl)}
-.btn-next:hover,.btn-send:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 0 32px rgba(16,171,175,.2)}
-.btn-next svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--bd)}
+.btn-back{font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;background:none;border:none;color:var(--sub);cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 0;transition:color .3s}
+.btn-back:hover{color:var(--text)}
+.btn-next,.btn-send{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:13px 28px;border-radius:var(--rs);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .3s var(--e);box-shadow:0 4px 16px rgba(16,171,175,.3);position:relative;overflow:hidden}
+.btn-next::before,.btn-send::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.15));opacity:0;transition:opacity .3s}
+.btn-next:hover::before,.btn-send:hover::before{opacity:1}
+.btn-next:hover,.btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,171,175,.4)}
+.btn-next svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.btn-next:hover svg{transform:translateX(3px)}
 
 /* SUCCESS */
-.form-ok{display:none;text-align:center;padding:48px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
+.form-ok{display:none;text-align:center;padding:52px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
 .form-ok svg{margin:0 auto 8px}
-.form-ok h3{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;margin:12px 0 6px}
-.form-ok p{color:var(--muted);font-size:14px;line-height:1.6;max-width:340px;margin:0 auto}
+.form-ok h3{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin:14px 0 8px}
+.form-ok p{color:var(--muted);font-size:14px;line-height:1.6;max-width:360px;margin:0 auto}
 
 /* FOOTER */
 footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
@@ -158,6 +195,11 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
 
+.doc-info{opacity:0;transform:translateX(-30px);animation:sLeft .7s ease .2s forwards}
+.doc-form-wrap{opacity:0;transform:translateX(30px);animation:sRight .7s ease .35s forwards}
+@keyframes sLeft{to{opacity:1;transform:translateX(0)}}
+@keyframes sRight{to{opacity:1;transform:translateX(0)}}
+
 @media(max-width:1024px){
 .doc-grid{grid-template-columns:1fr;gap:32px}
 .doc-info{text-align:center;max-width:600px;margin:0 auto}
@@ -170,10 +212,10 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 .w{padding:0 18px}
 .topbar .w{flex-direction:column;gap:4px;text-align:center}
 .hdr{flex-wrap:wrap;gap:8px;height:auto;padding:12px 0}nav{gap:0;flex-wrap:wrap;justify-content:center}nav a{padding:5px 10px;font-size:13px}
-.doc-page{padding:32px 0 40px}
-.doc-title{font-size:28px}
+.doc-page{padding:36px 0 44px}
+.doc-title{font-size:30px}
 .step-opts,.fr2,.frp{grid-template-columns:1fr}
-.doc-form-wrap{padding:24px 18px}
+.doc-form-wrap{padding:28px 20px;border-radius:20px}
 .ft-grid{grid-template-columns:1fr}
 }
 </style>
@@ -196,37 +238,37 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 <div class="w"><div class="doc-grid">
 
 <!-- LEFT -->
-<div class="doc-info rv">
+<div class="doc-info">
 <div class="doc-tag"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>Gratuit & sans engagement</div>
 <div class="doc-title">Recevez votre<br><span class="glow">documentation</span></div>
 <p class="doc-sub">Remplissez le formulaire et recevez gratuitement le <b>programme détaillé</b> de la formation de votre choix, les <b>modalités de financement</b> et un devis personnalisé.</p>
 
 <div class="perks">
-<div class="perk">
-<div class="perk-ico" style="background:rgba(16,185,129,.06);color:#10B981;border-color:rgba(16,185,129,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+<div class="perk" style="--pk-c:#10B981">
+<div class="perk-ico" style="color:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>
 <div class="perk-text"><h4>Programme complet</h4><p>Objectifs, contenu, durée, certification visée.</p></div>
 </div>
-<div class="perk">
-<div class="perk-ico" style="background:rgba(59,130,246,.06);color:#3B82F6;border-color:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+<div class="perk" style="--pk-c:#3B82F6">
+<div class="perk-ico" style="color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg></div>
 <div class="perk-text"><h4>Options de financement</h4><p>CPF, OPCO, France Travail, cofinancement.</p></div>
 </div>
-<div class="perk">
-<div class="perk-ico" style="background:rgba(245,158,11,.06);color:#F59E0B;border-color:rgba(245,158,11,.15)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+<div class="perk" style="--pk-c:#F59E0B">
+<div class="perk-ico" style="color:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
 <div class="perk-text"><h4>Rappel sous 24h</h4><p>Un conseiller vous contacte pour répondre à vos questions.</p></div>
 </div>
 </div>
 
 <div class="trust-strip">
-<span class="trust-label">Nos partenaires</span>
-<img src="images/france-travail.avif" alt="France Travail">
-<img src="images/cpf-logo.avif" alt="CPF">
-<img src="images/qualiopi.webp" alt="Qualiopi">
-<img src="images/opco.png" alt="OPCO">
+<span class="trust-label">Reconnu par</span>
+<span class="trust-badge" style="--tb-c:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Qualiopi</span>
+<span class="trust-badge" style="--tb-c:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg>CPF</span>
+<span class="trust-badge" style="--tb-c:#6366F1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h4"/><path d="M7 11h6"/></svg>France Travail</span>
+<span class="trust-badge" style="--tb-c:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>OPCO</span>
 </div>
 </div>
 
 <!-- RIGHT - FORM -->
-<div class="doc-form-wrap rv rv1">
+<div class="doc-form-wrap">
 <div class="form-header">
 <h2>Demande de documentation</h2>
 <p>Répondez en quelques clics — c'est gratuit.</p>
@@ -294,15 +336,15 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 <div class="step-label">Étape 4/5</div>
 <div class="step-q">Vos coordonnées</div>
 <div class="fr2">
-<div class="ff"><input placeholder="Prénom" required></div>
-<div class="ff"><input placeholder="Nom" required></div>
+<div class="ff"><label>Prénom</label><input placeholder="Votre prénom" required></div>
+<div class="ff"><label>Nom</label><input placeholder="Votre nom" required></div>
 </div>
-<div class="ff"><input type="email" placeholder="Adresse e-mail" required></div>
+<div class="ff"><label>Adresse e-mail</label><input type="email" placeholder="votre@email.com" required></div>
 <div class="frp">
-<div class="ff"><select><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option><option>UK +44</option></select></div>
-<div class="ff"><input type="tel" placeholder="Téléphone" required></div>
+<div class="ff"><label>Indicatif</label><select><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option><option>UK +44</option></select></div>
+<div class="ff"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00" required></div>
 </div>
-<div class="ff"><input placeholder="Ville (optionnel)"></div>
+<div class="ff"><label>Ville (optionnel)</label><input placeholder="Votre ville"></div>
 <div class="step-nav">
 <button class="btn-back" onclick="goStep(-1)">← Retour</button>
 <button class="btn-next" onclick="goStep(1)">Suivant <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -313,7 +355,7 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 <div class="step" data-step="5">
 <div class="step-label">Étape 5/5</div>
 <div class="step-q">Un message à nous transmettre ?</div>
-<div class="ff"><textarea placeholder="Précisez votre projet, vos disponibilités, la formation souhaitée… (optionnel)"></textarea></div>
+<div class="ff"><label>Message (optionnel)</label><textarea placeholder="Précisez votre projet, vos disponibilités, la formation souhaitée…"></textarea></div>
 <div class="consent"><input type="checkbox" checked><label>J'accepte d'être contacté(e) par Switching Formation pour recevoir ma documentation et un accompagnement personnalisé.</label></div>
 <div class="step-nav">
 <button class="btn-back" onclick="goStep(-1)">← Retour</button>
