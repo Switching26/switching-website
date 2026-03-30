@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Formations — Carte flottante</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFBFC;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--bd:rgba(0,0,0,.06);--rf:100px;--e:cubic-bezier(.16,1,.3,1)}
+body{font-family:'Almarai',sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* TOPBAR + HEADER placeholder */
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:7px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:10px 0}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:40px}
+.nav-pill{display:flex;align-items:center;gap:2px;background:#fff;border:1px solid var(--bd);border-radius:var(--rf);padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.nav-pill a{text-decoration:none;font-size:13.5px;font-weight:500;color:var(--sub);padding:8px 18px;border-radius:var(--rf);transition:all .25s;white-space:nowrap}
+.nav-pill a:hover{color:var(--text);background:rgba(16,171,175,.05)}
+.nav-pill a.active{color:#fff;background:var(--accent);font-weight:600;box-shadow:0 2px 8px rgba(16,171,175,.25)}
+.nav-cta{background:#0F172A;color:#fff!important;padding:10px 24px;border-radius:var(--rf);font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+
+/* ==================== HERO — Floating card with image ==================== */
+.page-hero{padding:28px 0 0;position:relative}
+.hero-card{
+  position:relative;border-radius:24px;overflow:hidden;
+  min-height:380px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background-image:url('https://static.wixstatic.com/media/5627a4_1991e18c584d42dda3e85bdb8851a70a~mv2.png/v1/crop/x_0,y_374,w_5760,h_2132/fill/w_2410,h_854,al_c,q_95,usm_0.66_1.00_0.01,enc_avif,quality_auto/Design%20sans%20titre%20(26).png');
+  background-size:cover;background-position:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.12);
+}
+.hero-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(15,23,42,.7) 0%,rgba(15,23,42,.4) 40%,rgba(15,23,42,.15) 70%,transparent 100%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;z-index:2;
+  padding:40px 44px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:#fff;margin-bottom:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-tag svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hero-card h1{font-family:'Poppins',sans-serif;font-size:42px;font-weight:700;line-height:1.1;color:#fff;letter-spacing:-.04em;margin-bottom:12px}
+.hero-card h1 .glow{color:#3DC8C9}
+.hero-card .hero-desc{font-size:15px;line-height:1.7;color:rgba(255,255,255,.8);max-width:600px;margin-bottom:24px}
+
+/* FILTER PILLS inside hero */
+.hero-filters{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+}
+.hero-filters a{
+  text-decoration:none;
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;
+  padding:8px 20px;border-radius:var(--rf);
+  color:rgba(255,255,255,.8);
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:all .25s var(--e);
+}
+.hero-filters a:hover{
+  background:rgba(255,255,255,.2);
+  color:#fff;
+  border-color:rgba(255,255,255,.3);
+}
+.hero-filters a.active{
+  background:#fff;
+  color:#0F172A;
+  border-color:#fff;
+  font-weight:600;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+
+/* ==================== CONTENT BELOW ==================== */
+.domain-section{padding:36px 0}
+.domain-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.domain-ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.domain-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.domain-head h2{font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;color:#0F172A}
+.domain-count{font-size:13px;color:var(--muted)}
+
+.fc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fc{
+  background:color-mix(in srgb,var(--fc-c,var(--accent)) 8%,#fff);
+  border:none;border-radius:16px;padding:24px 22px;
+  display:flex;flex-direction:column;gap:8px;position:relative;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+  transition:all .35s var(--e);
+}
+.fc:hover{
+  background:color-mix(in srgb,var(--fc-c,var(--accent)) 12%,#fff);
+  transform:translateY(-5px);
+  box-shadow:0 12px 32px rgba(0,0,0,.12),0 0 0 1px color-mix(in srgb,var(--fc-c,var(--accent)) 15%,transparent);
+}
+.fc-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;position:absolute;top:24px;right:22px}
+.fc-ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.fc h3{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;padding-right:44px}
+.fc p{font-size:13px;color:var(--muted);line-height:1.55}
+.cpf-badge{display:inline-flex;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:#FFF8E0;color:#B8860B;border:1px solid #FDCC00;margin-left:8px;vertical-align:middle}
+
+@media(max-width:768px){.w{padding:0 18px}.hero-card{min-height:320px}.hero-card h1{font-size:28px}.hero-inner{padding:28px 20px}.fc-grid{grid-template-columns:1fr}.hero-filters a{font-size:12px;padding:6px 14px}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="#">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header><div class="w"><div class="hdr">
+<a href="#" class="logo"><img src="https://switching-website-production.up.railway.app/images/logo-switching.png" alt="Switching Formation"></a>
+<div class="nav-pill"><a href="#">Accueil</a><a href="#" class="active">Formations</a><a href="#">Le centre</a><a href="#">Financement</a><a href="#">Devis</a></div>
+<a href="#" class="nav-cta">Documentation</a>
+</div></div></header>
+
+<!-- HERO -->
+<section class="page-hero">
+<div class="w">
+<div class="hero-card">
+<div class="hero-inner">
+  <div class="hero-tag"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg>Catalogue complet</div>
+  <h1>Toutes nos <span class="glow">formations</span></h1>
+  <p class="hero-desc">Formations individuelles, en présentiel ou en visioconférence. Certifiées et finançables CPF, OPCO, France Travail.</p>
+  <div class="hero-filters">
+    <a href="#" class="active">Toutes</a>
+    <a href="#">Langues</a>
+    <a href="#">Bureautique</a>
+    <a href="#">Graphisme</a>
+    <a href="#">Web & Digital</a>
+    <a href="#">Compta & Paie</a>
+    <a href="#">IA</a>
+    <a href="#">Bilan</a>
+  </div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DOMAIN — Bureautique -->
+<section class="domain-section">
+<div class="w">
+<div class="domain-head">
+<div class="domain-ico" style="background:rgba(40,167,69,.08);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>
+<div><h2>Bureautique</h2><div class="domain-count">11 formations</div></div>
+</div>
+<div class="fc-grid" style="--fc-c:#28A745">
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>Bases Informatiques</h3><p>Maîtrisez les fondamentaux. Environnement Windows, gestion de fichiers, navigation internet.</p></div>
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>Excel Complet <span class="cpf-badge">CPF</span></h3><p>Du débutant à l'expert. Formules, tableaux croisés dynamiques. Certification ENI.</p></div>
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>Excel VBA Complet</h3><p>Automatisez vos tâches Excel avec les macros et le langage VBA.</p></div>
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>Word Complet</h3><p>Mise en page, styles, publipostage, documents longs.</p></div>
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>PowerPoint Complet</h3><p>Présentations percutantes. Animations, masques, graphiques.</p></div>
+<div class="fc"><div class="fc-ico" style="background:rgba(40,167,69,.10);color:#28A745"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><h3>Outlook Complet</h3><p>Messagerie, calendrier, tâches, contacts.</p></div>
+</div>
+</div>
+</section>
+
+</body>
+</html>
