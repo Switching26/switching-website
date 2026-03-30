@@ -12,7 +12,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);--r:16px;--rs:12px;--rf:100px;--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1)}
 html{scroll-behavior:smooth}
-body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}img{max-width:100%;height:auto}
 ::selection{background:var(--accent);color:var(--bg)}
 .w{max-width:1200px;margin:0 auto;padding:0 32px}
 body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
@@ -28,8 +28,28 @@ header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.6);backdro
 .legal strong{color:var(--text);font-weight:600}
 .legal a{color:var(--accent);text-decoration:none;font-weight:500}.legal a:hover{text-decoration:underline}
 footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}.ft-brand p{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:36px}.ft-col h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}.ft-col a{display:block;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}.ft-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.copy{font-size:13px;color:var(--muted)}.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:12px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
-@media(max-width:1024px){.nav-pill{gap:0}.nav-pill a{padding:7px 12px;font-size:12.5px}.nav-cta{padding:8px 18px;font-size:12px}}
+/* HAMBURGER */
+.menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;border-radius:10px;background:transparent;border:none;cursor:pointer;z-index:1001;position:relative}
+.menu-toggle span{display:block;width:20px;height:2px;background:#1E293B;border-radius:2px;transition:all .3s}
+body.menu-open .menu-toggle span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+body.menu-open .menu-toggle span:nth-child(2){opacity:0}
+body.menu-open .menu-toggle span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{position:fixed;top:0;right:0;width:320px;max-width:85vw;height:100vh;background:#fff;z-index:999;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);box-shadow:-8px 0 40px rgba(0,0,0,.12);padding:80px 28px 28px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+body.menu-open .mobile-menu{transform:translateX(0)}
+.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s}
+body.menu-open .menu-overlay{opacity:1;pointer-events:auto}
+.mob-link{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:12px;font-size:15px;font-weight:500;color:#64748B;text-decoration:none;transition:all .2s}
+.mob-link:hover{background:rgba(16,171,175,.04);color:#1E293B}
+.mob-link.active{background:rgba(16,171,175,.08);color:#10ABAF;font-weight:600}
+.mob-sub{padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.mob-sub a{display:block;padding:8px 16px;border-radius:10px;font-size:13.5px;color:#94A3B8;text-decoration:none;transition:all .2s}
+.mob-sub a:hover{color:#10ABAF;background:rgba(16,171,175,.04)}
+.mob-cta{background:#0F172A;color:#fff;padding:14px;border-radius:100px;text-align:center;font-weight:600;font-size:14px;text-decoration:none;margin-top:auto;transition:all .3s}
+.mob-cta:hover{background:#1E293B}
+@media(max-width:1024px){.nav-pill,.nav-cta{display:none}.menu-toggle{display:flex}}
+@media(min-width:1025px){.menu-toggle,.mobile-menu,.menu-overlay{display:none!important}}
 @media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}.legal h1{font-size:28px}.legal{padding:32px 18px 48px}.ft-grid{grid-template-columns:1fr}}
+@media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}}
 </style>
 </head>
 <body>
@@ -44,7 +64,26 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft
 <a href="inscription.html">Devis</a>
 </div>
 <a href="documentation.html" class="nav-cta">Documentation</a>
+<button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></div></header>
+<div class="menu-overlay"></div>
+<div class="mobile-menu">
+<a href="index.html" class="mob-link">Accueil</a>
+<a href="formations.html" class="mob-link">Formations</a>
+<div class="mob-sub">
+<a href="formations.html?cat=langues">Langues</a>
+<a href="formations.html?cat=bureautique">Bureautique</a>
+<a href="formations.html?cat=graphisme">Graphisme</a>
+<a href="formations.html?cat=web">Web & Digital</a>
+<a href="formations.html?cat=compta">Compta & Paie</a>
+<a href="formations.html?cat=ia">IA</a>
+<a href="formations.html?cat=bdc">Bilan</a>
+</div>
+<a href="le-centre.html" class="mob-link">Le centre</a>
+<a href="financement.html" class="mob-link">Financement</a>
+<a href="inscription.html" class="mob-link">Devis</a>
+<a href="documentation.html" class="mob-cta">Documentation</a>
+</div>
 
 <div class="w"><div class="legal">
 <div class="legal-tag">Document légal</div>
@@ -86,6 +125,7 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft
 </div></div>
 
 <footer><div class="w"><div class="ft-grid"><div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div><div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis</a></div><div class="ft-col"><h4>Formations</h4><a href="formations.html?cat=langues">Langues</a><a href="formations.html?cat=bureautique">Bureautique</a><a href="formations.html?cat=graphisme">Graphisme</a><a href="formations.html?cat=ia">IA</a></div><div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div></div><div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a><span class="d">•</span><a href="donnees.html#qualiopi">Qualiopi</a></div></div></div></footer>
-<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)})</script>
+<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
+var mt=document.querySelector('.menu-toggle'),mo=document.querySelector('.menu-overlay');function toggleMenu(){document.body.classList.toggle('menu-open')}if(mt)mt.addEventListener('click',toggleMenu);if(mo)mo.addEventListener('click',toggleMenu);</script>
 </body>
 </html>
