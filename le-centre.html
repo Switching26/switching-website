@@ -190,13 +190,13 @@ h1 .glow{background:linear-gradient(135deg,#3DC8C9,#10ABAF,#7DD8D9);-webkit-back
 
 /* ==================== CTA ==================== */
 .cta-section{padding:36px 0 48px}
-.cta-box{background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:24px;padding:48px;text-align:center;position:relative;overflow:hidden}
-.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 30% 20%,rgba(16,171,175,.15),transparent),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(99,102,241,.1),transparent);pointer-events:none}
-.cta-box h2{font-family:'Poppins',sans-serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:10px;position:relative;z-index:1}
-.cta-box p{color:var(--muted);font-size:15px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-box{background:linear-gradient(135deg,rgba(16,171,175,.06),rgba(16,171,175,.03));border:1px solid rgba(16,171,175,.12);border-radius:24px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-40%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(16,171,175,.08),transparent);pointer-events:none}
+.cta-box h2{font-family:'Poppins',sans-serif;font-size:30px;font-weight:700;color:#0F172A;margin-bottom:10px;position:relative;z-index:1}
+.cta-box p{color:#64748B;font-size:15px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
 .cta-btns{display:flex;gap:12px;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
-.btn-ghost-w{background:transparent;color:#fff;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid rgba(255,255,255,.15)}
-.btn-ghost-w:hover{border-color:var(--accent);background:rgba(16,171,175,.1)}
+.btn-ghost-w{background:transparent;color:#0F172A;padding:13px 28px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid rgba(0,0,0,.1)}
+.btn-ghost-w:hover{border-color:var(--accent);color:var(--accent)}
 .btn-ghost-w svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .btn-ghost-w:hover svg{transform:translateX(3px)}
 
