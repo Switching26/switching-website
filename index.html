@@ -107,18 +107,19 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* CERTS */
-.certs{padding:52px 0;background:#fff;position:relative}
+.certs{padding:28px 0 32px;background:#fff;position:relative}
 .certs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
 .certs::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(16,171,175,.25),transparent)}
+.certs .sec-head{margin-bottom:24px}
 .cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.cc{background:var(--surface);border:1px solid var(--bd);border-radius:20px;padding:32px 20px 28px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden}
+.cc{background:var(--surface);border:none;border-radius:20px;padding:24px 16px 12px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .cc::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--e)}
-.cc:hover{border-color:var(--accent);box-shadow:0 0 24px var(--accent-gl),0 8px 28px rgba(0,0,0,.06);transform:translateY(-4px)}
+.cc:hover{box-shadow:0 8px 32px rgba(0,0,0,.08),0 0 24px var(--accent-gl);transform:translateY(-4px)}
 .cc:hover::after{transform:scaleX(1)}
-.cc-logo{height:64px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-.cc-logo img{max-height:56px;max-width:140px;object-fit:contain;transition:transform .4s var(--e)}
+.cc-logo{height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:0}
+.cc-logo img{max-height:72px;max-width:180px;object-fit:contain;transition:transform .4s var(--e)}
 .cc:hover .cc-logo img{transform:scale(1.05)}
-.cc p{font-size:13px;color:var(--muted);line-height:1.5}
+.cc-label{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
 
 /* FORMATIONS */
 .forms{background:#F1F4F8;padding:80px 0 100px;position:relative;overflow:hidden}
@@ -301,10 +302,10 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <section class="certs" id="certs"><div class="w">
 <div class="sec-head rv"><div class="sec-tag">Certifications</div><div class="sec-h2">Notre expertise de la<br><span class="glow">formation professionnelle</span></div></div>
 <div class="cg">
-<div class="cc rv"><div class="cc-logo"><img src="images/qualiopi.webp" alt="Qualiopi"></div><p>Certifié Qualiopi, gage de qualité.</p></div>
-<div class="cc rv rv1"><div class="cc-logo"><img src="images/vtest.png" alt="VTest"></div><p>VTest Business English – 4 skills.</p></div>
-<div class="cc rv rv2"><div class="cc-logo"><img src="images/cpf-mcf.png" alt="CPF"></div><p>Référencé Mon Compte Formation.</p></div>
-<div class="cc rv rv3"><div class="cc-logo"><img src="images/france-travail.avif" alt="France Travail"></div><p>Reconnu par France Travail (AIF).</p></div>
+<div class="rv"><div class="cc"><div class="cc-logo"><img src="images/qualiopi.webp" alt="Qualiopi"></div></div><p class="cc-label">Certifié Qualiopi, gage de qualité.</p></div>
+<div class="rv rv1"><div class="cc"><div class="cc-logo"><img src="images/vtest.png" alt="VTest"></div></div><p class="cc-label">VTest Business English – 4 skills.</p></div>
+<div class="rv rv2"><div class="cc"><div class="cc-logo"><img src="images/cpf-mcf.png" alt="CPF"></div></div><p class="cc-label">Référencé Mon Compte Formation.</p></div>
+<div class="rv rv3"><div class="cc"><div class="cc-logo"><img src="images/france-travail.avif" alt="France Travail"></div></div><p class="cc-label">Reconnu par France Travail (AIF).</p></div>
 </div></div></section>
 
 <section class="forms" id="formations"><div class="f-inner">
