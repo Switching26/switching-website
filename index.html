@@ -103,19 +103,18 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* CERTS */
-.certs{padding:28px 0 32px;background:#fff;position:relative}
+.certs{padding:20px 0 28px;background:#fff;position:relative}
 .certs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
 .certs::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(16,171,175,.25),transparent)}
-.certs .sec-head{margin-bottom:24px}
-.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.cc{background:var(--surface);border:none;border-radius:20px;padding:24px 16px 12px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04)}
-.cc::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--e)}
-.cc:hover{box-shadow:0 8px 32px rgba(0,0,0,.08),0 0 24px var(--accent-gl);transform:translateY(-4px)}
-.cc:hover::after{transform:scaleX(1)}
-.cc-logo{height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:0}
-.cc-logo img{max-height:72px;max-width:180px;object-fit:contain;transition:transform .4s var(--e)}
+.certs .sec-head{margin-bottom:18px}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.cg>div{display:flex;flex-direction:column;align-items:center}
+.cc{background:var(--surface);border:none;border-radius:20px;padding:20px 16px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03);width:100%}
+.cc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1),0 0 24px var(--accent-gl);transform:translateY(-4px)}
+.cc-logo{height:72px;display:flex;align-items:center;justify-content:center}
+.cc-logo img{max-height:64px;max-width:160px;object-fit:contain;transition:transform .4s var(--e)}
 .cc:hover .cc-logo img{transform:scale(1.05)}
-.cc-label{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+.cc-label{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px;text-align:center}
 
 /* FORMATIONS */
 .forms{background:#F1F4F8;padding:80px 0 100px;position:relative;overflow:hidden}
