@@ -11,18 +11,38 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
 // ─── SMTP / EMAIL SETUP ───
-const smtpTransport = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
-
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
+const SMTP_PORT = parseInt(process.env.SMTP_PORT) || 587;
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'contact@switchingformation.com';
-const FROM_EMAIL = process.env.SMTP_USER || 'contact@switchingformation.com';
+const FROM_EMAIL = SMTP_USER || 'contact@switchingformation.com';
+
+// Log SMTP config at startup
+console.log('=== SMTP CONFIG ===');
+console.log('SMTP_HOST:', SMTP_HOST);
+console.log('SMTP_PORT:', SMTP_PORT);
+console.log('SMTP_USER:', SMTP_USER ? SMTP_USER : '❌ NOT SET');
+console.log('SMTP_PASS:', SMTP_PASS ? '✓ SET (' + SMTP_PASS.length + ' chars)' : '❌ NOT SET');
+console.log('NOTIFY_EMAIL:', NOTIFY_EMAIL);
+console.log('===================');
+
+let smtpTransport = null;
+if (SMTP_USER && SMTP_PASS) {
+  smtpTransport = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    secure: SMTP_PORT === 465,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    tls: { rejectUnauthorized: false }
+  });
+  // Verify connection at startup
+  smtpTransport.verify()
+    .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
+    .catch(err => console.error('✗ SMTP connection FAILED:', err.message));
+} else {
+  console.log('⚠ SMTP not configured — emails will NOT be sent');
+}
 
 function formatDateFR() {
   const now = new Date();
@@ -74,35 +94,40 @@ function buildAdminEmail(data, dateFR, pageLabel) {
 }
 
 async function sendEmails(data) {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!smtpTransport) {
     console.log('SMTP not configured — skipping emails');
     return;
   }
+  console.log('📧 Sending emails for submission:', data.prenom, data.nom, '| source:', data.source);
   const dateFR = formatDateFR();
   const pageLabel = getPageLabel(data.source);
   const promises = [];
 
   // 1) Email to prospect (only if they provided an email)
   if (data.email) {
+    console.log('  → Prospect email to:', data.email);
     promises.push(
       smtpTransport.sendMail({
         from: '"Switching Formation" <' + FROM_EMAIL + '>',
         to: data.email,
         subject: 'Switching Formation — Votre demande a bien été reçue',
         html: buildProspectEmail(data)
-      }).catch(err => console.error('Prospect email error:', err.message))
+      }).then(info => console.log('  ✓ Prospect email sent:', info.messageId))
+       .catch(err => console.error('  ✗ Prospect email FAILED:', err.message, err.code, err.response))
     );
   }
 
   // 2) Email to admin
   const adminSubject = '🎯 Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
+  console.log('  → Admin email to:', NOTIFY_EMAIL);
   promises.push(
     smtpTransport.sendMail({
       from: '"Switching Formation" <' + FROM_EMAIL + '>',
       to: NOTIFY_EMAIL,
       subject: adminSubject,
       html: buildAdminEmail(data, dateFR, pageLabel)
-    }).catch(err => console.error('Admin email error:', err.message))
+    }).then(info => console.log('  ✓ Admin email sent:', info.messageId))
+     .catch(err => console.error('  ✗ Admin email FAILED:', err.message, err.code, err.response))
   );
 
   await Promise.all(promises);
@@ -403,6 +428,25 @@ app.get('/api/export', (req, res) => {
   res.setHeader('Content-Type', 'text/csv; charset=utf-8');
   res.setHeader('Content-Disposition', 'attachment; filename=switching-demandes.csv');
   res.send(csv);
+});
+
+// ─── EMAIL TEST ENDPOINT (admin only) ───
+app.get('/api/test-email', requireAdmin, async (req, res) => {
+  if (!smtpTransport) {
+    return res.json({ ok: false, error: 'SMTP not configured', smtp_user: SMTP_USER ? 'set' : 'missing', smtp_pass: SMTP_PASS ? 'set' : 'missing' });
+  }
+  try {
+    await smtpTransport.verify();
+    const info = await smtpTransport.sendMail({
+      from: '"Switching Formation" <' + FROM_EMAIL + '>',
+      to: NOTIFY_EMAIL,
+      subject: '✅ Test email — Switching Formation',
+      html: '<h2>Test réussi</h2><p>Les emails fonctionnent correctement.</p><p>Envoyé le ' + formatDateFR() + '</p>'
+    });
+    res.json({ ok: true, messageId: info.messageId, to: NOTIFY_EMAIL, from: FROM_EMAIL });
+  } catch (err) {
+    res.json({ ok: false, error: err.message, code: err.code, response: err.response });
+  }
 });
 
 // Fallback
