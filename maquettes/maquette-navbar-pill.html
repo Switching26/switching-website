@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navbar A — Floating Pill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#fff;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+body{font-family:var(--f);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* ==================== TOPBAR ==================== */
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:7px 0;font-size:13px;color:var(--muted)}
+.topbar .w{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+
+/* ==================== HEADER ==================== */
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.6);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);transition:all .5s var(--e);padding:10px 0}
+header.scrolled{background:rgba(250,251,252,.85);padding:6px 0;box-shadow:0 4px 24px rgba(0,0,0,.04)}
+
+.hdr{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px;transition:height .4s var(--e)}
+header.scrolled .hdr{height:50px}
+
+/* Logo */
+.logo{text-decoration:none;display:flex;align-items:center;transition:transform .3s var(--e);flex-shrink:0}
+.logo:hover{transform:scale(1.03)}
+.logo img{height:40px;transition:height .4s var(--e)}
+header.scrolled .logo img{height:34px}
+
+/* ==================== PILL NAV ==================== */
+.nav-pill{
+  display:flex;align-items:center;gap:2px;
+  background:var(--surface);
+  border:1px solid var(--bd);
+  border-radius:var(--rf);
+  padding:4px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+  transition:all .4s var(--e);
+}
+header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+
+.nav-pill a{
+  text-decoration:none;
+  font-size:13.5px;font-weight:500;
+  color:var(--sub);
+  padding:8px 18px;
+  border-radius:var(--rf);
+  transition:all .25s var(--e);
+  position:relative;
+  white-space:nowrap;
+}
+.nav-pill a:hover{color:var(--text);background:rgba(16,171,175,.05)}
+.nav-pill a.active{
+  color:#fff;
+  background:var(--accent);
+  font-weight:600;
+  box-shadow:0 2px 8px rgba(16,171,175,.25);
+}
+
+/* Dropdown trigger */
+.nav-drop{position:relative}
+.nav-drop>a{display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.nav-drop>a .dd-arrow{
+  width:10px;height:10px;
+  fill:none;stroke:currentColor;stroke-width:2.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .3s var(--e);
+}
+.nav-drop:hover>a .dd-arrow{transform:rotate(180deg)}
+.nav-drop:hover>a{color:var(--text);background:rgba(16,171,175,.05)}
+
+/* Dropdown panel */
+.nav-dd{
+  position:absolute;top:calc(100% + 10px);left:50%;
+  transform:translateX(-50%) translateY(4px);
+  min-width:260px;
+  background:var(--surface);
+  border:1px solid var(--bd2);
+  border-radius:16px;
+  padding:12px 8px 8px;
+  box-shadow:0 16px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.02);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:all .25s var(--e);z-index:200;
+}
+.nav-dd::before{content:'';position:absolute;top:-14px;left:0;right:0;height:18px}
+.nav-drop:hover .nav-dd{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+
+.nav-dd a{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:var(--rs);
+  font-size:13px;color:var(--sub);font-weight:500;
+  transition:all .2s var(--e);
+  background:transparent;
+  box-shadow:none;
+}
+.nav-dd a:hover{background:rgba(16,171,175,.04);color:var(--accent)}
+
+.dd-ico{
+  width:32px;height:32px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .25s var(--e);border:none;
+}
+.dd-ico svg{width:16px;height:16px}
+.nav-dd a:hover .dd-ico{transform:scale(1.08)}
+
+/* ==================== CTA BUTTON ==================== */
+.nav-cta{
+  background:#0F172A;color:#fff!important;
+  padding:10px 24px;border-radius:var(--rf);
+  font-weight:600;font-size:13px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:all .3s var(--e);
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+  flex-shrink:0;
+  white-space:nowrap;
+}
+.nav-cta:hover{
+  background:#1E293B;
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:1024px){
+  .nav-pill{gap:0}
+  .nav-pill a{padding:7px 12px;font-size:12.5px}
+  .nav-cta{padding:8px 18px;font-size:12px}
+}
+@media(max-width:768px){
+  .hdr{padding:0 18px;flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}
+  .nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}
+  .nav-pill a{padding:6px 12px;font-size:12px}
+  .nav-cta{width:100%;justify-content:center;margin-top:4px}
+  .topbar .w{flex-direction:column;gap:4px;text-align:center}
+}
+
+/* ==================== DEMO CONTENT ==================== */
+.demo{max-width:1200px;margin:0 auto;padding:60px 32px}
+.demo h1{font-family:'Poppins',sans-serif;font-size:42px;font-weight:700;color:#0F172A;margin-bottom:16px}
+.demo h1 em{font-style:normal;color:var(--accent)}
+.demo p{font-size:16px;color:var(--sub);max-width:560px;line-height:1.7;margin-bottom:40px}
+.demo-scroll{height:1200px;background:linear-gradient(180deg,transparent,rgba(16,171,175,.02));border-radius:20px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="#">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<!-- HEADER -->
+<header id="hd">
+<div class="hdr">
+  <a href="index.html" class="logo"><img src="images/logo-switching.png" alt="Switching Formation"></a>
+
+  <div class="nav-pill">
+    <a href="index.html" class="active">Accueil</a>
+    <div class="nav-drop">
+      <a href="formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+      <div class="nav-dd">
+        <a href="formations.html?cat=langues"><div class="dd-ico" style="background:rgba(59,130,246,.08);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/></svg></div>Langues</a>
+        <a href="formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(16,185,129,.08);color:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 8h16"/><path d="M8 4v4"/></svg></div>Bureautique</a>
+        <a href="formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(245,158,11,.08);color:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
+        <a href="formations.html?cat=web"><div class="dd-ico" style="background:rgba(168,85,247,.08);color:#A855F7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/></svg></div>Web & Digital</a>
+        <a href="formations.html?cat=compta"><div class="dd-ico" style="background:rgba(251,146,60,.08);color:#FB923C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg></div>Compta & Paie</a>
+        <a href="formations.html?cat=ia"><div class="dd-ico" style="background:rgba(99,102,241,.08);color:#6366F1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1"/><circle cx="12" cy="14" r="3"/></svg></div>Intelligence Artificielle</a>
+        <a href="formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(244,63,94,.08);color:#F43F5E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Bilan de compétences</a>
+      </div>
+    </div>
+    <a href="le-centre.html">Le centre</a>
+    <a href="financement.html">Financement</a>
+    <a href="inscription.html">Devis</a>
+  </div>
+
+  <a href="documentation.html" class="nav-cta">Documentation</a>
+</div>
+</header>
+
+<!-- Demo content to test scroll -->
+<div class="demo">
+  <h1>Ensemble, faisons grandir <em>vos compétences</em></h1>
+  <p>Scrolle pour voir le comportement sticky — la navbar se compacte légèrement et l'ombre s'intensifie.</p>
+  <div class="demo-scroll">↓ Scroll pour tester le comportement sticky</div>
+</div>
+
+<script>
+var hd=document.getElementById('hd');
+window.addEventListener('scroll',function(){
+  hd.classList.toggle('scrolled',window.scrollY>40);
+});
+</script>
+</body>
+</html>
