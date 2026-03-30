@@ -123,7 +123,7 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .forms .sec-head{margin-bottom:28px}
 .fg{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:18px}
 .fg3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;margin:0 auto}
-.fc{background:#fff;border:none;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:all .35s var(--e);display:flex;flex-direction:column;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.fc{background:#fff;border:none;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .35s var(--e),box-shadow .35s var(--e);display:flex;flex-direction:column;box-shadow:0 1px 4px rgba(0,0,0,.03);will-change:transform}
 .fc:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.10)}
 .fc-visual{height:110px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .fc-visual .blob{position:absolute;border-radius:50%;filter:blur(25px);opacity:.45;transition:transform .5s var(--e),opacity .5s}
@@ -337,23 +337,23 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <p class="hero-p">Expert de la formation professionnelle, nous sommes <b>certifiés Qualiopi, gage de qualité et de confiance</b>.</p>
 <p class="hero-p">Référencé et reconnu par les principaux organismes financeurs (CPF, France Travail, OPCO…). Formation <b>accessible à tous</b>.</p>
 <div class="hero-fin">
-<img src="images/banniere-financement.png" alt="Financement : France Travail, CPF, OPCO" style="height:50px;border-radius:8px">
+<img src="images/banniere-financement.webp" alt="Financement : France Travail, CPF, OPCO" style="height:50px;border-radius:8px">
 </div>
 <div class="hero-btns"><a href="formations.html" class="btn-glow">Nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a href="inscription.html" class="btn-ghost">Devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
 </div>
 <div class="hero-imgs rv rv1">
-<img src="images/stagiaire.png" alt="Stagiaire">
-<video src="images/video-accueil.mp4" autoplay loop muted playsinline></video>
+<img src="images/stagiaire.webp" alt="Stagiaire">
+<video src="images/video-accueil.mp4" preload="auto" autoplay loop muted playsinline></video>
 </div>
 </div></div></section>
 
 <section class="certs" id="certs"><div class="w">
 <div class="sec-head rv"><div class="sec-tag">Certifications</div><div class="sec-h2">Notre expertise de la<br><span class="glow">formation professionnelle</span></div></div>
 <div class="cg">
-<div class="rv"><div class="cc"><div class="cc-logo"><img src="images/qualiopi.webp" alt="Qualiopi"></div></div><p class="cc-label">Certifié Qualiopi, gage de qualité.</p></div>
-<div class="rv rv1"><div class="cc"><div class="cc-logo"><img src="images/vtest.png" alt="VTest"></div></div><p class="cc-label">VTest Business English – 4 skills.</p></div>
-<div class="rv rv2"><div class="cc"><div class="cc-logo"><img src="images/cpf-mcf.png" alt="CPF"></div></div><p class="cc-label">Référencé Mon Compte Formation.</p></div>
-<div class="rv rv3"><div class="cc"><div class="cc-logo"><img src="images/france-travail.avif" alt="France Travail"></div></div><p class="cc-label">Reconnu par France Travail (AIF).</p></div>
+<div class="rv"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/qualiopi.webp" alt="Qualiopi"></div></div><p class="cc-label">Certifié Qualiopi, gage de qualité.</p></div>
+<div class="rv rv1"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/vtest.png" alt="VTest"></div></div><p class="cc-label">VTest Business English – 4 skills.</p></div>
+<div class="rv rv2"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/cpf-mcf.png" alt="CPF"></div></div><p class="cc-label">Référencé Mon Compte Formation.</p></div>
+<div class="rv rv3"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/france-travail.avif" alt="France Travail"></div></div><p class="cc-label">Reconnu par France Travail (AIF).</p></div>
 </div></div></section>
 
 <section class="forms" id="formations"><div class="w">
@@ -462,7 +462,7 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <div class="ct-vis">
 <div class="deco-1"></div>
 <div class="deco-2"></div>
-<div class="photo-frame"><img src="images/formulaire-personne.png" alt="Contact"></div>
+<div class="photo-frame"><img loading="lazy" src="images/formulaire-personne.webp" alt="Contact"></div>
 <div class="trust-badge"><div class="tb-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="tb-txt">Certifié Qualiopi<span>Organisme de formation</span></div></div>
 </div>
 <div class="ct-form-wrap">
