@@ -33,15 +33,19 @@ console.log('===================');
 
 let smtpTransport = null;
 if (SMTP_USER && SMTP_PASS) {
+  // Use port 465 (SSL) by default — port 587 is often blocked on Railway
+  const usePort = SMTP_PORT === 587 ? 465 : SMTP_PORT;
+  console.log('Using SMTP port:', usePort, '(secure: true)');
   smtpTransport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: SMTP_PORT,
-    secure: SMTP_PORT === 465,
+    port: usePort,
+    secure: true,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
-    tls: { rejectUnauthorized: false }
+    tls: { rejectUnauthorized: false },
+    family: 4,
+    connectionTimeout: 15000,
+    greetingTimeout: 15000
   });
-  // Force IPv4 — Railway IPv6 cannot reach Gmail
-  smtpTransport.transporter.options.family = 4;
   // Verify connection at startup
   smtpTransport.verify()
     .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
