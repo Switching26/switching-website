@@ -10,7 +10,24 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
 // Database setup — use volume mount if available, fallback to local
-const DB_DIR = process.env.DB_PATH || path.join(__dirname, 'data');
+// Database path: check env, then common Railway volume mounts, then local
+function findDBDir() {
+  if (process.env.DB_PATH) return process.env.DB_PATH;
+  // Try common Railway volume mount paths
+  const candidates = ['/data', '/app/data', '/var/data'];
+  for (const dir of candidates) {
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+      fs.accessSync(dir, fs.constants.W_OK);
+      console.log('Using database directory:', dir);
+      return dir;
+    } catch(e) {}
+  }
+  // Fallback to local (will be wiped on redeploy)
+  console.log('WARNING: No persistent volume found, using local ./data (data will be lost on redeploy)');
+  return path.join(__dirname, 'data');
+}
+const DB_DIR = findDBDir();
 fs.mkdirSync(DB_DIR, { recursive: true });
 const DB_FILE = path.join(DB_DIR, 'submissions.db');
 
