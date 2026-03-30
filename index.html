@@ -194,10 +194,8 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .form-card{background:#fff;border-radius:var(--r);padding:36px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid var(--bd);position:relative;overflow:hidden}
 .form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#7C3AED,var(--accent));background-size:200% 100%;animation:shimBar 4s ease-in-out infinite}
 @keyframes shimBar{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.ct-vis{opacity:0;transform:translateX(-30px);animation:sLeft .7s ease .2s forwards}
-.ct-form-wrap{opacity:0;transform:translateX(30px);animation:sRight .7s ease .4s forwards}
-@keyframes sLeft{to{opacity:1;transform:translateX(0)}}
-@keyframes sRight{to{opacity:1;transform:translateX(0)}}
+.ct-vis{opacity:1;transform:none}
+.ct-form-wrap{opacity:1;transform:none}
 
 .step{display:none;animation:fadeUp .3s var(--e)}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
