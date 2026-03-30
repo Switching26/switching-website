@@ -549,81 +549,77 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}
 <div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
 
 <script>
-// FILTERS
-function activateFilter(f){
-  document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('on')});
-  var target=document.querySelector('.flt[data-filter="'+f+'"]');
-  if(target)target.classList.add('on');
-  document.querySelectorAll('.domain').forEach(function(d){
-    if(f==='all'){
-      d.style.display='';
-      d.classList.remove('hidden');
-    } else if(d.getAttribute('data-domain')===f){
-      d.style.display='';
-      d.classList.remove('hidden');
-    } else {
-      d.style.display='none';
-      d.classList.add('hidden');
-    }
-  });
-}
-document.querySelectorAll('.flt').forEach(function(btn){
-  btn.addEventListener('click',function(){activateFilter(btn.dataset.filter)});
-});
+var IS_DEEPLINK=new URLSearchParams(window.location.search).has('cat');
 
-// Deep-link: formations.html?cat=bureautique
-function handleDeepLink(){
-  var urlCat=new URLSearchParams(window.location.search).get('cat');
-  if(!urlCat)return;
-  activateFilter(urlCat);
-  // Force all domains to be fully visible (no scroll-reveal fade)
+// If deep-linked, immediately remove .rv from ALL domains so they never fade
+if(IS_DEEPLINK){
   document.querySelectorAll('.domain').forEach(function(d){
-    d.classList.add('vis');
+    d.classList.remove('rv');
     d.style.opacity='1';
     d.style.transform='none';
   });
-  // Scroll to filters bar
-  var filters=document.querySelector('.filters');
-  if(filters){
-    setTimeout(function(){
-      var headerH=document.getElementById('hd').offsetHeight||72;
-      var y=filters.getBoundingClientRect().top+window.scrollY-headerH-16;
-      window.scrollTo({top:y,behavior:'smooth'});
-    },200);
-  }
 }
-var urlCat=new URLSearchParams(window.location.search).get('cat');
-handleDeepLink();
-// Also handle back/forward and bfcache
-window.addEventListener('pageshow',function(){handleDeepLink()});
 
-// SCROLL REVEAL (skip domains if deep-linked)
-document.querySelectorAll('.rv').forEach(function(el){
-  if(urlCat && el.classList.contains('domain')){el.classList.add('vis');el.style.opacity='1';el.style.transform='none';return;}
-  new IntersectionObserver(function(e){
-    if(e[0].isIntersecting){el.classList.add('vis')}
-  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+// FILTER FUNCTION
+function activateFilter(f){
+  document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('on')});
+  var btn=document.querySelector('.flt[data-filter="'+f+'"]');
+  if(btn)btn.classList.add('on');
+  document.querySelectorAll('.domain').forEach(function(d){
+    var show=(f==='all')||d.getAttribute('data-domain')===f;
+    d.style.display=show?'':'none';
+  });
+}
+
+// Filter button clicks
+document.querySelectorAll('.flt').forEach(function(btn){
+  btn.addEventListener('click',function(){activateFilter(btn.getAttribute('data-filter'))});
 });
 
-// Intercept dropdown links when already on formations.html
-document.querySelectorAll('.nav-dd a[href*="formations.html?cat="]').forEach(function(link){
+// DEEP-LINK on page load
+if(IS_DEEPLINK){
+  var cat=new URLSearchParams(window.location.search).get('cat');
+  activateFilter(cat);
+  setTimeout(function(){
+    var f=document.querySelector('.filters');
+    if(f){
+      var top=f.getBoundingClientRect().top+window.scrollY-(document.getElementById('hd').offsetHeight||72)-16;
+      window.scrollTo({top:top,behavior:'smooth'});
+    }
+  },250);
+}
+
+// Handle bfcache (back button)
+window.addEventListener('pageshow',function(e){
+  if(e.persisted){
+    var c=new URLSearchParams(window.location.search).get('cat');
+    if(c)activateFilter(c);
+  }
+});
+
+// Intercept dropdown links when already on this page
+document.querySelectorAll('a[href*="formations.html?cat="]').forEach(function(link){
   link.addEventListener('click',function(e){
-    var cat=new URL(link.href).searchParams.get('cat');
-    if(cat){
+    var c=new URL(link.href).searchParams.get('cat');
+    if(c){
       e.preventDefault();
-      activateFilter(cat);
-      document.querySelectorAll('.domain').forEach(function(d){
-        d.classList.add('vis');d.style.opacity='1';d.style.transform='none';
-      });
-      history.replaceState(null,'','formations.html?cat='+cat);
-      var filters=document.querySelector('.filters');
-      if(filters){
-        var headerH=document.getElementById('hd').offsetHeight||72;
-        var y=filters.getBoundingClientRect().top+window.scrollY-headerH-16;
-        window.scrollTo({top:y,behavior:'smooth'});
+      activateFilter(c);
+      history.replaceState(null,'','formations.html?cat='+c);
+      document.querySelectorAll('.domain').forEach(function(d){d.style.opacity='1';d.style.transform='none'});
+      var f=document.querySelector('.filters');
+      if(f){
+        var top=f.getBoundingClientRect().top+window.scrollY-(document.getElementById('hd').offsetHeight||72)-16;
+        window.scrollTo({top:top,behavior:'smooth'});
       }
     }
   });
+});
+
+// SCROLL REVEAL (never touch domains if deep-linked)
+document.querySelectorAll('.rv').forEach(function(el){
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){el.classList.add('vis')}
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
 });
 
 // STICKY HEADER
