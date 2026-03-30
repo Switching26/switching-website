@@ -1,3 +1,7 @@
+// Force IPv4 globally — Railway IPv6 cannot reach external SMTP servers
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
+
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
@@ -29,16 +33,15 @@ console.log('===================');
 
 let smtpTransport = null;
 if (SMTP_USER && SMTP_PASS) {
-  const dns = require('dns');
-  dns.setDefaultResultOrder('ipv4first');
   smtpTransport = nodemailer.createTransport({
-    host: SMTP_HOST,
+    host: 'smtp.gmail.com',
     port: SMTP_PORT,
     secure: SMTP_PORT === 465,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
-    tls: { rejectUnauthorized: false },
-    family: 4
+    tls: { rejectUnauthorized: false }
   });
+  // Force IPv4 — Railway IPv6 cannot reach Gmail
+  smtpTransport.transporter.options.family = 4;
   // Verify connection at startup
   smtpTransport.verify()
     .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
