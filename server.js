@@ -29,12 +29,15 @@ console.log('===================');
 
 let smtpTransport = null;
 if (SMTP_USER && SMTP_PASS) {
+  const dns = require('dns');
+  dns.setDefaultResultOrder('ipv4first');
   smtpTransport = nodemailer.createTransport({
     host: SMTP_HOST,
     port: SMTP_PORT,
     secure: SMTP_PORT === 465,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
-    tls: { rejectUnauthorized: false }
+    tls: { rejectUnauthorized: false },
+    family: 4
   });
   // Verify connection at startup
   smtpTransport.verify()
