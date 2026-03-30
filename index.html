@@ -296,6 +296,19 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
 
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
 
+/* MOBILE FOOTER */
+.ft-mobile{display:none}
+.ft-contact-m{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ft-contact-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.06);border-radius:12px;color:#94A3B8;text-decoration:none;font-size:13px;transition:all .2s}
+.ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
+.ft-sep-m{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
+.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
+.ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
+.ft-legal-m a:hover{color:#10ABAF}
+.ft-copy-m{font-size:10px;color:#475569;text-align:center;opacity:.6;padding-top:4px}
+
 /* HAMBURGER */
 .menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;border-radius:10px;background:transparent;border:none;cursor:pointer;z-index:1001;position:relative}
 .menu-toggle span{display:block;width:20px;height:2px;background:#1E293B;border-radius:2px;transition:all .3s}
@@ -329,16 +342,8 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 .hero{padding:20px 0 24px}h1{font-family:'Poppins',sans-serif;font-size:30px}.hero-imgs video{height:240px;min-height:auto}.hero-btns{flex-direction:row;gap:10px}.hero-btns a{font-size:14px;padding:12px 22px}
 .sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.cg{grid-template-columns:1fr}.fg,.fg3{grid-template-columns:1fr}.step-opts,.fr2,.frp{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
 .ct-row{padding:0 18px}.ct-vis{height:300px}.form-card{padding:24px}.form-hdr h2{font-size:28px}.tc{width:260px;min-width:260px}
-footer{padding:20px 0 16px}
-.ft-grid{grid-template-columns:1fr 1fr;gap:12px 20px;margin-bottom:12px;text-align:center}
-.ft-brand{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;margin-bottom:4px}
-.ft-brand img{height:28px}.ft-brand p{font-size:11px;margin-top:6px}
-.ft-col h4{font-size:9px;margin-bottom:6px}
-.ft-col a{font-size:11px;padding:2px 0}
-.ft-bottom{flex-direction:column;text-align:center;gap:6px;padding-top:10px}
-.copy{font-size:11px}
-.fl{flex-wrap:wrap;justify-content:center;gap:2px}.fl a{font-size:10px;padding:1px 4px}
-.fl .d{font-size:6px}
+.ft-grid,.ft-bottom{display:none}
+.ft-mobile{display:block}
 }
 @media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}}
 </style>
@@ -556,6 +561,17 @@ footer{padding:20px 0 16px}
 <div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="mailto:contact@switchingformation.com">contact@switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
 </div>
 <div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a><span class="d">•</span><a href="donnees.html#qualiopi">Qualiopi</a></div></div>
+<div class="ft-mobile">
+<div class="ft-contact-m">
+<a href="tel:+33695185057" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>06 95 18 50 57</span></a>
+<a href="mailto:contact@switchingformation.com" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>contact&#64;switchingformation.com</a>
+<a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Avis Google ★★★★★</a>
+</div>
+<div class="ft-sep-m"></div>
+<div class="ft-brand-m">Switching Formation® — Organisme certifié Qualiopi</div>
+<div class="ft-legal-m"><a href="cgv.html">CGV</a><a href="mentions-legales.html">Mentions légales</a><a href="donnees.html">Données</a><a href="donnees.html#qualiopi">Qualiopi</a></div>
+<div class="ft-copy-m">© 2026 Switching Formation. Tous droits réservés.</div>
+</div>
 </div></footer>
 
 <div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
