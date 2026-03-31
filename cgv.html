@@ -41,73 +41,82 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:56px 0 36px}.ft
 .ft-legal-m a:hover{color:#10ABAF}
 .ft-copy-m{font-size:10px;color:#475569;text-align:center;opacity:.6;padding-top:4px}
 /* MOBILE MENU */
-.menu-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;background:transparent;border:none;cursor:pointer;z-index:1001;position:relative;-webkit-tap-highlight-color:transparent}
-.menu-toggle .bar{display:block;width:24px;height:2px;background:#0F172A;border-radius:2px;transition:all .45s cubic-bezier(.68,-.55,.27,1.55)}
-body.open .menu-toggle .bar:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px);width:26px}
-body.open .menu-toggle .bar:nth-child(2){opacity:0;transform:scaleX(0) translateX(10px)}
-body.open .menu-toggle .bar:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px);width:26px}
-.backdrop{position:fixed;inset:0;z-index:998;background:rgba(10,10,20,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .35s}
-body.open .backdrop{opacity:1;pointer-events:auto}
-.menu-card{position:fixed;top:80px;left:12px;right:12px;z-index:999;background:rgba(25,30,42,.8);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px;border:1px solid rgba(255,255,255,.08);transform:translateY(-16px);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.16,1,.3,1);max-height:calc(100dvh - 100px);overflow-y:auto;-webkit-overflow-scrolling:touch}
-body.open .menu-card{transform:translateY(0);opacity:1;pointer-events:auto}
-.mc-nav{padding:10px 14px 4px}
-.mc-link{display:flex;align-items:center;gap:14px;padding:13px 12px;border-radius:12px;text-decoration:none;color:rgba(255,255,255,.6);font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.mc-link:active{background:rgba(255,255,255,.06)}
-.mc-link.active{color:#fff;font-weight:600}
-.mc-ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mc-ico svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.mc-toggle{display:flex;align-items:center;gap:14px;padding:13px 12px;border-radius:12px;color:rgba(255,255,255,.6);font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s}
-.mc-toggle:active{background:rgba(255,255,255,.06)}
-.mc-toggle.active{color:#fff;font-weight:600}
-.mc-toggle-right{margin-left:auto}
-.mc-arrow{width:16px;height:16px;fill:none;stroke:rgba(255,255,255,.3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:all .3s var(--e)}
-body.f-open .mc-arrow{transform:rotate(90deg);stroke:var(--accent)}
+.menu-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;background:transparent;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.menu-toggle .bar{width:24px;height:2px;background:#0F172A;border-radius:2px;transition:all .45s cubic-bezier(.68,-.55,.27,1.55)}
+body.menu-open .menu-toggle .bar:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+body.menu-open .menu-toggle .bar:nth-child(2){opacity:0;transform:scaleX(0) translateX(10px)}
+body.menu-open .menu-toggle .bar:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+.menu-backdrop{position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.2);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+body.menu-open .menu-backdrop{opacity:1;pointer-events:auto}
+.menu-drop{position:fixed;left:12px;right:12px;z-index:999;display:none;transform:translateY(-20px);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.16,1,.3,1)}
+body.menu-open .menu-drop{transform:translateY(0);opacity:1;pointer-events:auto}
+.menu-drop .menu-card{background:rgba(255,255,255,.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px;border:1px solid rgba(0,0,0,.05);box-shadow:0 12px 48px rgba(0,0,0,.1);overflow:hidden;max-height:calc(100dvh - 120px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.mc-nav{padding:14px 14px 8px}
+.mc-link{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:12px;text-decoration:none;color:#64748B;font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.mc-link:active{background:rgba(0,0,0,.03)}
+.mc-link.active{color:#10ABAF;font-weight:600}
+.mc-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04);flex-shrink:0}
+.mc-link.active .mc-ico{background:rgba(16,171,175,.08)}
+.mc-ico svg{width:17px;height:17px}
+.mc-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px 12px;border-radius:12px;cursor:pointer;color:#64748B;font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;-webkit-tap-highlight-color:transparent}
+.mc-toggle:active{background:rgba(0,0,0,.03)}
+.mc-tl{display:flex;align-items:center;gap:14px}
+.mc-arr{width:16px;height:16px;stroke:#94A3B8;stroke-width:2;transition:all .3s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-arr{transform:rotate(90deg);stroke:#10ABAF}
 .mc-formations{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
 body.f-open .mc-formations{max-height:500px}
-.mc-f{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 22px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.45);font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;transition:background .2s;-webkit-tap-highlight-color:transparent}
-.mc-f:active{background:rgba(255,255,255,.06)}
-.mc-f-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mc-f-ico svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.mc-sep{height:1px;background:rgba(255,255,255,.06);margin:4px 14px}
+.mc-f{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 22px;border-radius:10px;text-decoration:none;color:#94A3B8;font-size:14px;font-weight:500;-webkit-tap-highlight-color:transparent}
+.mc-f:active{background:rgba(0,0,0,.03);color:#0F172A}
+.mcf-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcf-ico svg{width:14px;height:14px}
+.mc-sep{height:1px;background:rgba(0,0,0,.05);margin:4px 14px}
 .mc-bottom{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px}
-.mc-phone{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;border-radius:12px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent;transition:background .2s}
-.mc-phone:active{background:rgba(255,255,255,.1)}
-.mc-phone svg{width:17px;height:17px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mc-doc{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent;transition:filter .2s}
-.mc-doc:active{filter:brightness(1.1)}
-.mc-doc svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mc-phone{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;background:rgba(0,0,0,.03);text-decoration:none;color:#0F172A;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.mc-phone:active{background:rgba(0,0,0,.06)}
+.mc-phone svg{width:17px;height:17px;stroke:#10ABAF}
+.mc-doc{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:12px;background:#0F172A;color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.mc-doc:active{background:#1E293B}
+.mc-doc svg{width:15px;height:15px}
 
-@media(max-width:1024px){.nav-pill,.nav-cta{display:none}.menu-toggle{display:flex}}
-@media(min-width:1025px){.menu-toggle,.backdrop,.menu-card{display:none!important}}
+@media(max-width:1024px){.nav-pill,.nav-cta{display:none}.menu-toggle{display:flex}
+.menu-drop{display:block}
+header{position:sticky;top:8px;z-index:1000;margin:8px 12px 0;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:0;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}
+header.scrolled{background:rgba(255,255,255,.94);box-shadow:0 4px 28px rgba(0,0,0,.08);padding:0}
+.hdr{padding:10px 18px;height:auto}
+.logo img{height:34px!important}
+}
+@media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
 @media(max-width:768px){.w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}.hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}.legal h1{font-size:28px}.legal{padding:32px 18px 48px}.ft-grid,.ft-bottom{display:none}.ft-mobile{display:block}}
 @media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}}
 </style>
 </head>
 <body>
 
-<div class="backdrop"></div>
+<div class="menu-backdrop" onclick="closeMenu()"></div>
+<div class="menu-drop" id="menuDrop">
 <div class="menu-card">
 <div class="mc-nav">
-<a href="index.html" class="mc-link"><div class="mc-ico" style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
-<div class="mc-toggle"><div class="mc-ico" style="color:rgba(255,255,255,.5)"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>Formations<div class="mc-toggle-right"><svg class="mc-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div></div>
+<a href="index.html" class="mc-link"><div class="mc-ico" style="color:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
+<div class="mc-toggle" onclick="document.body.classList.toggle('f-open')"><div class="mc-tl"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Formations</div><svg class="mc-arr" viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
 <div class="mc-formations">
-<a href="formations.html?cat=langues" class="mc-f"><div class="mc-f-ico" style="background:rgba(232,99,74,.12);color:#E8634A"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
-<a href="formations.html?cat=bureautique" class="mc-f"><div class="mc-f-ico" style="background:rgba(91,112,131,.12);color:#5B7083"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
-<a href="formations.html?cat=graphisme" class="mc-f"><div class="mc-f-ico" style="background:rgba(217,70,168,.12);color:#D946A8"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
-<a href="formations.html?cat=web" class="mc-f"><div class="mc-f-ico" style="background:rgba(59,130,246,.12);color:#3B82F6"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
-<a href="formations.html?cat=compta" class="mc-f"><div class="mc-f-ico" style="background:rgba(249,115,22,.12);color:#F97316"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
-<a href="formations.html?cat=ia" class="mc-f"><div class="mc-f-ico" style="background:rgba(124,58,237,.12);color:#7C3AED"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
-<a href="formations.html?cat=bdc" class="mc-f"><div class="mc-f-ico" style="background:rgba(212,160,23,.12);color:#D4A017"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
+<a href="formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
+<a href="formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
+<a href="formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
+<a href="formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
+<a href="formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
+<a href="formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
+<a href="formations.html?cat=bdc" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
 </div>
 <div class="mc-sep"></div>
-<a href="le-centre.html" class="mc-link"><div class="mc-ico" style="color:rgba(255,255,255,.5)"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>Le centre</a>
-<a href="financement.html" class="mc-link"><div class="mc-ico" style="color:rgba(255,255,255,.5)"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
-<a href="inscription.html" class="mc-link"><div class="mc-ico" style="color:rgba(255,255,255,.5)"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>Devis</a>
+<a href="le-centre.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>Le centre</a>
+<a href="financement.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
+<a href="inscription.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>Devis</a>
 </div>
 <div class="mc-sep"></div>
 <div class="mc-bottom">
-<a href="tel:+33695185057" class="mc-phone"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
-<a href="documentation.html" class="mc-doc">Documentation <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="tel:+33695185057" class="mc-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
+<a href="documentation.html" class="mc-doc">Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
 </div>
 </div>
 
@@ -178,12 +187,13 @@ body.f-open .mc-formations{max-height:500px}
 </div>
 </div></footer>
 <script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
-function toggleMenu(){document.body.classList.toggle('open')}
-function closeMenu(){document.body.classList.remove('open');document.body.classList.remove('f-open')}
+function toggleMenu(){document.body.classList.toggle('menu-open');if(document.body.classList.contains('menu-open'))positionMenu()}
+function closeMenu(){document.body.classList.remove('menu-open');document.body.classList.remove('f-open')}
+function positionMenu(){var nav=document.querySelector('header');var drop=document.getElementById('menuDrop');if(nav&&drop){var r=nav.getBoundingClientRect();drop.style.top=(r.bottom+8)+'px'}}
 document.querySelector('.menu-toggle').addEventListener('click',toggleMenu);
-document.querySelector('.backdrop').addEventListener('click',closeMenu);
+document.querySelector('.menu-backdrop').addEventListener('click',closeMenu);
 document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a){a.addEventListener('click',closeMenu)});
-document.querySelector('.mc-toggle').addEventListener('click',function(){document.body.classList.toggle('f-open')});</script>
+window.addEventListener('scroll',function(){if(document.body.classList.contains('menu-open'))positionMenu()},{passive:true});</script>
 <script src="/chatbot.js"></script>
 </body>
 </html>
