@@ -503,7 +503,7 @@
     oldBtns.forEach(function(b) { b.remove(); });
 
     isSending = true;
-    var typingEl = showTyping();
+    showTyping();
 
     // Build conversation history for API
     var history = messages.filter(function(m) {
@@ -512,7 +512,7 @@
       return { role: m.role === 'bot' ? 'assistant' : 'user', content: m.text };
     });
 
-    // SSE fetch with timeout
+    // Simple JSON fetch with timeout
     var abortCtrl = new AbortController();
     var fetchTimeout = setTimeout(function() { abortCtrl.abort(); }, 30000);
 
@@ -523,83 +523,33 @@
       signal: abortCtrl.signal
     }).then(function(response) {
       clearTimeout(fetchTimeout);
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      if (!response.body) throw new Error('No stream');
-
+      if (!response.ok) {
+        return response.json().then(function(body) {
+          throw new Error(body.details || body.error || 'HTTP ' + response.status);
+        }).catch(function() { throw new Error('HTTP ' + response.status); });
+      }
+      return response.json();
+    }).then(function(data) {
       removeTyping();
 
-      var botMsg = { role: 'bot', text: '', buttons: [], success: '' };
+      var cleanText = stripMarkers(data.text || '');
+      var botMsg = { role: 'bot', text: cleanText, buttons: data.buttons || [], success: '' };
       messages.push(botMsg);
 
-      var botEl = renderBotBubble('');
-      messagesEl.appendChild(botEl);
-      var bubbleTextEl = botEl.querySelector('.sf-chat-msg-bubble');
+      messagesEl.appendChild(renderBotBubble(cleanText));
 
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        return reader.read().then(function(result) {
-          if (result.done) {
-            // Finalize
-            isSending = false;
-            saveSession();
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-
-          // Parse SSE lines
-          var lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          lines.forEach(function(line) {
-            line = line.trim();
-            if (!line || line === '') return;
-
-            // Parse "event:" lines and "data:" lines
-            if (line.startsWith('event:')) return; // We parse data lines below
-
-            if (!line.startsWith('data:')) return;
-
-            var dataStr = line.substring(5).trim();
-            if (!dataStr) return;
-
-            var data;
-            try { data = JSON.parse(dataStr); } catch(e) { return; }
-
-            if (data.type === 'text' || data.text) {
-              var txt = data.text || data.content || '';
-              botMsg.text += txt;
-              bubbleTextEl.innerHTML = stripMarkers(botMsg.text);
-              scrollToBottom();
-            } else if (data.type === 'buttons' && data.buttons) {
-              botMsg.buttons = data.buttons;
-              messagesEl.appendChild(renderButtons(data.buttons));
-              scrollToBottom();
-            } else if (data.type === 'submit' && data.message) {
-              botMsg.success = data.message;
-              messagesEl.appendChild(renderSuccess(data.message));
-              scrollToBottom();
-            } else if (data.type === 'done') {
-              isSending = false;
-              saveSession();
-            } else if (data.type === 'error') {
-              var errMsg = data.message || 'Une erreur est survenue.';
-              bubbleTextEl.textContent = errMsg;
-              botEl.classList.add('sf-chat-error');
-              botMsg.text = errMsg;
-              isSending = false;
-              saveSession();
-            }
-          });
-
-          return processChunk();
-        });
+      if (data.buttons && data.buttons.length) {
+        messagesEl.appendChild(renderButtons(data.buttons));
       }
 
-      return processChunk();
+      if (data.submit) {
+        botMsg.success = 'Demande envoyée';
+        messagesEl.appendChild(renderSuccess('Demande envoyée avec succès !'));
+      }
+
+      isSending = false;
+      saveSession();
+      scrollToBottom();
     }).catch(function(err) {
       clearTimeout(fetchTimeout);
       removeTyping();
