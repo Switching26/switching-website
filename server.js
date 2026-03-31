@@ -134,7 +134,11 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{EMAIL}}': data.email || 'Non renseigné',
     '{{TEL}}': tel,
     '{{FORMATION}}': data.secteur || 'Non précisée',
+    '{{STATUT}}': data.statut || 'Non précisé',
     '{{FINANCEMENT}}': data.financement || 'Non précisé',
+    '{{VILLE}}': data.ville || 'Non renseignée',
+    '{{ENTREPRISE}}': data.entreprise || 'Non renseignée',
+    '{{MODALITE}}': data.modalite || 'Non précisée',
     '{{MESSAGE}}': data.message || 'Aucun message',
     '{{DATE}}': dateFR,
     '{{PAGE}}': pageLabel
@@ -306,8 +310,24 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 <td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FORMATION}}</td>
 </tr>
 <tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Statut</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{STATUT}}</td>
+</tr>
+<tr>
 <td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Financement</td>
 <td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FINANCEMENT}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Modalité</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{MODALITE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Ville</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{VILLE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Entreprise</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{ENTREPRISE}}</td>
 </tr>
 </table>
 </td></tr>
@@ -398,7 +418,7 @@ function requireAdmin(req, res, next) {
 // ─── API ROUTES ───
 
 app.post('/api/submit', (req, res) => {
-  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message } = req.body;
+  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = req.body;
   if (!prenom && !email && !tel) {
     return res.status(400).json({ error: 'Au moins un champ de contact requis' });
   }
@@ -409,7 +429,7 @@ app.post('/api/submit', (req, res) => {
      prenom || null, nom || null, email || null, indicatif || null, tel || null, message || null]
   );
   saveDB();
-  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message })
+  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite })
     .then(() => console.log('Emails sent for:', prenom, nom))
     .catch(err => console.error('Email sending failed:', err.message));
   res.json({ ok: true });
