@@ -634,9 +634,15 @@ app.post('/api/chat', async (req, res) => {
   try {
     let fullText = '';
     let clientDisconnected = false;
+    let responseEnded = false;
     const safeSend = (data) => {
-      if (clientDisconnected || res.destroyed) return;
+      if (clientDisconnected || responseEnded || res.destroyed) return;
       try { res.write('data: ' + JSON.stringify(data) + '\n\n'); } catch(e) {}
+    };
+    const safeEnd = () => {
+      if (responseEnded || res.destroyed) return;
+      responseEnded = true;
+      try { res.end(); } catch(e) {}
     };
     const stream = anthropicClient.messages.stream({
       model: 'claude-sonnet-4-20250514',
@@ -645,8 +651,15 @@ app.post('/api/chat', async (req, res) => {
       messages: trimmed
     });
 
-    // Catch the finalMessage promise to prevent unhandled rejections on abort
-    stream.finalMessage().catch(() => {});
+    // Safety net: catch unhandled promise rejection from stream internals
+    // This fires if the API returns 400/500 and the stream 'error' event doesn't catch it
+    stream.finalMessage().catch((err) => {
+      if (clientDisconnected || responseEnded) return;
+      console.error('Chat stream finalMessage error:', err.message || err);
+      safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
+      safeSend({ type: 'done' });
+      safeEnd();
+    });
 
     stream.on('text', (text) => {
       fullText += text;
@@ -654,7 +667,7 @@ app.post('/api/chat', async (req, res) => {
     });
 
     stream.on('end', async () => {
-      if (clientDisconnected || res.destroyed) return;
+      if (clientDisconnected || responseEnded) return;
       // Parse special markers from the full response
       // Check for buttons
       const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
@@ -685,15 +698,15 @@ app.post('/api/chat', async (req, res) => {
         }
       }
       safeSend({ type: 'done' });
-      try { res.end(); } catch(e) {}
+      safeEnd();
     });
 
     stream.on('error', (err) => {
-      if (clientDisconnected || res.destroyed) return;
+      if (clientDisconnected || responseEnded) return;
       console.error('Chat stream error:', err.message);
       safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
       safeSend({ type: 'done' });
-      try { res.end(); } catch(e) {}
+      safeEnd();
     });
 
     // Handle client disconnect
