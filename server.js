@@ -644,8 +644,9 @@ app.post('/api/chat', async (req, res) => {
       responseEnded = true;
       try { res.end(); } catch(e) {}
     };
+    console.log('Chat API call — messages count:', trimmed.length, 'first role:', trimmed[0]?.role);
     const stream = anthropicClient.messages.stream({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: CHAT_SYSTEM_PROMPT,
       messages: trimmed
@@ -655,7 +656,7 @@ app.post('/api/chat', async (req, res) => {
     // This fires if the API returns 400/500 and the stream 'error' event doesn't catch it
     stream.finalMessage().catch((err) => {
       if (clientDisconnected || responseEnded) return;
-      console.error('Chat stream finalMessage error:', err.message || err);
+      console.error('Chat finalMessage error:', err.message || err, '| status:', err?.status, '| type:', err?.constructor?.name);
       safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
       safeSend({ type: 'done' });
       safeEnd();
@@ -703,7 +704,7 @@ app.post('/api/chat', async (req, res) => {
 
     stream.on('error', (err) => {
       if (clientDisconnected || responseEnded) return;
-      console.error('Chat stream error:', err.message);
+      console.error('Chat stream error:', err.message, '| status:', err.status, '| type:', err.constructor?.name);
       safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
       safeSend({ type: 'done' });
       safeEnd();
@@ -715,7 +716,7 @@ app.post('/api/chat', async (req, res) => {
       try { stream.abort(); } catch (e) { /* ignore */ }
     });
   } catch (err) {
-    console.error('Chat error:', err.message);
+    console.error('Chat catch error:', err.message, '| status:', err?.status, '| type:', err?.constructor?.name);
     if (!res.destroyed) {
       try {
         res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
@@ -723,6 +724,29 @@ app.post('/api/chat', async (req, res) => {
         res.end();
       } catch(e) {}
     }
+  }
+});
+
+// ─── CHATBOT TEST ENDPOINT (admin only) ───
+app.get('/api/test-chat', requireAdmin, async (req, res) => {
+  if (!anthropicClient) {
+    return res.json({ ok: false, error: 'Anthropic API not configured' });
+  }
+  try {
+    const response = await anthropicClient.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 50,
+      messages: [{ role: 'user', content: 'Dis juste "OK ça marche"' }]
+    });
+    res.json({ ok: true, model: 'claude-sonnet-4-6', response: response.content[0].text });
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: err.message,
+      status: err.status,
+      type: err.constructor?.name,
+      details: err.error || null
+    });
   }
 });
 
