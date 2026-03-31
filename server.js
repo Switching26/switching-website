@@ -221,8 +221,9 @@ function formatDateFR() {
 
 function getPageLabel(source) {
   if (source === 'documentation') return 'Page Documentation';
-  if (source === 'inscription' || source === 'devis') return 'Page Devis';
-  return 'Page Accueil';
+  if (source === 'inscription' || source === 'devis') return 'Formulaire Devis';
+  if (source === 'chatbot') return 'Chatbot IA';
+  return 'Formulaire Accueil';
 }
 
 function buildProspectEmail(data) {
@@ -240,6 +241,32 @@ function buildProspectEmail(data) {
 
 function buildAdminEmail(data, dateFR, pageLabel) {
   const tel = data.tel ? ((data.indicatif ? data.indicatif.replace(/[^+0-9]/g, '') + ' ' : '') + data.tel) : 'Non renseigné';
+  const isChatbot = data.source === 'chatbot';
+
+  // Source badge colors
+  let sourceBg = 'rgba(16,171,175,.15)';
+  let sourceColor = '#0E9599';
+  let sourceLabel = pageLabel;
+  if (isChatbot) {
+    sourceBg = 'rgba(99,102,241,.15)';
+    sourceColor = '#6366F1';
+    sourceLabel = 'Chatbot IA';
+  } else if (data.source === 'inscription' || data.source === 'devis') {
+    sourceBg = 'rgba(59,130,246,.15)';
+    sourceColor = '#3B82F6';
+    sourceLabel = 'Formulaire Devis';
+  } else {
+    sourceLabel = 'Formulaire Accueil';
+  }
+
+  // Build transcript section for chatbot submissions
+  let transcriptSection = '';
+  if (isChatbot && data._transcript && data._transcript.length > 0) {
+    transcriptSection = '<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:16px;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>';
+    transcriptSection += '<p style="margin:14px 0 8px;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Conversation complète</p>';
+    transcriptSection += buildTranscriptHtml(data._transcript);
+  }
+
   const vars = {
     '{{PRENOM}}': data.prenom || '',
     '{{NOM}}': data.nom || '',
@@ -253,7 +280,11 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{MODALITE}}': data.modalite || 'Non précisée',
     '{{MESSAGE}}': data.message || 'Aucun message',
     '{{DATE}}': dateFR,
-    '{{PAGE}}': pageLabel
+    '{{PAGE}}': pageLabel,
+    '{{SOURCE}}': sourceLabel,
+    '{{SOURCE_BG}}': sourceBg,
+    '{{SOURCE_COLOR}}': sourceColor,
+    '{{TRANSCRIPT_SECTION}}': transcriptSection
   };
   let html = TEMPLATE_ADMIN;
   for (const [k, v] of Object.entries(vars)) {
@@ -286,7 +317,8 @@ async function sendEmails(data) {
   }
 
   // 2) Email to admin
-  const adminSubject = '🎯 Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
+  const sourceTag = data.source === 'chatbot' ? '[Chatbot]' : (data.source === 'inscription' || data.source === 'devis') ? '[Devis]' : '[Formulaire]';
+  const adminSubject = '🎯 ' + sourceTag + ' Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
   console.log('  → Admin email to:', NOTIFY_EMAIL);
   promises.push(
     gmailSend(
@@ -398,7 +430,7 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:#0F172A;border-radius:12px;overflow:hidden;margin:0;">
 <tr><td style="padding:20px 28px;">
 <p style="margin:0;font-size:18px;font-weight:700;color:#fff;">🎯 Nouveau prospect</p>
-<p style="margin:4px 0 0;font-size:12px;color:#94A3B8;">Formulaire rempli le {{DATE}} via {{PAGE}}</p>
+<p style="margin:4px 0 0;font-size:12px;color:#94A3B8;">Reçu le {{DATE}} via <span style="display:inline-block;padding:2px 8px;border-radius:6px;background:{{SOURCE_BG}};color:{{SOURCE_COLOR}};font-weight:700;font-size:11px;letter-spacing:.3px;">{{SOURCE}}</span></p>
 </td></tr>
 </table>
 </td></tr>
@@ -447,6 +479,7 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
 <p style="margin:14px 0 0;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Message</p>
 <p style="margin:6px 0 0;font-size:13px;color:#666;line-height:1.6;font-style:italic;background:#f9f9f7;padding:12px 16px;border-radius:8px;">{{MESSAGE}}</p>
+{{TRANSCRIPT_SECTION}}
 </td></tr>
 <tr><td style="padding:0 28px 28px;text-align:center;">
 <a href="mailto:{{EMAIL}}" style="display:inline-block;padding:12px 32px;background:#10ABAF;color:#fff;text-decoration:none;font-weight:700;font-size:13px;border-radius:100px;">Répondre au prospect →</a>
@@ -832,7 +865,10 @@ app.post('/api/chat', async (req, res) => {
         // Mark conversation as completed
         db.run('UPDATE conversations SET status = ? WHERE id = ?', ['completed', convId]);
         saveDB();
-        sendEmails({ ...data, source: 'chatbot' })
+        // Get conversation transcript for admin email
+        const transcriptRows = db.exec('SELECT role, content FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [convId]);
+        const transcript = transcriptRows.length ? transcriptRows[0].values.map(r => ({ role: r[0], content: r[1] })) : [];
+        sendEmails({ ...data, source: 'chatbot', _transcript: transcript })
           .then(() => console.log('Chatbot emails sent for:', data.prenom, data.nom))
           .catch(err => console.error('Chatbot email error:', err.message));
         result.submit = data;
