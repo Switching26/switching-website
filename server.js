@@ -134,7 +134,11 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{EMAIL}}': data.email || 'Non renseigné',
     '{{TEL}}': tel,
     '{{FORMATION}}': data.secteur || 'Non précisée',
+    '{{STATUT}}': data.statut || 'Non précisé',
     '{{FINANCEMENT}}': data.financement || 'Non précisé',
+    '{{VILLE}}': data.ville || 'Non renseignée',
+    '{{ENTREPRISE}}': data.entreprise || 'Non renseignée',
+    '{{MODALITE}}': data.modalite || 'Non précisée',
     '{{MESSAGE}}': data.message || 'Aucun message',
     '{{DATE}}': dateFR,
     '{{PAGE}}': pageLabel
@@ -186,7 +190,7 @@ async function sendEmails(data) {
 
 // ─── EMAIL TEMPLATES (inline HTML) ───
 const TEMPLATE_PROSPECT = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
-<tr><td align="center" style="padding:32px 16px 24px;">
+<tr><td align="center" style="padding:12px 16px 24px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:560px;max-width:560px;">
 <tr><td align="center" style="padding-bottom:24px;">
 <img src="https://web-production-0c02.up.railway.app/static/fav-sf-web.png" alt="Switching Formation" width="48" height="48" style="border-radius:12px;display:block;">
@@ -228,7 +232,7 @@ const TEMPLATE_PROSPECT = `<table role="presentation" cellpadding="0" cellspacin
 <tr><td style="padding:24px 36px 28px;">
 <p style="margin:0 0 20px;line-height:1.7;font-size:14px;color:#444;">Une question ? Appelez-nous au <strong><a href="tel:+33695185057" style="color:#10ABAF;text-decoration:none;">06 95 18 50 57</a></strong></p>
 <div style="text-align:center;">
-<a href="https://www.switching-formation.fr/formations.html" style="display:inline-block;padding:14px 36px;background:#10ABAF;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border-radius:100px;">Voir nos formations</a>
+<a href="https://www.switching-formation.fr/formations" style="display:inline-block;padding:14px 36px;background:#10ABAF;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border-radius:100px;">Voir nos formations</a>
 </div>
 </td></tr>
 </table>
@@ -271,7 +275,7 @@ const TEMPLATE_PROSPECT = `<table role="presentation" cellpadding="0" cellspacin
 </table>`;
 
 const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
-<tr><td align="center" style="padding:32px 16px 24px;">
+<tr><td align="center" style="padding:12px 16px 24px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:560px;max-width:560px;">
 <tr><td align="center" style="padding-bottom:24px;">
 <img src="https://web-production-0c02.up.railway.app/static/fav-sf-web.png" alt="SF" width="40" height="40" style="border-radius:10px;display:block;">
@@ -306,8 +310,24 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 <td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FORMATION}}</td>
 </tr>
 <tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Statut</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{STATUT}}</td>
+</tr>
+<tr>
 <td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Financement</td>
 <td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FINANCEMENT}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Modalité</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{MODALITE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Ville</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{VILLE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Entreprise</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{ENTREPRISE}}</td>
 </tr>
 </table>
 </td></tr>
@@ -398,7 +418,7 @@ function requireAdmin(req, res, next) {
 // ─── API ROUTES ───
 
 app.post('/api/submit', (req, res) => {
-  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message } = req.body;
+  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = req.body;
   if (!prenom && !email && !tel) {
     return res.status(400).json({ error: 'Au moins un champ de contact requis' });
   }
@@ -409,7 +429,7 @@ app.post('/api/submit', (req, res) => {
      prenom || null, nom || null, email || null, indicatif || null, tel || null, message || null]
   );
   saveDB();
-  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message })
+  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite })
     .then(() => console.log('Emails sent for:', prenom, nom))
     .catch(err => console.error('Email sending failed:', err.message));
   res.json({ ok: true });
