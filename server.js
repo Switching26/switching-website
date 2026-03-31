@@ -768,9 +768,6 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Messages requis' });
   }
 
-  // Send conversation_id to client
-  res.write('data: ' + JSON.stringify({ type: 'conversation_id', conversation_id: convId }) + '\n\n');
-
   try {
     console.log('Chat API call — messages:', trimmed.length, '| first role:', trimmed[0]?.role);
 
