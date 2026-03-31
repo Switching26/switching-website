@@ -71,6 +71,56 @@ tr:hover td{background:var(--accent-gl2)}
 .empty svg{width:48px;height:48px;margin-bottom:16px;opacity:.3}
 .empty p{font-size:14px}
 
+/* TABS */
+.dash-tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--surface2);padding:4px;border-radius:var(--rs);width:fit-content}
+.dash-tab{padding:9px 22px;border-radius:10px;font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;border:none;background:transparent;color:var(--sub);transition:all .25s var(--e);position:relative}
+.dash-tab:hover{color:var(--text)}
+.dash-tab.active{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.dash-tab .tab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:var(--rf);font-size:10px;font-weight:700;margin-left:6px;background:var(--accent-gl);color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* CONVERSATIONS */
+.conv-list{display:flex;flex-direction:column;gap:10px}
+.conv-item{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:all .35s var(--e);cursor:pointer}
+.conv-item:hover{border-color:rgba(16,171,175,.2);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.conv-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;gap:12px}
+.conv-left{display:flex;align-items:center;gap:14px;min-width:0}
+.conv-avatar{width:40px;height:40px;border-radius:var(--rs);background:var(--accent-gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)}
+.conv-avatar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.conv-info{min-width:0}
+.conv-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.conv-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.conv-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.conv-count{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap}
+.conv-status{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.conv-status.active{background:rgba(16,171,175,.08);color:#10ABAF;border:1px solid rgba(16,171,175,.15)}
+.conv-status.completed{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.15)}
+.conv-status.abandoned{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.15)}
+.conv-arrow{color:var(--muted);transition:transform .3s var(--e)}
+.conv-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.conv-item.open .conv-arrow{transform:rotate(90deg)}
+.conv-transcript{display:none;padding:0 22px 22px;border-top:1px solid var(--bd)}
+.conv-item.open .conv-transcript{display:block}
+.conv-msg{padding:10px 14px;border-radius:12px;margin-top:10px;max-width:85%}
+.conv-msg-user{background:#EFF6FF;margin-left:auto;border-bottom-right-radius:4px}
+.conv-msg-bot{background:var(--surface2);margin-right:auto;border-bottom-left-radius:4px}
+.conv-msg-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.conv-msg-user .conv-msg-label{color:#3B82F6}
+.conv-msg-bot .conv-msg-label{color:var(--accent)}
+.conv-msg-text{font-size:13px;color:var(--text);line-height:1.55}
+.conv-msg-time{font-size:10px;color:var(--muted);margin-top:4px}
+.conv-actions{display:flex;justify-content:flex-end;padding-top:12px;margin-top:10px;border-top:1px solid var(--bd)}
+.conv-del-btn{padding:6px 14px;border-radius:var(--rf);font-size:11px;font-weight:600;font-family:var(--f);cursor:pointer;border:1px solid rgba(244,63,94,.25);background:transparent;color:#F43F5E;transition:all .2s var(--e)}
+.conv-del-btn:hover{background:rgba(244,63,94,.06);border-color:#F43F5E}
+
+/* CONV STATS */
+.conv-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.conv-stat{background:var(--surface);border:1px solid var(--bd);border-radius:var(--rs);padding:16px 14px;text-align:center;transition:all .3s var(--e)}
+.conv-stat:hover{border-color:rgba(16,171,175,.15)}
+.conv-stat-num{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;line-height:1}
+.conv-stat-label{font-size:11px;color:var(--muted);margin-top:4px;font-weight:500}
+
 /* MOBILE CARDS (hidden on desktop) */
 .mobile-cards{display:none}
 .mob-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:12px;transition:all .35s var(--e)}
@@ -92,6 +142,7 @@ tr:hover td{background:var(--accent-gl2)}
 /* ===== TABLET (max-width: 1024px) ===== */
 @media(max-width:1024px){
 .stats-row{grid-template-columns:repeat(2,1fr)}
+.conv-stats-row{grid-template-columns:repeat(2,1fr)}
 .dash{padding:20px 24px}
 .table-scroll{overflow-x:auto}
 table{min-width:900px}
@@ -123,6 +174,14 @@ table{min-width:900px}
 .table-title{font-size:14px}
 
 .login-box{padding:32px 24px}
+
+/* Conversations mobile */
+.conv-stats-row{grid-template-columns:repeat(2,1fr);gap:8px}
+.conv-header{padding:14px 16px;flex-wrap:wrap}
+.conv-right{width:100%;justify-content:space-between;margin-top:8px}
+.conv-transcript{padding:0 16px 16px}
+.conv-msg{max-width:92%}
+.dash-tabs{width:100%;justify-content:center}
 }
 
 /* ===== EXTRA SMALL (max-width: 480px) ===== */
@@ -150,6 +209,14 @@ table{min-width:900px}
 .table-head{padding:12px}
 .table-title{font-size:13px}
 .table-count{font-size:11px}
+
+.conv-stats-row{gap:6px}
+.conv-stat{padding:12px 10px}
+.conv-stat-num{font-size:20px}
+.conv-stat-label{font-size:10px}
+.conv-header{padding:12px 14px}
+.conv-title{font-size:13px}
+.dash-tab{padding:7px 14px;font-size:12px}
 
 .login-box{padding:24px 18px}
 .login-box h1{font-size:20px}
@@ -185,6 +252,12 @@ table{min-width:900px}
 </div>
 </div>
 
+<div class="dash-tabs">
+<button class="dash-tab active" onclick="switchTab('demandes')">Demandes <span class="tab-badge" id="tabBadgeDemandes">0</span></button>
+<button class="dash-tab" onclick="switchTab('conversations')">Conversations <span class="tab-badge" id="tabBadgeConv">0</span></button>
+</div>
+
+<div class="tab-content active" id="tabDemandes">
 <div class="stats-row">
 <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total demandes</div></div>
 <div class="stat-card"><div class="stat-num" id="statToday">0</div><div class="stat-label">Aujourd'hui</div></div>
@@ -199,6 +272,23 @@ table{min-width:900px}
 </div>
 <div id="tableBody"></div>
 </div>
+</div><!-- /tabDemandes -->
+
+<div class="tab-content" id="tabConversations">
+<div class="conv-stats-row">
+<div class="conv-stat"><div class="conv-stat-num" id="convTotal" style="color:var(--accent)">0</div><div class="conv-stat-label">Total</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convActive" style="color:#3B82F6">0</div><div class="conv-stat-label">Actives</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convCompleted" style="color:#10B981">0</div><div class="conv-stat-label">Terminées</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convAbandoned" style="color:#F59E0B">0</div><div class="conv-stat-label">Abandonnées</div></div>
+</div>
+<div class="table-wrap">
+<div class="table-head">
+<div class="table-title">Conversations chatbot</div>
+<div class="table-count" id="convCount"></div>
+</div>
+<div id="convBody"></div>
+</div>
+</div><!-- /tabConversations -->
 </div>
 
 <script>
@@ -242,10 +332,27 @@ if(savedCode){adminCode=savedCode;showDash();}
 
 function authHeaders(){return{'X-Admin-Token':adminCode,'Content-Type':'application/json'}}
 
+var currentTab='demandes';
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.dash-tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  if(tab==='demandes'){
+    document.querySelector('.dash-tab:first-child').classList.add('active');
+    document.getElementById('tabDemandes').classList.add('active');
+  } else {
+    document.querySelector('.dash-tab:last-child').classList.add('active');
+    document.getElementById('tabConversations').classList.add('active');
+    renderConversations();
+  }
+}
+
 function showDash(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('dashboard').style.display='block';
   renderDash();
+  renderConversations();
 }
 
 // LOGOUT
@@ -280,6 +387,7 @@ async function renderDash(){
   document.getElementById('statWeek').textContent=stats.week;
   document.getElementById('statTop').textContent=stats.topSecteur||'—';
   document.getElementById('tableCount').textContent=stats.total+' demande'+(stats.total>1?'s':'');
+  document.getElementById('tabBadgeDemandes').textContent=stats.total;
 
   // Table body container
   var el=document.getElementById('tableBody');
@@ -389,6 +497,114 @@ document.getElementById('clearBtn').addEventListener('click',async function(){
     renderDash();
   }
 });
+
+// ─── CONVERSATIONS ───
+
+async function renderConversations(){
+  try{
+    var [statsRes,convRes]=await Promise.all([
+      fetch('/api/conversations-stats',{headers:authHeaders()}),
+      fetch('/api/conversations',{headers:authHeaders()})
+    ]);
+    var stats=await statsRes.json();
+    var convs=await convRes.json();
+  }catch(e){return;}
+
+  document.getElementById('convTotal').textContent=stats.total;
+  document.getElementById('convActive').textContent=stats.active;
+  document.getElementById('convCompleted').textContent=stats.completed;
+  document.getElementById('convAbandoned').textContent=stats.abandoned;
+  document.getElementById('convCount').textContent=stats.total+' conversation'+(stats.total>1?'s':'');
+  document.getElementById('tabBadgeConv').textContent=stats.total;
+
+  var el=document.getElementById('convBody');
+  if(convs.length===0){
+    el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><p>Aucune conversation pour le moment.</p></div>';
+    return;
+  }
+
+  var html='<div class="conv-list" style="padding:16px">';
+  convs.forEach(function(c){
+    var started=c.started_at?new Date(c.started_at):null;
+    var lastMsg=c.last_message_at?new Date(c.last_message_at):null;
+    var startStr=started?started.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+started.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+    var lastStr=lastMsg?lastMsg.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' '+lastMsg.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+    var statusClass=c.status||'active';
+    var statusLabels={active:'Active',completed:'Terminée',abandoned:'Abandonnée'};
+    var statusLabel=statusLabels[statusClass]||statusClass;
+
+    html+='<div class="conv-item" data-conv-id="'+c.id+'" onclick="toggleConv(this,'+c.id+')">';
+    html+='<div class="conv-header">';
+    html+='<div class="conv-left">';
+    html+='<div class="conv-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>';
+    html+='<div class="conv-info">';
+    html+='<div class="conv-title">Conversation #'+c.id+'</div>';
+    html+='<div class="conv-meta"><span>'+startStr+'</span>'+(c.page?'<span>'+esc(c.page)+'</span>':'')+'</div>';
+    html+='</div></div>';
+    html+='<div class="conv-right">';
+    html+='<span class="conv-count">'+c.message_count+' msg</span>';
+    html+='<span class="conv-status '+statusClass+'">'+statusLabel+'</span>';
+    html+='<span class="conv-arrow"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>';
+    html+='</div></div>';
+    html+='<div class="conv-transcript" id="conv-transcript-'+c.id+'"><div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Chargement...</div></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function stripBotMarkers(text){
+  return (text||'').replace(/\[BUTTONS?:\s*[^\]]*\]/gi,'').replace(/\[SUBMIT:\s*[^\]]*\]/gi,'').trim();
+}
+
+async function toggleConv(el,id){
+  if(el.classList.contains('open')){
+    el.classList.remove('open');
+    return;
+  }
+  // Close others
+  document.querySelectorAll('.conv-item.open').forEach(function(item){item.classList.remove('open')});
+  el.classList.add('open');
+
+  var container=document.getElementById('conv-transcript-'+id);
+  container.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Chargement...</div>';
+
+  try{
+    var r=await fetch('/api/conversations/'+id,{headers:authHeaders()});
+    var conv=await r.json();
+  }catch(e){
+    container.innerHTML='<div style="padding:16px;color:#F43F5E;font-size:13px">Erreur de chargement.</div>';
+    return;
+  }
+
+  var html='';
+  if(conv.messages&&conv.messages.length){
+    conv.messages.forEach(function(m){
+      var isUser=m.role==='user';
+      var cls=isUser?'conv-msg-user':'conv-msg-bot';
+      var label=isUser?'Visiteur':'Assistant';
+      var content=isUser?esc(m.content):esc(stripBotMarkers(m.content));
+      var t=m.timestamp?new Date(m.timestamp):null;
+      var timeStr=t?t.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'';
+      html+='<div class="conv-msg '+cls+'">';
+      html+='<div class="conv-msg-label">'+label+'</div>';
+      html+='<div class="conv-msg-text">'+content.replace(/\n/g,'<br>')+'</div>';
+      if(timeStr)html+='<div class="conv-msg-time">'+timeStr+'</div>';
+      html+='</div>';
+    });
+  } else {
+    html='<div style="padding:16px;color:var(--muted);font-size:13px;text-align:center">Aucun message dans cette conversation.</div>';
+  }
+
+  html+='<div class="conv-actions"><button class="conv-del-btn" onclick="event.stopPropagation();deleteConv('+id+')">Supprimer</button></div>';
+  container.innerHTML=html;
+}
+
+async function deleteConv(id){
+  if(!confirm('Supprimer cette conversation ?'))return;
+  await fetch('/api/conversations/'+id,{method:'DELETE',headers:authHeaders()});
+  renderConversations();
+}
 </script>
 </body>
 </html>
