@@ -11,6 +11,28 @@
   var WELCOME_BUTTONS = ['Je cherche une formation', 'Question sur le financement', 'Demander un devis'];
   var LIMIT_TEXT = 'Pour continuer, appelez-nous au <a href="' + PHONE_HREF + '" style="color:#10ABAF;font-weight:700;text-decoration:underline">' + PHONE + '</a>';
 
+  var VISITOR_STORAGE_KEY = 'sf-visitor-id';
+  var CONV_STORAGE_KEY = 'sf-chat-conv-id';
+  var visitorId = '';
+  var conversationId = null;
+
+  // Generate or retrieve visitor ID (persists across sessions via localStorage)
+  try {
+    visitorId = localStorage.getItem(VISITOR_STORAGE_KEY);
+    if (!visitorId) {
+      visitorId = 'v_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem(VISITOR_STORAGE_KEY, visitorId);
+    }
+  } catch(e) {
+    visitorId = 'v_' + Math.random().toString(36).substring(2, 10);
+  }
+
+  // Retrieve conversation ID from session (resets on new tab/browser close)
+  try {
+    var storedConvId = sessionStorage.getItem(CONV_STORAGE_KEY);
+    if (storedConvId) conversationId = parseInt(storedConvId, 10);
+  } catch(e) {}
+
   /* ─── Inject CSS ─── */
   var style = document.createElement('style');
   style.textContent = '\
@@ -607,7 +629,12 @@
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history }),
+      body: JSON.stringify({
+        messages: history,
+        visitor_id: visitorId,
+        conversation_id: conversationId,
+        page: window.location.pathname.replace(/^\/|\.html$/g, '') || 'index'
+      }),
       signal: abortCtrl.signal
     }).then(function(response) {
       clearTimeout(fetchTimeout);
@@ -625,6 +652,12 @@
       messages.push(botMsg);
 
       messagesEl.appendChild(renderBotBubble(cleanText));
+
+      // Handle conversation_id from server
+      if (data.conversation_id) {
+        conversationId = data.conversation_id;
+        try { sessionStorage.setItem(CONV_STORAGE_KEY, String(conversationId)); } catch(ex) {}
+      }
 
       if (data.buttons && data.buttons.length) {
         messagesEl.appendChild(renderButtons(data.buttons));

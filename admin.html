@@ -35,9 +35,10 @@ body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6
 /* DASHBOARD */
 .dash{display:none;padding:24px 32px}
 .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.dash-logo-title{display:flex;align-items:center;gap:16px}
 .dash-header img{height:36px}
 .dash-title{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;letter-spacing:-.02em}
-.dash-actions{display:flex;gap:10px;align-items:center}
+.dash-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .dash-btn{padding:9px 20px;border-radius:var(--rf);font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .2s var(--e);border:1px solid var(--bd2);background:var(--surface);color:var(--sub)}
 .dash-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-gl2)}
 .dash-btn.danger{border-color:#F43F5E;color:#F43F5E}.dash-btn.danger:hover{background:rgba(244,63,94,.06)}
@@ -56,12 +57,13 @@ body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6
 .table-head{padding:18px 24px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
 .table-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A}
 .table-count{font-size:12px;color:var(--muted);font-weight:500}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:12px 24px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bd);background:var(--bg)}
 td{padding:14px 24px;font-size:13px;color:var(--sub);border-bottom:1px solid var(--bd)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--accent-gl2)}
-.badge{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
 .badge-secteur{background:rgba(59,130,246,.08);color:#3B82F6;border:1px solid rgba(59,130,246,.15)}
 .badge-statut{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.15)}
 .badge-fin{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.15)}
@@ -69,12 +71,156 @@ tr:hover td{background:var(--accent-gl2)}
 .empty svg{width:48px;height:48px;margin-bottom:16px;opacity:.3}
 .empty p{font-size:14px}
 
-@media(max-width:768px){
+/* TABS */
+.dash-tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--surface2);padding:4px;border-radius:var(--rs);width:fit-content}
+.dash-tab{padding:9px 22px;border-radius:10px;font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;border:none;background:transparent;color:var(--sub);transition:all .25s var(--e);position:relative}
+.dash-tab:hover{color:var(--text)}
+.dash-tab.active{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.dash-tab .tab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:var(--rf);font-size:10px;font-weight:700;margin-left:6px;background:var(--accent-gl);color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* CONVERSATIONS */
+.conv-list{display:flex;flex-direction:column;gap:10px}
+.conv-item{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:all .35s var(--e);cursor:pointer}
+.conv-item:hover{border-color:rgba(16,171,175,.2);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.conv-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;gap:12px}
+.conv-left{display:flex;align-items:center;gap:14px;min-width:0}
+.conv-avatar{width:40px;height:40px;border-radius:var(--rs);background:var(--accent-gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)}
+.conv-avatar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.conv-info{min-width:0}
+.conv-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.conv-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.conv-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.conv-count{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap}
+.conv-status{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.conv-status.active{background:rgba(16,171,175,.08);color:#10ABAF;border:1px solid rgba(16,171,175,.15)}
+.conv-status.completed{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.15)}
+.conv-status.abandoned{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.15)}
+.conv-arrow{color:var(--muted);transition:transform .3s var(--e)}
+.conv-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.conv-item.open .conv-arrow{transform:rotate(90deg)}
+.conv-transcript{display:none;padding:0 22px 22px;border-top:1px solid var(--bd)}
+.conv-item.open .conv-transcript{display:block}
+.conv-msg{padding:10px 14px;border-radius:12px;margin-top:10px;max-width:85%}
+.conv-msg-user{background:#EFF6FF;margin-left:auto;border-bottom-right-radius:4px}
+.conv-msg-bot{background:var(--surface2);margin-right:auto;border-bottom-left-radius:4px}
+.conv-msg-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.conv-msg-user .conv-msg-label{color:#3B82F6}
+.conv-msg-bot .conv-msg-label{color:var(--accent)}
+.conv-msg-text{font-size:13px;color:var(--text);line-height:1.55}
+.conv-msg-time{font-size:10px;color:var(--muted);margin-top:4px}
+.conv-actions{display:flex;justify-content:flex-end;padding-top:12px;margin-top:10px;border-top:1px solid var(--bd)}
+.conv-del-btn{padding:6px 14px;border-radius:var(--rf);font-size:11px;font-weight:600;font-family:var(--f);cursor:pointer;border:1px solid rgba(244,63,94,.25);background:transparent;color:#F43F5E;transition:all .2s var(--e)}
+.conv-del-btn:hover{background:rgba(244,63,94,.06);border-color:#F43F5E}
+
+/* CONV STATS */
+.conv-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.conv-stat{background:var(--surface);border:1px solid var(--bd);border-radius:var(--rs);padding:16px 14px;text-align:center;transition:all .3s var(--e)}
+.conv-stat:hover{border-color:rgba(16,171,175,.15)}
+.conv-stat-num{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;line-height:1}
+.conv-stat-label{font-size:11px;color:var(--muted);margin-top:4px;font-weight:500}
+
+/* MOBILE CARDS (hidden on desktop) */
+.mobile-cards{display:none}
+.mob-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:12px;transition:all .35s var(--e)}
+.mob-card:hover{border-color:rgba(16,171,175,.2);box-shadow:0 8px 28px rgba(0,0,0,.07);transform:translateY(-2px)}
+.mob-card.unread{background:rgba(16,171,175,.03);border-color:rgba(16,171,175,.12)}
+.mob-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.mob-card-name{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.mob-card-date{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap;margin-left:12px;flex-shrink:0}
+.mob-card-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:var(--sub)}
+.mob-card-row:last-child{margin-bottom:0}
+.mob-card-row svg{width:15px;height:15px;flex-shrink:0;color:var(--muted)}
+.mob-card-row a{color:var(--accent);text-decoration:none}
+.mob-card-badges{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.mob-card-source{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.mob-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)}
+.mob-card-del{padding:6px 14px;border-radius:var(--rf);font-size:11px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .2s var(--e);border:1px solid rgba(244,63,94,.25);background:transparent;color:#F43F5E}
+.mob-card-del:hover{background:rgba(244,63,94,.06);border-color:#F43F5E}
+
+/* ===== TABLET (max-width: 1024px) ===== */
+@media(max-width:1024px){
 .stats-row{grid-template-columns:repeat(2,1fr)}
+.conv-stats-row{grid-template-columns:repeat(2,1fr)}
+.dash{padding:20px 24px}
+.table-scroll{overflow-x:auto}
+table{min-width:900px}
+}
+
+/* ===== MOBILE (max-width: 768px) ===== */
+@media(max-width:768px){
+.stats-row{grid-template-columns:repeat(2,1fr);gap:10px}
 .dash{padding:16px}
-table{font-size:12px}
-th,td{padding:10px 12px}
+
+/* Header: stack vertically */
+.dash-header{flex-direction:column;align-items:center;gap:16px;text-align:center}
+.dash-logo-title{justify-content:center}
+.dash-actions{justify-content:center;flex-wrap:wrap;gap:8px}
+.dash-btn{padding:7px 14px;font-size:12px}
+.dash-logout{padding:7px 14px;font-size:12px}
+.dash-title{font-size:18px}
+
+/* Stats */
+.stat-card{padding:18px 16px}
+.stat-num{font-size:26px}
+
+/* Table: hide desktop table, show mobile cards */
+.table-scroll{display:none}
+.mobile-cards{display:block;padding:4px 16px 16px}
+
+/* Table head adjustments */
+.table-head{padding:14px 16px}
+.table-title{font-size:14px}
+
 .login-box{padding:32px 24px}
+
+/* Conversations mobile */
+.conv-stats-row{grid-template-columns:repeat(2,1fr);gap:8px}
+.conv-header{padding:14px 16px;flex-wrap:wrap}
+.conv-right{width:100%;justify-content:space-between;margin-top:8px}
+.conv-transcript{padding:0 16px 16px}
+.conv-msg{max-width:92%}
+.dash-tabs{width:100%;justify-content:center}
+}
+
+/* ===== EXTRA SMALL (max-width: 480px) ===== */
+@media(max-width:480px){
+.dash{padding:12px}
+.dash-header{gap:12px;padding-bottom:16px;margin-bottom:20px}
+.dash-header img{height:30px}
+.dash-title{font-size:16px}
+.dash-actions{gap:6px}
+.dash-btn{padding:6px 12px;font-size:11px}
+.dash-logout{padding:6px 12px;font-size:11px}
+
+.stats-row{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.stat-card{padding:14px 12px}
+.stat-num{font-size:22px}
+.stat-label{font-size:11px;margin-top:4px}
+
+.mobile-cards{padding:4px 12px 12px}
+.mob-card{padding:16px}
+.mob-card-name{font-size:14px}
+.mob-card-row{font-size:12px}
+.mob-card-badges{gap:4px}
+.badge{font-size:10px;padding:2px 8px}
+
+.table-head{padding:12px}
+.table-title{font-size:13px}
+.table-count{font-size:11px}
+
+.conv-stats-row{gap:6px}
+.conv-stat{padding:12px 10px}
+.conv-stat-num{font-size:20px}
+.conv-stat-label{font-size:10px}
+.conv-header{padding:12px 14px}
+.conv-title{font-size:13px}
+.dash-tab{padding:7px 14px;font-size:12px}
+
+.login-box{padding:24px 18px}
+.login-box h1{font-size:20px}
+.login-box img{height:36px;margin-bottom:20px}
 }
 </style>
 </head>
@@ -95,7 +241,7 @@ th,td{padding:10px 12px}
 <!-- DASHBOARD -->
 <div class="dash" id="dashboard">
 <div class="dash-header">
-<div style="display:flex;align-items:center;gap:16px">
+<div class="dash-logo-title">
 <img src="images/logo-switching.png" alt="SF">
 <div class="dash-title">Administration</div>
 </div>
@@ -106,6 +252,12 @@ th,td{padding:10px 12px}
 </div>
 </div>
 
+<div class="dash-tabs">
+<button class="dash-tab active" onclick="switchTab('demandes')">Demandes <span class="tab-badge" id="tabBadgeDemandes">0</span></button>
+<button class="dash-tab" onclick="switchTab('conversations')">Conversations <span class="tab-badge" id="tabBadgeConv">0</span></button>
+</div>
+
+<div class="tab-content active" id="tabDemandes">
 <div class="stats-row">
 <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total demandes</div></div>
 <div class="stat-card"><div class="stat-num" id="statToday">0</div><div class="stat-label">Aujourd'hui</div></div>
@@ -120,6 +272,23 @@ th,td{padding:10px 12px}
 </div>
 <div id="tableBody"></div>
 </div>
+</div><!-- /tabDemandes -->
+
+<div class="tab-content" id="tabConversations">
+<div class="conv-stats-row">
+<div class="conv-stat"><div class="conv-stat-num" id="convTotal" style="color:var(--accent)">0</div><div class="conv-stat-label">Total</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convActive" style="color:#3B82F6">0</div><div class="conv-stat-label">Actives</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convCompleted" style="color:#10B981">0</div><div class="conv-stat-label">Terminées</div></div>
+<div class="conv-stat"><div class="conv-stat-num" id="convAbandoned" style="color:#F59E0B">0</div><div class="conv-stat-label">Abandonnées</div></div>
+</div>
+<div class="table-wrap">
+<div class="table-head">
+<div class="table-title">Conversations chatbot</div>
+<div class="table-count" id="convCount"></div>
+</div>
+<div id="convBody"></div>
+</div>
+</div><!-- /tabConversations -->
 </div>
 
 <script>
@@ -163,10 +332,27 @@ if(savedCode){adminCode=savedCode;showDash();}
 
 function authHeaders(){return{'X-Admin-Token':adminCode,'Content-Type':'application/json'}}
 
+var currentTab='demandes';
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.dash-tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  if(tab==='demandes'){
+    document.querySelector('.dash-tab:first-child').classList.add('active');
+    document.getElementById('tabDemandes').classList.add('active');
+  } else {
+    document.querySelector('.dash-tab:last-child').classList.add('active');
+    document.getElementById('tabConversations').classList.add('active');
+    renderConversations();
+  }
+}
+
 function showDash(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('dashboard').style.display='block';
   renderDash();
+  renderConversations();
 }
 
 // LOGOUT
@@ -175,6 +361,14 @@ document.getElementById('logoutBtn').addEventListener('click',function(){
   adminCode='';
   location.reload();
 });
+
+// Helper: escape HTML
+function esc(str){
+  if(!str)return '';
+  var d=document.createElement('div');
+  d.textContent=str;
+  return d.innerHTML;
+}
 
 // RENDER
 async function renderDash(){
@@ -193,36 +387,95 @@ async function renderDash(){
   document.getElementById('statWeek').textContent=stats.week;
   document.getElementById('statTop').textContent=stats.topSecteur||'—';
   document.getElementById('tableCount').textContent=stats.total+' demande'+(stats.total>1?'s':'');
+  document.getElementById('tabBadgeDemandes').textContent=stats.total;
 
-  // Table
+  // Table body container
   var el=document.getElementById('tableBody');
   if(subs.length===0){
     el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg><p>Aucune demande pour le moment.</p></div>';
     return;
   }
 
-  var html='<table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th><th></th></tr></thead><tbody>';
+  // Build desktop table
+  var tableHtml='<div class="table-scroll"><table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th><th></th></tr></thead><tbody>';
+
+  // Build mobile cards
+  var cardsHtml='<div class="mobile-cards">';
+
   subs.forEach(function(s){
     var d=s.date?new Date(s.date):null;
     var dateStr=d?d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
     var rowClass=s.lu?'':'style="background:rgba(16,171,175,.03)"';
-    html+='<tr '+rowClass+' data-id="'+s.id+'">';
-    html+='<td>'+dateStr+'</td>';
-    html+='<td><b>'+(s.prenom||'—')+'</b></td>';
-    html+='<td><b>'+(s.nom||'—')+'</b></td>';
-    html+='<td>'+(s.email||'—')+'</td>';
-    html+='<td>'+(s.indicatif?s.indicatif+' ':'')+(s.tel||'—')+'</td>';
-    html+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+s.secteur+'</span>':'—')+'</td>';
-    html+='<td>'+(s.statut?'<span class="badge badge-statut">'+s.statut+'</span>':'—')+'</td>';
-    html+='<td>'+(s.financement?'<span class="badge badge-fin">'+s.financement+'</span>':'—')+'</td>';
-    html+='<td>'+(s.source||'—')+'</td>';
-    html+='<td><button class="dash-btn" onclick="deleteSub('+s.id+')" style="padding:4px 10px;font-size:11px">Suppr.</button></td>';
-    html+='</tr>';
+
+    // Desktop table row
+    tableHtml+='<tr '+rowClass+' data-id="'+s.id+'">';
+    tableHtml+='<td>'+dateStr+'</td>';
+    tableHtml+='<td><b>'+esc(s.prenom||'—')+'</b></td>';
+    tableHtml+='<td><b>'+esc(s.nom||'—')+'</b></td>';
+    tableHtml+='<td>'+esc(s.email||'—')+'</td>';
+    tableHtml+='<td>'+esc(s.indicatif?s.indicatif+' ':'')+esc(s.tel||'—')+'</td>';
+    tableHtml+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+esc(s.secteur)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+(s.statut?'<span class="badge badge-statut">'+esc(s.statut)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+(s.financement?'<span class="badge badge-fin">'+esc(s.financement)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+esc(s.source||'—')+'</td>';
+    tableHtml+='<td><button class="dash-btn" onclick="deleteSub('+s.id+')" style="padding:4px 10px;font-size:11px">Suppr.</button></td>';
+    tableHtml+='</tr>';
+
+    // Mobile card
+    var unreadClass=s.lu?'':'unread';
+    var fullName=esc(s.prenom||'')+' '+esc(s.nom||'');
+    fullName=fullName.trim()||'—';
+
+    cardsHtml+='<div class="mob-card '+unreadClass+'" data-id="'+s.id+'">';
+
+    // Top: name + date
+    cardsHtml+='<div class="mob-card-top">';
+    cardsHtml+='<div class="mob-card-name">'+fullName+'</div>';
+    cardsHtml+='<div class="mob-card-date">'+dateStr+'</div>';
+    cardsHtml+='</div>';
+
+    // Email row
+    if(s.email){
+      cardsHtml+='<div class="mob-card-row">';
+      cardsHtml+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
+      cardsHtml+='<a href="mailto:'+esc(s.email)+'">'+esc(s.email)+'</a>';
+      cardsHtml+='</div>';
+    }
+
+    // Phone row
+    var phone=(s.indicatif?s.indicatif+' ':'')+(s.tel||'');
+    if(phone.trim()){
+      cardsHtml+='<div class="mob-card-row">';
+      cardsHtml+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>';
+      cardsHtml+='<a href="tel:'+esc(phone.replace(/\s/g,''))+'">'+esc(phone)+'</a>';
+      cardsHtml+='</div>';
+    }
+
+    // Badges
+    if(s.secteur||s.statut||s.financement){
+      cardsHtml+='<div class="mob-card-badges">';
+      if(s.secteur)cardsHtml+='<span class="badge badge-secteur">'+esc(s.secteur)+'</span>';
+      if(s.statut)cardsHtml+='<span class="badge badge-statut">'+esc(s.statut)+'</span>';
+      if(s.financement)cardsHtml+='<span class="badge badge-fin">'+esc(s.financement)+'</span>';
+      cardsHtml+='</div>';
+    }
+
+    // Footer: source + delete
+    cardsHtml+='<div class="mob-card-footer">';
+    cardsHtml+='<div class="mob-card-source">'+(s.source?esc(s.source):'')+'</div>';
+    cardsHtml+='<button class="mob-card-del" onclick="deleteSub('+s.id+')">Supprimer</button>';
+    cardsHtml+='</div>';
+
+    cardsHtml+='</div>';
+
     // Mark as read
     if(!s.lu)fetch('/api/submissions/'+s.id+'/read',{method:'PATCH',headers:authHeaders()}).catch(function(){});
   });
-  html+='</tbody></table>';
-  el.innerHTML=html;
+
+  tableHtml+='</tbody></table></div>';
+  cardsHtml+='</div>';
+
+  el.innerHTML=tableHtml+cardsHtml;
 }
 
 // DELETE ONE
@@ -244,6 +497,114 @@ document.getElementById('clearBtn').addEventListener('click',async function(){
     renderDash();
   }
 });
+
+// ─── CONVERSATIONS ───
+
+async function renderConversations(){
+  try{
+    var [statsRes,convRes]=await Promise.all([
+      fetch('/api/conversations-stats',{headers:authHeaders()}),
+      fetch('/api/conversations',{headers:authHeaders()})
+    ]);
+    var stats=await statsRes.json();
+    var convs=await convRes.json();
+  }catch(e){return;}
+
+  document.getElementById('convTotal').textContent=stats.total;
+  document.getElementById('convActive').textContent=stats.active;
+  document.getElementById('convCompleted').textContent=stats.completed;
+  document.getElementById('convAbandoned').textContent=stats.abandoned;
+  document.getElementById('convCount').textContent=stats.total+' conversation'+(stats.total>1?'s':'');
+  document.getElementById('tabBadgeConv').textContent=stats.total;
+
+  var el=document.getElementById('convBody');
+  if(convs.length===0){
+    el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><p>Aucune conversation pour le moment.</p></div>';
+    return;
+  }
+
+  var html='<div class="conv-list" style="padding:16px">';
+  convs.forEach(function(c){
+    var started=c.started_at?new Date(c.started_at):null;
+    var lastMsg=c.last_message_at?new Date(c.last_message_at):null;
+    var startStr=started?started.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+started.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+    var lastStr=lastMsg?lastMsg.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' '+lastMsg.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
+    var statusClass=c.status||'active';
+    var statusLabels={active:'Active',completed:'Terminée',abandoned:'Abandonnée'};
+    var statusLabel=statusLabels[statusClass]||statusClass;
+
+    html+='<div class="conv-item" data-conv-id="'+c.id+'" onclick="toggleConv(this,'+c.id+')">';
+    html+='<div class="conv-header">';
+    html+='<div class="conv-left">';
+    html+='<div class="conv-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>';
+    html+='<div class="conv-info">';
+    html+='<div class="conv-title">Conversation #'+c.id+'</div>';
+    html+='<div class="conv-meta"><span>'+startStr+'</span>'+(c.page?'<span>'+esc(c.page)+'</span>':'')+'</div>';
+    html+='</div></div>';
+    html+='<div class="conv-right">';
+    html+='<span class="conv-count">'+c.message_count+' msg</span>';
+    html+='<span class="conv-status '+statusClass+'">'+statusLabel+'</span>';
+    html+='<span class="conv-arrow"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>';
+    html+='</div></div>';
+    html+='<div class="conv-transcript" id="conv-transcript-'+c.id+'"><div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Chargement...</div></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function stripBotMarkers(text){
+  return (text||'').replace(/\[BUTTONS?:\s*[^\]]*\]/gi,'').replace(/\[SUBMIT:\s*[^\]]*\]/gi,'').trim();
+}
+
+async function toggleConv(el,id){
+  if(el.classList.contains('open')){
+    el.classList.remove('open');
+    return;
+  }
+  // Close others
+  document.querySelectorAll('.conv-item.open').forEach(function(item){item.classList.remove('open')});
+  el.classList.add('open');
+
+  var container=document.getElementById('conv-transcript-'+id);
+  container.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Chargement...</div>';
+
+  try{
+    var r=await fetch('/api/conversations/'+id,{headers:authHeaders()});
+    var conv=await r.json();
+  }catch(e){
+    container.innerHTML='<div style="padding:16px;color:#F43F5E;font-size:13px">Erreur de chargement.</div>';
+    return;
+  }
+
+  var html='';
+  if(conv.messages&&conv.messages.length){
+    conv.messages.forEach(function(m){
+      var isUser=m.role==='user';
+      var cls=isUser?'conv-msg-user':'conv-msg-bot';
+      var label=isUser?'Visiteur':'Assistant';
+      var content=isUser?esc(m.content):esc(stripBotMarkers(m.content));
+      var t=m.timestamp?new Date(m.timestamp):null;
+      var timeStr=t?t.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'';
+      html+='<div class="conv-msg '+cls+'">';
+      html+='<div class="conv-msg-label">'+label+'</div>';
+      html+='<div class="conv-msg-text">'+content.replace(/\n/g,'<br>')+'</div>';
+      if(timeStr)html+='<div class="conv-msg-time">'+timeStr+'</div>';
+      html+='</div>';
+    });
+  } else {
+    html='<div style="padding:16px;color:var(--muted);font-size:13px;text-align:center">Aucun message dans cette conversation.</div>';
+  }
+
+  html+='<div class="conv-actions"><button class="conv-del-btn" onclick="event.stopPropagation();deleteConv('+id+')">Supprimer</button></div>';
+  container.innerHTML=html;
+}
+
+async function deleteConv(id){
+  if(!confirm('Supprimer cette conversation ?'))return;
+  await fetch('/api/conversations/'+id,{method:'DELETE',headers:authHeaders()});
+  renderConversations();
+}
 </script>
 </body>
 </html>

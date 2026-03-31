@@ -460,6 +460,53 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 </td></tr>
 </table>`;
 
+const TEMPLATE_CHAT_NOTIFY = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
+<tr><td align="center" style="padding:12px 16px 24px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:560px;max-width:560px;">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://web-production-0c02.up.railway.app/static/fav-sf-web.png" alt="SF" width="40" height="40" style="border-radius:10px;display:block;">
+</td></tr>
+<tr><td>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fff;border-radius:16px;overflow:hidden;">
+<tr><td>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:12px;overflow:hidden;margin:0;">
+<tr><td style="padding:20px 28px;">
+<p style="margin:0;font-size:18px;font-weight:700;color:#fff;">💬 Nouvelle conversation</p>
+<p style="margin:4px 0 0;font-size:12px;color:#94A3B8;">Visiteur #{{CONV_ID}} — {{DATE}}</p>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding:24px 28px 0;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Page</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{PAGE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Heure</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{DATE}}</td>
+</tr>
+</table>
+</td></tr>
+<tr><td style="padding:16px 28px 8px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+<p style="margin:14px 0 8px;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Conversation</p>
+</td></tr>
+<tr><td style="padding:0 28px;">
+{{TRANSCRIPT}}
+</td></tr>
+<tr><td style="padding:20px 28px 28px;text-align:center;">
+<a href="https://www.switching-formation.fr/admin" style="display:inline-block;padding:12px 32px;background:#10ABAF;color:#fff;text-decoration:none;font-weight:700;font-size:13px;border-radius:100px;">Consulter la conversation →</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding-top:12px;text-align:center;">
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11 18 99 4</p>
+</td></tr>
+</table>
+</td></tr>
+</table>`;
+
 // ─── DATABASE SETUP ───
 
 function findDBDir() {
@@ -501,6 +548,28 @@ async function initDB() {
       lu INTEGER DEFAULT 0
     )
   `);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS conversations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      visitor_id TEXT NOT NULL,
+      started_at TEXT NOT NULL,
+      last_message_at TEXT NOT NULL,
+      status TEXT DEFAULT 'active',
+      page TEXT,
+      ip TEXT,
+      message_count INTEGER DEFAULT 0,
+      notified INTEGER DEFAULT 0
+    )
+  `);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS chat_messages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      conversation_id INTEGER NOT NULL,
+      role TEXT NOT NULL,
+      content TEXT NOT NULL,
+      timestamp TEXT NOT NULL
+    )
+  `);
   saveDB();
 }
 
@@ -525,6 +594,52 @@ function requireAdmin(req, res, next) {
   const hash = crypto.createHash('sha256').update(token).digest('hex');
   if (hash !== ADMIN_HASH) return res.status(403).json({ error: 'Code incorrect' });
   next();
+}
+
+// ─── CHAT NOTIFICATION HELPERS ───
+
+function buildTranscriptHtml(messages) {
+  let html = '';
+  messages.forEach(function(m) {
+    const isUser = m.role === 'user';
+    const label = isUser ? 'Visiteur' : 'Assistant';
+    const bgColor = isUser ? '#EFF6FF' : '#F1F5F9';
+    const labelColor = isUser ? '#3B82F6' : '#10ABAF';
+    // Strip markers from bot messages
+    let content = m.content || '';
+    content = content.replace(/\[BUTTONS?\s*:\s*[^\]]*\]/gi, '').replace(/\[SUBMIT:\s*[^\]]*\]/gi, '').trim();
+    if (!content) return;
+    html += '<div style="margin-bottom:10px;padding:10px 14px;background:' + bgColor + ';border-radius:10px;">';
+    html += '<p style="margin:0 0 3px;font-size:10px;font-weight:700;color:' + labelColor + ';text-transform:uppercase;letter-spacing:.5px;">' + label + '</p>';
+    html += '<p style="margin:0;font-size:13px;color:#1a1a1a;line-height:1.5;">' + content.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</p>';
+    html += '</div>';
+  });
+  return html || '<p style="font-size:13px;color:#999;">Aucun message.</p>';
+}
+
+function buildChatNotifyEmail(convId, page, dateFR, messages) {
+  let html = TEMPLATE_CHAT_NOTIFY;
+  html = html.split('{{CONV_ID}}').join(String(convId));
+  html = html.split('{{PAGE}}').join(page || 'Non précisée');
+  html = html.split('{{DATE}}').join(dateFR);
+  html = html.split('{{TRANSCRIPT}}').join(buildTranscriptHtml(messages));
+  return html;
+}
+
+async function sendChatNotification(convId, page, messages) {
+  if (!gmailReady) return;
+  const dateFR = formatDateFR();
+  const subject = '💬 Nouvelle conversation — Visiteur #' + convId;
+  try {
+    const result = await gmailSend(
+      NOTIFY_EMAIL,
+      subject,
+      buildChatNotifyEmail(convId, page, dateFR, messages)
+    );
+    console.log('  ✓ Chat notification email sent:', result.id);
+  } catch (err) {
+    console.error('  ✗ Chat notification email FAILED:', err.message);
+  }
 }
 
 // ─── API ROUTES ───
@@ -609,9 +724,37 @@ app.post('/api/chat', async (req, res) => {
   if (!checkChatRate(ip)) {
     return res.status(429).json({ error: 'Trop de messages. Réessayez dans une minute.' });
   }
-  const { messages } = req.body;
+  const { messages, visitor_id, conversation_id, page } = req.body;
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages requis' });
+  }
+
+  // Get or create conversation
+  let convId = conversation_id || null;
+  const now = new Date().toISOString();
+
+  if (!convId) {
+    db.run(
+      'INSERT INTO conversations (visitor_id, started_at, last_message_at, status, page, ip, message_count, notified) VALUES (?, ?, ?, ?, ?, ?, 0, 0)',
+      [visitor_id || 'anonymous', now, now, 'active', page || null, ip || null]
+    );
+    const idResult = db.exec('SELECT last_insert_rowid()');
+    convId = idResult[0].values[0][0];
+    saveDB();
+  }
+
+  // Save the latest user message to chat_messages
+  const lastUserMsg = messages[messages.length - 1];
+  if (lastUserMsg && lastUserMsg.role === 'user') {
+    db.run(
+      'INSERT INTO chat_messages (conversation_id, role, content, timestamp) VALUES (?, ?, ?, ?)',
+      [convId, 'user', lastUserMsg.content, now]
+    );
+    db.run(
+      'UPDATE conversations SET last_message_at = ?, message_count = message_count + 1 WHERE id = ?',
+      [now, convId]
+    );
+    saveDB();
   }
 
   // Limit conversation length
@@ -624,6 +767,9 @@ app.post('/api/chat', async (req, res) => {
   if (trimmed.length === 0) {
     return res.status(400).json({ error: 'Messages requis' });
   }
+
+  // Send conversation_id to client
+  res.write('data: ' + JSON.stringify({ type: 'conversation_id', conversation_id: convId }) + '\n\n');
 
   try {
     console.log('Chat API call — messages:', trimmed.length, '| first role:', trimmed[0]?.role);
@@ -638,7 +784,30 @@ app.post('/api/chat', async (req, res) => {
     const fullText = response.content[0]?.text || '';
     console.log('Chat API OK — length:', fullText.length);
 
-    const result = { text: fullText };
+    // Save bot response to chat_messages
+    if (fullText) {
+      db.run(
+        'INSERT INTO chat_messages (conversation_id, role, content, timestamp) VALUES (?, ?, ?, ?)',
+        [convId, 'assistant', fullText, new Date().toISOString()]
+      );
+      db.run(
+        'UPDATE conversations SET last_message_at = ? WHERE id = ?',
+        [new Date().toISOString(), convId]
+      );
+      saveDB();
+    }
+
+    // Send notification email for new conversations
+    const convRows = db.exec('SELECT notified FROM conversations WHERE id = ?', [convId]);
+    if (convRows.length && convRows[0].values[0][0] === 0) {
+      db.run('UPDATE conversations SET notified = 1 WHERE id = ?', [convId]);
+      saveDB();
+      const msgRows = db.exec('SELECT role, content FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [convId]);
+      const convMessages = msgRows.length ? msgRows[0].values.map(r => ({ role: r[0], content: r[1] })) : [];
+      sendChatNotification(convId, page, convMessages).catch(err => console.error('Chat notify error:', err.message));
+    }
+
+    const result = { text: fullText, conversation_id: convId };
 
     // Parse buttons
     const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
@@ -663,6 +832,8 @@ app.post('/api/chat', async (req, res) => {
           [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
            data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
         );
+        // Mark conversation as completed
+        db.run('UPDATE conversations SET status = ? WHERE id = ?', ['completed', convId]);
         saveDB();
         sendEmails({ ...data, source: 'chatbot' })
           .then(() => console.log('Chatbot emails sent for:', data.prenom, data.nom))
@@ -718,6 +889,60 @@ app.get('/api/test-email', requireAdmin, async (req, res) => {
   } catch (err) {
     res.json({ ok: false, error: err.message });
   }
+});
+
+// ─── CONVERSATIONS ENDPOINTS ───
+
+app.get('/api/conversations', requireAdmin, (req, res) => {
+  // Update status of stale conversations (>30 min without activity, not completed)
+  const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+  db.run("UPDATE conversations SET status = 'abandoned' WHERE status = 'active' AND last_message_at < ?", [thirtyMinAgo]);
+  saveDB();
+
+  const rows = db.exec('SELECT * FROM conversations ORDER BY id DESC');
+  if (!rows.length) return res.json([]);
+  res.json(rows[0].values.map(r => ({
+    id: r[0], visitor_id: r[1], started_at: r[2], last_message_at: r[3],
+    status: r[4], page: r[5], ip: r[6], message_count: r[7], notified: r[8]
+  })));
+});
+
+app.get('/api/conversations/:id', requireAdmin, (req, res) => {
+  const convRows = db.exec('SELECT * FROM conversations WHERE id = ?', [req.params.id]);
+  if (!convRows.length || !convRows[0].values.length) return res.status(404).json({ error: 'Conversation non trouvée' });
+  const c = convRows[0].values[0];
+  const conv = {
+    id: c[0], visitor_id: c[1], started_at: c[2], last_message_at: c[3],
+    status: c[4], page: c[5], ip: c[6], message_count: c[7]
+  };
+
+  const msgRows = db.exec('SELECT id, role, content, timestamp FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [req.params.id]);
+  conv.messages = msgRows.length ? msgRows[0].values.map(r => ({
+    id: r[0], role: r[1], content: r[2], timestamp: r[3]
+  })) : [];
+
+  res.json(conv);
+});
+
+app.delete('/api/conversations/:id', requireAdmin, (req, res) => {
+  db.run('DELETE FROM chat_messages WHERE conversation_id = ?', [req.params.id]);
+  db.run('DELETE FROM conversations WHERE id = ?', [req.params.id]);
+  saveDB();
+  res.json({ ok: true });
+});
+
+app.get('/api/conversations-stats', requireAdmin, (req, res) => {
+  // Update stale conversations
+  const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+  db.run("UPDATE conversations SET status = 'abandoned' WHERE status = 'active' AND last_message_at < ?", [thirtyMinAgo]);
+  saveDB();
+
+  const total = db.exec('SELECT COUNT(*) FROM conversations')[0]?.values[0][0] || 0;
+  const active = db.exec("SELECT COUNT(*) FROM conversations WHERE status = 'active'")[0]?.values[0][0] || 0;
+  const completed = db.exec("SELECT COUNT(*) FROM conversations WHERE status = 'completed'")[0]?.values[0][0] || 0;
+  const abandoned = db.exec("SELECT COUNT(*) FROM conversations WHERE status = 'abandoned'")[0]?.values[0][0] || 0;
+  const today = db.exec("SELECT COUNT(*) FROM conversations WHERE started_at >= date('now')")[0]?.values[0][0] || 0;
+  res.json({ total, active, completed, abandoned, today });
 });
 
 // ─── FALLBACK ───
