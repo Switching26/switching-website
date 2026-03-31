@@ -63,6 +63,7 @@ COMPORTEMENT :
 - Tu dois TOUJOURS orienter la conversation vers la collecte d'informations du prospect.
 - Quand tu proposes des choix, utilise le format [BUTTONS: choix1 | choix2 | choix3] à la fin de ton message (sur une nouvelle ligne). Le frontend affichera ces boutons comme des options cliquables.
 - Ne mets JAMAIS les boutons au milieu du texte, toujours à la fin.
+- Quand tu demandes une information textuelle (prénom, nom, email, téléphone), utilise le format [INPUT: Label du champ] à la fin de ton message (sur une nouvelle ligne). Le frontend affichera un champ de saisie avec ce label. Par exemple : [INPUT: Votre prénom] ou [INPUT: Votre adresse email] ou [INPUT: Votre numéro de téléphone]. Ne demande qu'UN seul champ à la fois.
 
 INFORMATIONS SUR LE CENTRE :
 - Adresse : 18 rue Coriolis, 75012 Paris
@@ -643,6 +644,12 @@ app.post('/api/chat', async (req, res) => {
     const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
     if (btnMatch) {
       result.buttons = btnMatch[1].split('|').map(b => b.trim());
+    }
+
+    // Parse input field request
+    const inputMatch = fullText.match(/\[INPUT:\s*(.+?)\]/);
+    if (inputMatch) {
+      result.input = inputMatch[1].trim();
     }
 
     // Parse form submission

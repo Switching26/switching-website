@@ -218,6 +218,45 @@
 }\
 .sf-chat-success svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
 \
+/* ── Inline Input Field ── */\
+.sf-chat-inline-input{\
+  margin-top:8px;padding:12px 14px;\
+  background:#fff;border-radius:14px;\
+  border:1px solid rgba(16,171,175,.2);\
+  box-shadow:0 2px 12px rgba(16,171,175,.06);\
+  animation:sf-chat-msgIn .35s cubic-bezier(.16,1,.3,1) both;\
+  animation-delay:.1s;\
+}\
+.sf-chat-inline-label{\
+  font-family:"Almarai",sans-serif;font-size:12px;font-weight:600;\
+  color:#10ABAF;letter-spacing:.02em;\
+  display:block;margin-bottom:6px;\
+}\
+.sf-chat-inline-row{\
+  display:flex;gap:8px;align-items:center;\
+}\
+.sf-chat-inline-field{\
+  flex:1;border:1px solid rgba(0,0,0,.1);border-radius:10px;\
+  padding:9px 14px;font-family:"Almarai",sans-serif;font-size:13.5px;\
+  color:#1E293B;background:#F8FAFC;outline:none;\
+  transition:border-color .25s,box-shadow .25s;\
+}\
+.sf-chat-inline-field:focus{\
+  border-color:rgba(16,171,175,.4);\
+  box-shadow:0 0 0 3px rgba(16,171,175,.08);\
+}\
+.sf-chat-inline-field::placeholder{color:#94A3B8;}\
+.sf-chat-inline-submit{\
+  width:36px;height:36px;border-radius:10px;border:none;\
+  background:linear-gradient(135deg,#10ABAF,#0E9599);\
+  display:flex;align-items:center;justify-content:center;\
+  cursor:pointer;flex-shrink:0;\
+  transition:all .3s cubic-bezier(.16,1,.3,1);\
+}\
+.sf-chat-inline-submit:disabled{opacity:.35;cursor:default;}\
+.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(16,171,175,.3);}\
+.sf-chat-inline-submit svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
+\
 /* ── Error ── */\
 .sf-chat-error .sf-chat-msg-bubble{\
   background:rgba(239,68,68,.08)!important;\
@@ -297,8 +336,7 @@
   bubble.className = 'sf-chat-bubble';
   bubble.setAttribute('aria-label', 'Ouvrir le chat');
   bubble.innerHTML = '\
-<svg class="sf-chat-open-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>\
-<svg class="sf-chat-close-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>';
 
   // Panel
   var panel = document.createElement('div');
@@ -352,10 +390,10 @@
   }
 
   function stripMarkers(text) {
-    // Remove [BUTTONS: ...] and [SUBMIT: ...] markers
     return text
       .replace(/\[BUTTONS?:\s*[^\]]*\]/gi, '')
       .replace(/\[SUBMIT:\s*[^\]]*\]/gi, '')
+      .replace(/\[INPUT:\s*[^\]]*\]/gi, '')
       .trim();
   }
 
@@ -392,6 +430,46 @@
       });
       wrap.appendChild(btn);
     });
+    return wrap;
+  }
+
+  function renderInputField(label) {
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-chat-inline-input';
+    var lbl = document.createElement('label');
+    lbl.className = 'sf-chat-inline-label';
+    lbl.textContent = label;
+    var row = document.createElement('div');
+    row.className = 'sf-chat-inline-row';
+    var inp = document.createElement('input');
+    inp.className = 'sf-chat-inline-field';
+    inp.type = label.toLowerCase().indexOf('email') !== -1 ? 'email'
+      : label.toLowerCase().indexOf('tel') !== -1 || label.toLowerCase().indexOf('phone') !== -1 || label.toLowerCase().indexOf('téléphone') !== -1 || label.toLowerCase().indexOf('numero') !== -1 || label.toLowerCase().indexOf('numéro') !== -1 ? 'tel'
+      : 'text';
+    inp.placeholder = label;
+    inp.autocomplete = inp.type === 'email' ? 'email' : inp.type === 'tel' ? 'tel' : 'off';
+    var btn = document.createElement('button');
+    btn.className = 'sf-chat-inline-submit';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    btn.disabled = true;
+    inp.addEventListener('input', function() {
+      btn.disabled = !inp.value.trim();
+    });
+    function submit() {
+      var val = inp.value.trim();
+      if (!val) return;
+      wrap.remove();
+      sendMessage(val);
+    }
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+    btn.addEventListener('click', submit);
+    row.appendChild(inp);
+    row.appendChild(btn);
+    wrap.appendChild(lbl);
+    wrap.appendChild(row);
+    requestAnimationFrame(function() { inp.focus(); });
     return wrap;
   }
 
@@ -508,8 +586,8 @@
     inputEl.value = '';
     sendBtn.classList.remove('sf-chat-send-active');
 
-    // Remove any leftover quick buttons
-    var oldBtns = messagesEl.querySelectorAll('.sf-chat-buttons');
+    // Remove any leftover quick buttons and inline inputs
+    var oldBtns = messagesEl.querySelectorAll('.sf-chat-buttons, .sf-chat-inline-input');
     oldBtns.forEach(function(b) { b.remove(); });
 
     isSending = true;
@@ -550,6 +628,10 @@
 
       if (data.buttons && data.buttons.length) {
         messagesEl.appendChild(renderButtons(data.buttons));
+      }
+
+      if (data.input) {
+        messagesEl.appendChild(renderInputField(data.input));
       }
 
       if (data.submit) {
