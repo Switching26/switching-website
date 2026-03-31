@@ -599,7 +599,7 @@ app.get('/api/export', (req, res) => {
   res.send(csv);
 });
 
-// ─── CHATBOT ENDPOINT (SSE streaming) ───
+// ─── CHATBOT ENDPOINT (simple JSON — no SSE, no streaming) ───
 app.post('/api/chat', async (req, res) => {
   if (!anthropicClient) {
     return res.status(503).json({ error: 'Chatbot not configured' });
@@ -612,11 +612,11 @@ app.post('/api/chat', async (req, res) => {
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages requis' });
   }
+
   // Limit conversation length
-  let trimmed = messages.slice(-40); // Keep last 20 exchanges (40 messages user+assistant)
+  let trimmed = messages.slice(-40);
 
   // Anthropic API requires first message to be role:"user"
-  // Remove leading assistant messages (e.g. welcome message from frontend)
   while (trimmed.length > 0 && trimmed[0].role === 'assistant') {
     trimmed = trimmed.slice(1);
   }
@@ -624,106 +624,52 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Messages requis' });
   }
 
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'X-Accel-Buffering': 'no'
-  });
-
   try {
-    let fullText = '';
-    let clientDisconnected = false;
-    let responseEnded = false;
-    const safeSend = (data) => {
-      if (clientDisconnected || responseEnded || res.destroyed) return;
-      try { res.write('data: ' + JSON.stringify(data) + '\n\n'); } catch(e) {}
-    };
-    const safeEnd = () => {
-      if (responseEnded || res.destroyed) return;
-      responseEnded = true;
-      try { res.end(); } catch(e) {}
-    };
-    console.log('Chat API call — messages count:', trimmed.length, 'first role:', trimmed[0]?.role);
-    const stream = anthropicClient.messages.stream({
+    console.log('Chat API call — messages:', trimmed.length, '| first role:', trimmed[0]?.role);
+
+    const response = await anthropicClient.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: CHAT_SYSTEM_PROMPT,
       messages: trimmed
     });
 
-    // Safety net: catch unhandled promise rejection from stream internals
-    // This fires if the API returns 400/500 and the stream 'error' event doesn't catch it
-    stream.finalMessage().catch((err) => {
-      if (clientDisconnected || responseEnded) return;
-      console.error('Chat finalMessage error:', err.message || err, '| status:', err?.status, '| type:', err?.constructor?.name);
-      safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
-      safeSend({ type: 'done' });
-      safeEnd();
-    });
+    const fullText = response.content[0]?.text || '';
+    console.log('Chat API OK — length:', fullText.length);
 
-    stream.on('text', (text) => {
-      fullText += text;
-      safeSend({ type: 'text', text: text });
-    });
+    const result = { text: fullText };
 
-    stream.on('end', async () => {
-      if (clientDisconnected || responseEnded) return;
-      // Parse special markers from the full response
-      // Check for buttons
-      const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
-      if (btnMatch) {
-        const buttons = btnMatch[1].split('|').map(b => b.trim());
-        safeSend({ type: 'buttons', buttons: buttons });
-      }
-      // Check for form submission
-      const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
-      if (submitMatch) {
-        try {
-          const data = JSON.parse(submitMatch[1]);
-          data.source = 'chatbot';
-          // Save to DB
-          db.run(
-            'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
-             data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
-          );
-          saveDB();
-          // Send emails
-          sendEmails({ ...data, source: 'chatbot' })
-            .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
-            .catch(err => console.error('Chatbot email error:', err.message));
-          safeSend({ type: 'submit', data: data });
-        } catch (e) {
-          console.error('Failed to parse submit data:', e.message);
-        }
-      }
-      safeSend({ type: 'done' });
-      safeEnd();
-    });
-
-    stream.on('error', (err) => {
-      if (clientDisconnected || responseEnded) return;
-      console.error('Chat stream error:', err.message, '| status:', err.status, '| type:', err.constructor?.name);
-      safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
-      safeSend({ type: 'done' });
-      safeEnd();
-    });
-
-    // Handle client disconnect
-    req.on('close', () => {
-      clientDisconnected = true;
-      try { stream.abort(); } catch (e) { /* ignore */ }
-    });
-  } catch (err) {
-    console.error('Chat catch error:', err.message, '| status:', err?.status, '| type:', err?.constructor?.name);
-    if (!res.destroyed) {
-      try {
-        res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
-        res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-        res.end();
-      } catch(e) {}
+    // Parse buttons
+    const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
+    if (btnMatch) {
+      result.buttons = btnMatch[1].split('|').map(b => b.trim());
     }
+
+    // Parse form submission
+    const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
+    if (submitMatch) {
+      try {
+        const data = JSON.parse(submitMatch[1]);
+        data.source = 'chatbot';
+        db.run(
+          'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
+           data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
+        );
+        saveDB();
+        sendEmails({ ...data, source: 'chatbot' })
+          .then(() => console.log('Chatbot emails sent for:', data.prenom, data.nom))
+          .catch(err => console.error('Chatbot email error:', err.message));
+        result.submit = data;
+      } catch (e) {
+        console.error('Failed to parse submit data:', e.message);
+      }
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.error('Chat API error:', err.message, '| status:', err?.status, '| type:', err?.constructor?.name);
+    res.status(err?.status || 500).json({ error: 'Une erreur est survenue. Réessayez.', details: err.message });
   }
 });
 
