@@ -5,4 +5,4 @@ nixPkgs = ["nodejs-18_x"]
 cmds = ["npm install"]
 
 [start]
-cmd = "NODE_OPTIONS='--dns-result-order=ipv4first' node server.js"
+cmd = "node server.js"

@@ -1,75 +1,101 @@
-// Force IPv4 globally — Railway IPv6 cannot reach external SMTP servers
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
-
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const initSqlJs = require('sql.js');
-const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
-// ─── SMTP / EMAIL SETUP ───
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
-const SMTP_PORT = parseInt(process.env.SMTP_PORT) || 587;
+// ─── GMAIL API SETUP ───
+const GMAIL_CLIENT_ID = process.env.GMAIL_CLIENT_ID;
+const GMAIL_CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
+const GMAIL_REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN;
+const GMAIL_FROM = process.env.GMAIL_FROM || 'contact@switchingformation.com';
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'contact@switchingformation.com';
-const FROM_EMAIL = SMTP_USER || 'contact@switchingformation.com';
 
-// Log SMTP config at startup
-console.log('=== SMTP CONFIG ===');
-console.log('SMTP_HOST:', SMTP_HOST);
-console.log('SMTP_PORT:', SMTP_PORT);
-console.log('SMTP_USER:', SMTP_USER ? SMTP_USER : '❌ NOT SET');
-console.log('SMTP_PASS:', SMTP_PASS ? '✓ SET (' + SMTP_PASS.length + ' chars)' : '❌ NOT SET');
+let gmailReady = false;
+
+console.log('=== GMAIL API CONFIG ===');
+console.log('GMAIL_CLIENT_ID:', GMAIL_CLIENT_ID ? '✓ SET' : '❌ NOT SET');
+console.log('GMAIL_CLIENT_SECRET:', GMAIL_CLIENT_SECRET ? '✓ SET' : '❌ NOT SET');
+console.log('GMAIL_REFRESH_TOKEN:', GMAIL_REFRESH_TOKEN ? '✓ SET (' + GMAIL_REFRESH_TOKEN.length + ' chars)' : '❌ NOT SET');
+console.log('GMAIL_FROM:', GMAIL_FROM);
 console.log('NOTIFY_EMAIL:', NOTIFY_EMAIL);
-console.log('===================');
+console.log('========================');
 
-let smtpTransport = null;
-if (SMTP_USER && SMTP_PASS) {
-  const usePort = 465;
-  // Resolve smtp.gmail.com to IPv4 manually since Railway forces IPv6
-  const dns = require('dns');
-  const net = require('net');
-
-  function createSmtp(host) {
-    console.log('Connecting to SMTP:', host + ':' + usePort, '(secure: true)');
-    smtpTransport = nodemailer.createTransport({
-      host: host,
-      port: usePort,
-      secure: true,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
-      tls: {
-        rejectUnauthorized: false,
-        servername: 'smtp.gmail.com'
-      },
-      connectionTimeout: 15000,
-      greetingTimeout: 15000
-    });
-    smtpTransport.verify()
-      .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
-      .catch(err => console.error('✗ SMTP connection FAILED:', err.message));
-  }
-
-  // Force DNS lookup to IPv4 only
-  dns.resolve4('smtp.gmail.com', (err, addresses) => {
-    if (err || !addresses || !addresses.length) {
-      console.error('DNS resolve4 failed, trying hardcoded IPv4:', err ? err.message : 'no addresses');
-      createSmtp('142.250.115.108'); // Known Gmail SMTP IPv4
-    } else {
-      console.log('Resolved smtp.gmail.com to IPv4:', addresses[0]);
-      createSmtp(addresses[0]);
-    }
-  });
+if (GMAIL_CLIENT_ID && GMAIL_CLIENT_SECRET && GMAIL_REFRESH_TOKEN) {
+  gmailReady = true;
+  console.log('✓ Gmail API configured — emails will be sent via HTTPS');
 } else {
-  console.log('⚠ SMTP not configured — emails will NOT be sent');
+  console.log('⚠ Gmail API not configured — emails will NOT be sent');
 }
+
+// Get a fresh access token from Google using the refresh token
+async function getAccessToken() {
+  const resp = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: GMAIL_CLIENT_ID,
+      client_secret: GMAIL_CLIENT_SECRET,
+      refresh_token: GMAIL_REFRESH_TOKEN,
+      grant_type: 'refresh_token'
+    })
+  });
+  const data = await resp.json();
+  if (!data.access_token) {
+    throw new Error('Failed to get access token: ' + JSON.stringify(data));
+  }
+  return data.access_token;
+}
+
+// Build a RFC 2822 email message and encode as base64url
+function buildMimeMessage(to, subject, htmlBody) {
+  const boundary = 'boundary_' + Date.now();
+  const lines = [
+    'From: "Switching Formation" <' + GMAIL_FROM + '>',
+    'To: ' + to,
+    'Subject: =?UTF-8?B?' + Buffer.from(subject).toString('base64') + '?=',
+    'MIME-Version: 1.0',
+    'Content-Type: multipart/alternative; boundary=' + boundary,
+    '',
+    '--' + boundary,
+    'Content-Type: text/html; charset=UTF-8',
+    'Content-Transfer-Encoding: base64',
+    '',
+    Buffer.from(htmlBody).toString('base64'),
+    '',
+    '--' + boundary + '--'
+  ];
+  const raw = lines.join('\r\n');
+  // base64url encode
+  return Buffer.from(raw).toString('base64')
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+// Send an email via Gmail API
+async function gmailSend(to, subject, htmlBody) {
+  const token = await getAccessToken();
+  const raw = buildMimeMessage(to, subject, htmlBody);
+  const resp = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ raw: raw })
+  });
+  const result = await resp.json();
+  if (result.error) {
+    throw new Error(result.error.message || JSON.stringify(result.error));
+  }
+  return result;
+}
+
+// ─── EMAIL HELPERS ───
 
 function formatDateFR() {
   const now = new Date();
@@ -121,8 +147,8 @@ function buildAdminEmail(data, dateFR, pageLabel) {
 }
 
 async function sendEmails(data) {
-  if (!smtpTransport) {
-    console.log('SMTP not configured — skipping emails');
+  if (!gmailReady) {
+    console.log('Gmail API not configured — skipping emails');
     return;
   }
   console.log('📧 Sending emails for submission:', data.prenom, data.nom, '| source:', data.source);
@@ -130,17 +156,16 @@ async function sendEmails(data) {
   const pageLabel = getPageLabel(data.source);
   const promises = [];
 
-  // 1) Email to prospect (only if they provided an email)
+  // 1) Email to prospect
   if (data.email) {
     console.log('  → Prospect email to:', data.email);
     promises.push(
-      smtpTransport.sendMail({
-        from: '"Switching Formation" <' + FROM_EMAIL + '>',
-        to: data.email,
-        subject: 'Switching Formation — Votre demande a bien été reçue',
-        html: buildProspectEmail(data)
-      }).then(info => console.log('  ✓ Prospect email sent:', info.messageId))
-       .catch(err => console.error('  ✗ Prospect email FAILED:', err.message, err.code, err.response))
+      gmailSend(
+        data.email,
+        'Switching Formation — Votre demande a bien été reçue',
+        buildProspectEmail(data)
+      ).then(r => console.log('  ✓ Prospect email sent:', r.id))
+       .catch(err => console.error('  ✗ Prospect email FAILED:', err.message))
     );
   }
 
@@ -148,13 +173,12 @@ async function sendEmails(data) {
   const adminSubject = '🎯 Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
   console.log('  → Admin email to:', NOTIFY_EMAIL);
   promises.push(
-    smtpTransport.sendMail({
-      from: '"Switching Formation" <' + FROM_EMAIL + '>',
-      to: NOTIFY_EMAIL,
-      subject: adminSubject,
-      html: buildAdminEmail(data, dateFR, pageLabel)
-    }).then(info => console.log('  ✓ Admin email sent:', info.messageId))
-     .catch(err => console.error('  ✗ Admin email FAILED:', err.message, err.code, err.response))
+    gmailSend(
+      NOTIFY_EMAIL,
+      adminSubject,
+      buildAdminEmail(data, dateFR, pageLabel)
+    ).then(r => console.log('  ✓ Admin email sent:', r.id))
+     .catch(err => console.error('  ✗ Admin email FAILED:', err.message))
   );
 
   await Promise.all(promises);
@@ -304,11 +328,10 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 </td></tr>
 </table>`;
 
-// Database setup — use volume mount if available, fallback to local
-// Database path: check env, then common Railway volume mounts, then local
+// ─── DATABASE SETUP ───
+
 function findDBDir() {
   if (process.env.DB_PATH) return process.env.DB_PATH;
-  // Try common Railway volume mount paths
   const candidates = ['/data', '/app/data', '/var/data'];
   for (const dir of candidates) {
     try {
@@ -318,8 +341,7 @@ function findDBDir() {
       return dir;
     } catch(e) {}
   }
-  // Fallback to local (will be wiped on redeploy)
-  console.log('WARNING: No persistent volume found, using local ./data (data will be lost on redeploy)');
+  console.log('WARNING: No persistent volume found, using local ./data');
   return path.join(__dirname, 'data');
 }
 const DB_DIR = findDBDir();
@@ -330,29 +352,20 @@ let db;
 
 async function initDB() {
   const SQL = await initSqlJs();
-
-  // Load existing database or create new
   if (fs.existsSync(DB_FILE)) {
     const buffer = fs.readFileSync(DB_FILE);
     db = new SQL.Database(buffer);
   } else {
     db = new SQL.Database();
   }
-
   db.run(`
     CREATE TABLE IF NOT EXISTS submissions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date TEXT NOT NULL,
       source TEXT DEFAULT 'accueil',
-      secteur TEXT,
-      statut TEXT,
-      financement TEXT,
-      prenom TEXT,
-      nom TEXT,
-      email TEXT,
-      indicatif TEXT,
-      tel TEXT,
-      message TEXT,
+      secteur TEXT, statut TEXT, financement TEXT,
+      prenom TEXT, nom TEXT, email TEXT,
+      indicatif TEXT, tel TEXT, message TEXT,
       lu INTEGER DEFAULT 0
     )
   `);
@@ -368,12 +381,12 @@ function saveDB() {
   }
 }
 
-// Middleware
+// ─── MIDDLEWARE ───
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
-// Auth middleware
 function requireAdmin(req, res, next) {
   const token = req.headers['x-admin-token'];
   if (!token) return res.status(401).json({ error: 'Non autorisé' });
@@ -396,7 +409,6 @@ app.post('/api/submit', (req, res) => {
      prenom || null, nom || null, email || null, indicatif || null, tel || null, message || null]
   );
   saveDB();
-  // Send emails in background (don't block the response)
   sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message })
     .then(() => console.log('Emails sent for:', prenom, nom))
     .catch(err => console.error('Email sending failed:', err.message));
@@ -443,7 +455,6 @@ app.get('/api/export', (req, res) => {
   if (!token) return res.status(401).json({ error: 'Non autorisé' });
   const hash = crypto.createHash('sha256').update(token).digest('hex');
   if (hash !== ADMIN_HASH) return res.status(403).json({ error: 'Code incorrect' });
-
   const rows = db.exec('SELECT * FROM submissions ORDER BY id DESC');
   const headers = ['Date', 'Source', 'Secteur', 'Statut', 'Financement', 'Prenom', 'Nom', 'Email', 'Indicatif', 'Telephone', 'Message', 'Lu'];
   let csv = '\ufeff' + headers.join(';') + '\n';
@@ -459,28 +470,26 @@ app.get('/api/export', (req, res) => {
 
 // ─── EMAIL TEST ENDPOINT (admin only) ───
 app.get('/api/test-email', requireAdmin, async (req, res) => {
-  if (!smtpTransport) {
-    return res.json({ ok: false, error: 'SMTP not configured', smtp_user: SMTP_USER ? 'set' : 'missing', smtp_pass: SMTP_PASS ? 'set' : 'missing' });
+  if (!gmailReady) {
+    return res.json({ ok: false, error: 'Gmail API not configured', client_id: GMAIL_CLIENT_ID ? 'set' : 'missing', client_secret: GMAIL_CLIENT_SECRET ? 'set' : 'missing', refresh_token: GMAIL_REFRESH_TOKEN ? 'set' : 'missing' });
   }
   try {
-    await smtpTransport.verify();
-    const info = await smtpTransport.sendMail({
-      from: '"Switching Formation" <' + FROM_EMAIL + '>',
-      to: NOTIFY_EMAIL,
-      subject: '✅ Test email — Switching Formation',
-      html: '<h2>Test réussi</h2><p>Les emails fonctionnent correctement.</p><p>Envoyé le ' + formatDateFR() + '</p>'
-    });
-    res.json({ ok: true, messageId: info.messageId, to: NOTIFY_EMAIL, from: FROM_EMAIL });
+    const result = await gmailSend(
+      NOTIFY_EMAIL,
+      '✅ Test email — Switching Formation',
+      '<h2>Test réussi</h2><p>Les emails fonctionnent correctement via l\'API Gmail.</p><p>Envoyé le ' + formatDateFR() + '</p>'
+    );
+    res.json({ ok: true, messageId: result.id, to: NOTIFY_EMAIL });
   } catch (err) {
-    res.json({ ok: false, error: err.message, code: err.code, response: err.response });
+    res.json({ ok: false, error: err.message });
   }
 });
 
-// Fallback
+// ─── FALLBACK ───
 app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'index.html')); });
 app.use((req, res) => { res.status(404).sendFile(path.join(__dirname, 'index.html')); });
 
-// Start server after DB init
+// ─── START ───
 initDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Switching Formation server running on port ${PORT}`);
