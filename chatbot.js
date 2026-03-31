@@ -512,12 +512,17 @@
       return { role: m.role === 'bot' ? 'assistant' : 'user', content: m.text };
     });
 
-    // SSE fetch
+    // SSE fetch with timeout
+    var abortCtrl = new AbortController();
+    var fetchTimeout = setTimeout(function() { abortCtrl.abort(); }, 30000);
+
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history })
+      body: JSON.stringify({ messages: history }),
+      signal: abortCtrl.signal
     }).then(function(response) {
+      clearTimeout(fetchTimeout);
       if (!response.ok) throw new Error('HTTP ' + response.status);
       if (!response.body) throw new Error('No stream');
 
@@ -596,9 +601,12 @@
 
       return processChunk();
     }).catch(function(err) {
+      clearTimeout(fetchTimeout);
       removeTyping();
       isSending = false;
-      var errText = 'D\u00e9sol\u00e9, une erreur est survenue. Veuillez r\u00e9essayer.';
+      var errText = err && err.name === 'AbortError'
+        ? 'La réponse a pris trop de temps. Veuillez réessayer.'
+        : 'Désolé, une erreur est survenue. Veuillez réessayer.';
       messages.push({ role: 'bot', text: errText, buttons: [] });
       saveSession();
       var errEl = renderBotBubble(errText);
