@@ -293,7 +293,6 @@ footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
 .fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:11px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
 .fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
 
-.chat{position:fixed;bottom:24px;right:24px;width:48px;height:48px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--accent-gl);z-index:999;cursor:pointer;transition:all .3s var(--e)}.chat:hover{transform:scale(1.1) translateY(-2px)}.chat svg{width:20px;height:20px;fill:#fff}
 
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
 
@@ -605,7 +604,6 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 </div>
 </div></footer>
 
-<div class="chat"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
 
 <script>
 var cs=1;function goStep(d){var n=cs+d;if(n<1||n>5)return;document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');document.querySelector('.step[data-step="'+n+'"]').classList.add('active');cs=n;}
@@ -637,5 +635,6 @@ window.addEventListener('scroll',function(){document.getElementById('hd').classL
 var mt=document.querySelector('.menu-toggle');if(mt)mt.addEventListener('click',function(){document.body.classList.toggle('menu-open')});
 document.querySelectorAll('.mobile-menu a[href]').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open')})});
 </script>
+<script src="/chatbot.js"></script>
 </body>
 </html>
