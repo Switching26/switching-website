@@ -225,6 +225,41 @@
   border:1px solid rgba(239,68,68,.15);\
 }\
 \
+/* ── Contextual Nudge ── */\
+.sf-chat-nudge{\
+  position:fixed;bottom:92px;right:28px;z-index:9998;\
+  background:#fff;\
+  padding:12px 18px;border-radius:14px;\
+  box-shadow:0 8px 32px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);\
+  font-family:"Almarai",sans-serif;font-size:13px;font-weight:500;\
+  color:#1E293B;line-height:1.45;\
+  max-width:260px;\
+  cursor:pointer;\
+  opacity:0;transform:translateY(8px) scale(.95);\
+  transition:all .45s cubic-bezier(.16,1,.3,1);\
+  pointer-events:none;\
+}\
+.sf-chat-nudge.sf-chat-nudge-visible{\
+  opacity:1;transform:translateY(0) scale(1);pointer-events:auto;\
+}\
+.sf-chat-nudge::after{\
+  content:"";position:absolute;bottom:-6px;right:24px;\
+  width:12px;height:12px;background:#fff;\
+  transform:rotate(45deg);\
+  box-shadow:2px 2px 4px rgba(0,0,0,.06);\
+}\
+.sf-chat-nudge-close{\
+  position:absolute;top:6px;right:8px;\
+  width:18px;height:18px;border:none;background:transparent;\
+  cursor:pointer;display:flex;align-items:center;justify-content:center;\
+  opacity:.3;transition:opacity .2s;\
+}\
+.sf-chat-nudge-close:hover{opacity:.6;}\
+.sf-chat-nudge-close svg{width:12px;height:12px;stroke:#64748B;stroke-width:2;fill:none;stroke-linecap:round;}\
+@media(max-width:480px){\
+  .sf-chat-nudge{right:20px;bottom:84px;max-width:220px;font-size:12.5px;padding:10px 14px;}\
+}\
+\
 /* ── Mobile ── */\
 @media(max-width:480px){\
   .sf-chat-panel{\
@@ -577,5 +612,69 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && isOpen) togglePanel();
   });
+
+  /* ─── Contextual Nudge Message ─── */
+  var nudgeDismissed = false;
+  try { nudgeDismissed = sessionStorage.getItem('sf-chat-nudge-dismissed') === '1'; } catch(e) {}
+
+  if (!nudgeDismissed && messages.length === 0) {
+    var page = window.location.pathname.replace(/^\/|\.html$/g, '') || 'index';
+    var nudgeMessages = {
+      'index': 'Envie d\u2019en savoir plus sur nos formations ? \ud83d\udcac',
+      'formations': 'Besoin d\u2019aide pour choisir votre formation ?',
+      'financement': 'Une question sur le financement ? Je peux vous aider \ud83d\ude4b',
+      'inscription': 'Je peux vous aider \u00e0 pr\u00e9parer votre devis !',
+      'documentation': 'Vous souhaitez recevoir la documentation ? \u00c9changeons !',
+      'le-centre': 'Des questions sur notre centre de formation ?',
+      'donnees': 'Une question ? N\u2019h\u00e9sitez pas \u00e0 me la poser !',
+      'mentions-legales': 'Une question ? Je suis l\u00e0 pour vous aider !',
+      'cgv': 'Besoin d\u2019\u00e9claircissements ? Demandez-moi !'
+    };
+    var nudgeText = nudgeMessages[page] || 'Comment puis-je vous aider ?';
+
+    var nudge = document.createElement('div');
+    nudge.className = 'sf-chat-nudge';
+    nudge.innerHTML = '<button class="sf-chat-nudge-close" aria-label="Fermer"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' + nudgeText;
+    document.body.appendChild(nudge);
+
+    // Show after 4 seconds
+    setTimeout(function() {
+      if (!isOpen && !nudgeDismissed) {
+        nudge.classList.add('sf-chat-nudge-visible');
+      }
+    }, 4000);
+
+    // Auto-hide after 12 seconds
+    setTimeout(function() {
+      nudge.classList.remove('sf-chat-nudge-visible');
+    }, 16000);
+
+    // Click nudge opens chat
+    nudge.addEventListener('click', function(e) {
+      if (e.target.closest('.sf-chat-nudge-close')) {
+        nudge.classList.remove('sf-chat-nudge-visible');
+        nudgeDismissed = true;
+        try { sessionStorage.setItem('sf-chat-nudge-dismissed', '1'); } catch(ex) {}
+        return;
+      }
+      nudge.classList.remove('sf-chat-nudge-visible');
+      nudgeDismissed = true;
+      try { sessionStorage.setItem('sf-chat-nudge-dismissed', '1'); } catch(ex) {}
+      if (!isOpen) togglePanel();
+    });
+
+    // Hide nudge when chat opens
+    var origToggle = togglePanel;
+    togglePanel = function() {
+      origToggle();
+      if (isOpen) {
+        nudge.classList.remove('sf-chat-nudge-visible');
+        nudgeDismissed = true;
+        try { sessionStorage.setItem('sf-chat-nudge-dismissed', '1'); } catch(ex) {}
+      }
+    };
+    bubble.removeEventListener('click', origToggle);
+    bubble.addEventListener('click', togglePanel);
+  }
 
 })();
