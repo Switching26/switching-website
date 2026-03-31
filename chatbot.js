@@ -30,10 +30,7 @@
   box-shadow:0 8px 32px rgba(16,171,175,.4);\
 }\
 .sf-chat-bubble svg{width:24px;height:24px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}\
-.sf-chat-bubble .sf-chat-close-icon{display:none;}\
-.sf-chat-bubble.sf-chat-active .sf-chat-open-icon{display:none;}\
-.sf-chat-bubble.sf-chat-active .sf-chat-close-icon{display:block;}\
-.sf-chat-bubble.sf-chat-active{animation:none;}\
+.sf-chat-bubble.sf-chat-active{display:none;}\
 @keyframes sf-chat-pulse{\
   0%,100%{box-shadow:0 4px 20px rgba(16,171,175,.3),0 0 0 0 rgba(16,171,175,.2);}\
   50%{box-shadow:0 4px 20px rgba(16,171,175,.3),0 0 0 12px rgba(16,171,175,0);}\
@@ -136,6 +133,9 @@
   background:#F1F5F9;color:#1E293B;\
   border-bottom-left-radius:4px;\
 }\
+.sf-chat-msg-bubble strong,.sf-chat-msg-bubble b{font-weight:700;color:#0F172A;}\
+.sf-chat-msg-bubble em,.sf-chat-msg-bubble i{font-style:italic;}\
+.sf-chat-msg-bubble a{color:#10ABAF;text-decoration:underline;font-weight:500;}\
 .sf-chat-msg-user .sf-chat-msg-bubble{\
   background:linear-gradient(135deg,#10ABAF,#0E9599);\
   color:#fff;\
@@ -328,6 +328,16 @@
 
   /* ─── Helpers ─── */
 
+  function formatMarkdown(text) {
+    // Convert markdown-style formatting to HTML
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/__(.+?)__/g, '<strong>$1</strong>')
+      .replace(/_(.+?)_/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+  }
+
   function saveSession() {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -354,7 +364,7 @@
     div.className = 'sf-chat-msg sf-chat-msg-bot';
     var bub = document.createElement('div');
     bub.className = 'sf-chat-msg-bubble';
-    bub.innerHTML = stripMarkers(text);
+    bub.innerHTML = formatMarkdown(stripMarkers(text));
     div.appendChild(bub);
     return div;
   }
