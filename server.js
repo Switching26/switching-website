@@ -33,23 +33,40 @@ console.log('===================');
 
 let smtpTransport = null;
 if (SMTP_USER && SMTP_PASS) {
-  // Use port 465 (SSL) by default — port 587 is often blocked on Railway
-  const usePort = SMTP_PORT === 587 ? 465 : SMTP_PORT;
-  console.log('Using SMTP port:', usePort, '(secure: true)');
-  smtpTransport = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: usePort,
-    secure: true,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-    tls: { rejectUnauthorized: false },
-    family: 4,
-    connectionTimeout: 15000,
-    greetingTimeout: 15000
+  const usePort = 465;
+  // Resolve smtp.gmail.com to IPv4 manually since Railway forces IPv6
+  const dns = require('dns');
+  const net = require('net');
+
+  function createSmtp(host) {
+    console.log('Connecting to SMTP:', host + ':' + usePort, '(secure: true)');
+    smtpTransport = nodemailer.createTransport({
+      host: host,
+      port: usePort,
+      secure: true,
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      tls: {
+        rejectUnauthorized: false,
+        servername: 'smtp.gmail.com'
+      },
+      connectionTimeout: 15000,
+      greetingTimeout: 15000
+    });
+    smtpTransport.verify()
+      .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
+      .catch(err => console.error('✗ SMTP connection FAILED:', err.message));
+  }
+
+  // Force DNS lookup to IPv4 only
+  dns.resolve4('smtp.gmail.com', (err, addresses) => {
+    if (err || !addresses || !addresses.length) {
+      console.error('DNS resolve4 failed, trying hardcoded IPv4:', err ? err.message : 'no addresses');
+      createSmtp('142.250.115.108'); // Known Gmail SMTP IPv4
+    } else {
+      console.log('Resolved smtp.gmail.com to IPv4:', addresses[0]);
+      createSmtp(addresses[0]);
+    }
   });
-  // Verify connection at startup
-  smtpTransport.verify()
-    .then(() => console.log('✓ SMTP connection verified — emails will be sent'))
-    .catch(err => console.error('✗ SMTP connection FAILED:', err.message));
 } else {
   console.log('⚠ SMTP not configured — emails will NOT be sent');
 }
