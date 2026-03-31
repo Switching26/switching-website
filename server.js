@@ -613,7 +613,16 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Messages requis' });
   }
   // Limit conversation length
-  const trimmed = messages.slice(-40); // Keep last 20 exchanges (40 messages user+assistant)
+  let trimmed = messages.slice(-40); // Keep last 20 exchanges (40 messages user+assistant)
+
+  // Anthropic API requires first message to be role:"user"
+  // Remove leading assistant messages (e.g. welcome message from frontend)
+  while (trimmed.length > 0 && trimmed[0].role === 'assistant') {
+    trimmed = trimmed.slice(1);
+  }
+  if (trimmed.length === 0) {
+    return res.status(400).json({ error: 'Messages requis' });
+  }
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
@@ -625,6 +634,10 @@ app.post('/api/chat', async (req, res) => {
   try {
     let fullText = '';
     let clientDisconnected = false;
+    const safeSend = (data) => {
+      if (clientDisconnected || res.destroyed) return;
+      try { res.write('data: ' + JSON.stringify(data) + '\n\n'); } catch(e) {}
+    };
     const stream = anthropicClient.messages.stream({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 400,
@@ -636,19 +649,18 @@ app.post('/api/chat', async (req, res) => {
     stream.finalMessage().catch(() => {});
 
     stream.on('text', (text) => {
-      if (clientDisconnected) return;
       fullText += text;
-      res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');
+      safeSend({ type: 'text', text: text });
     });
 
     stream.on('end', async () => {
-      if (clientDisconnected) return;
+      if (clientDisconnected || res.destroyed) return;
       // Parse special markers from the full response
       // Check for buttons
       const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
       if (btnMatch) {
         const buttons = btnMatch[1].split('|').map(b => b.trim());
-        res.write('data: ' + JSON.stringify({ type: 'buttons', buttons: buttons }) + '\n\n');
+        safeSend({ type: 'buttons', buttons: buttons });
       }
       // Check for form submission
       const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
@@ -667,21 +679,21 @@ app.post('/api/chat', async (req, res) => {
           sendEmails({ ...data, source: 'chatbot' })
             .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
             .catch(err => console.error('Chatbot email error:', err.message));
-          res.write('data: ' + JSON.stringify({ type: 'submit', data: data }) + '\n\n');
+          safeSend({ type: 'submit', data: data });
         } catch (e) {
           console.error('Failed to parse submit data:', e.message);
         }
       }
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
+      safeSend({ type: 'done' });
+      try { res.end(); } catch(e) {}
     });
 
     stream.on('error', (err) => {
-      if (clientDisconnected) return;
+      if (clientDisconnected || res.destroyed) return;
       console.error('Chat stream error:', err.message);
-      res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue. Réessayez.' }) + '\n\n');
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
+      safeSend({ type: 'error', message: 'Une erreur est survenue. Réessayez.' });
+      safeSend({ type: 'done' });
+      try { res.end(); } catch(e) {}
     });
 
     // Handle client disconnect
@@ -691,9 +703,13 @@ app.post('/api/chat', async (req, res) => {
     });
   } catch (err) {
     console.error('Chat error:', err.message);
-    res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
-    res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-    res.end();
+    if (!res.destroyed) {
+      try {
+        res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
+        res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
+        res.end();
+      } catch(e) {}
+    }
   }
 });
 
@@ -720,8 +736,19 @@ app.use((req, res) => { res.status(404).sendFile(path.join(__dirname, 'index.htm
 
 // ─── START ───
 initDB().then(() => {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Switching Formation server running on port ${PORT}`);
+  });
+
+  // Graceful shutdown for Railway redeploys
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received — shutting down gracefully');
+    server.close(() => {
+      console.log('Server closed');
+      process.exit(0);
+    });
+    // Force exit after 5s if connections don't close
+    setTimeout(() => process.exit(0), 5000);
   });
 }).catch(err => {
   console.error('Failed to initialize database:', err);
