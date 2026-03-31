@@ -613,66 +613,61 @@ app.post('/api/chat', async (req, res) => {
 
   try {
     let fullText = '';
-    const stream = anthropicClient.messages.stream({
+    const response = await anthropicClient.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 400,
       system: CHAT_SYSTEM_PROMPT,
-      messages: trimmed
+      messages: trimmed,
+      stream: true
     });
 
-    stream.on('text', (text) => {
-      fullText += text;
-      res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');
-    });
-
-    stream.on('end', async () => {
-      // Parse special markers from the full response
-      // Check for buttons
-      const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
-      if (btnMatch) {
-        const buttons = btnMatch[1].split('|').map(b => b.trim());
-        res.write('data: ' + JSON.stringify({ type: 'buttons', buttons: buttons }) + '\n\n');
+    for await (const event of response) {
+      if (event.type === 'content_block_delta' && event.delta && event.delta.text) {
+        fullText += event.delta.text;
+        res.write('data: ' + JSON.stringify({ type: 'text', text: event.delta.text }) + '\n\n');
       }
-      // Check for form submission
-      const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
-      if (submitMatch) {
-        try {
-          const data = JSON.parse(submitMatch[1]);
-          data.source = 'chatbot';
-          // Save to DB
-          db.run(
-            'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
-             data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
-          );
-          saveDB();
-          // Send emails
-          sendEmails({ ...data, source: 'chatbot' })
-            .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
-            .catch(err => console.error('Chatbot email error:', err.message));
-          res.write('data: ' + JSON.stringify({ type: 'submit', data: data }) + '\n\n');
-        } catch (e) {
-          console.error('Failed to parse submit data:', e.message);
-        }
+    }
+
+    // Parse special markers from the full response
+    const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
+    if (btnMatch) {
+      const buttons = btnMatch[1].split('|').map(b => b.trim());
+      res.write('data: ' + JSON.stringify({ type: 'buttons', buttons: buttons }) + '\n\n');
+    }
+    const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/s);
+    if (submitMatch) {
+      try {
+        const data = JSON.parse(submitMatch[1]);
+        data.source = 'chatbot';
+        db.run(
+          'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
+           data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
+        );
+        saveDB();
+        sendEmails({ ...data, source: 'chatbot' })
+          .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
+          .catch(err => console.error('Chatbot email error:', err.message));
+        res.write('data: ' + JSON.stringify({ type: 'submit', data: data }) + '\n\n');
+      } catch (e) {
+        console.error('Failed to parse submit data:', e.message);
       }
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
-    });
-
-    stream.on('error', (err) => {
-      console.error('Chat stream error:', err.message);
-      res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue. Réessayez.' }) + '\n\n');
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
-    });
-
-    // Handle client disconnect
-    req.on('close', () => { stream.abort(); });
-  } catch (err) {
-    console.error('Chat error:', err.message);
-    res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
+    }
     res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
     res.end();
+  } catch (err) {
+    if (err.name === 'APIUserAbortError' || err.message?.includes('aborted')) {
+      console.log('Chat request aborted by client');
+    } else {
+      console.error('Chat error:', err.message);
+    }
+    if (!res.writableEnded) {
+      try {
+        res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
+        res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
+        res.end();
+      } catch(e) {}
+    }
   }
 });
 
