@@ -35,9 +35,10 @@ body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6
 /* DASHBOARD */
 .dash{display:none;padding:24px 32px}
 .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.dash-logo-title{display:flex;align-items:center;gap:16px}
 .dash-header img{height:36px}
 .dash-title{font-family:'Poppins',sans-serif;font-size:22px;font-weight:600;color:#0F172A;letter-spacing:-.02em}
-.dash-actions{display:flex;gap:10px;align-items:center}
+.dash-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .dash-btn{padding:9px 20px;border-radius:var(--rf);font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .2s var(--e);border:1px solid var(--bd2);background:var(--surface);color:var(--sub)}
 .dash-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-gl2)}
 .dash-btn.danger{border-color:#F43F5E;color:#F43F5E}.dash-btn.danger:hover{background:rgba(244,63,94,.06)}
@@ -56,12 +57,13 @@ body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6
 .table-head{padding:18px 24px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
 .table-title{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A}
 .table-count{font-size:12px;color:var(--muted);font-weight:500}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:12px 24px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--bd);background:var(--bg)}
 td{padding:14px 24px;font-size:13px;color:var(--sub);border-bottom:1px solid var(--bd)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--accent-gl2)}
-.badge{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:600;letter-spacing:.02em}
+.badge{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
 .badge-secteur{background:rgba(59,130,246,.08);color:#3B82F6;border:1px solid rgba(59,130,246,.15)}
 .badge-statut{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.15)}
 .badge-fin{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.15)}
@@ -69,12 +71,89 @@ tr:hover td{background:var(--accent-gl2)}
 .empty svg{width:48px;height:48px;margin-bottom:16px;opacity:.3}
 .empty p{font-size:14px}
 
-@media(max-width:768px){
+/* MOBILE CARDS (hidden on desktop) */
+.mobile-cards{display:none}
+.mob-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:12px;transition:all .35s var(--e)}
+.mob-card:hover{border-color:rgba(16,171,175,.2);box-shadow:0 8px 28px rgba(0,0,0,.07);transform:translateY(-2px)}
+.mob-card.unread{background:rgba(16,171,175,.03);border-color:rgba(16,171,175,.12)}
+.mob-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.mob-card-name{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
+.mob-card-date{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap;margin-left:12px;flex-shrink:0}
+.mob-card-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:var(--sub)}
+.mob-card-row:last-child{margin-bottom:0}
+.mob-card-row svg{width:15px;height:15px;flex-shrink:0;color:var(--muted)}
+.mob-card-row a{color:var(--accent);text-decoration:none}
+.mob-card-badges{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.mob-card-source{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.mob-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)}
+.mob-card-del{padding:6px 14px;border-radius:var(--rf);font-size:11px;font-weight:600;font-family:var(--f);cursor:pointer;transition:all .2s var(--e);border:1px solid rgba(244,63,94,.25);background:transparent;color:#F43F5E}
+.mob-card-del:hover{background:rgba(244,63,94,.06);border-color:#F43F5E}
+
+/* ===== TABLET (max-width: 1024px) ===== */
+@media(max-width:1024px){
 .stats-row{grid-template-columns:repeat(2,1fr)}
+.dash{padding:20px 24px}
+.table-scroll{overflow-x:auto}
+table{min-width:900px}
+}
+
+/* ===== MOBILE (max-width: 768px) ===== */
+@media(max-width:768px){
+.stats-row{grid-template-columns:repeat(2,1fr);gap:10px}
 .dash{padding:16px}
-table{font-size:12px}
-th,td{padding:10px 12px}
+
+/* Header: stack vertically */
+.dash-header{flex-direction:column;align-items:center;gap:16px;text-align:center}
+.dash-logo-title{justify-content:center}
+.dash-actions{justify-content:center;flex-wrap:wrap;gap:8px}
+.dash-btn{padding:7px 14px;font-size:12px}
+.dash-logout{padding:7px 14px;font-size:12px}
+.dash-title{font-size:18px}
+
+/* Stats */
+.stat-card{padding:18px 16px}
+.stat-num{font-size:26px}
+
+/* Table: hide desktop table, show mobile cards */
+.table-scroll{display:none}
+.mobile-cards{display:block;padding:4px 16px 16px}
+
+/* Table head adjustments */
+.table-head{padding:14px 16px}
+.table-title{font-size:14px}
+
 .login-box{padding:32px 24px}
+}
+
+/* ===== EXTRA SMALL (max-width: 480px) ===== */
+@media(max-width:480px){
+.dash{padding:12px}
+.dash-header{gap:12px;padding-bottom:16px;margin-bottom:20px}
+.dash-header img{height:30px}
+.dash-title{font-size:16px}
+.dash-actions{gap:6px}
+.dash-btn{padding:6px 12px;font-size:11px}
+.dash-logout{padding:6px 12px;font-size:11px}
+
+.stats-row{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.stat-card{padding:14px 12px}
+.stat-num{font-size:22px}
+.stat-label{font-size:11px;margin-top:4px}
+
+.mobile-cards{padding:4px 12px 12px}
+.mob-card{padding:16px}
+.mob-card-name{font-size:14px}
+.mob-card-row{font-size:12px}
+.mob-card-badges{gap:4px}
+.badge{font-size:10px;padding:2px 8px}
+
+.table-head{padding:12px}
+.table-title{font-size:13px}
+.table-count{font-size:11px}
+
+.login-box{padding:24px 18px}
+.login-box h1{font-size:20px}
+.login-box img{height:36px;margin-bottom:20px}
 }
 </style>
 </head>
@@ -95,7 +174,7 @@ th,td{padding:10px 12px}
 <!-- DASHBOARD -->
 <div class="dash" id="dashboard">
 <div class="dash-header">
-<div style="display:flex;align-items:center;gap:16px">
+<div class="dash-logo-title">
 <img src="images/logo-switching.png" alt="SF">
 <div class="dash-title">Administration</div>
 </div>
@@ -176,6 +255,14 @@ document.getElementById('logoutBtn').addEventListener('click',function(){
   location.reload();
 });
 
+// Helper: escape HTML
+function esc(str){
+  if(!str)return '';
+  var d=document.createElement('div');
+  d.textContent=str;
+  return d.innerHTML;
+}
+
 // RENDER
 async function renderDash(){
   try{
@@ -194,35 +281,93 @@ async function renderDash(){
   document.getElementById('statTop').textContent=stats.topSecteur||'—';
   document.getElementById('tableCount').textContent=stats.total+' demande'+(stats.total>1?'s':'');
 
-  // Table
+  // Table body container
   var el=document.getElementById('tableBody');
   if(subs.length===0){
     el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg><p>Aucune demande pour le moment.</p></div>';
     return;
   }
 
-  var html='<table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th><th></th></tr></thead><tbody>';
+  // Build desktop table
+  var tableHtml='<div class="table-scroll"><table><thead><tr><th>Date</th><th>Prénom</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Secteur</th><th>Statut</th><th>Financement</th><th>Source</th><th></th></tr></thead><tbody>';
+
+  // Build mobile cards
+  var cardsHtml='<div class="mobile-cards">';
+
   subs.forEach(function(s){
     var d=s.date?new Date(s.date):null;
     var dateStr=d?d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'—';
     var rowClass=s.lu?'':'style="background:rgba(16,171,175,.03)"';
-    html+='<tr '+rowClass+' data-id="'+s.id+'">';
-    html+='<td>'+dateStr+'</td>';
-    html+='<td><b>'+(s.prenom||'—')+'</b></td>';
-    html+='<td><b>'+(s.nom||'—')+'</b></td>';
-    html+='<td>'+(s.email||'—')+'</td>';
-    html+='<td>'+(s.indicatif?s.indicatif+' ':'')+(s.tel||'—')+'</td>';
-    html+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+s.secteur+'</span>':'—')+'</td>';
-    html+='<td>'+(s.statut?'<span class="badge badge-statut">'+s.statut+'</span>':'—')+'</td>';
-    html+='<td>'+(s.financement?'<span class="badge badge-fin">'+s.financement+'</span>':'—')+'</td>';
-    html+='<td>'+(s.source||'—')+'</td>';
-    html+='<td><button class="dash-btn" onclick="deleteSub('+s.id+')" style="padding:4px 10px;font-size:11px">Suppr.</button></td>';
-    html+='</tr>';
+
+    // Desktop table row
+    tableHtml+='<tr '+rowClass+' data-id="'+s.id+'">';
+    tableHtml+='<td>'+dateStr+'</td>';
+    tableHtml+='<td><b>'+esc(s.prenom||'—')+'</b></td>';
+    tableHtml+='<td><b>'+esc(s.nom||'—')+'</b></td>';
+    tableHtml+='<td>'+esc(s.email||'—')+'</td>';
+    tableHtml+='<td>'+esc(s.indicatif?s.indicatif+' ':'')+esc(s.tel||'—')+'</td>';
+    tableHtml+='<td>'+(s.secteur?'<span class="badge badge-secteur">'+esc(s.secteur)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+(s.statut?'<span class="badge badge-statut">'+esc(s.statut)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+(s.financement?'<span class="badge badge-fin">'+esc(s.financement)+'</span>':'—')+'</td>';
+    tableHtml+='<td>'+esc(s.source||'—')+'</td>';
+    tableHtml+='<td><button class="dash-btn" onclick="deleteSub('+s.id+')" style="padding:4px 10px;font-size:11px">Suppr.</button></td>';
+    tableHtml+='</tr>';
+
+    // Mobile card
+    var unreadClass=s.lu?'':'unread';
+    var fullName=esc(s.prenom||'')+' '+esc(s.nom||'');
+    fullName=fullName.trim()||'—';
+
+    cardsHtml+='<div class="mob-card '+unreadClass+'" data-id="'+s.id+'">';
+
+    // Top: name + date
+    cardsHtml+='<div class="mob-card-top">';
+    cardsHtml+='<div class="mob-card-name">'+fullName+'</div>';
+    cardsHtml+='<div class="mob-card-date">'+dateStr+'</div>';
+    cardsHtml+='</div>';
+
+    // Email row
+    if(s.email){
+      cardsHtml+='<div class="mob-card-row">';
+      cardsHtml+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
+      cardsHtml+='<a href="mailto:'+esc(s.email)+'">'+esc(s.email)+'</a>';
+      cardsHtml+='</div>';
+    }
+
+    // Phone row
+    var phone=(s.indicatif?s.indicatif+' ':'')+(s.tel||'');
+    if(phone.trim()){
+      cardsHtml+='<div class="mob-card-row">';
+      cardsHtml+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>';
+      cardsHtml+='<a href="tel:'+esc(phone.replace(/\s/g,''))+'">'+esc(phone)+'</a>';
+      cardsHtml+='</div>';
+    }
+
+    // Badges
+    if(s.secteur||s.statut||s.financement){
+      cardsHtml+='<div class="mob-card-badges">';
+      if(s.secteur)cardsHtml+='<span class="badge badge-secteur">'+esc(s.secteur)+'</span>';
+      if(s.statut)cardsHtml+='<span class="badge badge-statut">'+esc(s.statut)+'</span>';
+      if(s.financement)cardsHtml+='<span class="badge badge-fin">'+esc(s.financement)+'</span>';
+      cardsHtml+='</div>';
+    }
+
+    // Footer: source + delete
+    cardsHtml+='<div class="mob-card-footer">';
+    cardsHtml+='<div class="mob-card-source">'+(s.source?esc(s.source):'')+'</div>';
+    cardsHtml+='<button class="mob-card-del" onclick="deleteSub('+s.id+')">Supprimer</button>';
+    cardsHtml+='</div>';
+
+    cardsHtml+='</div>';
+
     // Mark as read
     if(!s.lu)fetch('/api/submissions/'+s.id+'/read',{method:'PATCH',headers:authHeaders()}).catch(function(){});
   });
-  html+='</tbody></table>';
-  el.innerHTML=html;
+
+  tableHtml+='</tbody></table></div>';
+  cardsHtml+='</div>';
+
+  el.innerHTML=tableHtml+cardsHtml;
 }
 
 // DELETE ONE
