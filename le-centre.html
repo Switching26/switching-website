@@ -122,13 +122,14 @@ h1 .glow{background:linear-gradient(135deg,#3DC8C9,#10ABAF,#7DD8D9);-webkit-back
 
 /* ==================== CERTS ==================== */
 .certs{padding:36px 0;background:var(--section-bg)}
-.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.cc{background:#fff;border:none;border-radius:20px;padding:28px 20px;text-align:center;transition:all .4s var(--e);box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.cc:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.08)}
-.cc-logo{display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.cc-logo img{width:100%;object-fit:contain;transition:transform .4s var(--e)}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
+.cg>div{display:flex;flex-direction:column;align-items:center}
+.cc{background:var(--surface);border:none;border-radius:20px;padding:20px 16px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03);width:100%;height:140px;display:flex;align-items:center;justify-content:center}
+.cc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1),0 0 24px var(--accent-gl);transform:translateY(-4px)}
+.cc-logo{height:100%;display:flex;align-items:center;justify-content:center}
+.cc-logo img{max-height:100%;max-width:100%;object-fit:contain;transition:transform .4s var(--e)}
 .cc:hover .cc-logo img{transform:scale(1.05)}
-.cc p{font-size:13px;color:var(--muted);line-height:1.5}
+.cc-label{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px;text-align:center}
 
 /* ==================== E-LEARNING ==================== */
 .elearn{padding:36px 0}
@@ -339,10 +340,10 @@ body.menu-open .menu-overlay{opacity:1;pointer-events:auto}
 <section class="certs"><div class="w">
 <div class="sec-head rv vis"><div class="sec-tag">Certifications</div><div class="sec-h2">Reconnu par les <span class="glow">organismes de référence</span></div></div>
 <div class="cg">
-<div class="cc rv vis"><div class="cc-logo"><img src="images/image qualiopi vf.png" alt="Qualiopi"></div><p>Certifié Qualiopi, gage de qualité.</p></div>
-<div class="cc rv vis"><div class="cc-logo"><img src="images/vtest.png" alt="VTest"></div><p>VTest Business English – 4 skills.</p></div>
-<div class="cc rv vis"><div class="cc-logo"><img src="images/cpf-mcf.png" alt="CPF"></div><p>Référencé Mon Compte Formation.</p></div>
-<div class="cc rv vis"><div class="cc-logo"><img src="images/france-travail.avif" alt="France Travail"></div><p>Reconnu par France Travail.</p></div>
+<div class="rv"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/image qualiopi vf.png" alt="Qualiopi"></div></div><p class="cc-label">Certifié Qualiopi, gage de qualité.</p></div>
+<div class="rv rv1"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/vtest.png" alt="VTest"></div></div><p class="cc-label">VTest Business English – 4 skills.</p></div>
+<div class="rv rv2"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/cpf-mcf.png" alt="CPF"></div></div><p class="cc-label">Référencé Mon Compte Formation.</p></div>
+<div class="rv rv3"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/france-travail.avif" alt="France Travail"></div></div><p class="cc-label">Reconnu par France Travail.</p></div>
 </div>
 </div></section>
 
