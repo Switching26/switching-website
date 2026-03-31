@@ -8,6 +8,17 @@ const Anthropic = require('@anthropic-ai/sdk');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Prevent server crash on unhandled promise rejections (e.g. aborted streams)
+process.on('unhandledRejection', (err) => {
+  if (err && err.constructor && err.constructor.name === 'APIUserAbortError') return;
+  console.error('Unhandled rejection:', err);
+});
+
+process.on('uncaughtException', (err) => {
+  if (err && err.constructor && err.constructor.name === 'APIUserAbortError') return;
+  console.error('Uncaught exception:', err);
+});
+
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
 // ─── GMAIL API SETUP ───
@@ -613,6 +624,7 @@ app.post('/api/chat', async (req, res) => {
 
   try {
     let fullText = '';
+    let clientDisconnected = false;
     const stream = anthropicClient.messages.stream({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 400,
@@ -620,12 +632,17 @@ app.post('/api/chat', async (req, res) => {
       messages: trimmed
     });
 
+    // Catch the finalMessage promise to prevent unhandled rejections on abort
+    stream.finalMessage().catch(() => {});
+
     stream.on('text', (text) => {
+      if (clientDisconnected) return;
       fullText += text;
       res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');
     });
 
     stream.on('end', async () => {
+      if (clientDisconnected) return;
       // Parse special markers from the full response
       // Check for buttons
       const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
@@ -660,6 +677,7 @@ app.post('/api/chat', async (req, res) => {
     });
 
     stream.on('error', (err) => {
+      if (clientDisconnected) return;
       console.error('Chat stream error:', err.message);
       res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue. Réessayez.' }) + '\n\n');
       res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
@@ -667,7 +685,10 @@ app.post('/api/chat', async (req, res) => {
     });
 
     // Handle client disconnect
-    req.on('close', () => { stream.abort(); });
+    req.on('close', () => {
+      clientDisconnected = true;
+      try { stream.abort(); } catch (e) { /* ignore */ }
+    });
   } catch (err) {
     console.error('Chat error:', err.message);
     res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
