@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Mobile — V5 Fixed Navbar</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#10ABAF}
+body{font-family:'Almarai',sans-serif;background:#FAFBFC;min-height:200vh;overflow-x:hidden}
+
+/* ==================== NAVBAR — transparent glass ==================== */
+.navbar{
+  position:fixed;top:12px;left:12px;right:12px;z-index:1000;
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:16px;
+  padding:10px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 16px rgba(0,0,0,.04);
+  border:1px solid rgba(255,255,255,.5);
+  transition:all .3s;
+}
+.navbar.scrolled{
+  background:rgba(255,255,255,.7);
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+  top:8px;left:8px;right:8px;
+}
+.logo img{height:34px}
+.menu-toggle{
+  width:44px;height:44px;border-radius:12px;background:transparent;border:none;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  -webkit-tap-highlight-color:transparent;
+}
+.bar{width:24px;height:2px;background:#0F172A;border-radius:2px;transition:all .45s cubic-bezier(.68,-.55,.27,1.55)}
+body.open .bar:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+body.open .bar:nth-child(2){opacity:0;transform:scaleX(0) translateX(10px)}
+body.open .bar:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+
+/* ==================== BACKDROP — light blur ==================== */
+.backdrop{
+  position:fixed;inset:0;z-index:998;
+  background:rgba(255,255,255,.4);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .35s;
+}
+body.open .backdrop{opacity:1;pointer-events:auto}
+
+/* ==================== MENU CARD — light glass below navbar ==================== */
+.menu-card{
+  position:fixed;
+  top:80px;
+  left:12px;right:12px;
+  z-index:999;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 8px 40px rgba(0,0,0,.08);
+  transform:translateY(-16px);opacity:0;
+  pointer-events:none;
+  transition:all .35s cubic-bezier(.16,1,.3,1);
+  max-height:calc(100dvh - 100px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+body.open .menu-card{transform:translateY(0);opacity:1;pointer-events:auto}
+
+/* ==================== MENU CONTENT ==================== */
+.mc-nav{padding:16px 14px 8px}
+
+.mc-link{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 12px;border-radius:12px;
+  text-decoration:none;color:#64748B;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.mc-link:active{background:rgba(0,0,0,.03)}
+.mc-link.active{color:var(--accent);font-weight:600}
+.mc-ico{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.04);
+}
+.mc-ico svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Formations toggle */
+.mc-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 12px;border-radius:12px;cursor:pointer;
+  color:#64748B;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.mc-toggle:active{background:rgba(0,0,0,.03)}
+.mc-toggle-left{display:flex;align-items:center;gap:14px}
+.mc-arrow{width:16px;height:16px;fill:none;stroke:#94A3B8;stroke-width:2;stroke-linecap:round;transition:all .3s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-arrow{transform:rotate(90deg);stroke:var(--accent)}
+
+/* Formations list */
+.mc-formations{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-formations{max-height:500px}
+
+.mc-f{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px 10px 22px;border-radius:10px;
+  text-decoration:none;color:#94A3B8;
+  font-size:14px;font-weight:500;
+  transition:all .12s;-webkit-tap-highlight-color:transparent;
+}
+.mc-f:active{background:rgba(0,0,0,.03);color:#0F172A}
+.mc-f-ico{
+  width:28px;height:28px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.mc-f-ico svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.mc-sep{height:1px;background:rgba(0,0,0,.05);margin:4px 14px}
+
+/* Bottom */
+.mc-bottom{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.mc-phone{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:13px;border-radius:12px;
+  background:rgba(0,0,0,.03);
+  text-decoration:none;color:#0F172A;
+  font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.mc-phone:active{background:rgba(0,0,0,.06)}
+.mc-phone svg{width:17px;height:17px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mc-doc{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px;border-radius:12px;
+  background:#0F172A;
+  text-decoration:none;color:#fff;
+  font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.mc-doc:active{background:#1E293B}
+.mc-doc svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Demo */
+.content{padding:100px 20px 40px;max-width:600px;margin:0 auto}
+.content h1{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin-bottom:12px}
+.content p{color:#64748B;line-height:1.7;margin-bottom:16px}
+.fake{height:300px;border-radius:16px;margin-bottom:20px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR — always stays -->
+<div class="navbar" id="nav">
+<a href="#" class="logo"><img src="https://switching-website-production.up.railway.app/images/logo-switching.png" alt="SF"></a>
+<button class="menu-toggle" onclick="toggleMenu()">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</button>
+</div>
+
+<!-- BACKDROP -->
+<div class="backdrop" onclick="closeMenu()"></div>
+
+<!-- MENU CARD — below navbar -->
+<div class="menu-card">
+
+<div class="mc-nav">
+
+<a href="index.html" class="mc-link active">
+<div class="mc-ico" style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+Accueil
+</a>
+
+<div class="mc-toggle" onclick="document.body.classList.toggle('f-open')">
+<div class="mc-toggle-left">
+<div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+Formations
+</div>
+<svg class="mc-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+</div>
+
+<div class="mc-formations">
+<a href="formations.html?cat=langues" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(232,99,74,.12);color:#E8634A"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+Langues
+</a>
+<a href="formations.html?cat=bureautique" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(91,112,131,.12);color:#5B7083"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>
+Bureautique
+</a>
+<a href="formations.html?cat=graphisme" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(217,70,168,.12);color:#D946A8"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>
+Graphisme
+</a>
+<a href="formations.html?cat=web" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(59,130,246,.12);color:#3B82F6"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+Web & Digital
+</a>
+<a href="formations.html?cat=compta" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(249,115,22,.12);color:#F97316"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>
+Compta & Paie
+</a>
+<a href="formations.html?cat=ia" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(124,58,237,.12);color:#7C3AED"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>
+Intelligence Artificielle
+</a>
+<a href="formations.html?cat=bdc" class="mc-f">
+<div class="mc-f-ico" style="background:rgba(212,160,23,.12);color:#D4A017"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+Bilan de compétences
+</a>
+</div>
+
+<div class="mc-sep"></div>
+
+<a href="le-centre.html" class="mc-link">
+<div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>
+Le centre
+</a>
+<a href="financement.html" class="mc-link">
+<div class="mc-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+Financement
+</a>
+<a href="inscription.html" class="mc-link">
+<div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>
+Devis
+</a>
+</div>
+
+<div class="mc-sep"></div>
+
+<div class="mc-bottom">
+<a href="tel:+33695185057" class="mc-phone">
+<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+06 95 18 50 57
+</a>
+<a href="documentation.html" class="mc-doc">
+Documentation
+<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+
+</div>
+
+<!-- DEMO CONTENT to scroll -->
+<div class="content">
+<h1>Scroll puis ouvre le menu</h1>
+<p>La navbar reste fixe en haut. Quand tu cliques sur ☰, la carte glassmorphism apparaît juste EN DESSOUS de la navbar. La navbar ne bouge pas.</p>
+<div class="fake" style="background:linear-gradient(135deg,#E8634A,#D946A8)"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<div class="fake" style="background:linear-gradient(135deg,#3B82F6,#7C3AED)"></div>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="fake" style="background:linear-gradient(135deg,#10ABAF,#0E9599)"></div>
+</div>
+
+<script>
+function toggleMenu(){document.body.classList.toggle('open')}
+function closeMenu(){document.body.classList.remove('open');document.body.classList.remove('f-open')}
+document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a){a.addEventListener('click',closeMenu)});
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30)});
+</script>
+</body>
+</html>

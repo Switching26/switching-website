@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile — Navbar + Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#10ABAF;--text:#0F172A;--sub:#64748B;--muted:#94A3B8}
+body{font-family:'Almarai',sans-serif;background:#FAFBFC;min-height:200vh;overflow-x:hidden}
+
+/* ==================== TOPBAR ==================== */
+.topbar{
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  padding:8px 20px;
+  text-align:center;
+  position:relative;z-index:1001;
+}
+.topbar-line1{font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
+.topbar-stars{color:#FBBF24;font-size:11px;letter-spacing:1px}
+.topbar-line2{font-size:12px;color:var(--sub);margin-top:2px}
+.topbar-line2 a{color:var(--accent);font-weight:600;text-decoration:none}
+
+/* ==================== NAVBAR — floating pill ==================== */
+.navbar{
+  position:sticky;top:8px;z-index:1000;
+  margin:8px 12px 0;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:16px;
+  padding:10px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.04);
+  transition:all .3s;
+}
+.navbar.scrolled{
+  background:rgba(255,255,255,.94);
+  box-shadow:0 4px 28px rgba(0,0,0,.08);
+}
+.logo img{height:38px}
+
+/* Hamburger */
+.menu-toggle{
+  width:44px;height:44px;border-radius:12px;background:transparent;border:none;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  -webkit-tap-highlight-color:transparent;
+}
+.bar{width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .45s cubic-bezier(.68,-.55,.27,1.55)}
+body.open .bar:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+body.open .bar:nth-child(2){opacity:0;transform:scaleX(0) translateX(10px)}
+body.open .bar:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+
+/* ==================== BACKDROP ==================== */
+.backdrop{
+  position:fixed;inset:0;z-index:998;
+  background:rgba(0,0,0,.2);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+body.open .backdrop{opacity:1;pointer-events:auto}
+
+/* ==================== MENU DROPDOWN — glass card below navbar ==================== */
+.menu-drop{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:999;
+  padding:0 12px;
+  transform:translateY(-20px);opacity:0;
+  pointer-events:none;
+  transition:all .35s cubic-bezier(.16,1,.3,1);
+}
+body.open .menu-drop{transform:translateY(0);opacity:1;pointer-events:auto}
+
+.menu-card{
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-radius:20px;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:0 12px 48px rgba(0,0,0,.1);
+  overflow:hidden;
+  max-height:calc(100dvh - 120px);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+
+/* ==================== MENU CONTENT ==================== */
+.mc-nav{padding:14px 14px 8px}
+
+.mc-link{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 12px;border-radius:12px;
+  text-decoration:none;color:var(--sub);
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.mc-link:active{background:rgba(0,0,0,.03)}
+.mc-link.active{color:var(--accent);font-weight:600}
+.mc-ico{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.04);
+}
+.mc-link.active .mc-ico{background:rgba(16,171,175,.08)}
+.mc-ico svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Formations toggle */
+.mc-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 12px;border-radius:12px;cursor:pointer;
+  color:var(--sub);
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.mc-toggle:active{background:rgba(0,0,0,.03)}
+.mc-tl{display:flex;align-items:center;gap:14px}
+.mc-arr{width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;transition:all .3s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-arr{transform:rotate(90deg);stroke:var(--accent)}
+
+/* Formations list */
+.mc-formations{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-formations{max-height:500px}
+
+.mc-f{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px 10px 22px;border-radius:10px;
+  text-decoration:none;color:var(--muted);
+  font-size:14px;font-weight:500;
+  transition:all .12s;-webkit-tap-highlight-color:transparent;
+}
+.mc-f:active{background:rgba(0,0,0,.03);color:var(--text)}
+.mcf-ico{
+  width:28px;height:28px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.mcf-ico svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.mc-sep{height:1px;background:rgba(0,0,0,.05);margin:4px 14px}
+
+/* Bottom CTAs */
+.mc-bottom{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.mc-phone{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px;border-radius:12px;
+  background:rgba(0,0,0,.03);
+  text-decoration:none;color:var(--text);
+  font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.mc-phone:active{background:rgba(0,0,0,.06)}
+.mc-phone svg{width:17px;height:17px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mc-doc{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px;border-radius:12px;
+  background:var(--text);
+  text-decoration:none;color:#fff;
+  font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.mc-doc:active{background:#1E293B}
+.mc-doc svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ==================== PAGE CONTENT ==================== */
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(16,171,175,.08);border:1px solid rgba(16,171,175,.15);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:14px}
+.hero-tag svg{width:14px;height:14px;fill:#FBBF24;stroke:none}
+.content{padding:24px 20px 40px}
+.content h1{font-family:'Poppins',sans-serif;font-size:28px;font-weight:700;color:var(--text);line-height:1.15;margin-bottom:16px;letter-spacing:-.03em}
+.content h1 .glow{color:var(--accent)}
+.content p{color:var(--sub);line-height:1.7;font-size:15px;margin-bottom:16px}
+.content p b{color:var(--text)}
+.content p .brand{color:var(--accent);font-weight:700}
+.trust-bar{background:#F8F9FA;border:1px solid rgba(0,0,0,.04);border-radius:12px;padding:14px 16px;margin:20px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.trust-bar span{font-size:11px;color:var(--sub);font-weight:500}
+.trust-logos{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.trust-logos img{height:24px;opacity:.7}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;background:var(--accent);color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;background:#fff;color:var(--text);text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;border:1px solid rgba(0,0,0,.1)}
+.btn-primary svg,.btn-outline svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.hero-img{width:100%;border-radius:16px;margin-top:24px;height:200px;object-fit:cover;background:linear-gradient(135deg,#E8634A,#D946A8)}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+<div class="topbar-line1">Avis Google <span class="topbar-stars">★★★★★</span></div>
+<div class="topbar-line2">Conseils et accompagnement au <a href="tel:+33695185057">06 95 18 50 57</a></div>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar" id="nav">
+<a href="#" class="logo"><img src="https://switching-website-production.up.railway.app/images/logo-switching.png" alt="Switching Formation"></a>
+<button class="menu-toggle" onclick="toggleMenu()">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</button>
+</div>
+
+<!-- BACKDROP -->
+<div class="backdrop" onclick="closeMenu()"></div>
+
+<!-- MENU DROP — positioned by JS below navbar -->
+<div class="menu-drop" id="menuDrop">
+<div class="menu-card">
+
+<div class="mc-nav">
+<a href="index.html" class="mc-link active">
+<div class="mc-ico" style="color:var(--accent)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+Accueil
+</a>
+
+<div class="mc-toggle" onclick="document.body.classList.toggle('f-open')">
+<div class="mc-tl">
+<div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+Formations
+</div>
+<svg class="mc-arr" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+</div>
+
+<div class="mc-formations">
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web & Digital</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta & Paie</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
+<a href="#" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
+</div>
+
+<div class="mc-sep"></div>
+
+<a href="#" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>Le centre</a>
+<a href="#" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
+<a href="#" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>Devis</a>
+</div>
+
+<div class="mc-sep"></div>
+
+<div class="mc-bottom">
+<a href="tel:+33695185057" class="mc-phone">
+<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+06 95 18 50 57
+</a>
+<a href="documentation.html" class="mc-doc">
+Documentation
+<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+
+</div>
+</div>
+
+<!-- PAGE CONTENT — simulating index.html mobile -->
+<div class="content">
+<div class="hero-tag"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Certifié Qualiopi</div>
+<h1>Ensemble, faisons grandir<br><span class="glow">vos compétences</span></h1>
+<p><span class="brand">Switching Formation</span> vous propose des programmes <b>courts et ludiques en e-learning</b>, avec une vingtaine de formations dans sept domaines clés.</p>
+<p>Expert de la formation professionnelle, nous sommes <b>certifiés Qualiopi, gage de qualité et de confiance</b>.</p>
+<p>Référencé et reconnu par les principaux organismes financeurs (CPF, France Travail, OPCO…). Formation <b>accessible à tous</b>.</p>
+<div class="hero-btns">
+<a href="#" class="btn-primary">Nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="#" class="btn-outline">Devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+<div class="hero-img"></div>
+</div>
+
+<script>
+function toggleMenu(){document.body.classList.toggle('open');positionMenu()}
+function closeMenu(){document.body.classList.remove('open');document.body.classList.remove('f-open')}
+function positionMenu(){
+  var nav=document.getElementById('nav');
+  var drop=document.getElementById('menuDrop');
+  var r=nav.getBoundingClientRect();
+  drop.style.top=(r.bottom+8)+'px';
+}
+document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a){a.addEventListener('click',closeMenu)});
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>10);
+  if(document.body.classList.contains('open'))positionMenu();
+});
+</script>
+</body>
+</html>

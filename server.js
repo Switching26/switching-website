@@ -8,6 +8,17 @@ const Anthropic = require('@anthropic-ai/sdk');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Prevent server crash on unhandled promise rejections (e.g. aborted streams)
+process.on('unhandledRejection', (err) => {
+  if (err && err.constructor && err.constructor.name === 'APIUserAbortError') return;
+  console.error('Unhandled rejection:', err);
+});
+
+process.on('uncaughtException', (err) => {
+  if (err && err.constructor && err.constructor.name === 'APIUserAbortError') return;
+  console.error('Uncaught exception:', err);
+});
+
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
 // ─── GMAIL API SETUP ───
@@ -52,6 +63,7 @@ COMPORTEMENT :
 - Tu dois TOUJOURS orienter la conversation vers la collecte d'informations du prospect.
 - Quand tu proposes des choix, utilise le format [BUTTONS: choix1 | choix2 | choix3] à la fin de ton message (sur une nouvelle ligne). Le frontend affichera ces boutons comme des options cliquables.
 - Ne mets JAMAIS les boutons au milieu du texte, toujours à la fin.
+- Quand tu demandes une information textuelle (prénom, nom, email, téléphone), utilise le format [INPUT: Label du champ] à la fin de ton message (sur une nouvelle ligne). Le frontend affichera un champ de saisie avec ce label. Par exemple : [INPUT: Votre prénom] ou [INPUT: Votre adresse email] ou [INPUT: Votre numéro de téléphone]. Ne demande qu'UN seul champ à la fois.
 
 INFORMATIONS SUR LE CENTRE :
 - Adresse : 18 rue Coriolis, 75012 Paris
@@ -703,7 +715,7 @@ app.get('/api/export', (req, res) => {
   res.send(csv);
 });
 
-// ─── CHATBOT ENDPOINT (SSE streaming) ───
+// ─── CHATBOT ENDPOINT (simple JSON — no SSE, no streaming) ───
 app.post('/api/chat', async (req, res) => {
   if (!anthropicClient) {
     return res.status(503).json({ error: 'Chatbot not configured' });
@@ -719,18 +731,15 @@ app.post('/api/chat', async (req, res) => {
 
   // Get or create conversation
   let convId = conversation_id || null;
-  let isNewConversation = false;
   const now = new Date().toISOString();
 
   if (!convId) {
-    // Create new conversation
     db.run(
       'INSERT INTO conversations (visitor_id, started_at, last_message_at, status, page, ip, message_count, notified) VALUES (?, ?, ?, ?, ?, ?, 0, 0)',
       [visitor_id || 'anonymous', now, now, 'active', page || null, ip || null]
     );
     const idResult = db.exec('SELECT last_insert_rowid()');
     convId = idResult[0].values[0][0];
-    isNewConversation = true;
     saveDB();
   }
 
@@ -749,104 +758,119 @@ app.post('/api/chat', async (req, res) => {
   }
 
   // Limit conversation length
-  const trimmed = messages.slice(-40);
+  let trimmed = messages.slice(-40);
 
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'X-Accel-Buffering': 'no'
-  });
+  // Anthropic API requires first message to be role:"user"
+  while (trimmed.length > 0 && trimmed[0].role === 'assistant') {
+    trimmed = trimmed.slice(1);
+  }
+  if (trimmed.length === 0) {
+    return res.status(400).json({ error: 'Messages requis' });
+  }
 
   // Send conversation_id to client
   res.write('data: ' + JSON.stringify({ type: 'conversation_id', conversation_id: convId }) + '\n\n');
 
   try {
-    let fullText = '';
-    const stream = anthropicClient.messages.stream({
-      model: 'claude-sonnet-4-20250514',
+    console.log('Chat API call — messages:', trimmed.length, '| first role:', trimmed[0]?.role);
+
+    const response = await anthropicClient.messages.create({
+      model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: CHAT_SYSTEM_PROMPT,
       messages: trimmed
     });
 
-    stream.on('text', (text) => {
-      fullText += text;
-      res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');
-    });
+    const fullText = response.content[0]?.text || '';
+    console.log('Chat API OK — length:', fullText.length);
 
-    stream.on('end', async () => {
-      // Save bot response to chat_messages
-      if (fullText) {
+    // Save bot response to chat_messages
+    if (fullText) {
+      db.run(
+        'INSERT INTO chat_messages (conversation_id, role, content, timestamp) VALUES (?, ?, ?, ?)',
+        [convId, 'assistant', fullText, new Date().toISOString()]
+      );
+      db.run(
+        'UPDATE conversations SET last_message_at = ? WHERE id = ?',
+        [new Date().toISOString(), convId]
+      );
+      saveDB();
+    }
+
+    // Send notification email for new conversations
+    const convRows = db.exec('SELECT notified FROM conversations WHERE id = ?', [convId]);
+    if (convRows.length && convRows[0].values[0][0] === 0) {
+      db.run('UPDATE conversations SET notified = 1 WHERE id = ?', [convId]);
+      saveDB();
+      const msgRows = db.exec('SELECT role, content FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [convId]);
+      const convMessages = msgRows.length ? msgRows[0].values.map(r => ({ role: r[0], content: r[1] })) : [];
+      sendChatNotification(convId, page, convMessages).catch(err => console.error('Chat notify error:', err.message));
+    }
+
+    const result = { text: fullText, conversation_id: convId };
+
+    // Parse buttons
+    const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
+    if (btnMatch) {
+      result.buttons = btnMatch[1].split('|').map(b => b.trim());
+    }
+
+    // Parse input field request
+    const inputMatch = fullText.match(/\[INPUT:\s*(.+?)\]/);
+    if (inputMatch) {
+      result.input = inputMatch[1].trim();
+    }
+
+    // Parse form submission
+    const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
+    if (submitMatch) {
+      try {
+        const data = JSON.parse(submitMatch[1]);
+        data.source = 'chatbot';
         db.run(
-          'INSERT INTO chat_messages (conversation_id, role, content, timestamp) VALUES (?, ?, ?, ?)',
-          [convId, 'assistant', fullText, new Date().toISOString()]
+          'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
+           data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
         );
-        db.run(
-          'UPDATE conversations SET last_message_at = ? WHERE id = ?',
-          [new Date().toISOString(), convId]
-        );
+        // Mark conversation as completed
+        db.run('UPDATE conversations SET status = ? WHERE id = ?', ['completed', convId]);
         saveDB();
+        sendEmails({ ...data, source: 'chatbot' })
+          .then(() => console.log('Chatbot emails sent for:', data.prenom, data.nom))
+          .catch(err => console.error('Chatbot email error:', err.message));
+        result.submit = data;
+      } catch (e) {
+        console.error('Failed to parse submit data:', e.message);
       }
+    }
 
-      // Send notification email for new conversations (after we have the first bot response)
-      const convRows = db.exec('SELECT notified FROM conversations WHERE id = ?', [convId]);
-      if (convRows.length && convRows[0].values[0][0] === 0) {
-        db.run('UPDATE conversations SET notified = 1 WHERE id = ?', [convId]);
-        saveDB();
-        // Get all messages for this conversation
-        const msgRows = db.exec('SELECT role, content FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [convId]);
-        const convMessages = msgRows.length ? msgRows[0].values.map(r => ({ role: r[0], content: r[1] })) : [];
-        sendChatNotification(convId, page, convMessages).catch(err => console.error('Chat notify error:', err.message));
-      }
-
-      // Parse special markers from the full response
-      const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
-      if (btnMatch) {
-        const buttons = btnMatch[1].split('|').map(b => b.trim());
-        res.write('data: ' + JSON.stringify({ type: 'buttons', buttons: buttons }) + '\n\n');
-      }
-      // Check for form submission
-      const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
-      if (submitMatch) {
-        try {
-          const data = JSON.parse(submitMatch[1]);
-          data.source = 'chatbot';
-          // Save to submissions DB
-          db.run(
-            'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
-             data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
-          );
-          // Mark conversation as completed
-          db.run('UPDATE conversations SET status = ? WHERE id = ?', ['completed', convId]);
-          saveDB();
-          // Send prospect emails
-          sendEmails({ ...data, source: 'chatbot' })
-            .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
-            .catch(err => console.error('Chatbot email error:', err.message));
-          res.write('data: ' + JSON.stringify({ type: 'submit', data: data }) + '\n\n');
-        } catch (e) {
-          console.error('Failed to parse submit data:', e.message);
-        }
-      }
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
-    });
-
-    stream.on('error', (err) => {
-      console.error('Chat stream error:', err.message);
-      res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue. Réessayez.' }) + '\n\n');
-      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-      res.end();
-    });
-
-    req.on('close', () => { stream.abort(); });
+    res.json(result);
   } catch (err) {
-    console.error('Chat error:', err.message);
-    res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
-    res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
-    res.end();
+    console.error('Chat API error:', err.message, '| status:', err?.status, '| type:', err?.constructor?.name);
+    res.status(err?.status || 500).json({ error: 'Une erreur est survenue. Réessayez.', details: err.message });
+  }
+});
+
+// ─── CHATBOT TEST ENDPOINT (admin only) ───
+app.get('/api/test-chat', requireAdmin, async (req, res) => {
+  if (!anthropicClient) {
+    return res.json({ ok: false, error: 'Anthropic API not configured' });
+  }
+  try {
+    const response = await anthropicClient.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 50,
+      messages: [{ role: 'user', content: 'Dis juste "OK ça marche"' }]
+    });
+    res.json({ ok: true, model: 'claude-sonnet-4-6', response: response.content[0].text });
+  } catch (err) {
+    res.json({
+      ok: false,
+      error: err.message,
+      status: err.status,
+      type: err.constructor?.name,
+      details: err.error || null
+    });
   }
 });
 
@@ -927,8 +951,19 @@ app.use((req, res) => { res.status(404).sendFile(path.join(__dirname, 'index.htm
 
 // ─── START ───
 initDB().then(() => {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Switching Formation server running on port ${PORT}`);
+  });
+
+  // Graceful shutdown for Railway redeploys
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received — shutting down gracefully');
+    server.close(() => {
+      console.log('Server closed');
+      process.exit(0);
+    });
+    // Force exit after 5s if connections don't close
+    setTimeout(() => process.exit(0), 5000);
   });
 }).catch(err => {
   console.error('Failed to initialize database:', err);

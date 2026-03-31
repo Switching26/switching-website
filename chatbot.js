@@ -52,10 +52,7 @@
   box-shadow:0 8px 32px rgba(16,171,175,.4);\
 }\
 .sf-chat-bubble svg{width:24px;height:24px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}\
-.sf-chat-bubble .sf-chat-close-icon{display:none;}\
-.sf-chat-bubble.sf-chat-active .sf-chat-open-icon{display:none;}\
-.sf-chat-bubble.sf-chat-active .sf-chat-close-icon{display:block;}\
-.sf-chat-bubble.sf-chat-active{animation:none;}\
+.sf-chat-bubble.sf-chat-active{display:none;}\
 @keyframes sf-chat-pulse{\
   0%,100%{box-shadow:0 4px 20px rgba(16,171,175,.3),0 0 0 0 rgba(16,171,175,.2);}\
   50%{box-shadow:0 4px 20px rgba(16,171,175,.3),0 0 0 12px rgba(16,171,175,0);}\
@@ -158,6 +155,9 @@
   background:#F1F5F9;color:#1E293B;\
   border-bottom-left-radius:4px;\
 }\
+.sf-chat-msg-bubble strong,.sf-chat-msg-bubble b{font-weight:700;color:#0F172A;}\
+.sf-chat-msg-bubble em,.sf-chat-msg-bubble i{font-style:italic;}\
+.sf-chat-msg-bubble a{color:#10ABAF;text-decoration:underline;font-weight:500;}\
 .sf-chat-msg-user .sf-chat-msg-bubble{\
   background:linear-gradient(135deg,#10ABAF,#0E9599);\
   color:#fff;\
@@ -240,6 +240,45 @@
 }\
 .sf-chat-success svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
 \
+/* ── Inline Input Field ── */\
+.sf-chat-inline-input{\
+  margin-top:8px;padding:12px 14px;\
+  background:#fff;border-radius:14px;\
+  border:1px solid rgba(16,171,175,.2);\
+  box-shadow:0 2px 12px rgba(16,171,175,.06);\
+  animation:sf-chat-msgIn .35s cubic-bezier(.16,1,.3,1) both;\
+  animation-delay:.1s;\
+}\
+.sf-chat-inline-label{\
+  font-family:"Almarai",sans-serif;font-size:12px;font-weight:600;\
+  color:#10ABAF;letter-spacing:.02em;\
+  display:block;margin-bottom:6px;\
+}\
+.sf-chat-inline-row{\
+  display:flex;gap:8px;align-items:center;\
+}\
+.sf-chat-inline-field{\
+  flex:1;border:1px solid rgba(0,0,0,.1);border-radius:10px;\
+  padding:9px 14px;font-family:"Almarai",sans-serif;font-size:13.5px;\
+  color:#1E293B;background:#F8FAFC;outline:none;\
+  transition:border-color .25s,box-shadow .25s;\
+}\
+.sf-chat-inline-field:focus{\
+  border-color:rgba(16,171,175,.4);\
+  box-shadow:0 0 0 3px rgba(16,171,175,.08);\
+}\
+.sf-chat-inline-field::placeholder{color:#94A3B8;}\
+.sf-chat-inline-submit{\
+  width:36px;height:36px;border-radius:10px;border:none;\
+  background:linear-gradient(135deg,#10ABAF,#0E9599);\
+  display:flex;align-items:center;justify-content:center;\
+  cursor:pointer;flex-shrink:0;\
+  transition:all .3s cubic-bezier(.16,1,.3,1);\
+}\
+.sf-chat-inline-submit:disabled{opacity:.35;cursor:default;}\
+.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(16,171,175,.3);}\
+.sf-chat-inline-submit svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
+\
 /* ── Error ── */\
 .sf-chat-error .sf-chat-msg-bubble{\
   background:rgba(239,68,68,.08)!important;\
@@ -319,8 +358,7 @@
   bubble.className = 'sf-chat-bubble';
   bubble.setAttribute('aria-label', 'Ouvrir le chat');
   bubble.innerHTML = '\
-<svg class="sf-chat-open-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>\
-<svg class="sf-chat-close-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>';
 
   // Panel
   var panel = document.createElement('div');
@@ -350,6 +388,16 @@
 
   /* ─── Helpers ─── */
 
+  function formatMarkdown(text) {
+    // Convert markdown-style formatting to HTML
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/__(.+?)__/g, '<strong>$1</strong>')
+      .replace(/_(.+?)_/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+  }
+
   function saveSession() {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -364,10 +412,10 @@
   }
 
   function stripMarkers(text) {
-    // Remove [BUTTONS: ...] and [SUBMIT: ...] markers
     return text
       .replace(/\[BUTTONS?:\s*[^\]]*\]/gi, '')
       .replace(/\[SUBMIT:\s*[^\]]*\]/gi, '')
+      .replace(/\[INPUT:\s*[^\]]*\]/gi, '')
       .trim();
   }
 
@@ -376,7 +424,7 @@
     div.className = 'sf-chat-msg sf-chat-msg-bot';
     var bub = document.createElement('div');
     bub.className = 'sf-chat-msg-bubble';
-    bub.innerHTML = stripMarkers(text);
+    bub.innerHTML = formatMarkdown(stripMarkers(text));
     div.appendChild(bub);
     return div;
   }
@@ -404,6 +452,46 @@
       });
       wrap.appendChild(btn);
     });
+    return wrap;
+  }
+
+  function renderInputField(label) {
+    var wrap = document.createElement('div');
+    wrap.className = 'sf-chat-inline-input';
+    var lbl = document.createElement('label');
+    lbl.className = 'sf-chat-inline-label';
+    lbl.textContent = label;
+    var row = document.createElement('div');
+    row.className = 'sf-chat-inline-row';
+    var inp = document.createElement('input');
+    inp.className = 'sf-chat-inline-field';
+    inp.type = label.toLowerCase().indexOf('email') !== -1 ? 'email'
+      : label.toLowerCase().indexOf('tel') !== -1 || label.toLowerCase().indexOf('phone') !== -1 || label.toLowerCase().indexOf('téléphone') !== -1 || label.toLowerCase().indexOf('numero') !== -1 || label.toLowerCase().indexOf('numéro') !== -1 ? 'tel'
+      : 'text';
+    inp.placeholder = label;
+    inp.autocomplete = inp.type === 'email' ? 'email' : inp.type === 'tel' ? 'tel' : 'off';
+    var btn = document.createElement('button');
+    btn.className = 'sf-chat-inline-submit';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    btn.disabled = true;
+    inp.addEventListener('input', function() {
+      btn.disabled = !inp.value.trim();
+    });
+    function submit() {
+      var val = inp.value.trim();
+      if (!val) return;
+      wrap.remove();
+      sendMessage(val);
+    }
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+    btn.addEventListener('click', submit);
+    row.appendChild(inp);
+    row.appendChild(btn);
+    wrap.appendChild(lbl);
+    wrap.appendChild(row);
+    requestAnimationFrame(function() { inp.focus(); });
     return wrap;
   }
 
@@ -520,12 +608,12 @@
     inputEl.value = '';
     sendBtn.classList.remove('sf-chat-send-active');
 
-    // Remove any leftover quick buttons
-    var oldBtns = messagesEl.querySelectorAll('.sf-chat-buttons');
+    // Remove any leftover quick buttons and inline inputs
+    var oldBtns = messagesEl.querySelectorAll('.sf-chat-buttons, .sf-chat-inline-input');
     oldBtns.forEach(function(b) { b.remove(); });
 
     isSending = true;
-    var typingEl = showTyping();
+    showTyping();
 
     // Build conversation history for API
     var history = messages.filter(function(m) {
@@ -534,7 +622,10 @@
       return { role: m.role === 'bot' ? 'assistant' : 'user', content: m.text };
     });
 
-    // SSE fetch
+    // Simple JSON fetch with timeout
+    var abortCtrl = new AbortController();
+    var fetchTimeout = setTimeout(function() { abortCtrl.abort(); }, 30000);
+
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -543,92 +634,54 @@
         visitor_id: visitorId,
         conversation_id: conversationId,
         page: window.location.pathname.replace(/^\/|\.html$/g, '') || 'index'
-      })
+      }),
+      signal: abortCtrl.signal
     }).then(function(response) {
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      if (!response.body) throw new Error('No stream');
-
+      clearTimeout(fetchTimeout);
+      if (!response.ok) {
+        return response.json().then(function(body) {
+          throw new Error(body.details || body.error || 'HTTP ' + response.status);
+        }).catch(function() { throw new Error('HTTP ' + response.status); });
+      }
+      return response.json();
+    }).then(function(data) {
       removeTyping();
 
-      var botMsg = { role: 'bot', text: '', buttons: [], success: '' };
+      var cleanText = stripMarkers(data.text || '');
+      var botMsg = { role: 'bot', text: cleanText, buttons: data.buttons || [], success: '' };
       messages.push(botMsg);
 
-      var botEl = renderBotBubble('');
-      messagesEl.appendChild(botEl);
-      var bubbleTextEl = botEl.querySelector('.sf-chat-msg-bubble');
+      messagesEl.appendChild(renderBotBubble(cleanText));
 
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        return reader.read().then(function(result) {
-          if (result.done) {
-            // Finalize
-            isSending = false;
-            saveSession();
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-
-          // Parse SSE lines
-          var lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          lines.forEach(function(line) {
-            line = line.trim();
-            if (!line || line === '') return;
-
-            // Parse "event:" lines and "data:" lines
-            if (line.startsWith('event:')) return; // We parse data lines below
-
-            if (!line.startsWith('data:')) return;
-
-            var dataStr = line.substring(5).trim();
-            if (!dataStr) return;
-
-            var data;
-            try { data = JSON.parse(dataStr); } catch(e) { return; }
-
-            if (data.type === 'conversation_id' && data.conversation_id) {
-              conversationId = data.conversation_id;
-              try { sessionStorage.setItem(CONV_STORAGE_KEY, String(conversationId)); } catch(ex) {}
-            } else if (data.type === 'text' || data.text) {
-              var txt = data.text || data.content || '';
-              botMsg.text += txt;
-              bubbleTextEl.innerHTML = stripMarkers(botMsg.text);
-              scrollToBottom();
-            } else if (data.type === 'buttons' && data.buttons) {
-              botMsg.buttons = data.buttons;
-              messagesEl.appendChild(renderButtons(data.buttons));
-              scrollToBottom();
-            } else if (data.type === 'submit' && data.message) {
-              botMsg.success = data.message;
-              messagesEl.appendChild(renderSuccess(data.message));
-              scrollToBottom();
-            } else if (data.type === 'done') {
-              isSending = false;
-              saveSession();
-            } else if (data.type === 'error') {
-              var errMsg = data.message || 'Une erreur est survenue.';
-              bubbleTextEl.textContent = errMsg;
-              botEl.classList.add('sf-chat-error');
-              botMsg.text = errMsg;
-              isSending = false;
-              saveSession();
-            }
-          });
-
-          return processChunk();
-        });
+      // Handle conversation_id from server
+      if (data.conversation_id) {
+        conversationId = data.conversation_id;
+        try { sessionStorage.setItem(CONV_STORAGE_KEY, String(conversationId)); } catch(ex) {}
       }
 
-      return processChunk();
+      if (data.buttons && data.buttons.length) {
+        messagesEl.appendChild(renderButtons(data.buttons));
+      }
+
+      if (data.input) {
+        messagesEl.appendChild(renderInputField(data.input));
+      }
+
+      if (data.submit) {
+        botMsg.success = 'Demande envoyée';
+        messagesEl.appendChild(renderSuccess('Demande envoyée avec succès !'));
+      }
+
+      isSending = false;
+      saveSession();
+      scrollToBottom();
     }).catch(function(err) {
+      clearTimeout(fetchTimeout);
       removeTyping();
       isSending = false;
-      var errText = 'D\u00e9sol\u00e9, une erreur est survenue. Veuillez r\u00e9essayer.';
+      var errText = err && err.name === 'AbortError'
+        ? 'La réponse a pris trop de temps. Veuillez réessayer.'
+        : 'Désolé, une erreur est survenue. Veuillez réessayer.';
       messages.push({ role: 'bot', text: errText, buttons: [] });
       saveSession();
       var errEl = renderBotBubble(errText);
