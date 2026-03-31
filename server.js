@@ -34,6 +34,105 @@ if (GMAIL_CLIENT_ID && GMAIL_CLIENT_SECRET && GMAIL_REFRESH_TOKEN) {
   console.log('⚠ Gmail API not configured — emails will NOT be sent');
 }
 
+// ─── CHATBOT AI SETUP ───
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+let anthropicClient = null;
+if (ANTHROPIC_API_KEY) {
+  anthropicClient = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
+  console.log('✓ Anthropic API configured — chatbot enabled');
+} else {
+  console.log('⚠ ANTHROPIC_API_KEY not set — chatbot disabled');
+}
+
+const CHAT_SYSTEM_PROMPT = `Tu es l'Assistant Switching Formation, le conseiller pédagogique virtuel de Switching Formation, un centre de formation professionnelle certifié Qualiopi à Paris 12ᵉ.
+
+COMPORTEMENT :
+- Tu es professionnel, bienveillant et tu vouvoies toujours le prospect.
+- Tu réponds en français, de manière concise (2-4 phrases max par message).
+- Tu dois TOUJOURS orienter la conversation vers la collecte d'informations du prospect.
+- Quand tu proposes des choix, utilise le format [BUTTONS: choix1 | choix2 | choix3] à la fin de ton message (sur une nouvelle ligne). Le frontend affichera ces boutons comme des options cliquables.
+- Ne mets JAMAIS les boutons au milieu du texte, toujours à la fin.
+
+INFORMATIONS SUR LE CENTRE :
+- Adresse : 18 rue Coriolis, 75012 Paris
+- Téléphone : 06 95 18 50 57
+- Email : contact@switchingformation.com
+- Horaires : Lundi-Vendredi 9h-18h
+- Certifications : Qualiopi (Actions de formation + Bilans de compétences)
+- Modalités : 100% individuel — Présentiel (Paris 12ᵉ), Visioconférence, E-learning
+- Certifications délivrées : ENI, RNCP, Linguaskill, TOSA, VTest
+
+CATALOGUE DE FORMATIONS (7 domaines, 57 formations) :
+
+1. LANGUES (8 formations) : Anglais Niveau 1 (A1-A2), Anglais Niveau 2 (B1-B2), Anglais Niveau 3 (C1-C2), Anglais Niveaux 1-2-3 (A1-C2), Français Niveau 1 (A1-A2), Français Niveau 2 (B1-B2), Français Niveau 3 (C1-C2), Français Niveaux 1-2-3 (A1-C2)
+
+2. BUREAUTIQUE (11 formations) : Bases Informatiques, Excel Complet (CPF/ENI), Excel VBA, Word Complet, PowerPoint Complet, Outlook Complet, Pack Office Complet, Power BI, Outils Collaboratifs Google, Microsoft 365
+
+3. GRAPHISME & DESIGN (13 formations) : Photoshop, Illustrator, InDesign, Canva, Webdesigner, Première Pro CC, After Effects, Final Cut Pro X, SketchUp Pro, Autodesk Revit, SolidWorks, AutoCAD, Permis de construire PCMI
+
+4. WEB & DIGITAL (9 formations) : WordPress, WooCommerce, Marketing digital, Réseaux sociaux & Ads, Réseaux sociaux, Développeur Web, Développeur informatique, SEO, SEA Google Ads
+
+5. COMPTABILITÉ & PAIE (5 formations) : Gestion de la paie Silae (CPF/RNCP), Gestion de la paie Ciel Paie, Gestion de la paie Segid, Secrétaire Assistant Comptable, Comptabilité Générale
+
+6. INTELLIGENCE ARTIFICIELLE (9 formations) : ChatGPT (Gratuit & Plus), Midjourney PRO, IA conversationnelle cycle de vente (RS6792), Copilot Microsoft 365, L'Art de créer des vidéos avec l'IA, Contenus rédactionnels & visuels IA (26h, RS6776), IA Business Pro OptimIA, Contenus rédactionnels & visuels IA (10h, RS6776), CapCut Montages vidéos IA
+
+7. BILAN DE COMPÉTENCES (2 formations) : Bilan 24h (CPF), Bilan 16h (CPF)
+
+FINANCEMENT :
+- CPF (Mon Compte Formation) : la plupart des formations sont éligibles
+- OPCO : pour les salariés, l'entreprise peut financer via son OPCO
+- France Travail (ex Pôle Emploi) : AIF, CSP pour les demandeurs d'emploi
+- Financement personnel : possible
+- Financement entreprise : plan de développement des compétences
+
+TARIFS ET DURÉES :
+- Tu ne communiques JAMAIS de tarif ni de durée précise.
+- Réponds : "Un conseiller pédagogique vous communiquera un programme personnalisé avec les tarifs et la durée adaptés à votre niveau et vos objectifs."
+
+OBJECTIF PRINCIPAL — COLLECTE D'INFORMATIONS :
+Tu dois collecter ces informations naturellement dans la conversation :
+1. Formation souhaitée (secteur/domaine)
+2. Statut professionnel (Salarié, Demandeur d'emploi, Indépendant, Intermittent, Étudiant, Autre)
+3. Mode de financement (CPF, OPCO, France Travail, Personnel, Entreprise, Je ne sais pas)
+4. Prénom
+5. Nom
+6. Email
+7. Téléphone
+
+Quand tu as collecté TOUTES ces 7 informations, tu dois :
+1. Récapituler les infos et demander confirmation
+2. Si le prospect confirme, écrire exactement ce marqueur sur une nouvelle ligne :
+[SUBMIT: {"secteur":"...","statut":"...","financement":"...","prenom":"...","nom":"...","email":"...","tel":"..."}]
+3. Puis écrire un message de confirmation : "Votre demande a bien été envoyée ! Un conseiller pédagogique vous recontactera sous 24h."
+
+IMPORTANT :
+- Ne demande pas toutes les infos d'un coup. Commence par la formation, puis le statut, etc.
+- Si le prospect pose une question, réponds d'abord puis ramène naturellement vers la collecte.
+- Si le prospect refuse de donner ses infos, respecte-le et propose d'appeler le 06 95 18 50 57.
+- N'invente JAMAIS d'informations. Si tu ne sais pas, dis-le et oriente vers un conseiller.
+- Maximum 20 échanges par conversation. Après 15 échanges, propose de finaliser ou d'appeler.`;
+
+// Rate limiting for chat
+const chatRateLimit = new Map();
+function checkChatRate(ip) {
+  const now = Date.now();
+  const entries = chatRateLimit.get(ip) || [];
+  const recent = entries.filter(t => now - t < 60000);
+  if (recent.length >= 10) return false;
+  recent.push(now);
+  chatRateLimit.set(ip, recent);
+  return true;
+}
+// Clean up rate limit map periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entries] of chatRateLimit) {
+    const recent = entries.filter(t => now - t < 60000);
+    if (recent.length === 0) chatRateLimit.delete(ip);
+    else chatRateLimit.set(ip, recent);
+  }
+}, 300000);
+
 // Get a fresh access token from Google using the refresh token
 async function getAccessToken() {
   const resp = await fetch('https://oauth2.googleapis.com/token', {
@@ -487,6 +586,94 @@ app.get('/api/export', (req, res) => {
   res.setHeader('Content-Type', 'text/csv; charset=utf-8');
   res.setHeader('Content-Disposition', 'attachment; filename=switching-demandes.csv');
   res.send(csv);
+});
+
+// ─── CHATBOT ENDPOINT (SSE streaming) ───
+app.post('/api/chat', async (req, res) => {
+  if (!anthropicClient) {
+    return res.status(503).json({ error: 'Chatbot not configured' });
+  }
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  if (!checkChatRate(ip)) {
+    return res.status(429).json({ error: 'Trop de messages. Réessayez dans une minute.' });
+  }
+  const { messages } = req.body;
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    return res.status(400).json({ error: 'Messages requis' });
+  }
+  // Limit conversation length
+  const trimmed = messages.slice(-40); // Keep last 20 exchanges (40 messages user+assistant)
+
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no'
+  });
+
+  try {
+    let fullText = '';
+    const stream = anthropicClient.messages.stream({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 400,
+      system: CHAT_SYSTEM_PROMPT,
+      messages: trimmed
+    });
+
+    stream.on('text', (text) => {
+      fullText += text;
+      res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');
+    });
+
+    stream.on('end', async () => {
+      // Parse special markers from the full response
+      // Check for buttons
+      const btnMatch = fullText.match(/\[BUTTONS:\s*(.+?)\]/);
+      if (btnMatch) {
+        const buttons = btnMatch[1].split('|').map(b => b.trim());
+        res.write('data: ' + JSON.stringify({ type: 'buttons', buttons: buttons }) + '\n\n');
+      }
+      // Check for form submission
+      const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
+      if (submitMatch) {
+        try {
+          const data = JSON.parse(submitMatch[1]);
+          data.source = 'chatbot';
+          // Save to DB
+          db.run(
+            'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
+             data.prenom || null, data.nom || null, data.email || null, null, data.tel || null, 'Via chatbot IA']
+          );
+          saveDB();
+          // Send emails
+          sendEmails({ ...data, source: 'chatbot' })
+            .then(() => console.log('Chatbot submission emails sent for:', data.prenom, data.nom))
+            .catch(err => console.error('Chatbot email error:', err.message));
+          res.write('data: ' + JSON.stringify({ type: 'submit', data: data }) + '\n\n');
+        } catch (e) {
+          console.error('Failed to parse submit data:', e.message);
+        }
+      }
+      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
+      res.end();
+    });
+
+    stream.on('error', (err) => {
+      console.error('Chat stream error:', err.message);
+      res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue. Réessayez.' }) + '\n\n');
+      res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
+      res.end();
+    });
+
+    // Handle client disconnect
+    req.on('close', () => { stream.abort(); });
+  } catch (err) {
+    console.error('Chat error:', err.message);
+    res.write('data: ' + JSON.stringify({ type: 'error', message: 'Une erreur est survenue.' }) + '\n\n');
+    res.write('data: ' + JSON.stringify({ type: 'done' }) + '\n\n');
+    res.end();
+  }
 });
 
 // ─── EMAIL TEST ENDPOINT (admin only) ───
