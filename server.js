@@ -10,18 +10,18 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
 
 // ─── GMAIL API SETUP ───
-const GMAIL_CLIENT_ID = process.env.GMAIL_CLIENT_ID;
-const GMAIL_CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
-const GMAIL_REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN;
+const GMAIL_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GMAIL_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GMAIL_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
 const GMAIL_FROM = process.env.GMAIL_FROM || 'contact@switchingformation.com';
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'contact@switchingformation.com';
 
 let gmailReady = false;
 
 console.log('=== GMAIL API CONFIG ===');
-console.log('GMAIL_CLIENT_ID:', GMAIL_CLIENT_ID ? '✓ SET' : '❌ NOT SET');
-console.log('GMAIL_CLIENT_SECRET:', GMAIL_CLIENT_SECRET ? '✓ SET' : '❌ NOT SET');
-console.log('GMAIL_REFRESH_TOKEN:', GMAIL_REFRESH_TOKEN ? '✓ SET (' + GMAIL_REFRESH_TOKEN.length + ' chars)' : '❌ NOT SET');
+console.log('GOOGLE_CLIENT_ID:', GMAIL_CLIENT_ID ? '✓ SET' : '❌ NOT SET');
+console.log('GOOGLE_CLIENT_SECRET:', GMAIL_CLIENT_SECRET ? '✓ SET' : '❌ NOT SET');
+console.log('GOOGLE_REFRESH_TOKEN:', GMAIL_REFRESH_TOKEN ? '✓ SET (' + GMAIL_REFRESH_TOKEN.length + ' chars)' : '❌ NOT SET');
 console.log('GMAIL_FROM:', GMAIL_FROM);
 console.log('NOTIFY_EMAIL:', NOTIFY_EMAIL);
 console.log('========================');
