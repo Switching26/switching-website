@@ -217,19 +217,22 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 .w{padding:0 18px}
 .topbar .w{flex-direction:column;gap:4px;text-align:center}
 .hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
-.page-hero{padding:20px 0 0}.hero-card{min-height:280px}.hero-card h1{font-size:28px}.hero-inner{padding:28px 20px}.filters .flt{font-size:11px;padding:5px 10px;gap:4px}.domain{padding:28px 0 8px}
+.page-hero{padding:12px 0 0}.hero-card{min-height:240px;background-image:none;background:#0F172A}.hero-card::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 80%,rgba(16,171,175,.25),transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(99,102,241,.2),transparent 55%),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(244,63,94,.08),transparent 50%);animation:meshMove 8s ease-in-out infinite alternate}.hero-card::after{background:none}
+@keyframes meshMove{0%{opacity:.8;transform:scale(1) rotate(0deg)}100%{opacity:1;transform:scale(1.1) rotate(2deg)}}
+.hero-card h1{font-size:26px}.hero-inner{padding:20px 16px}.hero-desc{font-size:12px;margin-bottom:16px;line-height:1.6}
+.filters{gap:6px}.flt{padding:6px 12px;font-size:11px;border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.08)}
 .sec-h2{font-size:26px}
-.fg{grid-template-columns:1fr}
-.filters{gap:6px}.flt{padding:7px 14px;font-size:12px}
-.cta-box{padding:32px 20px}.cta-box h2{font-size:24px}.cta-btns{flex-direction:column;align-items:center}
+.domain{padding:20px 0 8px}.domain-ico{width:36px;height:36px;border-radius:10px}.domain-ico svg{width:18px;height:18px}.domain-title{font-size:17px}.domain-header{gap:10px;margin-bottom:12px}
+.fg{grid-template-columns:repeat(2,1fr);gap:8px}
+.fc{padding:12px 10px;border-radius:12px;gap:6px}.fc h3{font-size:12px;padding-right:36px}.fc p{font-size:10.5px;line-height:1.45;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.fc-icon{width:32px;height:32px;border-radius:8px;top:10px;right:10px}.fc-icon svg{width:16px;height:16px}.fc-link{font-size:10px}.fc-link svg{width:10px;height:10px}.fc-meta{gap:8px}.fc-tag{font-size:10px}
+.cta-box{padding:24px 16px}.cta-box h2{font-size:20px}.cta-box p{font-size:13px;margin-bottom:16px}.cta-btns{flex-direction:column;align-items:center}.cta-btns .btn-glow,.cta-btns .btn-ghost-w{font-size:13px;padding:11px 24px}
 .ft-grid,.ft-bottom{display:none}
 .ft-mobile{display:block}
-.domain-title{font-size:20px}
 }
 @media(max-width:520px){
-.fc-icon{width:34px;height:34px;border-radius:10px}.fc-icon svg{width:16px;height:16px}
+.fc-icon{width:28px;height:28px;border-radius:8px}.fc-icon svg{width:14px;height:14px}.fc h3{padding-right:32px}
 }
-@media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}.hero-card h1{font-size:24px}}
+@media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}.hero-card h1{font-size:22px}}
 </style>
 </head>
 <body>
