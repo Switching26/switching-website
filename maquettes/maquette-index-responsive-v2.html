@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Index Responsive v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;
+--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto}
+
+/* Fake navbar indicator */
+.fake-nav{position:sticky;top:8px;z-index:100;margin:8px 12px 0;background:rgba(255,255,255,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}
+.fake-nav-logo{font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;color:var(--accent)}
+.fake-nav-burger{width:24px;height:16px;display:flex;flex-direction:column;justify-content:space-between}
+.fake-nav-burger span{width:100%;height:2px;background:var(--text);border-radius:2px}
+
+.w{padding:0 18px}
+.sec-head{text-align:center;margin-bottom:20px}
+.sec-tag{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:10px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:24px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.25}
+.glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-label{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--muted);text-align:center;padding:20px 0 8px;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--bd)}
+
+/* ============================================================
+   1. HERO SECTION
+   ============================================================ */
+.hero{padding:20px 0 24px;text-align:center}
+.hero h1{font-family:'Poppins',sans-serif;font-size:28px;font-weight:600;letter-spacing:-.04em;line-height:1.2;margin-bottom:14px}
+.hero-p{font-size:13.5px;color:var(--sub);line-height:1.6;margin-bottom:8px}
+.hero-p b{color:var(--text)}
+
+/* CHANGE: Buttons centered */
+.hero-btns{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:18px;
+}
+.btn-glow{
+  background:var(--accent);color:#fff;padding:12px 24px;border-radius:var(--rf);
+  text-decoration:none;font-weight:700;font-size:14px;
+  display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 0 20px var(--accent-gl);transition:all .3s var(--e);
+}
+.btn-glow svg,.btn-ghost svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-ghost{
+  background:transparent;color:var(--text);padding:12px 24px;border-radius:var(--rf);
+  text-decoration:none;font-weight:600;font-size:14px;
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--bd2);transition:all .3s var(--e);
+}
+
+.hero-video{
+  margin-top:20px;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--bd);box-shadow:0 12px 36px rgba(0,0,0,.1);
+  background:#e2e8f0;height:200px;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:13px;
+}
+
+/* ============================================================
+   2. CERTIFICATIONS — Compact 2x2 grid
+   ============================================================ */
+.certs{padding:24px 0}
+
+/* CHANGE: 2-column grid, shorter cards */
+.cg{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  text-align:center;
+}
+.cg > div{display:flex;flex-direction:column;align-items:center}
+.cc{
+  background:var(--surface);
+  border-radius:14px;
+  padding:14px 10px;
+  text-align:center;
+  width:100%;
+  height:90px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.03);
+  transition:all .4s var(--e);
+}
+.cc-logo{height:100%;display:flex;align-items:center;justify-content:center}
+.cc-logo img{max-height:100%;max-width:100%;object-fit:contain}
+.cc-label{font-size:11px;color:var(--muted);line-height:1.3;margin-top:6px;text-align:center}
+
+/* ============================================================
+   3. FORMATIONS — Compact 2-column cards
+   ============================================================ */
+.forms{background:#F1F4F8;padding:28px 0;position:relative;overflow:hidden}
+.forms::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 10% 20%,rgba(16,171,175,.06),transparent),radial-gradient(ellipse 500px 500px at 90% 80%,rgba(124,58,237,.04),transparent);pointer-events:none}
+.forms .w{position:relative;z-index:1}
+
+/* CHANGE: 2-column grid with compact cards */
+.fg{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:10px;
+}
+.fg3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+}
+.fc{
+  background:#fff;border:none;border-radius:14px;
+  overflow:hidden;text-decoration:none;color:var(--text);
+  display:flex;flex-direction:column;
+  box-shadow:0 1px 4px rgba(0,0,0,.03);
+  transition:transform .35s var(--e),box-shadow .35s var(--e);
+}
+/* CHANGE: Shorter visual area */
+.fc-visual{
+  height:72px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+/* Domain colors for blobs */
+.fc--langues .fc-visual{background:linear-gradient(135deg,rgba(232,99,74,.08),rgba(232,99,74,.03))}
+.fc--bureau .fc-visual{background:linear-gradient(135deg,rgba(91,112,131,.08),rgba(91,112,131,.03))}
+.fc--graph .fc-visual{background:linear-gradient(135deg,rgba(217,70,168,.08),rgba(217,70,168,.03))}
+.fc--web .fc-visual{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.03))}
+.fc--bilan .fc-visual{background:linear-gradient(135deg,rgba(212,160,23,.08),rgba(212,160,23,.03))}
+.fc--compta .fc-visual{background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(249,115,22,.03))}
+.fc--ia .fc-visual{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(124,58,237,.03))}
+
+.ico-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.ico-wrap svg{width:22px;height:22px;stroke:currentColor;fill:none}
+.fc--langues .ico-wrap{color:#E8634A}
+.fc--bureau .ico-wrap{color:#5B7083}
+.fc--graph .ico-wrap{color:#D946A8}
+.fc--web .ico-wrap{color:#3B82F6}
+.fc--bilan .ico-wrap{color:#D4A017}
+.fc--compta .ico-wrap{color:#F97316}
+.fc--ia .ico-wrap{color:#7C3AED}
+
+/* CHANGE: Tighter body padding */
+.fc-body{padding:10px 12px 12px}
+.fc h3{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:2px}
+.fc p{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.fc-link{font-size:11px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:4px}
+.fc-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============================================================
+   4. TESTIMONIALS — More compact cards
+   ============================================================ */
+.testi{padding:24px 0;overflow:hidden;position:relative}
+.testi::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+
+/* CHANGE: Smaller cards, less padding */
+.tt{display:flex;gap:12px;animation:slide 45s linear infinite;width:max-content;padding:6px 0}
+.tt:hover{animation-play-state:paused}
+.tc{
+  background:var(--surface);
+  border:1px solid var(--bd);
+  border-radius:14px;
+  padding:16px 14px 14px;
+  width:220px;min-width:220px;
+  flex-shrink:0;
+  display:flex;flex-direction:column;
+  transition:all .4s var(--e);
+}
+.tc-stars{display:flex;gap:2px;margin-bottom:6px}
+.tc-stars svg{width:11px;height:11px;fill:#FBBF24}
+.tc-txt{
+  font-size:11.5px;line-height:1.55;color:var(--muted);
+  flex:1;margin-bottom:8px;
+  overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:5;-webkit-box-orient:vertical;
+}
+.tc-txt strong{color:var(--text);font-weight:600}
+.tc-author{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid var(--bd);margin-top:auto}
+.tc-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--accent-gl);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--accent);
+  flex-shrink:0;border:2px solid rgba(16,171,175,.15);
+}
+.tc-name{font-size:12px;font-weight:600;color:var(--text)}
+.tc-name span{color:var(--accent)}
+
+@keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Separator between sections */
+.sep{position:relative;height:1px;margin:0}
+.sep::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+
+/* Compare labels */
+.compare-toggle{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;gap:4px;background:var(--surface);padding:4px;border-radius:var(--rf);
+  box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid var(--bd);
+}
+.compare-btn{
+  padding:8px 16px;border-radius:var(--rf);font-size:12px;font-weight:600;
+  font-family:var(--f);cursor:pointer;border:none;background:transparent;color:var(--sub);
+  transition:all .2s var(--e);
+}
+.compare-btn.active{background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<!-- Fake navbar -->
+<div class="fake-nav">
+  <div class="fake-nav-logo">Switching Formation</div>
+  <div class="fake-nav-burger"><span></span><span></span><span></span></div>
+</div>
+
+<!-- ============================================================ -->
+<div class="section-label">1. Hero — Boutons centres</div>
+<!-- ============================================================ -->
+
+<section class="hero">
+<div class="w">
+  <h1>Ensemble, faisons grandir <span class="glow">vos competences</span></h1>
+  <p class="hero-p"><b>Switching Formation</b> vous propose des programmes <b>courts et ludiques en e-learning</b>, avec une vingtaine de formations dans sept domaines cles.</p>
+  <p class="hero-p">Expert de la formation professionnelle, nous sommes <b>certifies Qualiopi, gage de qualite et de confiance</b>.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-glow">Nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="#" class="btn-ghost">Devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+  <div class="hero-video">[ Video accueil ]</div>
+</div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ============================================================ -->
+<div class="section-label">2. Certifications — Grille 2x2 compacte</div>
+<!-- ============================================================ -->
+
+<section class="certs">
+<div class="w">
+  <div class="sec-head">
+    <div class="sec-tag">Certifications</div>
+    <div class="sec-h2">Notre expertise de la<br><span class="glow">formation professionnelle</span></div>
+  </div>
+  <div class="cg">
+    <div>
+      <div class="cc"><div class="cc-logo"><img src="../images/image qualiopi vf.png" alt="Qualiopi"></div></div>
+      <p class="cc-label">Certifie Qualiopi, gage de qualite.</p>
+    </div>
+    <div>
+      <div class="cc"><div class="cc-logo"><img src="../images/vtest.png" alt="VTest"></div></div>
+      <p class="cc-label">VTest Business English – 4 skills.</p>
+    </div>
+    <div>
+      <div class="cc"><div class="cc-logo"><img src="../images/cpf-mcf.png" alt="CPF"></div></div>
+      <p class="cc-label">Reference Mon Compte Formation.</p>
+    </div>
+    <div>
+      <div class="cc"><div class="cc-logo"><img src="../images/france-travail.avif" alt="France Travail"></div></div>
+      <p class="cc-label">Reconnu par France Travail (AIF).</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ============================================================ -->
+<div class="section-label">3. Formations — Grille 2 colonnes compacte</div>
+<!-- ============================================================ -->
+
+<section class="forms">
+<div class="w">
+  <div class="sec-head">
+    <div class="sec-tag">Nos domaines</div>
+    <div class="sec-h2">Decouvrez nos <span class="glow">formations</span></div>
+  </div>
+  <div class="fg">
+    <a href="#" class="fc fc--langues">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Langues</h3><p>Anglais, francais, A1 a C2.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+    <a href="#" class="fc fc--bureau">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Bureautique</h3><p>Excel, Word, PowerPoint.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+    <a href="#" class="fc fc--graph">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3l-3 3"/><path d="M15 6l-7.5 7.5"/><path d="M7.5 13.5L5 20l6.5-2.5"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Graphisme</h3><p>Photoshop, Illustrator, Canva.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+    <a href="#" class="fc fc--web">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Web & Digital</h3><p>Dev, CMS, marketing.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+  </div>
+  <div class="fg3">
+    <a href="#" class="fc fc--bilan">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Bilan</h3><p>Accompagnement.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+    <a href="#" class="fc fc--compta">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="14" height="18" rx="2"/><path d="M8 7h6"/><path d="M8 10h8"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>Compta & Paie</h3><p>SILAE, paie.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+    <a href="#" class="fc fc--ia">
+      <div class="fc-visual"><div class="ico-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/></svg>
+      </div></div>
+      <div class="fc-body"><h3>IA</h3><p>ChatGPT, Midjourney.</p><span class="fc-link">Decouvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </a>
+  </div>
+</div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ============================================================ -->
+<div class="section-label">4. Temoignages — Cartes compactes</div>
+<!-- ============================================================ -->
+
+<section class="testi">
+<div class="w">
+  <div class="sec-head">
+    <div class="sec-tag">Temoignages</div>
+    <div class="sec-h2">Ils ont ete satisfaits de leurs <span class="glow">formations</span></div>
+  </div>
+</div>
+<div class="tt">
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Amenee a travailler a l'etranger, j'avais besoin de perfectionner mon anglais. La formation a ete une veritable reussite. <strong>Je recommande Switching Formation.</strong></p><div class="tc-author"><div class="tc-avatar">S</div><div class="tc-name">Stephanie, <span>55 ans</span></div></div></div>
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Expert-comptable, la formation SILAE a parfaitement repondu a mes attentes : claire, precise et applicable. <strong>Je recommande vivement.</strong></p><div class="tc-author"><div class="tc-avatar">H</div><div class="tc-name">Hugo, <span>35 ans</span></div></div></div>
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Formation en dev pour 5 salaries. Montee en competence et impact concret. <strong>Je recommande aux entreprises.</strong></p><div class="tc-author"><div class="tc-avatar">P</div><div class="tc-name">Pierre, <span>44 ans</span></div></div></div>
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Formation bureautique complete. Formateur tres pedagogue, j'ai progresse sur Excel et Word. <strong>Suivi serieux. Je recommande !</strong></p><div class="tc-author"><div class="tc-avatar">B</div><div class="tc-name">Bastien, <span>36 ans</span></div></div></div>
+  <!-- Duplicate for infinite scroll effect -->
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Amenee a travailler a l'etranger, j'avais besoin de perfectionner mon anglais. La formation a ete une veritable reussite. <strong>Je recommande Switching Formation.</strong></p><div class="tc-author"><div class="tc-avatar">S</div><div class="tc-name">Stephanie, <span>55 ans</span></div></div></div>
+  <div class="tc"><div class="tc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.47 5.01L18 6.94l-4 3.9.94 5.5L10 13.77l-4.94 2.6.94-5.5-4-3.9 5.53-.93z"/></svg></div><p class="tc-txt">Expert-comptable, la formation SILAE a parfaitement repondu a mes attentes : claire, precise et applicable. <strong>Je recommande vivement.</strong></p><div class="tc-author"><div class="tc-avatar">H</div><div class="tc-name">Hugo, <span>35 ans</span></div></div></div>
+</div>
+</section>
+
+<div style="height:80px"></div>
+
+</body>
+</html>
