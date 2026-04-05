@@ -71,7 +71,8 @@ INFORMATIONS SUR LE CENTRE :
 - Email : contact@switchingformation.com
 - Horaires : Lundi-Vendredi 9h-18h
 - Certifications : Qualiopi (Actions de formation + Bilans de compétences)
-- Modalités : 100% individuel — Présentiel (Paris 12ᵉ), Visioconférence, E-learning
+- Modalités par défaut : Visioconférence (toutes formations) + E-learning (selon les modules)
+- Présentiel : sur-mesure uniquement, ne pas le proposer par défaut. Pour les particuliers, un devis sur-mesure est possible. Pour les entreprises, possible en intra ou inter-entreprise à partir de 2 personnes. Dans tous les cas, orienter vers un conseiller pour étudier la faisabilité.
 - Certifications délivrées : ENI, RNCP, Linguaskill, TOSA, VTest
 
 CATALOGUE DE FORMATIONS (7 domaines, 57 formations) :
