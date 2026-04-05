@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/fav-sf-web.PNG">
+<title>Financement — Switching Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFBFC;--surface:#FFFFFF;--surface2:#F1F5F9;--glass:rgba(255,255,255,.7);--section-bg:#F1F4F8;
+--white:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;
+--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--accent-gl2:rgba(16,171,175,.06);
+--bd:rgba(0,0,0,.06);--bd2:rgba(0,0,0,.08);
+--r:16px;--rs:12px;--rf:100px;
+--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}img{max-width:100%;height:auto}
+::selection{background:var(--accent);color:var(--bg)}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
+.topbar .w{display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
+.stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
+.phone{color:var(--accent)!important;font-weight:600!important}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.6);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);transition:all .5s var(--e);padding:10px 0;border-bottom:none}
+header.scrolled{background:rgba(250,251,252,.85);padding:6px 0;box-shadow:0 4px 24px rgba(0,0,0,.04)}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:56px;transition:height .4s var(--e)}
+header.scrolled .hdr{height:50px}
+.logo{text-decoration:none;display:flex;align-items:center;transition:transform .3s var(--e);flex-shrink:0}.logo:hover{transform:scale(1.03)}.logo img{height:40px;transition:height .4s var(--e)}
+header.scrolled .logo img{height:34px}
+.nav-pill{display:flex;align-items:center;gap:2px;background:var(--surface,#fff);border:1px solid var(--bd);border-radius:var(--rf);padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:all .4s var(--e)}
+header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.nav-pill a{text-decoration:none;font-size:13.5px;font-weight:500;color:var(--sub);padding:8px 18px;border-radius:var(--rf);transition:all .25s var(--e);position:relative;white-space:nowrap}
+.nav-pill a:hover{color:var(--text);background:rgba(16,171,175,.05)}
+.nav-pill a.active{color:#fff;background:var(--accent);font-weight:600;box-shadow:0 2px 8px rgba(16,171,175,.25)}
+.nav-drop{position:relative}
+.nav-drop>a{display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.nav-drop>a .dd-arrow{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e)}
+.nav-drop:hover>a .dd-arrow{transform:rotate(180deg)}
+.nav-drop:hover>a{color:var(--text);background:rgba(16,171,175,.05)}
+.nav-dd{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);min-width:260px;background:var(--surface,#fff);border:1px solid var(--bd2);border-radius:16px;padding:12px 8px 8px;box-shadow:0 16px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.02);opacity:0;visibility:hidden;pointer-events:none;transition:all .25s var(--e);z-index:200}
+.nav-dd::before{content:'';position:absolute;top:-14px;left:0;right:0;height:18px}
+.nav-drop:hover .nav-dd{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dd a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rs);font-size:13px;color:var(--sub);font-weight:500;transition:all .2s var(--e);background:transparent;box-shadow:none}
+.nav-dd a:hover{background:rgba(16,171,175,.04);color:var(--accent)}
+.dd-ico{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--e);border:none}
+.dd-ico svg{width:16px;height:16px}
+.nav-dd a:hover .dd-ico{transform:scale(1.08)}
+.nav-cta{background:#0F172A;color:#fff!important;padding:10px 24px;border-radius:var(--rf);font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .3s var(--e);box-shadow:0 2px 10px rgba(0,0,0,.1);flex-shrink:0;white-space:nowrap}
+.nav-cta:hover{background:#1E293B;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+
+/* HERO */
+.page-hero{padding:36px 0 32px;position:relative;overflow:hidden;text-align:center}
+.page-hero-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.10),transparent),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.07),transparent);pointer-events:none}
+.page-hero .w{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:18px}
+.hero-tag svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.page-hero h1{font-family:'Poppins',sans-serif;font-size:48px;font-weight:700;line-height:1.08;color:#0F172A;letter-spacing:-.04em;margin-bottom:16px}
+.page-hero h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero p{font-size:16px;color:var(--sub);max-width:640px;margin:0 auto;line-height:1.7}
+.page-hero p b{color:var(--text);font-weight:600}
+
+/* COMMONS */
+.sec-head{text-align:center;margin-bottom:20px}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:700;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
+.sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sep{position:relative}.sep::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+
+/* FINANCING OPTIONS — 3 big cards */
+.fin-options{padding:0 0 40px}
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fin-card{
+  background:#fff;
+  border:none;border-radius:24px;
+  padding:36px 28px 30px;
+  transition:all .4s var(--e);
+  display:flex;flex-direction:column;gap:18px;
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.fin-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 40px rgba(0,0,0,.10),0 0 0 1px color-mix(in srgb,var(--fin-c,var(--accent)) 20%,transparent);
+}
+.fin-card-ico{
+  width:56px;height:56px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--fin-c,var(--accent)) 10%,transparent);
+  border:none;transition:all .4s var(--e);
+}
+.fin-card:hover .fin-card-ico{transform:scale(1.06);background:color-mix(in srgb,var(--fin-c,var(--accent)) 14%,#fff)}
+.fin-card-ico svg{width:24px;height:24px}
+.fin-card h3{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:#0F172A;letter-spacing:-.01em}
+.fin-card:hover h3{color:color-mix(in srgb,var(--fin-c,var(--accent)) 70%,#0F172A)}
+.fin-card p{font-size:14px;color:var(--sub);line-height:1.7}
+.fin-card p b{color:var(--text);font-weight:600}
+.fin-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:var(--rf);text-transform:uppercase;letter-spacing:.03em}
+.fin-badge.pop{background:#FFF8E0;color:#B8860B;border:1px solid #FDCC00}
+.fin-card-trust{
+  margin-top:auto;padding-top:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.fin-card-trust .trust-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border-radius:8px;
+  background:color-mix(in srgb,var(--fin-c,var(--accent)) 6%,transparent);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;
+  color:color-mix(in srgb,var(--fin-c,var(--accent)) 80%,var(--sub));
+}
+.fin-card-trust .trust-pill svg{width:14px;height:14px;flex-shrink:0}
+
+/* WHO QUALIFIES */
+.who{padding:36px 0;background:var(--section-bg)}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.who-card{
+  background:#fff;
+  border:none;border-radius:20px;
+  padding:28px 22px;text-align:center;
+  transition:all .4s var(--e);
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+.who-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 28px rgba(0,0,0,.08),0 0 0 1px color-mix(in srgb,var(--who-c,var(--accent)) 15%,transparent);
+}
+.who-ico{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--who-c,var(--accent)) 10%,transparent);
+  border:none;transition:all .35s var(--e);
+}
+.who-card:hover .who-ico{transform:scale(1.1)}
+.who-ico svg{width:22px;height:22px}
+.who-card h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A}
+.who-card:hover h3{color:color-mix(in srgb,var(--who-c,var(--accent)) 70%,#0F172A)}
+.who-card p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* OPCO DETAIL */
+.opco-sec{padding:36px 0}
+.opco-intro{max-width:760px;margin:0 auto 20px;text-align:center;font-size:15px;color:var(--sub);line-height:1.75}
+.opco-intro b{color:var(--text);font-weight:600}
+.opco-badges{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:32px;background:var(--surface2);border-radius:20px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.opco-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 18px;border-radius:10px;
+  background:var(--op-c,var(--accent));
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;
+  color:#fff;
+  box-shadow:0 2px 8px color-mix(in srgb,var(--op-c,var(--accent)) 25%,transparent);
+  transition:all .3s var(--e);
+}
+.opco-pill:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 20px color-mix(in srgb,var(--op-c,var(--accent)) 35%,transparent);
+  filter:brightness(1.1);
+}
+.opco-pill svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* STEPS HOW IT WORKS */
+.how{padding:36px 0;background:var(--section-bg)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative}
+.how-card{
+  background:#fff;border:none;border-radius:20px;
+  padding:28px 22px;text-align:center;
+  transition:all .4s var(--e);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+  position:relative;
+}
+.how-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(0,0,0,.08)}
+.how-num{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(16,171,175,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;
+  color:var(--accent);border:none;
+  transition:all .35s var(--e);
+  position:relative;
+}
+.how-num::after{
+  content:'';position:absolute;inset:-6px;
+  border-radius:50%;border:2px solid var(--accent);
+  opacity:0;animation:numPulse 2.5s ease-in-out infinite;
+}
+.how-card:nth-child(1) .how-num::after{animation-delay:0s}
+.how-card:nth-child(2) .how-num::after{animation-delay:.4s}
+.how-card:nth-child(3) .how-num::after{animation-delay:.8s}
+.how-card:nth-child(4) .how-num::after{animation-delay:1.2s}
+@keyframes numPulse{0%{opacity:0;transform:scale(.8)}30%{opacity:.4;transform:scale(1)}60%{opacity:0;transform:scale(1.3)}100%{opacity:0;transform:scale(1.3)}}
+.how-card:hover .how-num{background:var(--accent);color:#fff;transform:scale(1.1)}
+.how-card h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A}
+.how-card p{font-size:13px;color:var(--muted);line-height:1.55}
+/* Connector arrows */
+.how-card:not(:last-child)::after{
+  content:'';position:absolute;right:-13px;top:48px;
+  width:8px;height:8px;
+  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
+  transform:rotate(-45deg);opacity:.4;
+}
+
+/* FAQ */
+.faq{padding:36px 0;background:#fff}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.faq-item{
+  background:var(--surface2);border:none;
+  border-radius:14px;overflow:hidden;
+  transition:all .3s var(--e);
+  box-shadow:none;
+}
+.faq-item:hover{background:color-mix(in srgb,var(--accent) 4%,var(--surface2));box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.faq-item.open{background:#fff;box-shadow:0 8px 28px var(--accent-gl),0 0 0 1px rgba(16,171,175,.12)}
+.faq-q{
+  padding:18px 22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;
+  color:#0F172A;transition:color .2s;
+}
+.faq-q:hover{color:var(--accent)}
+.faq-q svg{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e);flex-shrink:0}
+.faq-item.open .faq-q{color:var(--accent)}
+.faq-item.open .faq-q svg{transform:rotate(180deg);stroke:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--e)}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 22px 18px;font-size:14px;color:var(--sub);line-height:1.65}
+.faq-a-inner b{color:var(--text);font-weight:600}
+
+/* CTA */
+.cta-section{padding:36px 0 48px}
+.cta-box{background:linear-gradient(135deg,rgba(16,171,175,.06),rgba(16,171,175,.03));border:1px solid rgba(16,171,175,.12);border-radius:24px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-40%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(16,171,175,.08),transparent);pointer-events:none}
+.cta-box h2{font-family:'Poppins',sans-serif;font-size:30px;font-weight:700;color:#0F172A;margin-bottom:10px;position:relative;z-index:1}
+.cta-box p{color:#64748B;font-size:15px;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+.btn-glow{background:var(--accent);color:#fff;padding:14px 30px;border-radius:var(--rf);text-decoration:none;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl);touch-action:manipulation}
+.btn-glow:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 0 40px rgba(16,171,175,.3)}
+.btn-ghost-w{background:transparent;color:#0F172A;padding:14px 30px;border-radius:var(--rf);text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);border:1px solid rgba(0,0,0,.1);touch-action:manipulation}
+.btn-ghost-w:hover{border-color:var(--accent);color:var(--accent)}
+.btn-glow svg,.btn-ghost-w svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-glow:hover svg,.btn-ghost-w:hover svg{transform:translateX(3px)}
+
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;margin-bottom:20px}
+.ft-brand p{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:32px}
+.ft-col h4{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:12px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:12px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:11px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+
+/* MOBILE FOOTER */
+.ft-mobile{display:none}
+.ft-contact-m{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ft-contact-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.06);border-radius:12px;color:#94A3B8;text-decoration:none;font-size:13px;transition:all .2s}
+.ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
+.ft-sep-m{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
+.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
+.ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
+.ft-legal-m a:hover{color:#10ABAF}
+.ft-copy-m{font-size:10px;color:#475569;text-align:center;opacity:.6;padding-top:4px}
+
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
+
+/* MOBILE MENU */
+.menu-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;background:transparent;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.menu-toggle .bar{width:24px;height:2px;background:#0F172A;border-radius:2px;transition:all .45s cubic-bezier(.68,-.55,.27,1.55)}
+body.menu-open .menu-toggle .bar:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+body.menu-open .menu-toggle .bar:nth-child(2){opacity:0;transform:scaleX(0) translateX(10px)}
+body.menu-open .menu-toggle .bar:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+.menu-backdrop{position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.2);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+body.menu-open .menu-backdrop{opacity:1;pointer-events:auto}
+.menu-drop{position:fixed;left:12px;right:12px;z-index:999;display:none;transform:translateY(-20px);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.16,1,.3,1)}
+body.menu-open .menu-drop{transform:translateY(0);opacity:1;pointer-events:auto}
+.menu-drop .menu-card{background:rgba(255,255,255,.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px;border:1px solid rgba(0,0,0,.05);box-shadow:0 12px 48px rgba(0,0,0,.1);overflow:hidden;max-height:calc(100dvh - 120px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.mc-nav{padding:14px 14px 8px}
+.mc-link{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:12px;text-decoration:none;color:#64748B;font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.mc-link:active{background:rgba(0,0,0,.03)}
+.mc-link.active{color:#10ABAF;font-weight:600}
+.mc-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04);flex-shrink:0}
+.mc-link.active .mc-ico{background:rgba(16,171,175,.08)}
+.mc-ico svg{width:17px;height:17px}
+.mc-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px 12px;border-radius:12px;cursor:pointer;color:#64748B;font-family:'Poppins',sans-serif;font-size:15px;font-weight:500;-webkit-tap-highlight-color:transparent}
+.mc-toggle:active{background:rgba(0,0,0,.03)}
+.mc-tl{display:flex;align-items:center;gap:14px}
+.mc-arr{width:16px;height:16px;stroke:#94A3B8;stroke-width:2;transition:all .3s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-arr{transform:rotate(90deg);stroke:#10ABAF}
+.mc-formations{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+body.f-open .mc-formations{max-height:500px}
+.mc-f{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 22px;border-radius:10px;text-decoration:none;color:#94A3B8;font-size:14px;font-weight:500;-webkit-tap-highlight-color:transparent}
+.mc-f:active{background:rgba(0,0,0,.03);color:#0F172A}
+.mcf-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcf-ico svg{width:14px;height:14px}
+.mc-sep{height:1px;background:rgba(0,0,0,.05);margin:4px 14px}
+.mc-bottom{padding:10px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.mc-phone{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;background:rgba(0,0,0,.03);text-decoration:none;color:#0F172A;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.mc-phone:active{background:rgba(0,0,0,.06)}
+.mc-phone svg{width:17px;height:17px;stroke:#10ABAF}
+.mc-doc{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:12px;background:#0F172A;color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.mc-doc:active{background:#1E293B}
+.mc-doc svg{width:15px;height:15px}
+
+@media(max-width:1024px){
+.nav-pill,.nav-cta{display:none}
+.menu-toggle{display:flex}
+.menu-drop{display:block}
+header{position:sticky;top:8px;z-index:1000;margin:8px 12px 0;background:rgba(255,255,255,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;padding:0;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}
+header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,0,.08);padding:0}
+.hdr{padding:10px 18px;height:auto}
+.logo img{height:34px!important}
+.fin-grid{grid-template-columns:1fr}
+.who-grid{grid-template-columns:repeat(2,1fr)}
+.how-grid{grid-template-columns:repeat(2,1fr)}
+.how-card::after{display:none}
+.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
+
+/* =============================================
+   MOBILE GLASSMORPHISM — 768px et moins
+   ============================================= */
+@media(max-width:768px){
+
+/* — Fond & halos — */
+body{background:#FAFBFC}
+.w{padding:0 14px}
+.topbar .w{flex-direction:column;gap:3px;text-align:center;font-size:11.5px}
+
+/* — Hero centré — */
+.page-hero{padding:28px 0 22px;position:relative}
+.page-hero-mesh{background:
+  radial-gradient(ellipse 80% 40% at 85% 5%,rgba(16,171,175,.09),transparent),
+  radial-gradient(ellipse 60% 30% at 8% 20%,rgba(99,102,241,.05),transparent),
+  radial-gradient(ellipse 60% 20% at 50% 90%,rgba(16,171,175,.06),transparent)}
+.hero-tag{display:flex;justify-content:center;margin-bottom:14px}
+h1{font-size:26px;text-align:center}
+.page-hero p{text-align:center;font-size:13.5px}
+
+/* — Cards financement — 1 col glass — */
+.fin-options{padding:18px 0}
+.fin-grid{grid-template-columns:1fr;gap:10px}
+.fin-card{
+  background:rgba(255,255,255,.78);
+  border:0.5px solid rgba(255,255,255,.92);
+  border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04),inset 0 1px 0 #fff;
+  position:relative;overflow:hidden;
+  padding:18px 16px;
+  display:flex;flex-direction:column;gap:10px
+}
+.fin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent)}
+.fin-card:hover{transform:none;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.fin-card-ico{width:38px;height:38px;border-radius:11px}
+.fin-card h3{font-size:16px}
+.fin-card p{font-size:12.5px;line-height:1.65}
+.fin-card-trust{padding-top:10px;margin-top:0}
+.trust-pill{font-size:11px;padding:6px 12px;border-radius:8px}
+
+/* — Qui peut en bénéficier — 2×3 glass — */
+.who{padding:18px 0}
+.who-grid{grid-template-columns:1fr 1fr;gap:8px}
+.who-card{
+  background:rgba(255,255,255,.78);
+  border:0.5px solid rgba(255,255,255,.92);
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04),inset 0 1px 0 #fff;
+  padding:14px 12px;text-align:center
+}
+.who-card:hover{transform:none;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.who-ico{width:40px;height:40px;border-radius:50%}
+.who-card h3{font-size:12.5px}
+.who-card p{font-size:11px}
+
+/* — OPCO — */
+.opco-sec{padding:18px 0}
+.opco-intro{font-size:13px;text-align:center}
+.opco-badges{padding:14px;border-radius:16px;background:rgba(255,255,255,.78);border:0.5px solid rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.opco-pill{font-size:11px;padding:6px 11px;border-radius:8px}
+.opco-pill:hover{transform:none;box-shadow:none;filter:none}
+
+/* — Comment ça marche — 2×2 glass — */
+.how{padding:18px 0}
+.how-grid{grid-template-columns:1fr 1fr;gap:8px}
+.how-card{
+  background:rgba(255,255,255,.78);
+  border:0.5px solid rgba(255,255,255,.92);
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04),inset 0 1px 0 #fff;
+  padding:14px 12px
+}
+.how-card:hover{transform:none;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.how-num{width:36px;height:36px;font-size:16px}
+.how-card h3{font-size:12.5px}
+.how-card p{font-size:11px}
+
+/* — FAQ glass — */
+.faq{padding:18px 0}
+.faq-list{max-width:100%;gap:7px}
+.faq-item{
+  background:rgba(255,255,255,.78);
+  border:0.5px solid rgba(255,255,255,.92);
+  border-radius:13px;
+  box-shadow:0 1px 6px rgba(0,0,0,.03)
+}
+.faq-item:hover{background:rgba(255,255,255,.78);box-shadow:0 1px 6px rgba(0,0,0,.03)}
+.faq-item.open{background:#fff;box-shadow:0 4px 20px rgba(16,171,175,.08),0 0 0 1px rgba(16,171,175,.12)}
+.faq-q{padding:14px 16px;font-size:13px}
+.faq-a-inner{padding:0 16px 13px;font-size:12px}
+
+/* — CTA — */
+.cta-section{padding:18px 0 28px}
+.cta-box{padding:24px 18px;border-radius:18px}
+.cta-box h2{font-size:19px}
+.cta-box p{font-size:13px;margin-bottom:16px}
+.cta-btns{flex-direction:column;align-items:stretch;gap:8px}
+.btn-glow,.btn-ghost-w{padding:13px;font-size:13.5px;justify-content:center;border-radius:12px}
+
+/* — Footer — */
+.ft-grid,.ft-bottom{display:none}
+.ft-mobile{display:block}
+}
+
+@media(max-width:480px){
+h1{font-size:22px}
+.sec-h2{font-size:17px}
+.who-grid{grid-template-columns:1fr 1fr}
+.how-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+<link rel="stylesheet" href="/search-modal.css">
+</head>
+<body>
+
+<div class="topbar"><div class="w">
+<div style="display:flex;align-items:center;gap:8px"><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google</a><span class="stars">★★★★★</span></div>
+<div>Conseils et accompagnement au&nbsp;<a href="tel:+33695185057" class="phone">06 95 18 50 57</a></div>
+</div></div>
+
+<header id="hd"><div class="w"><div class="hdr">
+<a href="index.html" class="logo"><img src="images/logo-switching.png" alt="Switching Formation"></a>
+<div class="nav-pill">
+<a href="index.html">Accueil</a>
+<div class="nav-drop"><a href="formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="formations.html?cat=langues"><div class="dd-ico" style="background:rgba(232,99,74,.08);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a><a href="formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(91,112,131,.08);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div>Bureautique</a><a href="formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(217,70,168,.08);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3l-3 3"/><path d="M15 6l-7.5 7.5"/><path d="M7.5 13.5L5 20l6.5-2.5"/><path d="M11.5 17.5l-4-4"/><path d="M18 3l3 3-3 3"/></svg></div>Graphisme</a><a href="formations.html?cat=web"><div class="dd-ico" style="background:rgba(59,130,246,.08);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web & Digital</a><a href="formations.html?cat=compta"><div class="dd-ico" style="background:rgba(249,115,22,.08);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="14" height="18" rx="2"/><path d="M8 7h6"/><path d="M8 10h8"/><path d="M8 13h5"/></svg></div>Compta & Paie</a><a href="formations.html?cat=ia"><div class="dd-ico" style="background:rgba(124,58,237,.08);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg></div>Intelligence Artificielle</a><a href="formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/></svg></div>Bilan de compétences</a></div></div>
+<a href="le-centre.html">Le centre</a>
+<a href="financement.html" class="active">Financement</a>
+<a href="inscription.html">Devis</a>
+</div>
+<a href="documentation.html" class="nav-cta">Documentation</a>
+<button class="menu-toggle" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+</div></div></header>
+<div class="menu-backdrop" onclick="closeMenu()"></div>
+<div class="menu-drop" id="menuDrop">
+<div class="menu-card">
+<div class="mc-nav">
+<a href="index.html" class="mc-link"><div class="mc-ico" style="color:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
+<div class="mc-toggle" onclick="document.body.classList.toggle('f-open')"><div class="mc-tl"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Formations</div><svg class="mc-arr" viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+<div class="mc-formations">
+<a href="formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
+<a href="formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
+<a href="formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
+<a href="formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
+<a href="formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
+<a href="formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
+<a href="formations.html?cat=bdc" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
+</div>
+<div class="mc-sep"></div>
+<a href="le-centre.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>Le centre</a>
+<a href="financement.html" class="mc-link active"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
+<a href="inscription.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>Devis</a>
+</div>
+<div class="mc-sep"></div>
+<div class="mc-bottom">
+<a href="tel:+33695185057" class="mc-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
+<a href="documentation.html" class="mc-doc">Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div>
+</div>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+<div class="page-hero-mesh"></div>
+<div class="w">
+<div class="hero-tag rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg>100% finançable</div>
+<h1 class="rv">Financez votre<br><span class="glow">formation</span></h1>
+<p class="rv rv1">Nos formations sont éligibles aux principaux dispositifs de financement. <b>CPF, OPCO, France Travail</b> : nous vous accompagnons dans le montage de votre dossier.</p>
+</div>
+</section>
+
+<!-- 3 GRANDES OPTIONS -->
+<section class="fin-options"><div class="w">
+<div class="fin-grid">
+
+<!-- CPF -->
+<div class="fin-card rv" style="--fin-c:#6366F1">
+<div class="fin-card-ico" style="color:#6366F1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3>CPF</h3><span class="fin-badge pop">Populaire</span></div>
+<p>Le <b>Compte Personnel de Formation</b> vous permet de financer grâce aux droits acquis tout au long de votre carrière. Solde consultable sur <b>moncompteformation.gouv.fr</b>.</p>
+<p>Formations certifiantes éligibles. Reste à charge : <b>102,23 €</b> depuis mai 2024.</p>
+<div class="fin-card-trust">
+  <span class="trust-pill"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg>Mon Compte Formation</span>
+</div>
+</div>
+
+<!-- OPCO -->
+<div class="fin-card rv rv1" style="--fin-c:#10B981">
+<div class="fin-card-ico" style="color:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h3>OPCO — Entreprises</h3>
+<p>Les <b>Opérateurs de Compétences</b> financent les formations des salariés et entreprises de moins de 50 salariés.</p>
+<p>Nous travaillons avec <b>tous les OPCO</b> : AKTO, AFDAS, Atlas, OPCO EP, AGEFICE, Constructys... Nous montons le dossier pour vous.</p>
+<div class="fin-card-trust">
+  <span class="trust-pill"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>11 OPCO partenaires</span>
+</div>
+</div>
+
+<!-- FRANCE TRAVAIL -->
+<div class="fin-card rv rv2" style="--fin-c:#3B82F6">
+<div class="fin-card-ico" style="color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg></div>
+<h3>France Travail</h3>
+<p>Si vous êtes <b>demandeur d'emploi</b>, France Travail finance via l'<b>AIF</b> ou le <b>CSP</b>.</p>
+<p>Prise en charge <b>100 % des frais pédagogiques</b>. Votre conseiller valide la demande, nous préparons le dossier.</p>
+<div class="fin-card-trust">
+  <span class="trust-pill"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>100% pris en charge</span>
+</div>
+</div>
+
+</div>
+</div></section>
+
+<!-- QUI PEUT BÉNÉFICIER -->
+<section class="who"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Éligibilité</div><div class="sec-h2">Qui peut <span class="glow">en bénéficier ?</span></div></div>
+<div class="who-grid">
+
+<div class="who-card rv" style="--who-c:#3B82F6">
+<div class="who-ico" style="color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg></div>
+<h3>Salariés</h3>
+<p>CPF, Plan de développement, OPCO. Avec ou sans accord de l'employeur.</p>
+</div>
+
+<div class="who-card rv rv1" style="--who-c:#10B981">
+<div class="who-ico" style="color:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+<h3>Demandeurs d'emploi</h3>
+<p>AIF via France Travail, CSP, CPF. Jusqu'à 100 % pris en charge.</p>
+</div>
+
+<div class="who-card rv rv2" style="--who-c:#F59E0B">
+<div class="who-ico" style="color:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+<h3>Indépendants</h3>
+<p>CPF, AGEFICE, FAFCEA, FIF-PL. Les TNS cotisent aussi.</p>
+</div>
+
+<div class="who-card rv" style="--who-c:#A855F7">
+<div class="who-ico" style="color:#A855F7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+<h3>Intermittents</h3>
+<p>AFDAS. Financement dédié artistes, techniciens, spectacle.</p>
+</div>
+
+<div class="who-card rv rv1" style="--who-c:#FB923C">
+<div class="who-ico" style="color:#FB923C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+<h3>Entreprises (–50)</h3>
+<p>OPCO, Plan de formation. Prise en charge totale ou partielle.</p>
+</div>
+
+<div class="who-card rv rv2" style="--who-c:#6366F1">
+<div class="who-ico" style="color:#6366F1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg></div>
+<h3>Personnel</h3>
+<p>Paiement en plusieurs fois. Cofinancement CPF + personnel.</p>
+</div>
+
+</div>
+</div></section>
+
+<!-- LES OPCO -->
+<section class="opco-sec"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">OPCO</div><div class="sec-h2">Les 11 opérateurs de <span class="glow">compétences</span></div></div>
+<div class="opco-intro rv"><p>Chaque entreprise cotise auprès d'un OPCO selon sa branche. <b>Nous travaillons avec les 11 OPCO</b> et montons le dossier de A à Z.</p></div>
+<div class="opco-badges rv rv1">
+<span class="opco-pill" style="--op-c:#E63027"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>AKTO</span>
+<span class="opco-pill" style="--op-c:#00A3E0"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>AFDAS</span>
+<span class="opco-pill" style="--op-c:#2D2E83"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Atlas</span>
+<span class="opco-pill" style="--op-c:#E94E1B"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>OPCO EP</span>
+<span class="opco-pill" style="--op-c:#1B4F72"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>AGEFICE</span>
+<span class="opco-pill" style="--op-c:#F39C12"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Constructys</span>
+<span class="opco-pill" style="--op-c:#005A9C"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>OPCO 2i</span>
+<span class="opco-pill" style="--op-c:#00B298"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>OPCO Santé</span>
+<span class="opco-pill" style="--op-c:#0072CE"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>OPCO Mobilités</span>
+<span class="opco-pill" style="--op-c:#8DC63F"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Uniformation</span>
+<span class="opco-pill" style="--op-c:#D4145A"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>L'Opcommerce</span>
+</div>
+</div></section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="how"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Processus</div><div class="sec-h2">Comment ça <span class="glow">marche ?</span></div></div>
+<div class="how-grid">
+<div class="how-card rv"><div class="how-num">1</div><h3>Échange gratuit</h3><p>Vous nous contactez. Nous identifions ensemble la formation et le financement adaptés.</p></div>
+<div class="how-card rv rv1"><div class="how-num">2</div><h3>Devis & programme</h3><p>Un devis détaillé et le programme de formation personnalisé sous 24h.</p></div>
+<div class="how-card rv rv2"><div class="how-num">3</div><h3>Montage du dossier</h3><p>Nous gérons toutes les démarches administratives auprès de votre financeur.</p></div>
+<div class="how-card rv rv3"><div class="how-num">4</div><h3>Démarrage</h3><p>Dès validation, vous commencez. Aucun frais avancé dans la majorité des cas.</p></div>
+</div>
+</div></section>
+
+<!-- FAQ -->
+<section class="faq"><div class="w">
+<div class="sec-head rv"><div class="sec-tag">Questions fréquentes</div><div class="sec-h2">Tout savoir sur le <span class="glow">financement</span></div></div>
+<div class="faq-list">
+
+<div class="faq-item rv">
+<div class="faq-q" onclick="toggleFaq(this)">Comment connaître mon solde CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Rendez-vous sur <b>moncompteformation.gouv.fr</b> et connectez-vous avec FranceConnect. Votre solde s'affiche directement sur votre tableau de bord. Si vous avez besoin d'aide, nous pouvons vérifier ensemble lors de notre premier échange.</div></div>
+</div>
+
+<div class="faq-item rv rv1">
+<div class="faq-q" onclick="toggleFaq(this)">Quel est le reste à charge avec le CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Depuis mai 2024, un reste à charge de <b>102,23 €</b> s'applique pour toute formation financée via le CPF. Les demandeurs d'emploi en sont exemptés. Le reste est intégralement pris en charge par votre solde CPF.</div></div>
+</div>
+
+<div class="faq-item rv rv2">
+<div class="faq-q" onclick="toggleFaq(this)">Mon employeur peut-il refuser le CPF ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Non. Le CPF est un droit personnel. Si vous suivez la formation <b>hors temps de travail</b>, aucune autorisation n'est requise. En revanche, si vous souhaitez la suivre pendant vos heures de travail, l'accord de l'employeur est nécessaire.</div></div>
+</div>
+
+<div class="faq-item rv">
+<div class="faq-q" onclick="toggleFaq(this)">Comment savoir quel est mon OPCO ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Votre OPCO dépend de la convention collective de votre entreprise. Vous pouvez le retrouver sur votre bulletin de paie ou en consultant le site du Ministère du Travail. Nous pouvons aussi l'identifier pour vous gratuitement.</div></div>
+</div>
+
+<div class="faq-item rv rv1">
+<div class="faq-q" onclick="toggleFaq(this)">Dois-je avancer les frais ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Dans la majorité des cas, <b>non</b>. Le financement CPF est directement versé à l'organisme de formation. Pour les OPCO et France Travail, le paiement est également effectué directement. Seul le reste à charge CPF (102,23 €) est à votre charge.</div></div>
+</div>
+
+<div class="faq-item rv rv2">
+<div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour monter un dossier ?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a"><div class="faq-a-inner">Le CPF est quasi immédiat (validation sous 48h). Pour les OPCO, comptez <b>2 à 4 semaines</b> selon l'organisme. Pour France Travail (AIF), le délai moyen est de <b>2 à 3 semaines</b>. Nous anticipons ces délais pour vous.</div></div>
+</div>
+
+</div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta-section"><div class="w">
+<div class="cta-box rv">
+<h2>Besoin d'aide pour votre financement ?</h2>
+<p>Contactez-nous gratuitement. Un conseiller identifie la meilleure solution pour vous.</p>
+<div class="cta-btns">
+<a href="documentation.html" class="btn-glow">Demander une documentation <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="tel:+33695185057" class="btn-ghost-w">06 95 18 50 57 <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></a>
+</div>
+</div>
+</div></section>
+
+<footer><div class="w">
+<div class="ft-grid">
+<div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="formations.html?cat=langues">Langues</a><a href="formations.html?cat=bureautique">Bureautique</a><a href="formations.html?cat=graphisme">Graphisme</a><a href="formations.html?cat=ia">IA</a></div>
+<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a><span class="d">•</span><a href="donnees.html#qualiopi">Qualiopi</a></div></div>
+<div class="ft-mobile">
+<div class="ft-contact-m">
+<a href="tel:+33695185057" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>06 95 18 50 57</span></a>
+<a href="/cdn-cgi/l/email-protection#33505c5d475250477340445a47505b5a5d54555c415e52475a5c5d1d505c5e" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>contact&#64;switchingformation.com</a>
+<a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Avis Google ★★★★★</a>
+</div>
+<div class="ft-sep-m"></div>
+<div class="ft-brand-m">Switching Formation® — Organisme certifié Qualiopi</div>
+<div class="ft-legal-m"><a href="cgv.html">CGV</a><a href="mentions-legales.html">Mentions légales</a><a href="donnees.html">Données</a><a href="donnees.html#qualiopi">Qualiopi</a></div>
+<div class="ft-copy-m">© 2026 Switching Formation. Tous droits réservés.</div>
+</div>
+</div></footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function toggleFaq(el){
+  var item=el.parentElement;
+  var wasOpen=item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(function(f){f.classList.remove('open')});
+  if(!wasOpen) item.classList.add('open');
+}
+document.querySelectorAll('.rv').forEach(function(el){
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){el.classList.add('vis')}
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+});
+var hd=document.getElementById('hd');
+window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
+function toggleMenu(){document.body.classList.toggle('menu-open');if(document.body.classList.contains('menu-open'))positionMenu()}
+function closeMenu(){document.body.classList.remove('menu-open');document.body.classList.remove('f-open')}
+function positionMenu(){var nav=document.querySelector('header');var drop=document.getElementById('menuDrop');if(nav&&drop){var r=nav.getBoundingClientRect();drop.style.top=(r.bottom+8)+'px'}}
+document.querySelector('.menu-toggle').addEventListener('click',toggleMenu);
+document.querySelector('.menu-backdrop').addEventListener('click',closeMenu);
+document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a){a.addEventListener('click',closeMenu)});
+window.addEventListener('scroll',function(){if(document.body.classLi
