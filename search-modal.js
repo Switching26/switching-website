@@ -161,15 +161,81 @@
     return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\u2019\u2018']/g, ' ');
   }
 
-  // --- Pre-compute normalized search fields ---
+  // --- Levenshtein distance (fuzzy matching) ---
+  function levenshtein(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    var matrix = [];
+    for (var i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (var j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (var i = 1; i <= b.length; i++) {
+      for (var j = 1; j <= a.length; j++) {
+        var cost = a[j - 1] === b[i - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[b.length][a.length];
+  }
+
+  // Max typos allowed based on word length
+  function maxTypos(word) {
+    if (word.length <= 2) return 0;
+    if (word.length <= 4) return 1;
+    return 2;
+  }
+
+  // Check if queryWord fuzzy-matches any word in a word list
+  function fuzzyMatchWords(queryWord, wordList) {
+    var maxD = maxTypos(queryWord);
+    if (maxD === 0) return false;
+    for (var i = 0; i < wordList.length; i++) {
+      var w = wordList[i];
+      // Skip if length difference is too big (quick reject)
+      if (Math.abs(w.length - queryWord.length) > maxD) continue;
+      if (levenshtein(queryWord, w) <= maxD) return true;
+    }
+    return false;
+  }
+
+  // Check if queryWord fuzzy-matches as a substring (for longer fields)
+  function fuzzyContains(queryWord, text) {
+    // First try exact substring
+    if (text.indexOf(queryWord) !== -1) return 2; // exact = high confidence
+    var maxD = maxTypos(queryWord);
+    if (maxD === 0) return 0;
+    // Slide a window across the text
+    var qLen = queryWord.length;
+    for (var start = 0; start <= text.length - qLen + maxD; start++) {
+      var end = Math.min(start + qLen + maxD, text.length);
+      var chunk = text.substring(start, end);
+      if (levenshtein(queryWord, chunk) <= maxD) return 1; // fuzzy match
+    }
+    return 0;
+  }
+
+  // --- Pre-compute normalized search fields + word lists ---
   FORMATIONS.forEach(function(f) {
     f._nt = normalize(f.t);
     f._nk = normalize(f.k);
+    // Pre-split into individual words for fuzzy word-by-word matching
+    f._tw = f._nt.split(/\s+/).filter(function(w) { return w.length > 1; });
+    f._kw = f._nk.split(/\s+/).filter(function(w) { return w.length > 1; });
   });
 
   var normalizedAliases = {};
+  var aliasWords = {};
   Object.keys(CAT_ALIASES).forEach(function(cat) {
     normalizedAliases[cat] = CAT_ALIASES[cat].map(normalize);
+    aliasWords[cat] = [];
+    CAT_ALIASES[cat].forEach(function(a) {
+      normalize(a).split(/\s+/).forEach(function(w) {
+        if (w.length > 1 && aliasWords[cat].indexOf(w) === -1) aliasWords[cat].push(w);
+      });
+    });
   });
 
   // --- DOM refs ---
@@ -201,51 +267,57 @@
     return text.replace(regex, '<mark>$1</mark>');
   }
 
-  // --- Smart search scoring ---
+  // --- Smart search scoring with fuzzy matching ---
   function scoreFormation(f, queryWords, rawQuery) {
     var nq = normalize(rawQuery);
     var score = 0;
     var matched = true;
 
-    // Check if the raw normalized query matches a category alias exactly
+    // Check if the raw normalized query matches a category alias (exact or fuzzy)
     for (var cat in normalizedAliases) {
       var aliases = normalizedAliases[cat];
       for (var a = 0; a < aliases.length; a++) {
-        if (nq === aliases[a] && f.c === cat) {
-          score += 100;
-          break;
+        if (f.c === cat) {
+          if (nq === aliases[a]) { score += 100; break; }
+          // Fuzzy alias match (e.g. "inteligence artificiele")
+          if (aliases[a].length > 3 && levenshtein(nq, aliases[a]) <= maxTypos(aliases[a])) {
+            score += 70;
+            break;
+          }
         }
       }
     }
 
-    // Multi-word matching: each query word must match somewhere
+    // Multi-word matching: each query word must match somewhere (exact or fuzzy)
     for (var w = 0; w < queryWords.length; w++) {
       var word = queryWords[w];
       var wordFound = false;
+      var wordScore = 0;
 
-      // Title match (high value)
+      // --- EXACT matches (higher scores) ---
+
+      // Title exact substring
       if (f._nt.indexOf(word) !== -1) {
-        score += 30;
+        wordScore += 30;
         wordFound = true;
-        // Bonus for starting match
         if (f._nt.indexOf(word) === 0 || f._nt.indexOf(' ' + word) !== -1) {
-          score += 10;
+          wordScore += 10; // word-boundary bonus
         }
       }
 
-      // Keyword match
+      // Keyword exact substring
       if (f._nk.indexOf(word) !== -1) {
-        score += 15;
+        wordScore += 15;
         wordFound = true;
       }
 
-      // Category alias match
+      // Category alias exact substring
       if (!wordFound) {
         for (var cat2 in normalizedAliases) {
           var aliases2 = normalizedAliases[cat2];
           for (var b = 0; b < aliases2.length; b++) {
             if (aliases2[b].indexOf(word) !== -1 && f.c === cat2) {
-              score += 20;
+              wordScore += 20;
               wordFound = true;
               break;
             }
@@ -254,10 +326,39 @@
         }
       }
 
+      // --- FUZZY matches (lower scores, only if no exact match found) ---
+      if (!wordFound && word.length > 2) {
+
+        // Fuzzy match against title words
+        if (fuzzyMatchWords(word, f._tw)) {
+          wordScore += 18;
+          wordFound = true;
+        }
+
+        // Fuzzy match against keyword words
+        if (!wordFound && fuzzyMatchWords(word, f._kw)) {
+          wordScore += 10;
+          wordFound = true;
+        }
+
+        // Fuzzy match against category alias words
+        if (!wordFound) {
+          for (var cat3 in aliasWords) {
+            if (f.c === cat3 && fuzzyMatchWords(word, aliasWords[cat3])) {
+              wordScore += 12;
+              wordFound = true;
+              break;
+            }
+          }
+        }
+      }
+
       if (!wordFound) {
         matched = false;
         break;
       }
+
+      score += wordScore;
     }
 
     return matched ? score : 0;
