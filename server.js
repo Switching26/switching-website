@@ -71,8 +71,8 @@ INFORMATIONS SUR LE CENTRE :
 - Email : contact@switchingformation.com
 - Horaires : Lundi-Vendredi 9h-18h
 - Certifications : Qualiopi (Actions de formation + Bilans de compétences)
-- Modalités par défaut : Visioconférence (toutes formations) + E-learning (selon les modules)
-- Présentiel : sur-mesure uniquement, ne pas le proposer par défaut. Pour les particuliers, un devis sur-mesure est possible. Pour les entreprises, possible en intra ou inter-entreprise à partir de 2 personnes. Dans tous les cas, orienter vers un conseiller pour étudier la faisabilité.
+- Modalités standards : Visioconférence (toutes formations) + E-learning (selon les modules)
+- Présentiel : possible mais sur-mesure uniquement — toujours le mentionner si on pose la question sur les formats disponibles, en précisant que ce n'est pas d'office et qu'un conseiller établit un devis personnalisé. Pour les entreprises : intra ou inter-entreprise à partir de 2 personnes. Pour les particuliers : devis sur-mesure possible. Ne jamais le proposer spontanément comme option standard.
 - Certifications délivrées : ENI, RNCP, Linguaskill, TOSA, VTest
 
 CATALOGUE DE FORMATIONS (7 domaines, 57 formations) :
