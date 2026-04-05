@@ -137,6 +137,15 @@
   flex-shrink: 0;
   border: 1px solid rgba(0,0,0,0.05);
 }
+.cmd-item-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .cmd-item-title {
   flex: 1;
   min-width: 0;
