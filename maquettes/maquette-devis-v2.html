@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="../images/fav-sf-web.PNG">
-<title>Demander un devis — Switching Formation [MAQUETTE v2]</title>
+<title>Demandez votre devis — Switching Formation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/search-modal.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -19,15 +20,19 @@
 --f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1);
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--f);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}img{max-width:100%;height:auto}
+body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto}
 ::selection{background:var(--accent);color:var(--bg)}
 .w{max-width:1200px;margin:0 auto;padding:0 32px}
 body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+
+/* TOPBAR */
 .topbar{background:#fff;border-bottom:1px solid var(--bd);padding:8px 0;font-size:13px;color:var(--muted)}
 .topbar .w{display:flex;justify-content:space-between;align-items:center}
 .topbar a{color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s}.topbar a:hover{color:var(--accent)}
 .stars{color:#FBBF24;font-size:11px;letter-spacing:2px;margin-left:8px}
 .phone{color:var(--accent)!important;font-weight:600!important}
+
 /* HEADER */
 header{position:sticky;top:0;z-index:100;background:rgba(250,251,252,.6);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);transition:all .5s var(--e);padding:10px 0;border-bottom:none}
 header.scrolled{background:rgba(250,251,252,.85);padding:6px 0;box-shadow:0 4px 24px rgba(0,0,0,.04)}
@@ -55,153 +60,6 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .nav-dd a:hover .dd-ico{transform:scale(1.08)}
 .nav-cta{background:#0F172A;color:#fff!important;padding:10px 24px;border-radius:var(--rf);font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .3s var(--e);box-shadow:0 2px 10px rgba(0,0,0,.1);flex-shrink:0;white-space:nowrap}
 .nav-cta:hover{background:#1E293B;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
-
-/* MAIN LAYOUT */
-.doc-page{padding:56px 0 64px;position:relative;min-height:calc(100vh - 200px)}
-.doc-page-mesh{position:absolute;inset:0;background:
-  radial-gradient(ellipse 60% 50% at 15% 40%,rgba(16,171,175,.10),transparent),
-  radial-gradient(ellipse 40% 60% at 85% 25%,rgba(99,102,241,.07),transparent);
-pointer-events:none}
-.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1}
-
-/* LEFT - INFO */
-.doc-info{padding-top:16px}
-.doc-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:20px}
-.doc-tag svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.doc-title{font-family:'Poppins',sans-serif;font-size:44px;font-weight:700;line-height:1.08;color:#0F172A;letter-spacing:-.04em;margin-bottom:18px}
-.doc-title .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.doc-sub{font-size:16px;color:var(--sub);line-height:1.75;margin-bottom:32px;max-width:480px}
-.doc-sub b{color:var(--text);font-weight:600}
-
-/* PERKS */
-.perks{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
-.perk{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:#fff;border-radius:16px;transition:all .35s var(--e);box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.perk:hover{transform:translateX(4px);box-shadow:0 8px 24px color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent)}
-.perk-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent);border:none;transition:all .35s var(--e)}
-.perk:hover .perk-ico{transform:scale(1.08)}
-.perk-ico svg{width:18px;height:18px}
-.perk-text h4{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#0F172A;margin-bottom:3px}
-.perk-text p{font-size:12.5px;color:var(--muted);line-height:1.5}
-
-/* TRUST STRIP */
-.trust-strip{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--bd);flex-wrap:wrap}
-.trust-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-right:4px}
-.trust-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 14px;border-radius:10px;
-  background:var(--surface2);
-  font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;
-  color:var(--sub);letter-spacing:.01em;
-  transition:all .3s var(--e);
-  box-shadow:0 1px 3px rgba(0,0,0,.03);
-}
-.trust-badge:hover{
-  background:color-mix(in srgb,var(--tb-c,var(--accent)) 8%,#fff);
-  color:var(--tb-c,var(--accent));
-  transform:translateY(-2px);
-  box-shadow:0 6px 16px color-mix(in srgb,var(--tb-c,var(--accent)) 10%,transparent);
-}
-.trust-badge svg{width:16px;height:16px;flex-shrink:0}
-
-/* RIGHT - FORM */
-.doc-form-wrap{
-  background:var(--surface);border:none;
-  border-radius:24px;padding:36px 32px;
-  position:relative;overflow:hidden;
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.07),
-    0 0 0 1px rgba(16,171,175,.08),
-    0 0 40px rgba(16,171,175,.06);
-}
-.doc-form-wrap::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:80%;height:120px;
-  background:radial-gradient(ellipse,rgba(16,171,175,.12),transparent 70%);
-  pointer-events:none;
-}
-.form-header{text-align:center;margin-bottom:28px;position:relative}
-.form-header h2{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin-bottom:6px}
-.form-header p{font-size:13.5px;color:var(--muted)}
-
-/* PROGRESS BAR */
-.progress{display:flex;align-items:center;gap:6px;margin-bottom:28px}
-.progress-seg{flex:1;height:5px;border-radius:3px;background:var(--surface2);transition:background .4s var(--e)}
-.progress-seg.done{background:var(--accent)}
-
-/* STEPS */
-.step{display:none;animation:fadeUp .35s var(--e)}.step.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.step-label{font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-.step-q{font-family:'Poppins',sans-serif;font-size:21px;font-weight:600;color:#0F172A;margin-bottom:18px;line-height:1.25}
-
-/* OPTIONS */
-.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.step-opt{padding:14px 18px;border:none;border-radius:14px;font-size:13.5px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .25s var(--e);background:var(--surface2);text-align:left;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.step-opt:hover{color:var(--accent);background:rgba(16,171,175,.06);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.step-opt.selected{background:var(--accent-gl);color:var(--accent2);font-weight:600;box-shadow:0 4px 16px var(--accent-gl)}
-.step-opt .opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .25s;display:flex;align-items:center;justify-content:center}
-.step-opt:hover .opt-dot{border-color:var(--accent)}
-.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
-
-/* FORM FIELDS */
-.ff{margin-bottom:10px}
-.ff label{display:block;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px}
-.ff select,.ff input,.ff textarea{width:100%;padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:14.5px;font-family:var(--f);color:var(--text);background:var(--bg);transition:all .3s;-webkit-appearance:none;appearance:none;outline:none}
-.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:36px;cursor:pointer}
-.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,171,175,.12);background:#fff}
-.ff input::placeholder,.ff textarea::placeholder{color:var(--muted)}
-.ff textarea{resize:vertical;min-height:90px}
-.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.frp{display:grid;grid-template-columns:110px 1fr;gap:10px}
-.consent{display:flex;align-items:flex-start;gap:8px;margin:16px 0;font-size:12px;color:var(--muted);line-height:1.4}
-.consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
-
-/* NAV */
-.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--bd)}
-.btn-back{font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;background:none;border:none;color:var(--sub);cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 0;transition:color .3s;touch-action:manipulation}
-.btn-back:hover{color:var(--text)}
-.btn-next,.btn-send{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:13px 28px;border-radius:var(--rs);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .3s var(--e);box-shadow:0 4px 16px rgba(16,171,175,.3);position:relative;overflow:hidden;touch-action:manipulation}
-.btn-next::before,.btn-send::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.15));opacity:0;transition:opacity .3s}
-.btn-next:hover::before,.btn-send:hover::before{opacity:1}
-.btn-next:hover,.btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,171,175,.4)}
-.btn-next svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
-.btn-next:hover svg{transform:translateX(3px)}
-
-/* SUCCESS */
-.form-ok{display:none;text-align:center;padding:52px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
-.form-ok svg{margin:0 auto 8px}
-.form-ok h3{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin:14px 0 8px}
-.form-ok p{color:var(--muted);font-size:14px;line-height:1.6;max-width:360px;margin:0 auto}
-
-footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
-.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;margin-bottom:20px}
-.ft-brand p{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:32px}
-.ft-col h4{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
-.ft-col a{display:block;font-size:12px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
-.ft-bottom{border-top:1px solid var(--bd);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.copy{font-size:12px;color:var(--muted)}
-.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:11px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
-.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
-
-/* MOBILE FOOTER */
-.ft-mobile{display:none}
-.ft-contact-m{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.ft-contact-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.06);border-radius:12px;color:#94A3B8;text-decoration:none;font-size:13px;transition:all .2s}
-.ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
-.ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
-.ft-sep-m{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
-.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
-.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
-.ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
-.ft-legal-m a:hover{color:#10ABAF}
-.ft-copy-m{font-size:10px;color:#475569;text-align:center;opacity:.6;padding-top:4px}
-
-.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
-
-.doc-info{opacity:0;transform:translateX(-30px);animation:sLeft .7s ease .2s forwards}
-.doc-form-wrap{opacity:0;transform:translateX(30px);animation:sRight .7s ease .35s forwards}
-@keyframes sLeft{to{opacity:1;transform:translateX(0)}}
-@keyframes sRight{to{opacity:1;transform:translateX(0)}}
 
 /* MOBILE MENU */
 .menu-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;background:transparent;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -241,6 +99,183 @@ body.f-open .mc-formations{max-height:500px}
 .mc-doc:active{background:#1E293B}
 .mc-doc svg{width:15px;height:15px}
 
+/* MAIN LAYOUT */
+.doc-page{padding:56px 0 64px;position:relative;min-height:calc(100vh - 200px)}
+.doc-page-mesh{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 15% 40%,rgba(16,171,175,.10),transparent),
+  radial-gradient(ellipse 40% 60% at 85% 25%,rgba(99,102,241,.07),transparent),
+  radial-gradient(ellipse 50% 40% at 50% 90%,rgba(244,63,94,.03),transparent);
+pointer-events:none}
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;position:relative;z-index:1}
+
+/* LEFT - INFO */
+.doc-info{padding-top:16px}
+.doc-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:var(--accent);margin-bottom:20px}
+.doc-tag svg{width:15px;height:15px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.doc-title{font-family:'Poppins',sans-serif;font-size:44px;font-weight:700;line-height:1.08;color:#0F172A;letter-spacing:-.04em;margin-bottom:18px}
+.doc-title .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.doc-sub{font-size:16px;color:var(--sub);line-height:1.75;margin-bottom:28px;max-width:480px}
+.doc-sub b{color:var(--text);font-weight:600}
+
+/* STATS COUNTERS */
+.doc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.stat-card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--rs);padding:14px 12px;text-align:center;transition:all .35s var(--e)}
+.stat-card:hover{border-color:rgba(16,171,175,.2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(16,171,175,.08)}
+.stat-val{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--accent);line-height:1.1}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.3}
+
+/* PERKS */
+.perks{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.perk{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;background:#fff;border-radius:16px;border-left:3px solid transparent;transition:all .35s var(--e);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.perk:hover{transform:translateX(6px);border-left-color:var(--pk-c,var(--accent));box-shadow:0 8px 24px color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent)}
+.perk-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:color-mix(in srgb,var(--pk-c,var(--accent)) 10%,transparent);border:none;transition:all .35s var(--e)}
+.perk:hover .perk-ico{transform:scale(1.08)}
+.perk-ico svg{width:18px;height:18px}
+.perk-text h4{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#0F172A;margin-bottom:3px}
+.perk-text p{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+/* TESTIMONIAL */
+.testimonial-card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--bd2);border-radius:var(--r);padding:20px 22px;margin-bottom:28px;position:relative;overflow:hidden}
+.testimonial-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#3DC8C9)}
+.test-stars{color:#FBBF24;font-size:13px;letter-spacing:3px;margin-bottom:8px}
+.test-quote{font-size:14px;color:var(--sub);line-height:1.65;font-style:italic;margin-bottom:12px}
+.test-quote::before{content:'\201C';font-size:28px;color:var(--accent);opacity:.4;line-height:0;vertical-align:-.4em;margin-right:2px}
+.test-quote::after{content:'\201D';font-size:28px;color:var(--accent);opacity:.4;line-height:0;vertical-align:-.4em;margin-left:2px}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#3DC8C9);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.test-name{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--text)}
+.test-role{font-size:11px;color:var(--muted)}
+
+/* TRUST STRIP */
+.trust-strip{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--bd);flex-wrap:wrap}
+.trust-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-right:4px}
+.trust-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;background:var(--surface2);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;color:var(--sub);letter-spacing:.01em;transition:all .3s var(--e);box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.trust-badge:hover{background:color-mix(in srgb,var(--tb-c,var(--accent)) 8%,#fff);color:var(--tb-c,var(--accent));transform:translateY(-2px);box-shadow:0 6px 16px color-mix(in srgb,var(--tb-c,var(--accent)) 10%,transparent)}
+.trust-badge svg{width:16px;height:16px;flex-shrink:0}
+
+/* RIGHT - FORM WRAP */
+.doc-form-wrap{background:var(--surface);border-radius:24px;padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.07),0 0 0 1px rgba(16,171,175,.08),0 0 40px rgba(16,171,175,.06)}
+.doc-form-wrap::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:80%;height:120px;background:radial-gradient(ellipse,rgba(16,171,175,.12),transparent 70%);pointer-events:none}
+.form-header{text-align:center;margin-bottom:28px;position:relative}
+.form-header h2{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin-bottom:6px}
+.form-header p{font-size:13.5px;color:var(--muted)}
+
+/* STEPPER */
+.stepper{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;position:relative;padding:0 4px}
+.stepper-track{position:absolute;top:15px;left:4px;right:4px;height:2px;background:var(--surface2);z-index:0}
+.stepper-progress{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width .5s var(--e);border-radius:2px}
+.step-node{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:1}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;transition:all .4s var(--e);background:var(--surface2);color:var(--muted);border:2px solid transparent}
+.step-circle.done{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 0 12px rgba(16,171,175,.3)}
+.step-circle.active{background:var(--accent);color:#fff;border-color:var(--accent);animation:stepPulse 2s ease-in-out infinite}
+@keyframes stepPulse{0%,100%{box-shadow:0 0 0 0 rgba(16,171,175,.4)}50%{box-shadow:0 0 0 8px rgba(16,171,175,0)}}
+.step-check{width:14px;height:14px}
+.step-lbl{font-size:9px;font-weight:600;color:var(--muted);text-align:center;line-height:1.2;max-width:52px;transition:color .3s}
+.step-node.active .step-lbl{color:var(--accent)}
+.step-node.done .step-lbl{color:var(--accent2)}
+
+/* RECAP CHIPS */
+.recap-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:0;margin-bottom:16px;transition:all .3s var(--e)}
+.recap-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--rf);font-size:11px;font-weight:600;font-family:'Poppins',sans-serif;animation:chipIn .3s var(--e)}
+@keyframes chipIn{from{opacity:0;transform:scale(.8) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.chip-domaine{background:rgba(168,85,247,.1);color:#A855F7;border:1px solid rgba(168,85,247,.2)}
+.chip-profil{background:rgba(59,130,246,.1);color:#3B82F6;border:1px solid rgba(59,130,246,.2)}
+.chip-financement{background:rgba(16,171,175,.1);color:var(--accent2);border:1px solid rgba(16,171,175,.2)}
+.chip-close{width:12px;height:12px;opacity:.6;cursor:pointer;flex-shrink:0}
+
+/* STEPS */
+.step{display:none;animation:fadeUp .35s var(--e)}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.step-q{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#0F172A;margin-bottom:16px;line-height:1.25}
+
+/* OPTIONS */
+.step-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.step-opt{padding:13px 16px;border:1.5px solid var(--bd2);border-radius:14px;font-size:13.5px;font-family:var(--f);color:var(--sub);cursor:pointer;transition:all .25s var(--e);background:var(--surface);text-align:left;display:flex;align-items:center;gap:10px}
+.step-opt:hover{color:var(--accent);border-color:rgba(16,171,175,.3);background:rgba(16,171,175,.04);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.step-opt.selected{background:var(--accent-gl);color:var(--accent2);font-weight:600;border-color:var(--accent);box-shadow:0 4px 16px var(--accent-gl)}
+.step-opt .opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .25s;display:flex;align-items:center;justify-content:center}
+.step-opt:hover .opt-dot{border-color:var(--accent)}
+.step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+
+/* FORM FIELDS */
+.ff{margin-bottom:10px}
+.ff label{display:block;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px}
+.ff select,.ff input,.ff textarea{width:100%;padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--rs);font-size:14.5px;font-family:var(--f);color:var(--text);background:var(--bg);transition:all .3s;-webkit-appearance:none;appearance:none;outline:none}
+.ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:36px;cursor:pointer}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,171,175,.12);background:#fff}
+.ff input::placeholder,.ff textarea::placeholder{color:var(--muted)}
+.ff textarea{resize:vertical;min-height:90px}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.frp{display:grid;grid-template-columns:110px 1fr;gap:10px}
+.consent{display:flex;align-items:flex-start;gap:8px;margin:16px 0;font-size:12px;color:var(--muted);line-height:1.4}
+.consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
+
+/* STEP NAV */
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:18px;border-top:1px solid var(--bd)}
+.btn-back{font-family:'Poppins',sans-serif;font-size:14px;font-weight:500;background:none;border:none;color:var(--sub);cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 0;transition:color .3s;touch-action:manipulation}
+.btn-back:hover{color:var(--text)}
+.btn-next,.btn-send{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:13px 28px;border-radius:var(--rs);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .3s var(--e);box-shadow:0 4px 16px rgba(16,171,175,.3);position:relative;overflow:hidden;touch-action:manipulation}
+.btn-next::before,.btn-send::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.15));opacity:0;transition:opacity .3s}
+.btn-next:hover::before,.btn-send:hover::before{opacity:1}
+.btn-next:hover,.btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,171,175,.4)}
+.btn-next svg,.btn-send svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.btn-next:hover svg{transform:translateX(3px)}
+
+/* SUCCESS */
+.form-ok{display:none;text-align:center;padding:52px 0}.form-ok.on{display:block;animation:fadeUp .4s var(--e)}
+.form-ok svg{margin:0 auto 8px}
+.form-ok h3{font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#0F172A;margin:14px 0 8px}
+.form-ok p{color:var(--muted);font-size:14px;line-height:1.6;max-width:360px;margin:0 auto}
+
+/* COMMENT CA MARCHE */
+.how-section{padding:64px 0;background:var(--surface2);position:relative}
+.how-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.how-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px}
+.sec-tag::before,.sec-tag::after{content:'';width:20px;height:1px;background:var(--accent);opacity:.3}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:32px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
+.sec-h2 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.how-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px;position:relative}
+.how-step:not(:last-child)::after{content:'';position:absolute;top:28px;right:-1px;width:50%;height:2px;border-top:2px dashed rgba(16,171,175,.25);z-index:0}
+.how-step:not(:first-child)::before{content:'';position:absolute;top:28px;left:-1px;width:50%;height:2px;border-top:2px dashed rgba(16,171,175,.25);z-index:0}
+.how-num{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:20px;position:relative;z-index:1;box-shadow:0 8px 24px rgba(16,171,175,.3);transition:all .35s var(--e)}
+.how-step:hover .how-num{transform:scale(1.1);box-shadow:0 12px 32px rgba(16,171,175,.4)}
+.how-title{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;margin-bottom:8px}
+.how-desc{font-size:13px;color:var(--sub);line-height:1.6;max-width:180px}
+
+/* FOOTER */
+footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
+.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;margin-bottom:20px}
+.ft-brand p{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}.ft-brand img{height:32px}
+.ft-col h4{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.ft-col a{display:block;font-size:12px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
+.ft-bottom{border-top:1px solid var(--bd);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.copy{font-size:12px;color:var(--muted)}
+.fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:11px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
+.fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
+.ft-mobile{display:none}
+.ft-contact-m{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ft-contact-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.06);border-radius:12px;color:#94A3B8;text-decoration:none;font-size:13px;transition:all .2s}
+.ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
+.ft-sep-m{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
+.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
+.ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
+.ft-legal-m a:hover{color:#10ABAF}
+.ft-copy-m{font-size:10px;color:#475569;text-align:center;opacity:.6;padding-top:4px}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--e),transform .7s var(--e)}.rv.vis{opacity:1;transform:translateY(0)}.rv1{transition-delay:.08s}.rv2{transition-delay:.16s}.rv3{transition-delay:.24s}
+.doc-info{opacity:0;transform:translateX(-30px);animation:sLeft .7s ease .2s forwards}
+.doc-form-wrap{opacity:0;transform:translateX(30px);animation:sRight .7s ease .35s forwards}
+@keyframes sLeft{to{opacity:1;transform:translateX(0)}}
+@keyframes sRight{to{opacity:1;transform:translateX(0)}}
+
+/* RESPONSIVE */
 @media(max-width:1024px){
 .nav-pill,.nav-cta{display:none}
 .menu-toggle{display:flex}
@@ -253,114 +288,33 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 .doc-info{text-align:center;max-width:600px;margin:0 auto}
 .doc-sub{max-width:100%}
 .perks{align-items:center}
+.perk{max-width:480px;width:100%}
 .trust-strip{justify-content:center;flex-wrap:wrap}
 .ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+.how-grid{grid-template-columns:1fr 1fr;gap:32px}
+.how-step:not(:last-child)::after,.how-step:not(:first-child)::before{display:none}
 }
 @media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
 @media(max-width:768px){
 .w{padding:0 18px}
 .topbar .w{flex-direction:column;gap:4px;text-align:center}
-.hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
+.hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}
 .doc-page{padding:36px 0 44px}
 .doc-title{font-size:30px}
+.doc-stats{grid-template-columns:repeat(3,1fr);gap:6px}
+.stat-val{font-size:18px}
+.stat-lbl{font-size:10px}
 .step-opts,.fr2,.frp{grid-template-columns:1fr}
 .doc-form-wrap{padding:24px 18px;border-radius:20px}
+.step-lbl{display:none}
 .ft-grid,.ft-bottom{display:none}
 .ft-mobile{display:block}
+.how-grid{grid-template-columns:1fr;gap:24px;max-width:320px;margin:0 auto}
+.how-step:not(:last-child)::after,.how-step:not(:first-child)::before{display:none}
+.testimonial-card{text-align:left}
 }
-@media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}}
-
-/* ====== MAQUETTE v2 — NOUVEAUX COMPOSANTS ====== */
-
-/* Stats mini-counters */
-.doc-stats{display:flex;gap:10px;margin:20px 0 28px;flex-wrap:wrap}
-.stat-chip{flex:1;min-width:80px;background:#fff;border:1px solid var(--bd);border-radius:14px;padding:14px 16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:all .35s var(--e)}
-.stat-chip:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(16,171,175,.1);border-color:rgba(16,171,175,.2)}
-.stat-num{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--accent);line-height:1;display:block}
-.stat-lbl{font-size:11px;color:var(--muted);font-weight:500;margin-top:4px;line-height:1.3;display:block}
-
-/* Perk card amélioré */
-.perk{border-left:3px solid transparent;transition:all .35s var(--e)}
-.perk:hover{border-left-color:var(--accent);transform:translateX(6px)}
-
-/* Testimonial card */
-.testimonial-card{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--bd2);border-top:2px solid var(--accent);border-radius:var(--r);padding:20px;margin:20px 0 0;box-shadow:0 4px 24px rgba(16,171,175,.08)}
-.tc-stars{color:#FBBF24;font-size:13px;letter-spacing:3px;margin-bottom:10px}
-.tc-text{font-size:13.5px;color:var(--sub);line-height:1.65;font-style:italic;margin-bottom:14px}
-.tc-author{display:flex;align-items:center;gap:10px}
-.tc-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tc-author strong{display:block;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--text)}
-.tc-author span{display:block;font-size:11px;color:var(--muted)}
-
-/* Stepper numéroté */
-.stepper{display:flex;align-items:flex-start;margin-bottom:24px;padding:0 4px}
-.step-dot{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;position:relative}
-.sd-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--bd2);background:var(--surface2);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:var(--muted);transition:all .4s var(--e)}
-.step-dot.active .sd-circle{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 4px rgba(16,171,175,.2)}
-.step-dot.done .sd-circle{background:var(--accent2);border-color:var(--accent2);color:#fff}
-.sd-label{font-size:9px;font-weight:600;color:var(--muted);text-align:center;white-space:nowrap;transition:color .3s}
-.step-dot.active .sd-label{color:var(--accent)}
-.step-dot.done .sd-label{color:var(--accent2)}
-.step-line{flex:1;height:2px;background:linear-gradient(90deg,rgba(16,171,175,.3),var(--bd));margin:15px -2px 0;border-radius:1px;transition:background .4s var(--e)}
-.step-line.done{background:var(--accent)}
-
-/* Recap chips */
-.recap-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;min-height:0;transition:all .3s}
-.recap-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:var(--accent-gl);border:1px solid rgba(16,171,175,.2);border-radius:var(--rf);font-size:11px;font-weight:600;color:var(--accent);animation:chipIn .3s var(--e)}
-@keyframes chipIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-.recap-chip svg{width:11px;height:11px}
-
-/* Step options améliorées */
-.step-opt{gap:12px;align-items:center}
-.opt-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface2);transition:all .25s var(--e)}
-.step-opt:hover .opt-icon{background:var(--accent-gl)}
-.step-opt.selected .opt-icon{background:var(--accent);color:#fff}
-.opt-icon svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* Info box step 5 */
-.info-tip{display:flex;align-items:flex-start;gap:8px;padding:10px 14px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);border-radius:10px;margin:10px 0}
-.info-tip svg{width:15px;height:15px;stroke:#6366F1;flex-shrink:0;margin-top:1px}
-.info-tip span{font-size:12px;color:#6366F1;line-height:1.4}
-
-/* Section processus */
-.process-section{padding:72px 0;background:var(--surface2);position:relative}
-.process-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
-.process-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
-.process-head{text-align:center;margin-bottom:48px}
-.process-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
-.process-tag::before,.process-tag::after{content:'';display:inline-block;width:20px;height:1px;background:var(--accent);opacity:.4}
-.process-h2{font-family:'Poppins',sans-serif;font-size:30px;font-weight:600;color:#0F172A;letter-spacing:-.03em}
-.process-h2 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
-.process-grid::before{content:'';position:absolute;top:24px;left:12.5%;right:12.5%;height:2px;border-top:2px dashed rgba(16,171,175,.25);z-index:0}
-.process-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 16px;position:relative;z-index:1}
-.ps-num{width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 4px 16px rgba(16,171,175,.25);flex-shrink:0}
-.ps-num.alt{background:#fff;color:var(--accent);border:2px solid rgba(16,171,175,.3);box-shadow:0 4px 16px rgba(16,171,175,.1)}
-.ps-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:#0F172A;margin-bottom:6px}
-.ps-desc{font-size:12.5px;color:var(--muted);line-height:1.55;max-width:160px}
-
-/* Responsive v2 */
-@media(max-width:1024px){
-.doc-stats{gap:8px}
-.stat-chip{min-width:70px;padding:12px}
-.stat-num{font-size:18px}
-.process-grid{grid-template-columns:1fr 1fr;gap:32px}
-.process-grid::before{display:none}
-}
-@media(max-width:768px){
-.doc-stats{gap:6px}
-.stat-chip{padding:10px;border-radius:10px}
-.stat-num{font-size:16px}
-.stepper{overflow-x:auto;padding-bottom:4px}
-.sd-label{display:none}
-.process-section{padding:48px 0}
-.process-grid{grid-template-columns:1fr;gap:24px}
-.process-step{flex-direction:row;text-align:left;gap:16px;align-items:flex-start}
-.ps-num{flex-shrink:0;width:40px;height:40px;font-size:16px;margin-bottom:0}
-.testimonial-card{display:none}
-}
+@media(max-width:480px){.doc-title{font-size:24px}.sec-h2{font-size:22px}}
 </style>
-<link rel="stylesheet" href="/search-modal.css">
 </head>
 <body>
 
@@ -370,41 +324,41 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 </div></div>
 
 <header id="hd"><div class="w"><div class="hdr">
-<a href="index.html" class="logo"><img src="../images/logo-switching.png" alt="Switching Formation"></a>
+<a href="../index.html" class="logo"><img src="../images/logo-switching.png" alt="Switching Formation"></a>
 <div class="nav-pill">
-<a href="index.html">Accueil</a>
-<div class="nav-drop"><a href="formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="formations.html?cat=langues"><div class="dd-ico" style="background:rgba(232,99,74,.08);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a><a href="formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(91,112,131,.08);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div>Bureautique</a><a href="formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(217,70,168,.08);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3l-3 3"/><path d="M15 6l-7.5 7.5"/><path d="M7.5 13.5L5 20l6.5-2.5"/><path d="M11.5 17.5l-4-4"/><path d="M18 3l3 3-3 3"/></svg></div>Graphisme</a><a href="formations.html?cat=web"><div class="dd-ico" style="background:rgba(59,130,246,.08);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web & Digital</a><a href="formations.html?cat=compta"><div class="dd-ico" style="background:rgba(249,115,22,.08);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="14" height="18" rx="2"/><path d="M8 7h6"/><path d="M8 10h8"/><path d="M8 13h5"/></svg></div>Compta & Paie</a><a href="formations.html?cat=ia"><div class="dd-ico" style="background:rgba(124,58,237,.08);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg></div>Intelligence Artificielle</a><a href="formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/></svg></div>Bilan de compétences</a></div></div>
-<a href="le-centre.html">Le centre</a>
-<a href="financement.html">Financement</a>
-<a href="inscription.html" class="active">Devis</a>
+<a href="../index.html">Accueil</a>
+<div class="nav-drop"><a href="../formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="../formations.html?cat=langues"><div class="dd-ico" style="background:rgba(232,99,74,.08);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a><a href="../formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(91,112,131,.08);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div>Bureautique</a><a href="../formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(217,70,168,.08);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3l-3 3"/><path d="M15 6l-7.5 7.5"/><path d="M7.5 13.5L5 20l6.5-2.5"/><path d="M11.5 17.5l-4-4"/><path d="M18 3l3 3-3 3"/></svg></div>Graphisme</a><a href="../formations.html?cat=web"><div class="dd-ico" style="background:rgba(59,130,246,.08);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a><a href="../formations.html?cat=compta"><div class="dd-ico" style="background:rgba(249,115,22,.08);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="14" height="18" rx="2"/><path d="M8 7h6"/><path d="M8 10h8"/><path d="M8 13h5"/></svg></div>Compta &amp; Paie</a><a href="../formations.html?cat=ia"><div class="dd-ico" style="background:rgba(124,58,237,.08);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg></div>Intelligence Artificielle</a><a href="../formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/></svg></div>Bilan de comp&eacute;tences</a></div></div>
+<a href="../le-centre.html">Le centre</a>
+<a href="../financement.html">Financement</a>
+<a href="../inscription.html" class="active">Devis</a>
 </div>
-<a href="documentation.html" class="nav-cta">Documentation</a>
+<a href="../documentation.html" class="nav-cta">Documentation</a>
 <button class="menu-toggle" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
 </div></div></header>
 <div class="menu-backdrop" onclick="closeMenu()"></div>
 <div class="menu-drop" id="menuDrop">
 <div class="menu-card">
 <div class="mc-nav">
-<a href="index.html" class="mc-link"><div class="mc-ico" style="color:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
+<a href="../index.html" class="mc-link"><div class="mc-ico" style="color:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
 <div class="mc-toggle" onclick="document.body.classList.toggle('f-open')"><div class="mc-tl"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Formations</div><svg class="mc-arr" viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
 <div class="mc-formations">
-<a href="formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
-<a href="formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
-<a href="formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
-<a href="formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
-<a href="formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
-<a href="formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
-<a href="formations.html?cat=bdc" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
+<a href="../formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
+<a href="../formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
+<a href="../formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
+<a href="../formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
+<a href="../formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
+<a href="../formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
+<a href="../formations.html?cat=bdc" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de comp&eacute;tences</a>
 </div>
 <div class="mc-sep"></div>
-<a href="le-centre.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>Le centre</a>
-<a href="financement.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
-<a href="inscription.html" class="mc-link active"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>Devis</a>
+<a href="../le-centre.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></div>Le centre</a>
+<a href="../financement.html" class="mc-link"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>Financement</a>
+<a href="../inscription.html" class="mc-link active"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>Devis</a>
 </div>
 <div class="mc-sep"></div>
 <div class="mc-bottom">
 <a href="tel:+33695185057" class="mc-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
-<a href="documentation.html" class="mc-doc">Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="../documentation.html" class="mc-doc">Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
 </div>
 </div>
 </div>
@@ -413,43 +367,61 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 <div class="doc-page-mesh"></div>
 <div class="w"><div class="doc-grid">
 
-<div class="doc-info rv">
-<div class="doc-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>Gratuit & sans engagement</div>
-<div class="doc-title">Demandez votre<br><span class="glow">devis personnalisé</span></div>
-<p class="doc-sub">Remplissez le formulaire et recevez sous 24h un <b>devis détaillé</b> avec le programme, les modalités et les <b>options de financement</b> adaptées à votre situation.</p>
+<!-- LEFT COLUMN -->
+<div class="doc-info">
+<div class="doc-tag">
+<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+Gratuit &amp; sans engagement
+</div>
+<div class="doc-title">Demandez votre<br><span class="glow">devis personnalis&eacute;</span></div>
+<p class="doc-sub">Remplissez le formulaire et recevez sous <b>24h</b> un devis d&eacute;taill&eacute; avec le programme, les modalit&eacute;s et les <b>options de financement</b> adapt&eacute;es &agrave; votre situation.</p>
 
-<!-- Stats animées -->
+<!-- STAT COUNTERS -->
 <div class="doc-stats">
-<div class="stat-chip rv"><span class="stat-num" data-target="98">0</span><span class="stat-lbl">% satisfaits</span></div>
-<div class="stat-chip rv rv1"><span class="stat-num">&lt;&nbsp;24h</span><span class="stat-lbl">délai de réponse</span></div>
-<div class="stat-chip rv rv2"><span class="stat-num" data-target="7">0</span><span class="stat-lbl">domaines</span></div>
+<div class="stat-card">
+<div class="stat-val" data-target="98" data-suffix="%">0%</div>
+<div class="stat-lbl">clients satisfaits</div>
+</div>
+<div class="stat-card">
+<div class="stat-val">&lt;&nbsp;24h</div>
+<div class="stat-lbl">d&eacute;lai de r&eacute;ponse</div>
+</div>
+<div class="stat-card">
+<div class="stat-val" data-target="7" data-suffix="">0</div>
+<div class="stat-lbl">domaines de formation</div>
+</div>
 </div>
 
+<!-- PERKS -->
 <div class="perks">
 <div class="perk" style="--pk-c:#10B981">
 <div class="perk-ico" style="color:#10B981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-<div class="perk-text"><h4>Devis sous 24h</h4><p>Un devis clair, détaillé et sans surprise.</p></div>
+<div class="perk-text"><h4>Devis sous 24h</h4><p>Un devis clair, d&eacute;taill&eacute; et sans surprise, envoy&eacute; rapidement.</p></div>
 </div>
 <div class="perk" style="--pk-c:#3B82F6">
 <div class="perk-ico" style="color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg></div>
-<div class="perk-text"><h4>Aide au financement</h4><p>On identifie la meilleure option pour vous.</p></div>
+<div class="perk-text"><h4>Aide au financement</h4><p>On identifie la meilleure option pour votre profil.</p></div>
 </div>
 <div class="perk" style="--pk-c:#F59E0B">
 <div class="perk-ico" style="color:#F59E0B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-<div class="perk-text"><h4>Conseiller dédié</h4><p>Un interlocuteur unique du début à la fin.</p></div>
+<div class="perk-text"><h4>Conseiller d&eacute;di&eacute;</h4><p>Un interlocuteur unique du d&eacute;but &agrave; la fin.</p></div>
 </div>
 </div>
 
-<!-- Testimonial -->
-<div class="testimonial-card rv rv3">
-<div class="tc-stars">★★★★★</div>
-<p class="tc-text">"Devis reçu en moins d'une heure. Le conseiller a trouvé un financement CPF à 100%. Je recommande vivement !"</p>
-<div class="tc-author">
-<div class="tc-avatar">M</div>
-<div><strong>Marie L.</strong><span>Salariée — Formation Excel avancé</span></div>
+<!-- TESTIMONIAL -->
+<div class="testimonial-card rv rv1">
+<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="test-quote">J&rsquo;ai re&ccedil;u mon devis en moins de 3 heures. Le conseiller a pris le temps de tout expliquer et de trouver le meilleur financement pour moi. Formation impeccable !</p>
+<div class="test-author">
+<div class="test-avatar">ML</div>
+<div>
+<div class="test-name">Marie L.</div>
+<div class="test-role">Form&eacute;e en Web &amp; Digital &mdash; CPF</div>
+</div>
 </div>
 </div>
 
+<!-- TRUST STRIP -->
 <div class="trust-strip">
 <span class="trust-label">Reconnu par</span>
 <span class="trust-badge" style="--tb-c:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Qualiopi</span>
@@ -459,92 +431,157 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 </div>
 </div>
 
-<div class="doc-form-wrap rv rv1">
+<!-- RIGHT COLUMN - FORM -->
+<div class="doc-form-wrap">
 <div class="form-header">
 <h2>Votre devis gratuit</h2>
-<p>Quelques clics suffisent — réponse sous 24h.</p>
+<p>R&eacute;pondez en quelques clics &mdash; 100% personnalis&eacute;</p>
 </div>
 
-<!-- Stepper numéroté -->
+<!-- STEPPER -->
 <div class="stepper" id="stepper">
-<div class="step-dot active" data-s="1"><div class="sd-circle">1</div><span class="sd-label">Domaine</span></div>
-<div class="step-line" data-l="1"></div>
-<div class="step-dot" data-s="2"><div class="sd-circle">2</div><span class="sd-label">Profil</span></div>
-<div class="step-line" data-l="2"></div>
-<div class="step-dot" data-s="3"><div class="sd-circle">3</div><span class="sd-label">Financement</span></div>
-<div class="step-line" data-l="3"></div>
-<div class="step-dot" data-s="4"><div class="sd-circle">4</div><span class="sd-label">Coordonnées</span></div>
-<div class="step-line" data-l="4"></div>
-<div class="step-dot" data-s="5"><div class="sd-circle">5</div><span class="sd-label">Projet</span></div>
+<div class="stepper-track"><div class="stepper-progress" id="stepperProgress" style="width:0%"></div></div>
+<div class="step-node active" data-node="1">
+<div class="step-circle active" id="sc1">1</div>
+<div class="step-lbl">Domaine</div>
+</div>
+<div class="step-node" data-node="2">
+<div class="step-circle" id="sc2">2</div>
+<div class="step-lbl">Profil</div>
+</div>
+<div class="step-node" data-node="3">
+<div class="step-circle" id="sc3">3</div>
+<div class="step-lbl">Financement</div>
+</div>
+<div class="step-node" data-node="4">
+<div class="step-circle" id="sc4">4</div>
+<div class="step-lbl">Coordonn&eacute;es</div>
+</div>
+<div class="step-node" data-node="5">
+<div class="step-circle" id="sc5">5</div>
+<div class="step-lbl">Projet</div>
+</div>
 </div>
 
-<!-- Chips récapitulatifs dynamiques -->
-<div class="recap-bar" id="recapBar"></div>
+<!-- RECAP CHIPS -->
+<div class="recap-chips" id="recapChips"></div>
+
 <form id="mf" autocomplete="on" method="post" onsubmit="return false">
-<div class="step active" data-step="1"><div class="step-label">Étape 1 sur 5</div><div class="step-q">Quel domaine vous intéresse ?</div><div class="step-opts">
-<button class="step-opt"><div class="opt-icon" style="color:#3B82F6"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><span class="opt-dot"></span>Langues</button>
-<button class="step-opt"><div class="opt-icon" style="color:#10B981"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div><span class="opt-dot"></span>Bureautique</button>
-<button class="step-opt"><div class="opt-icon" style="color:#F59E0B"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div><span class="opt-dot"></span>Graphisme & PAO</button>
-<button class="step-opt"><div class="opt-icon" style="color:#A855F7"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="opt-dot"></span>Web & Digital</button>
-<button class="step-opt"><div class="opt-icon" style="color:#F43F5E"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div><span class="opt-dot"></span>Bilan de compétences</button>
-<button class="step-opt"><div class="opt-icon" style="color:#FB923C"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div><span class="opt-dot"></span>Comptabilité / Paie</button>
-<button class="step-opt"><div class="opt-icon" style="color:#6366F1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div><span class="opt-dot"></span>Intelligence Artificielle</button>
-<button class="step-opt"><div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div><span class="opt-dot"></span>Autre / Je ne sais pas</button>
-</div><div class="step-nav"><span></span><span></span></div></div>
 
-<div class="step" data-step="2"><div class="step-label">Étape 2 sur 5</div><div class="step-q">Quel est votre statut ?</div><div class="step-opts">
-<button class="step-opt"><div class="opt-icon" style="color:#10B981"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div><span class="opt-dot"></span>Salarié(e)</button>
-<button class="step-opt"><div class="opt-icon" style="color:#6366F1"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><span class="opt-dot"></span>Demandeur d'emploi</button>
-<button class="step-opt"><div class="opt-icon" style="color:#F59E0B"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><span class="opt-dot"></span>Indépendant(e)</button>
-<button class="step-opt"><div class="opt-icon" style="color:#A855F7"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><span class="opt-dot"></span>Intermittent(e)</button>
-<button class="step-opt"><div class="opt-icon" style="color:#3B82F6"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><span class="opt-dot"></span>Étudiant(e)</button>
-<button class="step-opt"><div class="opt-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="opt-dot"></span>Autre</button>
-</div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><span></span></div></div>
+<!-- STEP 1 -->
+<div class="step active" data-step="1">
+<div class="step-label">&#201;tape 1 / 5</div>
+<div class="step-q">Quel domaine vous int&eacute;resse ?</div>
+<div class="step-opts">
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Langues</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Bureautique</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Graphisme &amp; PAO</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Web &amp; Digital</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Bilan de comp&eacute;tences</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Comptabilit&eacute; / Paie</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Intelligence Artificielle</button>
+<button class="step-opt" data-chip="domaine"><span class="opt-dot"></span>Autre / Je ne sais pas</button>
+</div>
+<div class="step-nav"><span></span><span></span></div>
+</div>
 
-<div class="step" data-step="3"><div class="step-label">Étape 3 sur 5</div><div class="step-q">Financement envisagé ?</div><div class="step-opts">
-<button class="step-opt"><div class="opt-icon" style="color:#3B82F6"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg></div><span class="opt-dot"></span>CPF</button>
-<button class="step-opt"><div class="opt-icon" style="color:#10B981"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><span class="opt-dot"></span>OPCO</button>
-<button class="step-opt"><div class="opt-icon" style="color:#6366F1"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div><span class="opt-dot"></span>France Travail</button>
-<button class="step-opt"><div class="opt-icon" style="color:#F59E0B"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><span class="opt-dot"></span>Financement personnel</button>
-<button class="step-opt"><div class="opt-icon" style="color:#FB923C"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><span class="opt-dot"></span>Plan de formation entreprise</button>
-<button class="step-opt"><div class="opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div><span class="opt-dot"></span>Je ne sais pas encore</button>
-</div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><span></span></div></div>
-<div class="step" data-step="4"><div class="step-label">Étape 4/5</div><div class="step-q">Vos coordonnées</div><div class="fr2"><div class="ff"><label for="insc-prenom">Prénom</label><input id="insc-prenom" name="given-name" autocomplete="given-name" placeholder="Votre prénom" required></div><div class="ff"><label for="insc-nom">Nom</label><input id="insc-nom" name="family-name" autocomplete="family-name" placeholder="Votre nom" required></div></div><div class="ff"><label for="insc-email">Adresse e-mail</label><input id="insc-email" type="email" name="email" autocomplete="email" placeholder="votre@email.com" required></div><div class="frp"><div class="ff"><label for="insc-indicatif">Indicatif</label><select id="insc-indicatif" name="tel-country-code" autocomplete="tel-country-code"><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option><option>UK +44</option></select></div><div class="ff"><label for="insc-tel">Téléphone</label><input id="insc-tel" type="tel" name="tel" autocomplete="tel-national" placeholder="06 00 00 00 00" required></div></div><div class="ff"><label for="insc-org">Entreprise (optionnel)</label><input id="insc-org" name="organization" autocomplete="organization" placeholder="Nom de votre entreprise"></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><button class="btn-next" onclick="goStep(1)">Suivant <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div></div>
-<div class="step" data-step="5"><div class="step-label">Étape 5/5</div><div class="step-q">Précisions sur votre projet</div><div class="ff"><label>Modalité souhaitée</label><select><option value="" disabled selected>Choisir une modalité</option><option>Présentiel (Paris 12ᵉ)</option><option>Visioconférence</option><option>E-learning</option><option>Pas de préférence</option></select></div><div class="ff"><label>Message (optionnel)</label><textarea placeholder="Précisez votre projet : formation souhaitée, objectifs, disponibilités…"></textarea></div>
-<div class="info-tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Plus vous êtes précis, plus votre devis sera personnalisé et adapté à votre situation.</span></div><div class="consent"><input type="checkbox" checked><label>J'accepte d'être contacté(e) par Switching Formation pour recevoir mon devis et un accompagnement personnalisé.</label></div><div class="step-nav"><button class="btn-back" onclick="goStep(-1)">← Retour</button><button class="btn-send" onclick="submitForm()">Recevoir mon devis</button></div></div>
-<div class="form-ok" id="fOk"><svg viewBox="0 0 56 56" fill="none" width="56" height="56"><circle cx="28" cy="28" r="28" fill="rgba(16,171,175,.12)"/><path d="M18 28l7 7 13-13" stroke="#10ABAF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Demande envoyée !</h3><p>Votre devis personnalisé vous sera envoyé sous 24h. Un conseiller vous recontacte rapidement.</p></div>
+<!-- STEP 2 -->
+<div class="step" data-step="2">
+<div class="step-label">&#201;tape 2 / 5</div>
+<div class="step-q">Votre statut professionnel ?</div>
+<div class="step-opts">
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>Salari&eacute;(e)</button>
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>Demandeur d&rsquo;emploi</button>
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>Ind&eacute;pendant(e)</button>
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>Intermittent(e)</button>
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>&Eacute;tudiant(e)</button>
+<button class="step-opt" data-chip="profil"><span class="opt-dot"></span>Autre</button>
+</div>
+<div class="step-nav"><button class="btn-back" type="button" onclick="goStep(-1)">&#8592; Retour</button><span></span></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step" data-step="3">
+<div class="step-label">&#201;tape 3 / 5</div>
+<div class="step-q">Financement envisag&eacute; ?</div>
+<div class="step-opts">
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>CPF</button>
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>OPCO</button>
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>France Travail</button>
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>Personnel</button>
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>Entreprise</button>
+<button class="step-opt" data-chip="financement"><span class="opt-dot"></span>Je ne sais pas</button>
+</div>
+<div class="step-nav"><button class="btn-back" type="button" onclick="goStep(-1)">&#8592; Retour</button><span></span></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step" data-step="4">
+<div class="step-label">&#201;tape 4 / 5</div>
+<div class="step-q">Vos coordonn&eacute;es</div>
+<div class="fr2">
+<div class="ff"><label for="insc-prenom">Pr&eacute;nom</label><input id="insc-prenom" name="given-name" autocomplete="given-name" placeholder="Votre pr&eacute;nom" required></div>
+<div class="ff"><label for="insc-nom">Nom</label><input id="insc-nom" name="family-name" autocomplete="family-name" placeholder="Votre nom" required></div>
+</div>
+<div class="ff"><label for="insc-email">Adresse e-mail</label><input id="insc-email" type="email" name="email" autocomplete="email" placeholder="votre@email.com" required></div>
+<div class="frp">
+<div class="ff"><label for="insc-indicatif">Indicatif</label><select id="insc-indicatif" name="tel-country-code" autocomplete="tel-country-code"><option>FR +33</option><option>BE +32</option><option>CH +41</option><option>MA +212</option><option>IL +972</option><option>UK +44</option></select></div>
+<div class="ff"><label for="insc-tel">T&eacute;l&eacute;phone</label><input id="insc-tel" type="tel" name="tel" autocomplete="tel-national" placeholder="06 00 00 00 00" required></div>
+</div>
+<div class="ff"><label for="insc-org">Entreprise (optionnel)</label><input id="insc-org" name="organization" autocomplete="organization" placeholder="Nom de votre entreprise"></div>
+<div class="step-nav"><button class="btn-back" type="button" onclick="goStep(-1)">&#8592; Retour</button><button class="btn-next" type="button" onclick="goStep(1)">Suivant <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step" data-step="5">
+<div class="step-label">&#201;tape 5 / 5</div>
+<div class="step-q">Pr&eacute;cisez votre projet</div>
+<div class="ff"><label>Modalit&eacute; souhait&eacute;e</label><select><option value="" disabled selected>Choisir une modalit&eacute;</option><option>Pr&eacute;sentiel (Paris 12&#7497;)</option><option>Visioconf&eacute;rence</option><option>E-learning</option><option>Pas de pr&eacute;f&eacute;rence</option></select></div>
+<div class="ff"><label>Message (optionnel)</label><textarea placeholder="Pr&eacute;cisez votre projet : formation souhait&eacute;e, objectifs, disponibilit&eacute;s&hellip;"></textarea></div>
+<div class="consent"><input type="checkbox" checked><label>J&rsquo;accepte d&rsquo;&ecirc;tre contact&eacute;(e) par Switching Formation pour recevoir mon devis et un accompagnement personnalis&eacute;.</label></div>
+<div class="step-nav"><button class="btn-back" type="button" onclick="goStep(-1)">&#8592; Retour</button><button class="btn-send" type="button" onclick="submitForm()">Recevoir mon devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+</div>
+
+<!-- SUCCESS -->
+<div class="form-ok" id="fOk">
+<svg viewBox="0 0 56 56" fill="none" width="56" height="56"><circle cx="28" cy="28" r="28" fill="rgba(16,171,175,.12)"/><path d="M18 28l7 7 13-13" stroke="#10ABAF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h3>Demande envoy&eacute;e !</h3>
+<p>Votre devis personnalis&eacute; vous sera envoy&eacute; sous 24h. Un conseiller vous recontacte rapidement.</p>
+</div>
+
 </form>
 </div>
 
 </div></div>
 </section>
 
-<section class="process-section">
+<!-- COMMENT CA MARCHE -->
+<section class="how-section">
 <div class="w">
-<div class="process-head rv">
-<div class="process-tag">Votre parcours</div>
-<div class="process-h2">Comment ça <span class="glow">marche ?</span></div>
+<div class="sec-head rv">
+<div class="sec-tag">Processus</div>
+<div class="sec-h2">Comment &ccedil;a <span class="glow">marche&nbsp;?</span></div>
 </div>
-<div class="process-grid">
-<div class="process-step rv rv1">
-<div class="ps-num">1</div>
-<div class="ps-title">Vous remplissez</div>
-<p class="ps-desc">Le formulaire prend moins de 2 minutes. Aucun engagement de votre part.</p>
+<div class="how-grid">
+<div class="how-step rv">
+<div class="how-num">1</div>
+<div class="how-title">Vous remplissez le formulaire</div>
+<p class="how-desc">Indiquez votre domaine, votre statut et vos coordonn&eacute;es en moins de 2 minutes.</p>
 </div>
-<div class="process-step rv rv2">
-<div class="ps-num alt">2</div>
-<div class="ps-title">On analyse votre besoin</div>
-<p class="ps-desc">Un conseiller étudie votre situation et identifie les meilleures options.</p>
+<div class="how-step rv rv1">
+<div class="how-num">2</div>
+<div class="how-title">Notre &eacute;quipe analyse</div>
+<p class="how-desc">Un conseiller &eacute;tudie votre profil et identifie les meilleures options de financement.</p>
 </div>
-<div class="process-step rv rv3">
-<div class="ps-num">3</div>
-<div class="ps-title">Devis sous 24h</div>
-<p class="ps-desc">Vous recevez un devis détaillé avec programme, modalités et financement.</p>
+<div class="how-step rv rv2">
+<div class="how-num">3</div>
+<div class="how-title">Devis sous 24h</div>
+<p class="how-desc">Vous recevez un devis d&eacute;taill&eacute; clair, avec le programme, les tarifs et les financements disponibles.</p>
 </div>
-<div class="process-step rv" style="transition-delay:.32s">
-<div class="ps-num alt">4</div>
-<div class="ps-title">On démarre ensemble</div>
-<p class="ps-desc">Votre conseiller vous accompagne jusqu'au premier jour de formation.</p>
+<div class="how-step rv rv3">
+<div class="how-num">4</div>
+<div class="how-title">On d&eacute;marre ensemble</div>
+<p class="how-desc">Vous validez, on organise votre formation. Bienvenue chez Switching Formation !</p>
 </div>
 </div>
 </div>
@@ -552,141 +589,206 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 
 <footer><div class="w">
 <div class="ft-grid">
-<div class="ft-brand"><img src="../images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
-<div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis</a></div>
-<div class="ft-col"><h4>Formations</h4><a href="formations.html?cat=langues">Langues</a><a href="formations.html?cat=bureautique">Bureautique</a><a href="formations.html?cat=graphisme">Graphisme</a><a href="formations.html?cat=ia">IA</a></div>
+<div class="ft-brand"><img src="../images/logo-switching-blanc.png" alt="SF"><p>Organisme certifi&eacute; Qualiopi. Formations individuelles dans 7 domaines.</p></div>
+<div class="ft-col"><h4>Navigation</h4><a href="../le-centre.html">Le centre</a><a href="../formations.html">Formations</a><a href="../financement.html">Financement</a><a href="../inscription.html">Devis</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="../formations.html?cat=langues">Langues</a><a href="../formations.html?cat=bureautique">Bureautique</a><a href="../formations.html?cat=graphisme">Graphisme</a><a href="../formations.html?cat=ia">IA</a></div>
 <div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="#">contact&#64;switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
 </div>
-<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a><span class="d">•</span><a href="donnees.html#qualiopi">Qualiopi</a></div></div>
+<div class="ft-bottom"><div class="copy">Switching Formation&reg; 2026</div><div class="fl"><a href="../cgv.html">CGV</a><span class="d">&bull;</span><a href="../mentions-legales.html">Mentions l&eacute;gales</a><span class="d">&bull;</span><a href="../donnees.html">Donn&eacute;es</a><span class="d">&bull;</span><a href="../donnees.html#qualiopi">Qualiopi</a></div></div>
 <div class="ft-mobile">
 <div class="ft-contact-m">
 <a href="tel:+33695185057" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>06 95 18 50 57</span></a>
-<a href="mailto:contact@switchingformation.com" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>contact&#64;switchingformation.com</a>
-<a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Avis Google ★★★★★</a>
+<a href="#" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>contact&#64;switchingformation.com</a>
+<a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Avis Google &#9733;&#9733;&#9733;&#9733;&#9733;</a>
 </div>
 <div class="ft-sep-m"></div>
-<div class="ft-brand-m">Switching Formation® — Organisme certifié Qualiopi</div>
-<div class="ft-legal-m"><a href="cgv.html">CGV</a><a href="mentions-legales.html">Mentions légales</a><a href="donnees.html">Données</a><a href="donnees.html#qualiopi">Qualiopi</a></div>
-<div class="ft-copy-m">© 2026 Switching Formation. Tous droits réservés.</div>
+<div class="ft-brand-m">Switching Formation&reg; &mdash; Organisme certifi&eacute; Qualiopi</div>
+<div class="ft-legal-m"><a href="../cgv.html">CGV</a><a href="../mentions-legales.html">Mentions l&eacute;gales</a><a href="../donnees.html">Donn&eacute;es</a><a href="../donnees.html#qualiopi">Qualiopi</a></div>
+<div class="ft-copy-m">&copy; 2026 Switching Formation. Tous droits r&eacute;serv&eacute;s.</div>
 </div>
 </div></footer>
 
-
 <script>
-// --- Stepper ---
-var cs=1;
-function updateStepper(n){
-  document.querySelectorAll('.step-dot').forEach(function(d){
-    var s=parseInt(d.dataset.s);
-    d.classList.toggle('done',s<n);
-    d.classList.toggle('active',s===n);
+/* === STEPPER STATE === */
+var cs = 1;
+var selections = {domaine: null, profil: null, financement: null};
+
+function updateStepper(step) {
+  var nodes = document.querySelectorAll('.step-node');
+  nodes.forEach(function(n, i) {
+    var circle = n.querySelector('.step-circle');
+    var num = i + 1;
+    n.classList.remove('active','done');
+    circle.classList.remove('active','done');
+    if (num < step) {
+      n.classList.add('done');
+      circle.classList.add('done');
+      circle.innerHTML = '<svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>';
+    } else if (num === step) {
+      n.classList.add('active');
+      circle.classList.add('active');
+      circle.textContent = num;
+    } else {
+      circle.textContent = num;
+    }
   });
-  document.querySelectorAll('.step-line').forEach(function(l){
-    l.classList.toggle('done',parseInt(l.dataset.l)<n);
-  });
+  var pct = ((step - 1) / 4) * 100;
+  document.getElementById('stepperProgress').style.width = pct + '%';
 }
 
-function goStep(d){
-  var n=cs+d;
-  if(n<1||n>5)return;
-  document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');
-  document.querySelector('.step[data-step="'+n+'"]').classList.add('active');
-  cs=n;
-  updateStepper(cs);
-}
+/* === RECAP CHIPS === */
+var chipColors = {domaine:'chip-domaine', profil:'chip-profil', financement:'chip-financement'};
 
-// --- Recap chips ---
-var recapData={};
-var chipLabels={1:'Domaine',2:'Statut',3:'Financement'};
-function updateRecap(){
-  var bar=document.getElementById('recapBar');
-  bar.innerHTML='';
-  [1,2,3].forEach(function(k){
-    if(recapData[k]){
-      var chip=document.createElement('div');
-      chip.className='recap-chip';
-      chip.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'+recapData[k];
-      bar.appendChild(chip);
+function updateChips() {
+  var container = document.getElementById('recapChips');
+  container.innerHTML = '';
+  var order = ['domaine','profil','financement'];
+  order.forEach(function(key) {
+    if (selections[key]) {
+      var chip = document.createElement('span');
+      chip.className = 'recap-chip ' + chipColors[key];
+      chip.innerHTML = selections[key] + '<svg class="chip-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" onclick="clearChip(\'' + key + '\')"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      container.appendChild(chip);
     }
   });
 }
 
-// --- Step options ---
-document.querySelectorAll('.step-opt').forEach(function(b){
-  b.addEventListener('click',function(){
-    b.parentElement.querySelectorAll('.step-opt').forEach(function(s){s.classList.remove('selected')});
+function clearChip(key) {
+  selections[key] = null;
+  updateChips();
+  var stepMap = {domaine:1, profil:2, financement:3};
+  var targetStep = stepMap[key];
+  if (cs > targetStep) {
+    goStep(targetStep - cs);
+  } else {
+    document.querySelector('.step[data-step="' + targetStep + '"] .step-opt.selected')
+      && document.querySelector('.step[data-step="' + targetStep + '"] .step-opt.selected').classList.remove('selected');
+  }
+}
+
+/* === NAVIGATION === */
+function goStep(d) {
+  var n = cs + d;
+  if (n < 1 || n > 5) return;
+  document.querySelector('.step[data-step="' + cs + '"]').classList.remove('active');
+  document.querySelector('.step[data-step="' + n + '"]').classList.add('active');
+  cs = n;
+  updateStepper(cs);
+}
+
+/* === OPTION CLICK === */
+document.querySelectorAll('.step-opt').forEach(function(b) {
+  b.addEventListener('click', function() {
+    var stepEl = b.closest('.step');
+    stepEl.querySelectorAll('.step-opt').forEach(function(s) { s.classList.remove('selected'); });
     b.classList.add('selected');
-    var sn=parseInt(b.closest('.step').dataset.step);
-    // Texte sans l'icône — prend le dernier noeud texte
-    var txt=b.lastChild&&b.lastChild.textContent?b.lastChild.textContent.trim():b.textContent.trim();
-    if(sn<=3){recapData[sn]=txt;updateRecap();setTimeout(function(){goStep(1)},320);}
+    var chipType = b.getAttribute('data-chip');
+    if (chipType && selections.hasOwnProperty(chipType)) {
+      selections[chipType] = b.textContent.trim();
+      updateChips();
+    }
+    var sn = parseInt(stepEl.dataset.step);
+    if (sn <= 3) setTimeout(function() { goStep(1); }, 300);
   });
 });
 
-// --- Submit ---
-function submitForm(){
-  var data={source:'devis-v2'};
-  var s1=document.querySelector('.step[data-step="1"] .step-opt.selected');
-  var s2=document.querySelector('.step[data-step="2"] .step-opt.selected');
-  var s3=document.querySelector('.step[data-step="3"] .step-opt.selected');
-  data.secteur=recapData[1]||'';
-  data.statut=recapData[2]||'';
-  data.financement=recapData[3]||'';
-  var inputs=document.querySelectorAll('.step[data-step="4"] input');
-  data.prenom=inputs[0]?inputs[0].value:'';
-  data.nom=inputs[1]?inputs[1].value:'';
-  data.email=inputs[2]?inputs[2].value:'';
-  data.tel=inputs[3]?inputs[3].value:'';
-  data.entreprise=inputs[4]?inputs[4].value:'';
-  var sel=document.querySelector('.step[data-step="4"] select');
-  data.indicatif=sel?sel.value:'';
-  var modalSel=document.querySelector('.step[data-step="5"] select');
-  data.modalite=modalSel&&modalSel.value?modalSel.value:'';
-  var ta=document.querySelector('.step[data-step="5"] textarea');
-  data.message=ta?ta.value:'';
-  fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){});
-  document.querySelector('.step[data-step="'+cs+'"]').classList.remove('active');
+/* === SUBMIT === */
+function submitForm() {
+  var data = {source: 'devis-v2'};
+  var s1 = document.querySelector('.step[data-step="1"] .step-opt.selected');
+  var s2 = document.querySelector('.step[data-step="2"] .step-opt.selected');
+  var s3 = document.querySelector('.step[data-step="3"] .step-opt.selected');
+  data.secteur = s1 ? s1.textContent.trim() : '';
+  data.statut = s2 ? s2.textContent.trim() : '';
+  data.financement = s3 ? s3.textContent.trim() : '';
+  var inputs = document.querySelectorAll('.step[data-step="4"] input');
+  data.prenom = inputs[0] ? inputs[0].value : '';
+  data.nom = inputs[1] ? inputs[1].value : '';
+  data.email = inputs[2] ? inputs[2].value : '';
+  data.tel = inputs[3] ? inputs[3].value : '';
+  data.entreprise = inputs[4] ? inputs[4].value : '';
+  var sel = document.querySelector('.step[data-step="4"] select');
+  data.indicatif = sel ? sel.value : '';
+  var modalSel = document.querySelector('.step[data-step="5"] select');
+  data.modalite = modalSel && modalSel.value ? modalSel.value : '';
+  var ta = document.querySelector('.step[data-step="5"] textarea');
+  data.message = ta ? ta.value : '';
+  fetch('/api/submit', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)}).catch(function(){});
+  document.querySelector('.step[data-step="' + cs + '"]').classList.remove('active');
   document.getElementById('fOk').classList.add('on');
-  document.querySelector('.stepper').style.display='none';
-  document.getElementById('recapBar').style.display='none';
+  document.getElementById('stepper').style.display = 'none';
+  document.getElementById('recapChips').style.display = 'none';
 }
 
-// --- Compteurs animés ---
-function animateCounter(el,target,duration){
-  var start=null;
-  function step(ts){
-    if(!start)start=ts;
-    var p=Math.min((ts-start)/duration,1);
-    el.textContent=Math.round(p*target);
-    if(p<1)requestAnimationFrame(step);
+/* === STAT COUNTERS === */
+function animateCounter(el, target, suffix, duration) {
+  var start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
-// --- Scroll reveal + counters ---
-document.querySelectorAll('.rv').forEach(function(el){
-  new IntersectionObserver(function(e){
-    if(e[0].isIntersecting){
-      el.classList.add('vis');
-      el.querySelectorAll('[data-target]').forEach(function(c){
-        animateCounter(c,parseInt(c.dataset.target),1400);
-      });
-    }
-  },{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+/* === SCROLL REVEAL === */
+document.querySelectorAll('.rv').forEach(function(el) {
+  new IntersectionObserver(function(e) {
+    if (e[0].isIntersecting) el.classList.add('vis');
+  }, {threshold: .1, rootMargin: '0px 0px -40px 0px'}).observe(el);
 });
 
-// --- Header scroll ---
-var hd=document.getElementById('hd');
-window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});
+/* === COUNTER TRIGGER ON SCROLL === */
+var countersRan = false;
+var counterObserver = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting && !countersRan) {
+    countersRan = true;
+    document.querySelectorAll('.stat-val[data-target]').forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-target'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      animateCounter(el, target, suffix, 1400);
+    });
+  }
+}, {threshold: .5});
+var statsEl = document.querySelector('.doc-stats');
+if (statsEl) counterObserver.observe(statsEl);
 
-// --- Menu mobile ---
-function toggleMenu(){document.body.classList.toggle('menu-open');if(document.body.classList.contains('menu-open'))positionMenu()}
-function closeMenu(){document.body.classList.remove('menu-open');document.body.classList.remove('f-open')}
-function positionMenu(){var nav=document.querySelector('header');var drop=document.getElementById('menuDrop');if(nav&&drop){var r=nav.getBoundingClientRect();drop.style.top=(r.bottom+8)+'px'}}
-document.querySelector('.menu-toggle').addEventListener('click',toggleMenu);
-document.querySelector('.menu-backdrop').addEventListener('click',closeMenu);
-document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a){a.addEventListener('click',closeMenu)});
-window.addEventListener('scroll',function(){if(document.body.classList.contains('menu-open'))positionMenu()},{passive:true});
+/* === HEADER SCROLL === */
+var hd = document.getElementById('hd');
+window.addEventListener('scroll', function() {
+  hd.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* === MOBILE MENU === */
+function toggleMenu() {
+  document.body.classList.toggle('menu-open');
+  if (document.body.classList.contains('menu-open')) positionMenu();
+}
+function closeMenu() {
+  document.body.classList.remove('menu-open');
+  document.body.classList.remove('f-open');
+}
+function positionMenu() {
+  var nav = document.querySelector('header');
+  var drop = document.getElementById('menuDrop');
+  if (nav && drop) {
+    var r = nav.getBoundingClientRect();
+    drop.style.top = (r.bottom + 8) + 'px';
+  }
+}
+document.querySelector('.menu-toggle').addEventListener('click', toggleMenu);
+document.querySelector('.menu-backdrop').addEventListener('click', closeMenu);
+document.querySelectorAll('.mc-nav a[href], .mc-bottom a[href]').forEach(function(a) {
+  a.addEventListener('click', closeMenu);
+});
+window.addEventListener('scroll', function() {
+  if (document.body.classList.contains('menu-open')) positionMenu();
+}, {passive: true});
+
+/* === INIT STEPPER === */
+updateStepper(1);
 </script>
 <script src="/chatbot.js"></script>
 <script src="/search-modal.js"></script>
