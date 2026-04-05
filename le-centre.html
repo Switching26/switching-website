@@ -160,6 +160,7 @@ h1 .glow{background:linear-gradient(135deg,#3DC8C9,#10ABAF,#7DD8D9);-webkit-back
 .approach-item:nth-child(3) .approach-step::after{animation-delay:.8s}
 .approach-item:nth-child(4) .approach-step::after{animation-delay:1.2s}
 @keyframes stepPulse{0%{opacity:0;transform:scale(.8)}30%{opacity:.35;transform:scale(1)}60%{opacity:0;transform:scale(1.3)}100%{opacity:0;transform:scale(1.3)}}
+@keyframes meshMove{0%{opacity:.8;transform:scale(1) rotate(0deg)}100%{opacity:1;transform:scale(1.1) rotate(2deg)}}
 .approach-text h4{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:#0F172A;margin-bottom:4px}
 .approach-text p{font-size:12.5px;color:var(--muted);line-height:1.55}
 
@@ -306,12 +307,17 @@ body{background:#FAFBFC}
 /* — Hero card — */
 .hero-card{
   min-height:230px;border-radius:18px;margin:0;
-  background:linear-gradient(160deg,#0a1628 0%,#1a2d4a 55%,#0d1f3c 100%);
-  background-blend-mode:luminosity
+  background:#0F172A
 }
-.hero-card::after{
-  background:linear-gradient(90deg,rgba(15,23,42,.75) 0%,rgba(15,23,42,.35) 65%,transparent 100%)
+.hero-card::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%,rgba(16,171,175,.25),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(99,102,241,.2),transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,rgba(244,63,94,.08),transparent 50%);
+  animation:meshMove 8s ease-in-out infinite alternate
 }
+.hero-card::after{background:none}
 .hero-inner{padding:22px 18px;max-width:100%}
 .hero-tag{font-size:10px;padding:5px 12px;margin-bottom:12px}
 h1{font-size:23px;margin-bottom:10px}
