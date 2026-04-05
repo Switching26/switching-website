@@ -249,26 +249,223 @@ header{position:sticky;top:8px;z-index:1000;margin:8px 12px 0;background:rgba(25
 header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,0,.08);padding:0}
 .hdr{padding:10px 18px;height:auto}
 .logo img{height:34px!important}
-.doc-grid{grid-template-columns:1fr;gap:32px}
-.doc-info{text-align:center;max-width:600px;margin:0 auto}
+.doc-grid{grid-template-columns:1fr;gap:0}
+.doc-info{text-align:center;max-width:600px;margin:0 auto;padding-bottom:32px}
 .doc-sub{max-width:100%}
-.perks{align-items:center}
+.perks{align-items:stretch}
 .trust-strip{justify-content:center;flex-wrap:wrap}
 .ft-grid{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
+
+/* =============================================
+   MOBILE GLASSMORPHISM — 768px et moins
+   ============================================= */
 @media(max-width:768px){
-.w{padding:0 18px}
-.topbar .w{flex-direction:column;gap:4px;text-align:center}
-.hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
-.doc-page{padding:36px 0 44px}
-.doc-title{font-size:30px}
-.step-opts,.fr2,.frp{grid-template-columns:1fr}
-.doc-form-wrap{padding:24px 18px;border-radius:20px}
+
+/* — Fond page avec halos subtils — */
+body{background:#FAFBFC}
+.doc-page{padding:28px 0 0;position:relative;overflow:hidden}
+.doc-page-mesh{background:
+  radial-gradient(ellipse 80% 40% at 85% 5%, rgba(16,171,175,.10), transparent),
+  radial-gradient(ellipse 60% 30% at 10% 25%, rgba(99,102,241,.06), transparent),
+  radial-gradient(ellipse 70% 35% at 50% 85%, rgba(16,171,175,.07), transparent)}
+
+/* — Layout — */
+.w{padding:0 16px}
+.topbar .w{flex-direction:column;gap:3px;text-align:center;font-size:11.5px}
+
+/* — Section info hero — */
+.doc-info{
+  text-align:left;
+  max-width:100%;
+  margin:0;
+  padding:0 0 28px;
+  animation:sLeft .6s ease .1s both
+}
+.doc-tag{margin-bottom:14px;font-size:11px}
+.doc-title{font-size:28px;letter-spacing:-.03em;margin-bottom:10px}
+.doc-sub{font-size:13.5px;margin-bottom:20px;line-height:1.65}
+
+/* — Perks : glass cards compactes — */
+.perks{gap:8px;margin-bottom:20px;align-items:stretch}
+.perk{
+  padding:12px 14px;
+  background:rgba(255,255,255,.75);
+  border:0.5px solid rgba(255,255,255,.9);
+  border-radius:14px;
+  box-shadow:0 4px 16px rgba(16,171,175,.06), 0 1px 4px rgba(0,0,0,.04);
+  position:relative;
+  overflow:hidden
+}
+.perk::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent)
+}
+.perk:hover{transform:none;box-shadow:0 4px 16px rgba(16,171,175,.08),0 1px 4px rgba(0,0,0,.04)}
+.perk-ico{width:34px;height:34px;border-radius:10px}
+.perk-text h4{font-size:13px}
+.perk-text p{font-size:11.5px}
+
+/* — Trust strip — */
+.trust-strip{
+  justify-content:flex-start;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:14px 0 4px;
+  border-top:0.5px solid rgba(0,0,0,.06)
+}
+.trust-label{font-size:10px}
+.trust-badge{
+  font-size:11px;
+  padding:5px 11px;
+  border-radius:8px;
+  background:#F1F5F9;
+  box-shadow:none;
+  transition:none
+}
+.trust-badge:hover{transform:none;box-shadow:none}
+
+/* — Séparateur visuel entre info et form — */
+.doc-info::after{
+  content:'';display:block;
+  height:0.5px;
+  background:linear-gradient(90deg,transparent,rgba(16,171,175,.2),transparent);
+  margin-top:28px
+}
+
+/* — Formulaire glass card — */
+.doc-form-wrap{
+  margin:20px 0 28px;
+  padding:24px 20px;
+  border-radius:22px;
+  background:rgba(255,255,255,.75);
+  border:0.5px solid rgba(255,255,255,.9);
+  box-shadow:
+    0 8px 32px rgba(16,171,175,.08),
+    0 2px 8px rgba(0,0,0,.04),
+    inset 0 1px 0 rgba(255,255,255,1);
+  position:relative;
+  overflow:hidden;
+  animation:sRight .6s ease .2s both
+}
+.doc-form-wrap::before{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent)
+}
+
+/* — Header formulaire — */
+.form-header{margin-bottom:18px}
+.form-header h2{font-size:18px}
+.form-header p{font-size:12px}
+
+/* — Progress bar — */
+.progress{gap:5px;margin-bottom:18px}
+.progress-seg{height:3px;border-radius:2px}
+.progress-seg.done{background:linear-gradient(90deg,var(--accent),#3DD5D9)}
+
+/* — Step label & question — */
+.step-label{font-size:10px;letter-spacing:.1em;margin-bottom:5px}
+.step-q{font-size:16px;margin-bottom:14px}
+
+/* — Options : 2 colonnes sur mobile (touch-friendly) — */
+.step-opts{grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px}
+.step-opt{
+  padding:12px 10px;
+  border-radius:11px;
+  font-size:12px;
+  background:rgba(250,251,252,.9);
+  border:0.5px solid rgba(0,0,0,.08);
+  box-shadow:none;
+  -webkit-tap-highlight-color:transparent
+}
+.step-opt:hover{transform:none}
+.step-opt.selected{
+  background:rgba(16,171,175,.07);
+  border-color:rgba(16,171,175,.35);
+  color:var(--accent2)
+}
+.opt-dot{width:15px;height:15px;border-width:1.5px}
+
+/* — Champs — */
+.fr2{grid-template-columns:1fr 1fr;gap:8px}
+.frp{grid-template-columns:100px 1fr;gap:8px}
+.ff{margin-bottom:9px}
+.ff label{font-size:11px;margin-bottom:4px}
+.ff select,.ff input,.ff textarea{
+  padding:11px 14px;
+  font-size:13.5px;
+  border-radius:10px;
+  border-width:0.5px;
+  background:rgba(255,255,255,.8)
+}
+.ff input:focus,.ff select:focus,.ff textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(16,171,175,.1);
+  background:#fff
+}
+.ff textarea{min-height:72px}
+
+/* — Consentement — */
+.consent{font-size:11px;margin:12px 0;gap:8px;line-height:1.5}
+.consent input{width:14px;height:14px}
+
+/* — Navigation steps — */
+.step-nav{margin-top:16px;padding-top:14px;border-top:0.5px solid rgba(0,0,0,.06)}
+.btn-back{font-size:13px;color:var(--muted)}
+.btn-next,.btn-send{
+  font-size:13.5px;
+  padding:12px 20px;
+  border-radius:10px;
+  box-shadow:0 4px 14px rgba(16,171,175,.28)
+}
+
+/* — CTA final pleine largeur — */
+.btn-send{
+  width:100%;
+  justify-content:center;
+  padding:14px;
+  border-radius:12px;
+  font-size:14.5px;
+  box-shadow:0 6px 20px rgba(16,171,175,.3)
+}
+
+/* — Success — */
+.form-ok{padding:40px 0}
+.form-ok h3{font-size:20px}
+
+/* — Footer — */
 .ft-grid,.ft-bottom{display:none}
 .ft-mobile{display:block}
+
+/* — Tab bar fixe mobile (optionnel, décommenter si souhaité) — */
+/*
+.mobile-tabbar{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(250,251,252,.85);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:0.5px solid rgba(0,0,0,.08);
+  display:flex;
+  padding-bottom:env(safe-area-inset-bottom)
 }
-@media(max-width:480px){h1{font-size:24px}.sec-h2{font-size:22px}}
+.mobile-tabbar a{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:10px 0 8px;text-decoration:none;
+  font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.02em
+}
+.mobile-tabbar a.active{color:var(--accent)}
+.mobile-tabbar svg{width:20px;height:20px}
+*/
+}
+
+@media(max-width:480px){
+.doc-title{font-size:24px}
+.step-opts{grid-template-columns:1fr 1fr}
+.fr2{grid-template-columns:1fr 1fr}
+.frp{grid-template-columns:90px 1fr}
+.doc-form-wrap{padding:20px 16px;border-radius:18px}
+.btn-send{font-size:14px}
+}
 </style>
 <link rel="stylesheet" href="/search-modal.css">
 </head>
