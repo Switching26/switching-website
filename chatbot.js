@@ -9,7 +9,7 @@
   var PHONE_HREF = 'tel:+33695185057';
   var WELCOME_TEXT = '\ud83d\udc4b Bonjour ! Je suis l\'Assistant Switching Formation. Comment puis-je vous aider ?';
   var WELCOME_BUTTONS = ['\ud83d\udcda Je cherche une formation', '\ud83d\udcb3 Question sur le financement', '\ud83d\udcdd Demander un devis'];
-  var LIMIT_TEXT = 'Pour continuer, appelez-nous au <a href="' + PHONE_HREF + '" style="color:#1E293B;font-weight:700;text-decoration:underline">' + PHONE + '</a>';
+  var LIMIT_TEXT = 'Pour continuer, appelez-nous au <a href="' + PHONE_HREF + '" style="color:#475569;font-weight:700;text-decoration:underline">' + PHONE + '</a>';
 
   var VISITOR_STORAGE_KEY = 'sf-visitor-id';
   var CONV_STORAGE_KEY = 'sf-chat-conv-id';
@@ -110,7 +110,7 @@
 \
 /* ── Header ── */\
 .sf-chat-header{\
-  background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#334155 100%);\
+  background:linear-gradient(135deg,#475569 0%,#64748B 60%,#7890A8 100%);\
   padding:18px 20px;\
   display:flex;align-items:center;gap:12px;\
   flex-shrink:0;\
@@ -204,10 +204,10 @@
 .sf-chat-msg-bubble em,.sf-chat-msg-bubble i{font-style:italic;}\
 .sf-chat-msg-bubble a{color:#1E293B;text-decoration:underline;font-weight:600;}\
 .sf-chat-msg-user .sf-chat-msg-bubble{\
-  background:linear-gradient(135deg,#1E293B,#334155);\
+  background:linear-gradient(135deg,#475569,#64748B);\
   color:#fff;\
   border-bottom-right-radius:4px;\
-  box-shadow:0 3px 16px rgba(15,23,42,.15);\
+  box-shadow:0 3px 16px rgba(71,85,105,.2);\
 }\
 \
 /* ── Quick Buttons ── */\
@@ -220,16 +220,16 @@
   font-family:"Almarai",sans-serif;font-size:12.5px;font-weight:600;\
   padding:9px 18px;border-radius:100px;\
   border:1px solid rgba(0,0,0,.1);background:#fff;\
-  color:#1E293B;cursor:pointer;\
+  color:#475569;cursor:pointer;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
   line-height:1.3;\
 }\
 .sf-chat-btn:hover{\
-  background:#1E293B;\
+  background:#64748B;\
   color:#fff;\
   border-color:transparent;\
   transform:translateY(-2px);\
-  box-shadow:0 6px 20px rgba(15,23,42,.15);\
+  box-shadow:0 6px 20px rgba(100,116,139,.2);\
 }\
 \
 /* ── Typing ── */\
@@ -268,15 +268,15 @@
 }\
 .sf-chat-send{\
   width:38px;height:38px;border-radius:50%;border:none;\
-  background:#1E293B;\
+  background:#64748B;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;flex-shrink:0;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
   opacity:.5;pointer-events:none;\
-  box-shadow:0 2px 10px rgba(15,23,42,.15);\
+  box-shadow:0 2px 10px rgba(100,116,139,.2);\
 }\
 .sf-chat-send.sf-chat-send-active{opacity:1;pointer-events:auto;}\
-.sf-chat-send:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(15,23,42,.25);}\
+.sf-chat-send:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(100,116,139,.3);}\
 .sf-chat-send:active{transform:scale(.94);}\
 .sf-chat-send svg{width:17px;height:17px;color:#fff;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}\
 \
@@ -301,7 +301,7 @@
 }\
 .sf-chat-inline-label{\
   font-family:"Almarai",sans-serif;font-size:12px;font-weight:600;\
-  color:#1E293B;letter-spacing:.02em;\
+  color:#475569;letter-spacing:.02em;\
   display:block;margin-bottom:6px;\
 }\
 .sf-chat-inline-row{\
@@ -320,14 +320,14 @@
 .sf-chat-inline-field::placeholder{color:#94A3B8;}\
 .sf-chat-inline-submit{\
   width:36px;height:36px;border-radius:10px;border:none;\
-  background:#1E293B;\
+  background:#64748B;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;flex-shrink:0;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
-  box-shadow:0 2px 8px rgba(15,23,42,.15);\
+  box-shadow:0 2px 8px rgba(100,116,139,.2);\
 }\
 .sf-chat-inline-submit:disabled{opacity:.35;cursor:default;}\
-.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(15,23,42,.25);}\
+.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(100,116,139,.3);}\
 .sf-chat-inline-submit svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
 \
 /* ── Error ── */\
