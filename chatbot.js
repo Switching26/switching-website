@@ -9,7 +9,7 @@
   var PHONE_HREF = 'tel:+33695185057';
   var WELCOME_TEXT = '\ud83d\udc4b Bonjour ! Je suis l\'Assistant Switching Formation. Comment puis-je vous aider ?';
   var WELCOME_BUTTONS = ['\ud83d\udcda Je cherche une formation', '\ud83d\udcb3 Question sur le financement', '\ud83d\udcdd Demander un devis'];
-  var LIMIT_TEXT = 'Pour continuer, appelez-nous au <a href="' + PHONE_HREF + '" style="color:#475569;font-weight:700;text-decoration:underline">' + PHONE + '</a>';
+  var LIMIT_TEXT = 'Pour continuer, appelez-nous au <a href="' + PHONE_HREF + '" style="color:#10ABAF;font-weight:700;text-decoration:underline">' + PHONE + '</a>';
 
   var VISITOR_STORAGE_KEY = 'sf-visitor-id';
   var CONV_STORAGE_KEY = 'sf-chat-conv-id';
@@ -92,10 +92,12 @@
 .sf-chat-panel{\
   position:fixed;bottom:96px;right:28px;z-index:9997;\
   width:380px;height:560px;\
-  background:#fff;\
+  background:rgba(255,255,255,.85);\
+  backdrop-filter:blur(20px) saturate(180%);\
+  -webkit-backdrop-filter:blur(20px) saturate(180%);\
   border-radius:22px;\
-  border:1px solid rgba(0,0,0,.06);\
-  box-shadow:0 32px 64px -12px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.04);\
+  border:1px solid rgba(16,171,175,.08);\
+  box-shadow:0 32px 64px -12px rgba(0,0,0,.1),0 0 0 1px rgba(16,171,175,.05);\
   display:flex;flex-direction:column;\
   overflow:hidden;\
   opacity:0;\
@@ -105,12 +107,12 @@
 }\
 .sf-chat-panel.sf-chat-visible{\
   opacity:1;transform:translateY(0) scale(1);pointer-events:auto;\
-  box-shadow:0 20px 60px -8px rgba(0,0,0,.18),0 8px 24px -4px rgba(0,0,0,.08);\
+  box-shadow:0 20px 60px -8px rgba(0,0,0,.15),0 0 0 1px rgba(16,171,175,.08);\
 }\
 \
 /* ── Header ── */\
 .sf-chat-header{\
-  background:linear-gradient(135deg,#475569 0%,#64748B 60%,#7890A8 100%);\
+  background:linear-gradient(135deg,#0E9599 0%,#10ABAF 50%,#3DC8C9 100%);\
   padding:18px 20px;\
   display:flex;align-items:center;gap:12px;\
   flex-shrink:0;\
@@ -120,20 +122,20 @@
 .sf-chat-header::before{\
   content:"";position:absolute;inset:0;\
   background:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.04\'/%3E%3C/svg%3E");\
-  opacity:.4;pointer-events:none;\
+  opacity:.35;pointer-events:none;\
 }\
 .sf-chat-header::after{\
   content:"";position:absolute;inset:0;\
   background:\
-    radial-gradient(ellipse 120px 120px at 15% 30%,rgba(255,255,255,.12) 0%,transparent 70%),\
-    radial-gradient(ellipse 80px 80px at 85% 60%,rgba(255,255,255,.08) 0%,transparent 70%);\
+    radial-gradient(ellipse 120px 120px at 15% 30%,rgba(255,255,255,.15) 0%,transparent 70%),\
+    radial-gradient(ellipse 80px 80px at 85% 60%,rgba(255,255,255,.1) 0%,transparent 70%);\
   pointer-events:none;\
 }\
 .sf-chat-header-avatar{\
   width:40px;height:40px;border-radius:12px;\
-  background:rgba(255,255,255,.15);\
+  background:rgba(255,255,255,.18);\
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);\
-  border:1px solid rgba(255,255,255,.18);\
+  border:1px solid rgba(255,255,255,.25);\
   display:flex;align-items:center;justify-content:center;\
   flex-shrink:0;position:relative;z-index:2;\
 }\
@@ -145,7 +147,7 @@
 }\
 .sf-chat-header-status{\
   font-family:"Almarai",sans-serif;font-size:11px;font-weight:500;\
-  color:rgba(255,255,255,.75);margin-top:2px;\
+  color:rgba(255,255,255,.8);margin-top:2px;\
   display:flex;align-items:center;gap:5px;\
 }\
 .sf-chat-header-dot{\
@@ -159,11 +161,11 @@
 }\
 .sf-chat-header-close{\
   width:32px;height:32px;border-radius:8px;border:none;\
-  background:rgba(255,255,255,.15);cursor:pointer;\
+  background:rgba(255,255,255,.18);cursor:pointer;\
   display:flex;align-items:center;justify-content:center;\
   transition:background .2s;position:relative;z-index:2;\
 }\
-.sf-chat-header-close:hover{background:rgba(255,255,255,.25);}\
+.sf-chat-header-close:hover{background:rgba(255,255,255,.3);}\
 .sf-chat-header-close svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
 \
 /* ── Messages ── */\
@@ -172,11 +174,11 @@
   display:flex;flex-direction:column;gap:10px;\
   scroll-behavior:smooth;\
   -webkit-overflow-scrolling:touch;\
-  background:#fff;\
+  background:rgba(255,255,255,.5);\
 }\
 .sf-chat-messages::-webkit-scrollbar{width:3px;}\
 .sf-chat-messages::-webkit-scrollbar-track{background:transparent;}\
-.sf-chat-messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:4px;}\
+.sf-chat-messages::-webkit-scrollbar-thumb{background:rgba(16,171,175,.2);border-radius:4px;}\
 \
 .sf-chat-msg{\
   max-width:84%;display:flex;flex-direction:column;\
@@ -196,18 +198,20 @@
   word-break:break-word;\
 }\
 .sf-chat-msg-bot .sf-chat-msg-bubble{\
-  background:#F1F5F9;color:#1E293B;\
+  background:rgba(255,255,255,.75);\
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);\
+  color:#1E293B;\
   border-bottom-left-radius:4px;\
-  border:1px solid rgba(0,0,0,.04);\
+  border:1px solid rgba(16,171,175,.08);\
 }\
-.sf-chat-msg-bubble strong,.sf-chat-msg-bubble b{font-weight:700;color:#0F172A;}\
+.sf-chat-msg-bubble strong,.sf-chat-msg-bubble b{font-weight:700;color:#0E9599;}\
 .sf-chat-msg-bubble em,.sf-chat-msg-bubble i{font-style:italic;}\
-.sf-chat-msg-bubble a{color:#1E293B;text-decoration:underline;font-weight:600;}\
+.sf-chat-msg-bubble a{color:#10ABAF;text-decoration:underline;font-weight:600;}\
 .sf-chat-msg-user .sf-chat-msg-bubble{\
-  background:linear-gradient(135deg,#475569,#64748B);\
+  background:rgba(16,171,175,.9);\
   color:#fff;\
   border-bottom-right-radius:4px;\
-  box-shadow:0 3px 16px rgba(71,85,105,.2);\
+  box-shadow:0 3px 16px rgba(16,171,175,.2);\
 }\
 \
 /* ── Quick Buttons ── */\
@@ -219,27 +223,29 @@
 .sf-chat-btn{\
   font-family:"Almarai",sans-serif;font-size:12.5px;font-weight:600;\
   padding:9px 18px;border-radius:100px;\
-  border:1px solid rgba(0,0,0,.1);background:#fff;\
-  color:#475569;cursor:pointer;\
+  border:1px solid rgba(16,171,175,.18);\
+  background:rgba(16,171,175,.04);\
+  color:#0E9599;cursor:pointer;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
   line-height:1.3;\
 }\
 .sf-chat-btn:hover{\
-  background:#64748B;\
+  background:rgba(16,171,175,.9);\
   color:#fff;\
   border-color:transparent;\
   transform:translateY(-2px);\
-  box-shadow:0 6px 20px rgba(100,116,139,.2);\
+  box-shadow:0 6px 20px rgba(16,171,175,.2);\
 }\
 \
 /* ── Typing ── */\
 .sf-chat-typing{\
   align-self:flex-start;display:flex;gap:4px;padding:14px 18px;\
-  background:#F1F5F9;border-radius:16px;border-bottom-left-radius:4px;\
-  border:1px solid rgba(0,0,0,.04);\
+  background:rgba(255,255,255,.7);border-radius:16px;border-bottom-left-radius:4px;\
+  border:1px solid rgba(16,171,175,.06);\
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);\
 }\
 .sf-chat-typing-dot{\
-  width:7px;height:7px;border-radius:50%;background:#a0a4c1;\
+  width:7px;height:7px;border-radius:50%;background:#94A3B8;\
   animation:sf-chat-bounce 1.4s ease-in-out infinite;\
 }\
 .sf-chat-typing-dot:nth-child(2){animation-delay:.15s;}\
@@ -251,32 +257,33 @@
 \
 /* ── Input ── */\
 .sf-chat-input-area{\
-  padding:14px 16px;border-top:1px solid rgba(0,0,0,.06);\
+  padding:14px 16px;border-top:1px solid rgba(16,171,175,.08);\
   display:flex;align-items:center;gap:10px;flex-shrink:0;\
-  background:rgba(255,255,255,.8);\
+  background:rgba(255,255,255,.6);\
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);\
 }\
 .sf-chat-input{\
-  flex:1;border:1px solid rgba(0,0,0,.08);border-radius:100px;\
+  flex:1;border:1px solid rgba(16,171,175,.12);border-radius:100px;\
   padding:10px 16px;font-family:"Almarai",sans-serif;font-size:13.5px;\
-  color:#1E293B;background:#F8FAFC;outline:none;\
+  color:#1E293B;background:rgba(255,255,255,.7);outline:none;\
   transition:border-color .25s,box-shadow .25s;\
 }\
 .sf-chat-input::placeholder{color:#94A3B8;}\
 .sf-chat-input:focus{\
-  border-color:rgba(30,41,59,.3);\
-  box-shadow:0 0 0 3px rgba(30,41,59,.06);\
+  border-color:rgba(16,171,175,.4);\
+  box-shadow:0 0 0 3px rgba(16,171,175,.08);\
 }\
 .sf-chat-send{\
   width:38px;height:38px;border-radius:50%;border:none;\
-  background:#64748B;\
+  background:#10ABAF;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;flex-shrink:0;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
   opacity:.5;pointer-events:none;\
-  box-shadow:0 2px 10px rgba(100,116,139,.2);\
+  box-shadow:0 2px 10px rgba(16,171,175,.25);\
 }\
 .sf-chat-send.sf-chat-send-active{opacity:1;pointer-events:auto;}\
-.sf-chat-send:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(100,116,139,.3);}\
+.sf-chat-send:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(16,171,175,.3);}\
 .sf-chat-send:active{transform:scale(.94);}\
 .sf-chat-send svg{width:17px;height:17px;color:#fff;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}\
 \
@@ -294,14 +301,14 @@
 .sf-chat-inline-input{\
   margin-top:8px;padding:12px 14px;\
   background:#fff;border-radius:14px;\
-  border:1px solid rgba(0,0,0,.08);\
-  box-shadow:0 2px 12px rgba(0,0,0,.04);\
+  border:1px solid rgba(16,171,175,.12);\
+  box-shadow:0 2px 12px rgba(16,171,175,.06);\
   animation:sf-chat-msgIn .45s cubic-bezier(.16,1,.3,1) both;\
   animation-delay:.1s;\
 }\
 .sf-chat-inline-label{\
   font-family:"Almarai",sans-serif;font-size:12px;font-weight:600;\
-  color:#475569;letter-spacing:.02em;\
+  color:#0E9599;letter-spacing:.02em;\
   display:block;margin-bottom:6px;\
 }\
 .sf-chat-inline-row{\
@@ -314,20 +321,20 @@
   transition:border-color .25s,box-shadow .25s;\
 }\
 .sf-chat-inline-field:focus{\
-  border-color:rgba(30,41,59,.3);\
-  box-shadow:0 0 0 3px rgba(30,41,59,.06);\
+  border-color:rgba(16,171,175,.4);\
+  box-shadow:0 0 0 3px rgba(16,171,175,.08);\
 }\
 .sf-chat-inline-field::placeholder{color:#94A3B8;}\
 .sf-chat-inline-submit{\
   width:36px;height:36px;border-radius:10px;border:none;\
-  background:#64748B;\
+  background:#10ABAF;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;flex-shrink:0;\
   transition:all .3s cubic-bezier(.16,1,.3,1);\
-  box-shadow:0 2px 8px rgba(100,116,139,.2);\
+  box-shadow:0 2px 8px rgba(16,171,175,.2);\
 }\
 .sf-chat-inline-submit:disabled{opacity:.35;cursor:default;}\
-.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(100,116,139,.3);}\
+.sf-chat-inline-submit:not(:disabled):hover{transform:scale(1.08);box-shadow:0 4px 12px rgba(16,171,175,.3);}\
 .sf-chat-inline-submit svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}\
 \
 /* ── Error ── */\
