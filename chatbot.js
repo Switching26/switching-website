@@ -40,32 +40,31 @@
 .sf-chat-bubble{\
   position:fixed;bottom:28px;right:28px;z-index:9998;\
   width:64px;height:64px;border-radius:50%;\
-  background:linear-gradient(135deg,#6366f1,#8b5cf6,#c084fc,#f0abfc,#a78bfa,#818cf8,#6366f1);\
-  background-size:400% 400%;\
+  background:conic-gradient(from 0deg,#6366f1,#8b5cf6,#c084fc,#f0abfc,#818cf8,#60a5fa,#6366f1);\
+  background-size:100% 100%;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;border:none;outline:none;\
   -webkit-tap-highlight-color:transparent;\
   box-shadow:\
     0 6px 28px rgba(139,92,246,.5),\
-    0 0 20px rgba(192,132,252,.35),\
+    0 0 20px rgba(192,132,252,.3),\
     inset 0 1px 0 rgba(255,255,255,.3);\
   transition:all .4s cubic-bezier(.16,1,.3,1);\
-  animation:sf-chat-gradMove 5s ease-in-out infinite,sf-chat-pulse 2.5s ease-in-out infinite;\
+  animation:sf-chat-spin 5s ease-in-out infinite,sf-chat-pulse 2.5s ease-in-out infinite;\
 }\
 /* Glow halo */\
 .sf-chat-bubble::before{\
-  content:"";position:absolute;inset:-8px;border-radius:50%;\
-  background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(192,132,252,.4),rgba(240,171,252,.35),rgba(167,139,250,.3),rgba(99,102,241,.35));\
-  background-size:400% 400%;\
-  animation:sf-chat-gradMove 5s ease-in-out infinite;\
-  filter:blur(10px);\
-  opacity:.8;\
+  content:"";position:absolute;inset:-7px;border-radius:50%;\
+  background:conic-gradient(from 0deg,rgba(99,102,241,.3),rgba(192,132,252,.4),rgba(240,171,252,.3),rgba(96,165,250,.3),rgba(99,102,241,.3));\
+  animation:sf-chat-spin 5s ease-in-out infinite;\
+  filter:blur(8px);\
+  opacity:.7;\
 }\
 /* Glass shine */\
 .sf-chat-bubble::after{\
   content:"";position:absolute;inset:2px;border-radius:50%;\
-  background:radial-gradient(ellipse 55% 40% at 32% 28%,rgba(255,255,255,.5),transparent 60%),\
-    radial-gradient(ellipse 25% 20% at 72% 72%,rgba(255,255,255,.15),transparent 50%);\
+  background:radial-gradient(ellipse 60% 40% at 35% 30%,rgba(255,255,255,.45),transparent 60%),\
+    radial-gradient(ellipse 30% 25% at 70% 70%,rgba(255,255,255,.15),transparent 50%);\
   pointer-events:none;\
 }\
 .sf-chat-bubble.sf-chat-active::before,.sf-chat-bubble.sf-chat-active::after{animation:none;opacity:0;}\
@@ -73,23 +72,20 @@
   transform:scale(1.12);\
   box-shadow:\
     0 12px 44px rgba(139,92,246,.6),\
-    0 0 36px rgba(192,132,252,.45),\
+    0 0 32px rgba(192,132,252,.4),\
     0 0 0 8px rgba(139,92,246,.1),\
     inset 0 1px 0 rgba(255,255,255,.35);\
 }\
 .sf-chat-bubble:active{transform:scale(.93);transition-duration:.1s;}\
 .sf-chat-bubble svg{width:28px;height:28px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));position:relative;z-index:1;}\
 .sf-chat-bubble.sf-chat-active{display:none;}\
-@keyframes sf-chat-gradMove{\
-  0%{background-position:0% 50%;}\
-  25%{background-position:100% 0%;}\
-  50%{background-position:50% 100%;}\
-  75%{background-position:0% 0%;}\
-  100%{background-position:0% 50%;}\
+@keyframes sf-chat-spin{\
+  0%,100%{filter:hue-rotate(0deg);}\
+  50%{filter:hue-rotate(100deg);}\
 }\
 @keyframes sf-chat-pulse{\
-  0%,100%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.35),inset 0 1px 0 rgba(255,255,255,.3);}\
-  50%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.35),0 0 0 16px rgba(139,92,246,0),inset 0 1px 0 rgba(255,255,255,.3);}\
+  0%,100%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),inset 0 1px 0 rgba(255,255,255,.3);}\
+  50%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),0 0 0 16px rgba(139,92,246,0),inset 0 1px 0 rgba(255,255,255,.3);}\
 }\
 \
 /* ── Chat Panel ── */\
@@ -475,9 +471,8 @@
   bubble.setAttribute('aria-label', 'Ouvrir le chat');
   bubble.innerHTML = '\
 <svg viewBox="0 0 24 24">\
-<path d="M21 12a8.5 8.5 0 01-8.5 8.5c-1.4 0-2.7-.3-3.8-.9L3 21l1.4-5.7A8.5 8.5 0 1121 12z"/>\
-<path d="M12 7.5v3.25L14.25 12 12 13.25V16.5L8.75 12z" fill="white" stroke="none"/>\
-<path d="M12 7.5v3.25L9.75 12 12 13.25V16.5L15.25 12z" fill="rgba(255,255,255,.55)" stroke="none"/>\
+<path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>\
+<path d="M12 6.5c.6 2.2 1.8 3.4 4 4-2.2.6-3.4 1.8-4 4-.6-2.2-1.8-3.4-4-4 2.2-.6 3.4-1.8 4-4z" fill="white" stroke="none"/>\
 </svg>';
 
   // Panel
