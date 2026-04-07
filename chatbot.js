@@ -40,62 +40,52 @@
 .sf-chat-bubble{\
   position:fixed;bottom:28px;right:28px;z-index:9998;\
   width:64px;height:64px;border-radius:50%;\
-  background:linear-gradient(145deg,#6366f1 0%,#8b5cf6 25%,#a855f7 50%,#c084fc 75%,#818cf8 100%);\
-  background-size:300% 300%;\
-  animation:sf-chat-gradShift 4s ease-in-out infinite;\
+  background:conic-gradient(from 0deg,#6366f1,#8b5cf6,#c084fc,#f0abfc,#818cf8,#60a5fa,#6366f1);\
+  background-size:100% 100%;\
   display:flex;align-items:center;justify-content:center;\
   cursor:pointer;border:none;outline:none;\
   -webkit-tap-highlight-color:transparent;\
   box-shadow:\
-    0 6px 28px rgba(139,92,246,.45),\
-    0 2px 10px rgba(168,85,247,.3),\
-    0 0 0 0 rgba(139,92,246,.4),\
+    0 6px 28px rgba(139,92,246,.5),\
+    0 0 20px rgba(192,132,252,.3),\
     inset 0 1px 0 rgba(255,255,255,.3);\
   transition:all .4s cubic-bezier(.16,1,.3,1);\
-  animation:sf-chat-gradShift 4s ease-in-out infinite,sf-chat-pulse 2.5s ease-in-out infinite;\
+  animation:sf-chat-spin 4s linear infinite,sf-chat-pulse 2.5s ease-in-out infinite;\
 }\
-/* Glow ring */\
+/* Glow ring pulse */\
 .sf-chat-bubble::before{\
-  content:"";position:absolute;inset:-6px;border-radius:50%;\
-  border:2px solid rgba(139,92,246,.35);\
-  animation:sf-chat-glowRing 3s ease-in-out infinite;\
+  content:"";position:absolute;inset:-7px;border-radius:50%;\
+  background:conic-gradient(from 0deg,rgba(99,102,241,.3),rgba(192,132,252,.4),rgba(240,171,252,.3),rgba(96,165,250,.3),rgba(99,102,241,.3));\
+  animation:sf-chat-spin 4s linear infinite;\
+  filter:blur(8px);\
+  opacity:.7;\
 }\
-/* Shine sweep */\
+/* Shine overlay */\
 .sf-chat-bubble::after{\
-  content:"";position:absolute;inset:0;border-radius:50%;\
-  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.35) 45%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.35) 55%,transparent 65%);\
-  background-size:250% 250%;\
-  animation:sf-chat-shine 3s ease-in-out infinite;\
+  content:"";position:absolute;inset:2px;border-radius:50%;\
+  background:radial-gradient(ellipse 60% 40% at 35% 30%,rgba(255,255,255,.45),transparent 60%),\
+    radial-gradient(ellipse 30% 25% at 70% 70%,rgba(255,255,255,.15),transparent 50%);\
+  pointer-events:none;\
 }\
 .sf-chat-bubble.sf-chat-active::before,.sf-chat-bubble.sf-chat-active::after{animation:none;opacity:0;}\
 .sf-chat-bubble:hover{\
   transform:scale(1.12);\
   box-shadow:\
-    0 12px 40px rgba(139,92,246,.55),\
-    0 4px 16px rgba(168,85,247,.35),\
+    0 12px 44px rgba(139,92,246,.6),\
+    0 0 32px rgba(192,132,252,.4),\
     0 0 0 8px rgba(139,92,246,.1),\
     inset 0 1px 0 rgba(255,255,255,.35);\
 }\
 .sf-chat-bubble:active{transform:scale(.93);transition-duration:.1s;}\
-.sf-chat-bubble svg{width:28px;height:28px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));position:relative;z-index:1;}\
+.sf-chat-bubble svg{width:28px;height:28px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));position:relative;z-index:1;}\
 .sf-chat-bubble.sf-chat-active{display:none;}\
-@keyframes sf-chat-gradShift{\
-  0%{background-position:0% 50%;}\
-  50%{background-position:100% 50%;}\
-  100%{background-position:0% 50%;}\
-}\
-@keyframes sf-chat-glowRing{\
-  0%,100%{transform:scale(1);opacity:.6;border-color:rgba(139,92,246,.35);}\
-  50%{transform:scale(1.18);opacity:0;border-color:rgba(192,132,252,.5);}\
+@keyframes sf-chat-spin{\
+  from{filter:hue-rotate(0deg);}\
+  to{filter:hue-rotate(360deg);}\
 }\
 @keyframes sf-chat-pulse{\
-  0%,100%{box-shadow:0 6px 28px rgba(139,92,246,.45),0 2px 10px rgba(168,85,247,.3),0 0 0 0 rgba(139,92,246,.4),inset 0 1px 0 rgba(255,255,255,.3);}\
-  50%{box-shadow:0 6px 28px rgba(139,92,246,.45),0 2px 10px rgba(168,85,247,.3),0 0 0 14px rgba(139,92,246,0),inset 0 1px 0 rgba(255,255,255,.3);}\
-}\
-@keyframes sf-chat-shine{\
-  0%{background-position:200% 0;}\
-  50%{background-position:-50% 0;}\
-  100%{background-position:200% 0;}\
+  0%,100%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),inset 0 1px 0 rgba(255,255,255,.3);}\
+  50%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),0 0 0 16px rgba(139,92,246,0),inset 0 1px 0 rgba(255,255,255,.3);}\
 }\
 \
 /* ── Chat Panel ── */\
@@ -358,9 +348,8 @@
     0 8px 32px rgba(79,70,229,.1),\
     0 2px 8px rgba(0,0,0,.04),\
     0 0 0 1px rgba(79,70,229,.06);\
-  font-family:"Almarai",sans-serif;font-size:13.5px;font-weight:500;\
-  color:#1e1b3a;line-height:1.55;\
-  max-width:265px;\
+  font-family:"Almarai",sans-serif;\
+  max-width:270px;\
   cursor:pointer;\
   opacity:0;transform:translateY(12px) scale(.9);\
   transition:all .7s cubic-bezier(.16,1,.3,1);\
@@ -376,6 +365,33 @@
     0 0 0 1px rgba(79,70,229,.1);\
   transform:translateY(-2px);\
 }\
+.sf-chat-nudge-body{\
+  display:flex;align-items:flex-start;gap:12px;\
+}\
+.sf-chat-nudge-emoji{\
+  font-size:20px;flex-shrink:0;line-height:1;\
+  animation:sf-chat-emojiFloat 2.5s ease-in-out infinite;\
+}\
+@keyframes sf-chat-emojiFloat{\
+  0%,100%{transform:translateY(0) scale(1);}\
+  50%{transform:translateY(-3px) scale(1.08);}\
+}\
+.sf-chat-nudge-text{\
+  font-size:13.5px;line-height:1.55;color:#1e1b3a;font-weight:500;\
+}\
+.sf-chat-nudge-text strong{\
+  background:linear-gradient(135deg,#6366f1,#a855f7);\
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;\
+  background-clip:text;font-weight:700;\
+}\
+.sf-chat-nudge-sub{\
+  font-size:11.5px;color:#a0a4c1;margin-top:6px;\
+  display:flex;align-items:center;gap:5px;\
+}\
+.sf-chat-nudge-sub-dot{\
+  width:5px;height:5px;background:#22c55e;border-radius:50%;\
+  animation:sf-chat-dotPulse 2s ease-in-out infinite;\
+}\
 .sf-chat-nudge-close{\
   position:absolute;top:8px;right:8px;\
   width:20px;height:20px;border-radius:50%;border:none;\
@@ -387,7 +403,8 @@
 .sf-chat-nudge-close:hover{background:rgba(107,112,148,.16);}\
 .sf-chat-nudge-close svg{width:10px;height:10px;stroke:#6b7094;stroke-width:2.5;fill:none;stroke-linecap:round;}\
 @media(max-width:480px){\
-  .sf-chat-nudge{right:20px;bottom:92px;max-width:220px;font-size:12.5px;padding:10px 14px;}\
+  .sf-chat-nudge{right:20px;bottom:84px;max-width:230px;font-size:12.5px;padding:12px 14px;}\
+  .sf-chat-nudge-emoji{font-size:18px;}\
 }\
 \
 /* ── Mobile Backdrop ── */\
@@ -415,7 +432,7 @@
   }\
   .sf-chat-bubble{bottom:20px;right:20px;width:56px;height:56px;}\
   .sf-chat-bubble svg{width:24px;height:24px;}\
-  .sf-chat-bubble::before{inset:-5px;}\
+  .sf-chat-bubble::before{inset:-5px;filter:blur(6px);}\
   .sf-chat-input-area{\
     padding:10px 12px;\
     padding-bottom:max(10px,env(safe-area-inset-bottom));\
@@ -841,21 +858,26 @@
   if (!nudgeDismissed && messages.length === 0) {
     var page = window.location.pathname.replace(/^\/|\.html$/g, '') || 'index';
     var nudgeMessages = {
-      'index': 'Envie d\u2019en savoir plus sur nos formations ? \ud83d\udcac',
-      'formations': 'Besoin d\u2019aide pour choisir votre formation ?',
-      'financement': 'Une question sur le financement ? Je peux vous aider \ud83d\ude4b',
-      'inscription': 'Je peux vous aider \u00e0 pr\u00e9parer votre devis !',
-      'documentation': 'Vous souhaitez recevoir la documentation ? \u00c9changeons !',
-      'le-centre': 'Des questions sur notre centre de formation ?',
-      'donnees': 'Une question ? N\u2019h\u00e9sitez pas \u00e0 me la poser !',
-      'mentions-legales': 'Une question ? Je suis l\u00e0 pour vous aider !',
-      'cgv': 'Besoin d\u2019\u00e9claircissements ? Demandez-moi !'
+      'index':           { emoji: '\u2728', text: 'Besoin d\u2019aide pour choisir <strong>votre formation</strong> ? On vous guide !', sub: 'Sophie r\u00e9pond en quelques secondes' },
+      'formations':      { emoji: '\ud83d\udcda', text: 'Vous h\u00e9sitez entre <strong>plusieurs formations</strong> ? Je vous aide \u00e0 trouver la bonne.', sub: 'R\u00e9ponse imm\u00e9diate' },
+      'financement':     { emoji: '\ud83d\udcb3', text: 'Des questions sur le <strong>financement CPF</strong> ou OPCO ? Je vous explique tout.', sub: 'Simulation gratuite' },
+      'inscription':     { emoji: '\ud83d\udcdd', text: 'Besoin d\u2019un <strong>devis personnalis\u00e9</strong> ? Je peux vous le pr\u00e9parer maintenant.', sub: 'R\u00e9ponse en 30 secondes' },
+      'documentation':   { emoji: '\ud83d\udcc4', text: 'Vous souhaitez recevoir <strong>la documentation</strong> ? \u00c9changeons !', sub: 'Sophie est l\u00e0 pour vous' },
+      'le-centre':       { emoji: '\ud83c\udfe2', text: 'Envie d\u2019en savoir plus sur <strong>notre centre</strong> certifi\u00e9 Qualiopi ?', sub: 'Sophie est l\u00e0 pour vous' },
+      'donnees':         { emoji: '\ud83d\udcac', text: 'Une question ? N\u2019h\u00e9sitez pas \u00e0 <strong>me la poser</strong> !', sub: 'Assistance en temps r\u00e9el' },
+      'mentions-legales': { emoji: '\ud83d\udcac', text: 'Une question ? Je suis l\u00e0 pour <strong>vous aider</strong> !', sub: 'Assistance en temps r\u00e9el' },
+      'cgv':             { emoji: '\ud83d\udcac', text: 'Besoin d\u2019<strong>\u00e9claircissements</strong> ? Demandez-moi !', sub: 'Assistance en temps r\u00e9el' }
     };
-    var nudgeText = nudgeMessages[page] || 'Comment puis-je vous aider ?';
+    var nudgeData = nudgeMessages[page] || { emoji: '\u2728', text: 'Comment puis-je <strong>vous aider</strong> ?', sub: 'Sophie r\u00e9pond instantan\u00e9ment' };
 
     var nudge = document.createElement('div');
     nudge.className = 'sf-chat-nudge';
-    nudge.innerHTML = '<button class="sf-chat-nudge-close" aria-label="Fermer"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' + nudgeText;
+    nudge.innerHTML = '<button class="sf-chat-nudge-close" aria-label="Fermer"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
+      + '<div class="sf-chat-nudge-body">'
+      + '<span class="sf-chat-nudge-emoji">' + nudgeData.emoji + '</span>'
+      + '<div><div class="sf-chat-nudge-text">' + nudgeData.text + '</div>'
+      + '<div class="sf-chat-nudge-sub"><span class="sf-chat-nudge-sub-dot"></span>' + nudgeData.sub + '</div>'
+      + '</div></div>';
     document.body.appendChild(nudge);
 
     // Show after 4 seconds
