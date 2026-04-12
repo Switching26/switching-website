@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin.html
+Disallow: /maquettes/
+Disallow: /email-templates-formulaire.html
+
+Sitemap: https://www.switching-formation.fr/sitemap.xml

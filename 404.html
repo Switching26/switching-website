@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/fav-sf-web.PNG">
+<title>Page introuvable — Switching Formation</title>
+<meta name="description" content="La page que vous recherchez n'existe pas ou a été déplacée. Retrouvez nos formations professionnelles certifiées Qualiopi.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FAFBFC;--surface:#FFFFFF;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--accent:#10ABAF;--accent2:#0E9599;--accent-gl:rgba(16,171,175,.12);--bd:rgba(0,0,0,.06);--r:16px;--rf:100px;--f:'Almarai',sans-serif;--e:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh}
+img{max-width:100%;height:auto}
+::selection{background:var(--accent);color:var(--bg)}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.08}
+.error-page{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 24px;position:relative}
+.error-page::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(16,171,175,.06),transparent);pointer-events:none}
+.error-content{position:relative;z-index:1;max-width:480px}
+.error-code{font-family:'Poppins',sans-serif;font-size:120px;font-weight:800;letter-spacing:-.06em;line-height:1;background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+.error-title{font-family:'Poppins',sans-serif;font-size:24px;font-weight:600;color:#0F172A;letter-spacing:-.02em;margin-bottom:12px}
+.error-text{font-size:15px;color:var(--sub);line-height:1.7;margin-bottom:32px}
+.error-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-back{background:var(--accent);color:#fff;padding:12px 28px;border-radius:var(--rf);font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl)}
+.btn-back:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 0 40px rgba(16,171,175,.25)}
+.btn-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-contact{background:transparent;color:var(--text);padding:12px 28px;border-radius:var(--rf);font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--bd);transition:all .3s var(--e)}
+.btn-contact:hover{border-color:var(--accent);color:var(--accent);background:rgba(16,171,175,.04)}
+@media(max-width:768px){.error-code{font-size:80px}.error-title{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="error-page">
+<div class="error-content">
+<div class="error-code">404</div>
+<h1 class="error-title">Page introuvable</h1>
+<p class="error-text">La page que vous recherchez n'existe pas ou a été déplacée. Pas de panique, vous pouvez retrouver nos formations et toutes nos informations depuis la page d'accueil.</p>
+<div class="error-links">
+<a href="index.html" class="btn-back"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Retour à l'accueil</a>
+<a href="formations.html" class="btn-contact">Nos formations</a>
+</div>
+</div>
+</div>
+</body>
+</html>
