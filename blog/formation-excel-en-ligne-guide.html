@@ -92,7 +92,11 @@ footer{background:#0F172A;padding:0;position:relative;overflow:hidden}footer::be
 <div class="ft-bottom"><div class="copy">&copy; 2026 Switching Formation.</div><div class="fl"><a href="../cgv.html">CGV</a><span class="d">&bull;</span><a href="../mentions-legales.html">Mentions</a><span class="d">&bull;</span><a href="../donnees.html">Donnees</a></div></div>
 <div class="ft-mobile"><div class="ft-brand-m">Switching Formation&reg;</div><div class="ft-legal-m"><a href="../cgv.html">CGV</a><a href="../mentions-legales.html">Mentions</a><a href="../donnees.html">Donnees</a></div><div class="ft-copy-m">&copy; 2026 Switching Formation.</div></div>
 </div></footer>
-<script>var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});</script>
+<script>
+document.querySelectorAll('.rv').forEach(function(el){
+  new IntersectionObserver(function(e){if(e[0].isIntersecting){el.classList.add('vis')}},{threshold:.1,rootMargin:'0px 0px -40px 0px'}).observe(el);
+});
+var hd=document.getElementById('hd');window.addEventListener('scroll',function(){hd.classList.toggle('scrolled',window.scrollY>40)});</script>
 <script src="/chatbot.js" defer></script>
 <script src="/search-modal.js" defer></script>
 </body>
