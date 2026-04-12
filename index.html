@@ -40,7 +40,7 @@ header.scrolled{background:rgba(250,251,252,.85);padding:6px 0;box-shadow:0 4px 
 .hdr{display:flex;align-items:center;justify-content:space-between;height:56px;transition:height .4s var(--e)}
 header.scrolled .hdr{height:50px}
 .logo{text-decoration:none;display:flex;align-items:center;transition:transform .3s var(--e);flex-shrink:0}.logo:hover{transform:scale(1.03)}.logo img{height:40px;transition:height .4s var(--e)}
-header.scrolled .logo img{height:34px}
+header.scrolled .logo img{height:36px}
 .nav-pill{display:flex;align-items:center;gap:2px;background:var(--surface,#fff);border:1px solid var(--bd);border-radius:var(--rf);padding:4px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:all .4s var(--e)}
 header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .nav-pill a{text-decoration:none;font-size:13.5px;font-weight:500;color:var(--sub);padding:8px 18px;border-radius:var(--rf);transition:all .25s var(--e);position:relative;white-space:nowrap}
@@ -51,7 +51,7 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .nav-drop>a .dd-arrow{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--e)}
 .nav-drop:hover>a .dd-arrow{transform:rotate(180deg)}
 .nav-drop:hover>a{color:var(--text);background:rgba(16,171,175,.05)}
-.nav-dd{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);min-width:260px;background:var(--surface,#fff);border:1px solid var(--bd2);border-radius:16px;padding:12px 8px 8px;box-shadow:0 16px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.02);opacity:0;visibility:hidden;pointer-events:none;transition:all .25s var(--e);z-index:200}
+.nav-dd{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;background:var(--surface,#fff);border:1px solid var(--bd2);border-radius:16px;padding:14px 10px 10px;box-shadow:0 16px 48px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.02);opacity:0;visibility:hidden;pointer-events:none;transition:all .25s var(--e);z-index:200}
 .nav-dd::before{content:'';position:absolute;top:-14px;left:0;right:0;height:18px}
 .nav-drop:hover .nav-dd{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dd a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rs);font-size:13px;color:var(--sub);font-weight:500;transition:all .2s var(--e);background:transparent;box-shadow:none}
@@ -59,11 +59,13 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .dd-ico{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s var(--e);border:none}
 .dd-ico svg{width:16px;height:16px}
 .nav-dd a:hover .dd-ico{transform:scale(1.08)}
-.nav-cta{background:#0F172A;color:#fff!important;padding:10px 24px;border-radius:var(--rf);font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .3s var(--e);box-shadow:0 2px 10px rgba(0,0,0,.1);flex-shrink:0;white-space:nowrap}
-.nav-cta:hover{background:#1E293B;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.dd-all{font-weight:600!important;color:var(--accent)!important}.dd-all:hover{background:var(--accent-gl2)!important;color:var(--accent)!important}
+.nav-cta{background:var(--accent);color:#fff!important;padding:10px 22px;border-radius:var(--rf);font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .3s var(--e);box-shadow:0 2px 12px var(--accent-gl);flex-shrink:0;white-space:nowrap}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,171,175,.2)}
+.nav-cta svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 /* HERO */
-.hero{padding:24px 0 32px;position:relative;overflow:hidden}
+.hero{padding:48px 0 56px;position:relative;overflow:hidden}
 .hero-mesh{position:absolute;inset:0;background:
   radial-gradient(ellipse 60% 50% at 20% 50%,rgba(16,171,175,.10),transparent),
   radial-gradient(ellipse 40% 60% at 80% 30%,rgba(99,102,241,.06),transparent),
@@ -76,11 +78,15 @@ h1{font-family:'Poppins',sans-serif;font-size:48px;font-weight:700;line-height:1
 h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .tw{display:inline-block;opacity:0;transform:translateY(20px);animation:slideUp .8s var(--e) .4s forwards}
 @keyframes slideUp{to{opacity:1;transform:translateY(0)}}
-.hero-p{font-size:16px;line-height:1.75;color:var(--sub);margin-bottom:10px;max-width:520px}
+.hero-p{font-size:17px;line-height:1.7;color:var(--sub);margin-bottom:28px;max-width:520px}
 .hero-p b{color:var(--text);font-weight:600}
-.hero-p .sf{color:var(--accent);font-weight:600}
-.hero-fin{display:flex;align-items:center;gap:16px;margin:20px 0 24px;flex-wrap:wrap}
-.hero-fin img{height:44px;object-fit:contain}
+/* Hero stats */
+.hero-stats{display:flex;align-items:center;gap:24px;margin-bottom:32px}
+.hero-stat{display:flex;flex-direction:column;align-items:flex-start}
+.hero-stat-n{font-family:'Poppins',sans-serif;font-size:36px;font-weight:800;color:#0F172A;letter-spacing:-.03em;line-height:1;display:inline}
+.hero-stat-u{font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:var(--accent);line-height:1;margin-left:1px}
+.hero-stat-l{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.hero-stat-sep{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--bd2),transparent);flex-shrink:0}
 
 .hero-btns{display:flex;gap:12px}
 .btn-glow{background:var(--accent);color:#fff;padding:14px 30px;border-radius:var(--rf);text-decoration:none;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--e);box-shadow:0 0 20px var(--accent-gl);position:relative;touch-action:manipulation}
@@ -102,19 +108,32 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
 .sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* CERTS */
-.certs{padding:20px 0 28px;background:#fff;position:relative}
-.certs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent)}
-.certs::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(16,171,175,.25),transparent)}
-.certs .sec-head{margin-bottom:18px}
-.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center}
-.cg>div{display:flex;flex-direction:column;align-items:center}
-.cc{background:var(--surface);border:none;border-radius:20px;padding:20px 16px;text-align:center;transition:all .4s var(--e);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03);width:100%;height:140px;display:flex;align-items:center;justify-content:center}
-.cc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1),0 0 24px var(--accent-gl);transform:translateY(-4px)}
-.cc-logo{height:100%;display:flex;align-items:center;justify-content:center}
-.cc-logo img{max-height:100%;max-width:100%;object-fit:contain;transition:transform .4s var(--e)}
-.cc:hover .cc-logo img{transform:scale(1.05)}
-.cc-label{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px;text-align:center}
+/* CERTS — Compact trust strip */
+.certs{padding:0;background:transparent;position:relative}
+.certs-strip{max-width:1200px;margin:-20px auto 0;padding:0 32px;position:relative;z-index:10}
+.certs-inner{background:var(--surface);border:1px solid var(--bd);border-radius:20px;padding:28px 36px;display:flex;align-items:center;gap:0;box-shadow:0 8px 40px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.02);position:relative;overflow:hidden}
+.certs-inner::before{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:linear-gradient(135deg,rgba(16,171,175,.15),transparent 40%,transparent 60%,rgba(16,171,175,.08));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+
+/* Qualiopi hero badge — left side */
+.cert-q{display:flex;align-items:center;gap:16px;padding-right:28px;border-right:1px solid var(--bd);flex-shrink:0}
+.cert-q-logo{width:72px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-q-logo img{max-width:100%;max-height:100%;object-fit:contain}
+.cert-q-info{display:flex;flex-direction:column;gap:2px}
+.cert-q-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.cert-q-title svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.cert-q-sub{font-size:11px;color:var(--muted);line-height:1.3}
+.cert-q-tags{display:flex;gap:5px;margin-top:4px}
+.cert-q-tag{font-size:9.5px;font-weight:600;color:var(--accent);background:var(--accent-gl);padding:3px 10px 3px 7px;border-radius:var(--rf);letter-spacing:.02em;display:inline-flex;align-items:center;gap:4px}
+.cert-q-tag svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* Other certs — right side flow */
+.cert-others{display:flex;align-items:center;gap:0;flex:1;justify-content:space-evenly;padding-left:20px}
+.cert-item{display:flex;align-items:center;gap:12px;padding:8px 16px;border-radius:12px;transition:all .35s var(--e);cursor:default}
+.cert-item:hover{background:var(--accent-gl2);transform:translateY(-2px)}
+.cert-item-logo{height:36px;width:auto;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-item-logo img{max-height:100%;width:auto;object-fit:contain;transition:transform .4s var(--e)}
+.cert-item:hover .cert-item-logo img{transform:scale(1.08)}
+.cert-item-txt{font-size:11.5px;color:var(--sub);font-weight:500;line-height:1.3;max-width:120px}
 
 /* FORMATIONS */
 .forms{background:#F1F4F8;padding:32px 0 44px;position:relative;overflow:hidden}
@@ -125,85 +144,119 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .fg3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;margin:0 auto}
 .fc{background:#fff;border:none;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .35s var(--e),box-shadow .35s var(--e);display:flex;flex-direction:column;box-shadow:0 1px 4px rgba(0,0,0,.03);will-change:transform}
 .fc:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.10)}
-.fc-visual{height:110px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.fc-visual{height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .fc-visual .blob{position:absolute;border-radius:50%;filter:blur(25px);opacity:.45;transition:transform .5s var(--e),opacity .5s}
 .fc:hover .blob{transform:scale(1.2);opacity:.6}
-.fc-visual .ico-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);transition:transform .35s var(--e)}
-.fc:hover .ico-wrap{transform:scale(1.1)}
-.ico-wrap svg{width:24px;height:24px;overflow:visible}
+.fc-visual .ico-wrap{width:68px;height:68px;border-radius:18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);transition:transform .35s var(--e)}
+.fc:hover .ico-wrap{transform:scale(1.08)}
+.ico-wrap svg{width:32px;height:32px;overflow:visible}
 .fc-body{padding:18px 20px 16px}
 .fc h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:#0F172A;margin-bottom:4px}
 .fc p{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}
 .fc-link{font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:500;display:inline-flex;align-items:center;gap:5px;transition:gap .3s}
 .fc-link svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
 .fc:hover .fc-link svg{transform:translateX(4px)}
-/* Card themes */
-.fc--langues .fc-visual{background:linear-gradient(135deg,#FEF2F0,#FDDDD6)}
-.fc--langues .blob:nth-child(1){background:#E8634A;width:100px;height:100px;top:-15px;right:-10px}
-.fc--langues .blob:nth-child(2){background:#F4A393;width:60px;height:60px;bottom:-10px;left:15px}
-.fc--langues .ico-wrap{background:rgba(232,99,74,.15)}.fc--langues .ico-wrap svg{stroke:#E8634A;fill:none}
-.fc--langues .fc-link{color:#E8634A}
-.fc--bureau .fc-visual{background:linear-gradient(135deg,#F0F2F4,#DFE4E9)}
-.fc--bureau .blob:nth-child(1){background:#5B7083;width:90px;height:90px;top:5px;left:-15px}
-.fc--bureau .blob:nth-child(2){background:#8FA3B5;width:70px;height:70px;bottom:-15px;right:5px}
-.fc--bureau .ico-wrap{background:rgba(91,112,131,.15)}.fc--bureau .ico-wrap svg{stroke:#5B7083;fill:none}
-.fc--bureau .fc-link{color:#5B7083}
-.fc--graph .fc-visual{background:linear-gradient(135deg,#FDF2FA,#F9D8EF)}
-.fc--graph .blob:nth-child(1){background:#D946A8;width:100px;height:100px;top:-10px;left:25%}
-.fc--graph .blob:nth-child(2){background:#E879C0;width:55px;height:55px;bottom:5px;right:-5px}
-.fc--graph .ico-wrap{background:rgba(217,70,168,.15)}.fc--graph .ico-wrap svg{stroke:#D946A8;fill:none}
-.fc--graph .fc-link{color:#D946A8}
-.fc--web .fc-visual{background:linear-gradient(135deg,#EFF6FF,#DBEAFE)}
-.fc--web .blob:nth-child(1){background:#3B82F6;width:90px;height:90px;bottom:-15px;left:5px}
-.fc--web .blob:nth-child(2){background:#7CB3F8;width:65px;height:65px;top:-5px;right:15px}
-.fc--web .ico-wrap{background:rgba(59,130,246,.15)}.fc--web .ico-wrap svg{stroke:#3B82F6;fill:none}
-.fc--web .fc-link{color:#3B82F6}
+/* Card themes — Harmonized palette: Teal anchor + Blue, Slate, Violet */
+/* Langues: Ocean blue */
+.fc--langues .fc-visual{background:linear-gradient(135deg,#EEF4FB,#DCEAF7)}
+.fc--langues .blob:nth-child(1){background:#2E86C1;width:100px;height:100px;top:-15px;right:-10px}
+.fc--langues .blob:nth-child(2){background:#6CB4E4;width:60px;height:60px;bottom:-10px;left:15px}
+.fc--langues .ico-wrap{background:rgba(46,134,193,.12)}.fc--langues .ico-wrap svg{stroke:#2E86C1;fill:none}
+.fc--langues .fc-link{color:#2E86C1}
+/* Bureautique: Cool slate */
+.fc--bureau .fc-visual{background:linear-gradient(135deg,#FEF3E8,#FDDCC4)}
+.fc--bureau .blob:nth-child(1){background:#E67E22;width:90px;height:90px;top:5px;left:-15px}
+.fc--bureau .blob:nth-child(2){background:#F0A56E;width:70px;height:70px;bottom:-15px;right:5px}
+.fc--bureau .ico-wrap{background:rgba(230,126,34,.12)}.fc--bureau .ico-wrap svg{stroke:#E67E22;fill:none}
+.fc--bureau .fc-link{color:#E67E22}
+/* Graphisme: Deep teal */
+.fc--graph .fc-visual{background:linear-gradient(135deg,#ECF8F8,#D5F0F0)}
+.fc--graph .blob:nth-child(1){background:#0E9599;width:100px;height:100px;top:-10px;left:25%}
+.fc--graph .blob:nth-child(2){background:#3DC8C9;width:55px;height:55px;bottom:5px;right:-5px}
+.fc--graph .ico-wrap{background:rgba(14,149,153,.12)}.fc--graph .ico-wrap svg{stroke:#0E9599;fill:none}
+.fc--graph .fc-link{color:#0E9599}
+/* Web: Indigo blue */
+.fc--web .fc-visual{background:linear-gradient(135deg,#EEF0FB,#DDDFF7)}
+.fc--web .blob:nth-child(1){background:#4F63D2;width:90px;height:90px;bottom:-15px;left:5px}
+.fc--web .blob:nth-child(2){background:#8090E8;width:65px;height:65px;top:-5px;right:15px}
+.fc--web .ico-wrap{background:rgba(79,99,210,.12)}.fc--web .ico-wrap svg{stroke:#4F63D2;fill:none}
+.fc--web .fc-link{color:#4F63D2}
+/* Bilan: Warm teal */
 .fc--bilan .fc-visual{background:linear-gradient(135deg,#FFFBEB,#FEF3C7)}
 .fc--bilan .blob:nth-child(1){background:#D4A017;width:100px;height:100px;top:-15px;right:15px}
 .fc--bilan .blob:nth-child(2){background:#E8C44A;width:55px;height:55px;bottom:5px;left:-5px}
-.fc--bilan .ico-wrap{background:rgba(212,160,23,.15)}.fc--bilan .ico-wrap svg{stroke:#D4A017;fill:none}
+.fc--bilan .ico-wrap{background:rgba(212,160,23,.12)}.fc--bilan .ico-wrap svg{stroke:#D4A017;fill:none}
 .fc--bilan .fc-link{color:#D4A017}
-.fc--compta .fc-visual{background:linear-gradient(135deg,#FFF7ED,#FFEDD5)}
-.fc--compta .blob:nth-child(1){background:#F97316;width:80px;height:80px;top:5px;left:-5px}
-.fc--compta .blob:nth-child(2){background:#FDBA74;width:85px;height:85px;bottom:-15px;right:-5px}
-.fc--compta .ico-wrap{background:rgba(249,115,22,.15)}.fc--compta .ico-wrap svg{stroke:#F97316;fill:none}
-.fc--compta .fc-link{color:#F97316}
-.fc--ia .fc-visual{background:linear-gradient(135deg,#F5F3FF,#EDE9FE)}
-.fc--ia .blob:nth-child(1){background:#7C3AED;width:110px;height:110px;bottom:-20px;right:-15px}
-.fc--ia .blob:nth-child(2){background:#A78BFA;width:50px;height:50px;top:15px;left:5px}
-.fc--ia .ico-wrap{background:rgba(124,58,237,.15)}.fc--ia .ico-wrap svg{stroke:#7C3AED;fill:none}
-.fc--ia .fc-link{color:#7C3AED}
-/* Icon animations */
-@keyframes globeWobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(8deg)}75%{transform:rotate(-8deg)}}
-.fc--langues .ico-globe{animation:globeWobble 4s ease-in-out infinite}
-@keyframes cellFill{0%,100%{opacity:.2}50%{opacity:.8}}
-.fc--bureau .ico-anim-1{animation:cellFill 1.8s ease-in-out infinite}
-.fc--bureau .ico-anim-2{animation:cellFill 1.8s ease-in-out .6s infinite}
-.fc--bureau .ico-anim-3{animation:cellFill 1.8s ease-in-out 1.2s infinite}
-@keyframes brushSway{0%,100%{transform:rotate(0deg)}30%{transform:rotate(-12deg)}70%{transform:rotate(8deg)}}
-@keyframes brushDot{0%,40%{opacity:0;transform:scale(0)}50%{opacity:.5;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
-.fc--graph .ico-brush{transform-origin:18px 6px;animation:brushSway 3s ease-in-out infinite}
-.fc--graph .ico-dot1{animation:brushDot 3s ease-in-out infinite}
-.fc--graph .ico-dot2{animation:brushDot 3s ease-in-out .8s infinite}
-.fc--graph .ico-dot3{animation:brushDot 3s ease-in-out 1.6s infinite}
-@keyframes cursorBlink{0%,100%{opacity:0}50%{opacity:1}}
-@keyframes codeSlide{0%{transform:translateX(-3px);opacity:0}30%{transform:translateX(0);opacity:1}70%{opacity:1}100%{transform:translateX(3px);opacity:0}}
-.fc--web .ico-cursor{animation:cursorBlink 1s step-end infinite}
-.fc--web .ico-anim-1{animation:codeSlide 2.5s ease-in-out infinite}
-.fc--web .ico-anim-2{animation:codeSlide 2.5s ease-in-out .4s infinite}
-@keyframes compassLoop{0%,80%,100%{transform:rotate(0deg)}10%{transform:rotate(-20deg)}30%{transform:rotate(15deg)}50%{transform:rotate(-8deg)}65%{transform:rotate(3deg)}}
-.fc--bilan .ico-needle{transform-origin:12px 12px;animation:compassLoop 4s ease-in-out infinite}
-@keyframes pageStack1{0%,100%{transform:translate(0,0);opacity:.8}50%{transform:translate(-1px,-2px);opacity:1}}
-@keyframes pageStack2{0%,100%{transform:translate(0,0);opacity:.5}50%{transform:translate(1px,2px);opacity:.7}}
-.fc--compta .ico-anim-1{animation:pageStack1 3s ease-in-out infinite}
-.fc--compta .ico-anim-2{animation:pageStack2 3s ease-in-out .5s infinite}
-@keyframes nodePulse{0%,100%{r:2;opacity:.4}50%{r:3;opacity:1}}
-@keyframes linkPulse{0%,100%{opacity:.2;stroke-width:1}50%{opacity:.7;stroke-width:1.5}}
-.fc--ia .ico-node1{animation:nodePulse 2s ease-in-out infinite}
-.fc--ia .ico-node2{animation:nodePulse 2s ease-in-out .5s infinite}
-.fc--ia .ico-node3{animation:nodePulse 2s ease-in-out 1s infinite}
-.fc--ia .ico-node4{animation:nodePulse 2s ease-in-out 1.5s infinite}
-.fc--ia .ico-link{animation:linkPulse 2s ease-in-out .25s infinite}
+/* Compta: Steel blue */
+.fc--compta .fc-visual{background:linear-gradient(135deg,#FBF6E8,#F5ECD0)}
+.fc--compta .blob:nth-child(1){background:#8B6914;width:80px;height:80px;top:5px;left:-5px}
+.fc--compta .blob:nth-child(2){background:#BFA04A;width:85px;height:85px;bottom:-15px;right:-5px}
+.fc--compta .ico-wrap{background:rgba(139,105,20,.12)}.fc--compta .ico-wrap svg{stroke:#8B6914;fill:none}
+.fc--compta .fc-link{color:#8B6914}
+/* IA: Violet */
+.fc--ia .fc-visual{background:linear-gradient(135deg,#F1EEFB,#E3DCF7)}
+.fc--ia .blob:nth-child(1){background:#6C4FD2;width:110px;height:110px;bottom:-20px;right:-15px}
+.fc--ia .blob:nth-child(2){background:#9B8AE8;width:50px;height:50px;top:15px;left:5px}
+.fc--ia .ico-wrap{background:rgba(108,79,210,.12)}.fc--ia .ico-wrap svg{stroke:#6C4FD2;fill:none}
+.fc--ia .fc-link{color:#6C4FD2}
+/* ═══ ICON ANIMATIONS — Ultra Design System ═══ */
+/* Philosophy: slow, luxurious, story-driven. Each icon breathes. */
+
+/* ─── LANGUES: Orbiting dot around globe + gentle breathing ─── */
+@keyframes globeBreath{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+@keyframes orbitDot{0%{transform:rotate(0deg) translateX(12px) scale(1);opacity:.7}25%{transform:rotate(90deg) translateX(12px) scale(1.2);opacity:1}50%{transform:rotate(180deg) translateX(12px) scale(1);opacity:.4}75%{transform:rotate(270deg) translateX(12px) scale(1.2);opacity:.8}100%{transform:rotate(360deg) translateX(12px) scale(1);opacity:.7}}
+.fc--langues .ico-globe{animation:globeBreath 5s ease-in-out infinite;transform-origin:center}
+.fc--langues .ico-orbit{animation:orbitDot 8s linear infinite;transform-origin:12px 12px}
+
+/* ─── BUREAUTIQUE: Cells light up like a loading spreadsheet ─── */
+@keyframes cellGlow{0%,15%{opacity:.08;transform:scale(1)}20%,35%{opacity:.65;transform:scale(1.05)}40%,100%{opacity:.08;transform:scale(1)}}
+.fc--bureau .ico-anim-1{animation:cellGlow 5s cubic-bezier(.4,0,.2,1) infinite}
+.fc--bureau .ico-anim-2{animation:cellGlow 5s cubic-bezier(.4,0,.2,1) .8s infinite}
+.fc--bureau .ico-anim-3{animation:cellGlow 5s cubic-bezier(.4,0,.2,1) 1.6s infinite}
+
+/* ─── GRAPHISME: Pen tool draws — anchor points appear along path ─── */
+@keyframes penTrace{0%,100%{transform:translate(0,0)}15%{transform:translate(2px,-2px)}30%{transform:translate(-1px,2px)}50%{transform:translate(1.5px,-1px)}70%{transform:translate(-2px,1px)}85%{transform:translate(0.5px,-1.5px)}}
+@keyframes anchorAppear{0%,10%{opacity:0;r:0}15%{opacity:.8;r:2}25%{opacity:.8;r:1.8}30%,100%{opacity:0;r:0}}
+@keyframes anchorAppear2{0%,40%{opacity:0;r:0}45%{opacity:.6;r:1.5}55%{opacity:.6;r:1.3}60%,100%{opacity:0;r:0}}
+.fc--graph .ico-pen{animation:penTrace 6s ease-in-out infinite;transform-origin:10px 10px}
+.fc--graph .ico-penpt1{animation:anchorAppear 6s ease-in-out infinite}
+.fc--graph .ico-penpt2{animation:anchorAppear2 6s ease-in-out infinite}
+
+/* ─── WEB: Terminal typing effect — cursor blinks, lines write in ─── */
+@keyframes termCursor{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes typeLine{0%,5%{stroke-dashoffset:12;opacity:0}10%{opacity:.6}15%,75%{stroke-dashoffset:0;opacity:.6}80%,100%{stroke-dashoffset:-12;opacity:0}}
+.fc--web .ico-cursor{animation:termCursor .8s step-end infinite}
+.fc--web .ico-anim-1{stroke-dasharray:12;animation:typeLine 5s ease-in-out infinite}
+.fc--web .ico-anim-2{stroke-dasharray:12;animation:typeLine 5s ease-in-out .6s infinite}
+
+/* ─── BILAN: Compass — needle finds north with elegant settle ─── */
+@keyframes needleSeek{0%,100%{transform:rotate(0deg)}8%{transform:rotate(-35deg)}20%{transform:rotate(20deg)}30%{transform:rotate(-10deg)}38%{transform:rotate(4deg)}44%,92%{transform:rotate(0deg)}}
+.fc--bilan .ico-compass-g{transform-origin:12px 12px;animation:needleSeek 6s cubic-bezier(.4,0,.2,1) infinite}
+
+/* ─── COMPTA: Calculator — sequential keypress with screen update ─── */
+@keyframes keyTap{0%,100%{opacity:.15;transform:scale(1)}8%{opacity:.8;transform:scale(1.25)}16%{opacity:.15;transform:scale(1)}}
+@keyframes screenFlash{0%,100%{opacity:.08}30%,70%{opacity:.25}}
+@keyframes eqPress{0%,85%,100%{opacity:.3;transform:scale(1)}88%{opacity:.9;transform:scale(1.3)}92%{opacity:.3;transform:scale(1)}}
+.fc--compta .ico-calc-screen{animation:screenFlash 5s ease-in-out infinite}
+.fc--compta .ico-calc-k1{animation:keyTap 5s ease-in-out infinite}
+.fc--compta .ico-calc-k2{animation:keyTap 5s ease-in-out .5s infinite}
+.fc--compta .ico-calc-k3{animation:keyTap 5s ease-in-out 1s infinite}
+.fc--compta .ico-calc-k4{animation:keyTap 5s ease-in-out 1.5s infinite}
+.fc--compta .ico-calc-k5{animation:keyTap 5s ease-in-out 2s infinite}
+.fc--compta .ico-calc-eq{animation:eqPress 5s ease-in-out 2.8s infinite}
+
+/* ─── IA: Neural network — signal propagation wave ─── */
+@keyframes nodeSignal{0%,100%{r:2;opacity:.3;filter:blur(0)}15%{r:3.5;opacity:1;filter:blur(0)}30%{r:2.5;opacity:.5;filter:blur(0)}40%{r:2;opacity:.3}}
+@keyframes linkSignal{0%,100%{opacity:.1;stroke-width:1}10%{opacity:.8;stroke-width:2}25%{opacity:.1;stroke-width:1}}
+.fc--ia .ico-node1{animation:nodeSignal 4s cubic-bezier(.4,0,.2,1) infinite}
+.fc--ia .ico-node2{animation:nodeSignal 4s cubic-bezier(.4,0,.2,1) .4s infinite}
+.fc--ia .ico-node3{animation:nodeSignal 4s cubic-bezier(.4,0,.2,1) .8s infinite}
+.fc--ia .ico-node4{animation:nodeSignal 4s cubic-bezier(.4,0,.2,1) 1.2s infinite}
+.fc--ia .ico-link{animation:linkSignal 4s cubic-bezier(.4,0,.2,1) .2s infinite}
+
+/* ─── Global: ico-wrap breathe on hover ─── */
+@keyframes icoBreath{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 20px rgba(255,255,255,.08)}}
+.fc:hover .ico-wrap{animation:icoBreath 2s ease-in-out infinite}
 /* Card entrance */
 .fc{opacity:0;transform:translateY(24px);animation:cardIn .5s ease forwards}
 .fg .fc:nth-child(1){animation-delay:.05s}.fg .fc:nth-child(2){animation-delay:.1s}.fg .fc:nth-child(3){animation-delay:.15s}.fg .fc:nth-child(4){animation-delay:.2s}
@@ -283,13 +336,31 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .tc-stars{display:flex;gap:2px;margin-bottom:10px}.tc-stars svg{width:13px;height:13px;fill:#FBBF24}
 
 /* FOOTER */
-footer{background:#0F172A;border-top:1px solid var(--bd);padding:36px 0 24px}
-.ft-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;margin-bottom:20px}
-.ft-brand p{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}.ft-brand img{height:32px;filter:none}
-.ft-col h4{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
-.ft-col a{display:block;font-size:12px;color:var(--sub);text-decoration:none;padding:3px 0;transition:color .2s}.ft-col a:hover{color:var(--accent)}
-.ft-bottom{border-top:1px solid var(--bd);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.copy{font-size:12px;color:var(--muted)}
+footer{background:#0F172A;padding:0;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 10% 100%,rgba(16,171,175,.08),transparent),radial-gradient(ellipse 40% 50% at 90% 0%,rgba(99,102,241,.05),transparent);pointer-events:none}
+.ft-cta{position:relative;z-index:1;padding:40px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ft-cta-text{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#E2E8F0;letter-spacing:-.02em}
+.ft-cta-text em{font-style:normal;color:#3DC8C9}
+.ft-cta-btns{display:flex;gap:10px;flex-shrink:0}
+.ft-cta-btn{padding:11px 24px;border-radius:var(--rf);font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .3s var(--e)}
+.ft-cta-btn.primary{background:var(--accent);color:#fff;box-shadow:0 0 20px var(--accent-gl)}
+.ft-cta-btn.primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.ft-cta-btn.secondary{background:rgba(255,255,255,.08);color:#CBD5E1;border:1px solid rgba(255,255,255,.12)}
+.ft-cta-btn.secondary:hover{background:rgba(255,255,255,.12);color:#fff}
+.ft-cta-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ft-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding:40px 0 32px}
+.ft-brand img{height:36px;filter:none;margin-bottom:14px}
+.ft-brand p{font-size:12px;color:var(--sub);line-height:1.6}
+.ft-brand-contact{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.ft-brand-contact a{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.ft-brand-contact a:hover{color:var(--accent)}
+.ft-brand-contact svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ft-col h4{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.ft-col h4::before{content:'';width:12px;height:1.5px;background:var(--accent);border-radius:1px;opacity:.5}
+.ft-col a{display:block;font-size:12.5px;color:var(--sub);text-decoration:none;padding:4px 0;transition:all .2s var(--e)}
+.ft-col a:hover{color:var(--accent);transform:translateX(3px)}
+.ft-bottom{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);padding:16px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.copy{font-size:11px;color:var(--muted)}
 .fl{display:flex;gap:4px}.fl a{color:var(--muted);text-decoration:none;font-size:11px;padding:2px 6px;transition:color .2s}.fl a:hover{color:var(--white)}
 .fl .d{color:rgba(255,255,255,.1);font-size:8px;line-height:2.5}
 
@@ -359,16 +430,16 @@ header.scrolled{background:rgba(255,255,255,.82);box-shadow:0 4px 28px rgba(0,0,
 .hdr{padding:10px 18px;height:auto}
 .logo img{height:34px!important}
 .hero-grid{grid-template-columns:1fr;gap:32px}.hero-imgs video{height:280px;min-height:auto}
-h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:repeat(2,1fr)}.fg3{grid-template-columns:repeat(2,1fr);max-width:100%}
-.ct-row{grid-template-columns:1fr;gap:40px}.ct-vis{height:400px;max-width:500px;margin:0 auto}.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-inner{flex-direction:column;gap:20px;padding:24px}.cert-q{border-right:none;border-bottom:1px solid var(--bd);padding-right:0;padding-bottom:16px;width:100%;justify-content:center}.cert-others{flex-wrap:wrap;padding-left:0;gap:8px;justify-content:center}.fg{grid-template-columns:repeat(2,1fr)}.fg3{grid-template-columns:repeat(2,1fr);max-width:100%}
+.ct-row{grid-template-columns:1fr;gap:40px}.ct-vis{height:400px;max-width:500px;margin:0 auto}.ft-cta{flex-direction:column;text-align:center;gap:16px;padding:32px 0}.ft-cta-text{font-size:18px}.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
 
 @media(max-width:768px){
 .w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}
 .hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
-.hero{padding:20px 0 24px}h1{font-family:'Poppins',sans-serif;font-size:30px}.hero-imgs video{height:240px;min-height:auto}.hero-btns{flex-direction:row;gap:10px;justify-content:center}.hero-btns a{font-size:14px;padding:12px 22px}
-.sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.cg{grid-template-columns:repeat(2,1fr);gap:10px}.cc{height:90px;padding:14px 10px}.cc-logo img{max-height:70%}.cc-label{font-size:10px;margin-top:4px}.fg{grid-template-columns:repeat(2,1fr);gap:10px}.fg3{grid-template-columns:repeat(3,1fr);max-width:100%;gap:8px}.fc-visual{height:72px}.fc-body{padding:10px 12px 10px}.fc h3{font-size:13px}.fc p{font-size:11px;margin-bottom:6px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.fc-body .fc-arrow{font-size:12px;padding:4px 10px}.step-opts,.fr2,.frp{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
+.hero{padding:20px 0 24px}.hero-stats{gap:16px;margin-bottom:24px}.hero-stat-n{font-size:28px}.hero-stat-u{font-size:16px}.hero-stat-sep{height:28px}h1{font-family:'Poppins',sans-serif;font-size:30px}.hero-imgs video{height:240px;min-height:auto}.hero-btns{flex-direction:row;gap:10px;justify-content:center}.hero-btns a{font-size:14px;padding:12px 22px}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.certs-strip{padding:0 12px;margin-top:-12px;margin-bottom:14px}.certs-inner{padding:16px;border-radius:14px;flex-direction:column;gap:12px}.cert-q{flex-direction:row;text-align:left;gap:12px;border-right:none;border-bottom:none;padding-right:0;padding-bottom:0;width:100%}.cert-q-logo{width:48px;height:36px}.cert-q-title{font-size:12px;white-space:normal}.cert-q-sub{font-size:9px;line-height:1.35}.cert-q-tags{flex-wrap:wrap;gap:4px}.cert-q-tag{font-size:8px;padding:2px 7px 2px 5px}.cert-others{flex-direction:row;justify-content:space-between;padding-left:0;gap:0;border-top:1px solid var(--bd);padding-top:12px}.cert-item{padding:4px 0;flex:1;justify-content:center;flex-direction:column;align-items:center;gap:6px}.cert-item-logo{height:28px}.cert-item-txt{font-size:9px;text-align:center;max-width:none}.fg{grid-template-columns:repeat(2,1fr);gap:10px}.fg3{grid-template-columns:repeat(3,1fr);max-width:100%;gap:8px}.fc-visual{height:90px}.ico-wrap{width:56px!important;height:56px!important}.ico-wrap svg{width:26px!important;height:26px!important}.fc-body{padding:10px 12px 10px}.fc h3{font-size:13px}.fc p{font-size:11px;margin-bottom:6px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.fc-body .fc-arrow{font-size:12px;padding:4px 10px}.step-opts,.fr2,.frp{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
 .ct-row{padding:0 18px}.ct-vis{height:300px}.form-card{padding:24px}.form-hdr h2{font-size:28px}.tc{width:220px;min-width:220px;padding:16px 14px}.tc blockquote{font-size:11.5px;-webkit-line-clamp:5}.tc .tc-ava{width:28px;height:28px}.tc .tc-stars{font-size:11px}
 .ft-grid,.ft-bottom{display:none}
 .ft-mobile{display:block}
@@ -392,12 +463,12 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <a href="index.html" class="logo"><img src="images/logo-switching.png" alt="Switching Formation"></a>
 <div class="nav-pill">
 <a href="index.html" class="active">Accueil</a>
-<div class="nav-drop"><a href="formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="formations.html?cat=langues"><div class="dd-ico" style="background:rgba(232,99,74,.08);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a><a href="formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(91,112,131,.08);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div>Bureautique</a><a href="formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(217,70,168,.08);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3l-3 3"/><path d="M15 6l-7.5 7.5"/><path d="M7.5 13.5L5 20l6.5-2.5"/><path d="M11.5 17.5l-4-4"/><path d="M18 3l3 3-3 3"/></svg></div>Graphisme</a><a href="formations.html?cat=web"><div class="dd-ico" style="background:rgba(59,130,246,.08);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web & Digital</a><a href="formations.html?cat=compta"><div class="dd-ico" style="background:rgba(249,115,22,.08);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="14" height="18" rx="2"/><path d="M8 7h6"/><path d="M8 10h8"/><path d="M8 13h5"/></svg></div>Compta & Paie</a><a href="formations.html?cat=ia"><div class="dd-ico" style="background:rgba(124,58,237,.08);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg></div>Intelligence Artificielle</a><a href="formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/></svg></div>Bilan de compétences</a></div></div>
+<div class="nav-drop"><a href="formations.html">Formations <svg class="dd-arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="nav-dd"><a href="formations.html?cat=langues"><div class="dd-ico" style="background:rgba(46,134,193,.08);color:#2E86C1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a><a href="formations.html?cat=bureautique"><div class="dd-ico" style="background:rgba(230,126,34,.08);color:#E67E22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div>Bureautique</a><a href="formations.html?cat=graphisme"><div class="dd-ico" style="background:rgba(14,149,153,.08);color:#0E9599"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg></div>Graphisme</a><a href="formations.html?cat=web"><div class="dd-ico" style="background:rgba(79,99,210,.08);color:#4F63D2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web & Digital</a><a href="formations.html?cat=compta"><div class="dd-ico" style="background:rgba(139,105,20,.08);color:#8B6914"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2.5"/><rect x="7" y="5" width="10" height="4" rx="1"/><circle cx="8.5" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><circle cx="8.5" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><rect x="14.3" y="15.8" width="2.4" height="2.4" rx=".6"/></svg></div>Compta & Paie</a><a href="formations.html?cat=ia"><div class="dd-ico" style="background:rgba(108,79,210,.08);color:#6C4FD2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg></div>Intelligence Artificielle</a><a href="formations.html?cat=bdc"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/><polygon points="12 21.5 13.5 14 12 13 10.5 14" fill="currentColor" opacity=".25" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></div>Bilan de compétences</a><div style="height:1px;background:var(--bd);margin:6px 8px"></div><a href="formations.html" class="dd-all"><div class="dd-ico" style="background:rgba(212,160,23,.08);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>Toutes nos formations</a></div></div>
 <a href="le-centre.html">Le centre</a>
 <a href="financement.html">Financement</a>
 <a href="inscription.html">Devis</a>
 </div>
-<a href="documentation.html" class="nav-cta">Documentation</a>
+<a href="documentation.html" class="nav-cta"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Documentation</a>
 <button class="menu-toggle" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
 </div></div></header>
 <div class="menu-backdrop" onclick="closeMenu()"></div>
@@ -407,12 +478,12 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <a href="index.html" class="mc-link active"><div class="mc-ico" style="color:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>Accueil</a>
 <div class="mc-toggle" onclick="document.body.classList.toggle('f-open')"><div class="mc-tl"><div class="mc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>Formations</div><svg class="mc-arr" viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
 <div class="mc-formations">
-<a href="formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(232,99,74,.1);color:#E8634A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
-<a href="formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(91,112,131,.1);color:#5B7083"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
-<a href="formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(217,70,168,.1);color:#D946A8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>Graphisme</a>
-<a href="formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(59,130,246,.1);color:#3B82F6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
-<a href="formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(249,115,22,.1);color:#F97316"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div>Compta &amp; Paie</a>
-<a href="formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(124,58,237,.1);color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
+<a href="formations.html?cat=langues" class="mc-f"><div class="mcf-ico" style="background:rgba(46,134,193,.1);color:#2E86C1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>Langues</a>
+<a href="formations.html?cat=bureautique" class="mc-f"><div class="mcf-ico" style="background:rgba(230,126,34,.1);color:#E67E22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg></div>Bureautique</a>
+<a href="formations.html?cat=graphisme" class="mc-f"><div class="mcf-ico" style="background:rgba(14,149,153,.1);color:#0E9599"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg></div>Graphisme</a>
+<a href="formations.html?cat=web" class="mc-f"><div class="mcf-ico" style="background:rgba(79,99,210,.1);color:#4F63D2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Web &amp; Digital</a>
+<a href="formations.html?cat=compta" class="mc-f"><div class="mcf-ico" style="background:rgba(139,105,20,.1);color:#8B6914"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2.5"/><rect x="7" y="5" width="10" height="4" rx="1"/><circle cx="8.5" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><circle cx="8.5" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><rect x="14.3" y="15.8" width="2.4" height="2.4" rx=".6"/></svg></div>Compta &amp; Paie</a>
+<a href="formations.html?cat=ia" class="mc-f"><div class="mcf-ico" style="background:rgba(108,79,210,.1);color:#6C4FD2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><line x1="6" y1="6" x2="12" y2="12"/><line x1="18" y1="6" x2="12" y2="12"/></svg></div>Intelligence Artificielle</a>
 <a href="formations.html?cat=bdc" class="mc-f"><div class="mcf-ico" style="background:rgba(212,160,23,.1);color:#D4A017"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>Bilan de compétences</a>
 <div style="height:1px;background:rgba(0,0,0,.05);margin:6px 4px 2px"></div>
 <a href="formations.html" class="mc-f-all">Toutes nos formations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -433,38 +504,55 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 <section class="hero" id="about"><div class="hero-mesh"></div><div class="w"><div class="hero-grid">
 <div class="rv">
 <div class="hero-tag"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Certifié Qualiopi</div>
-<h1>Ensemble, faisons grandir <span class="glow tw">vos compétences</span></h1>
-<p class="hero-p"><span class="sf">Switching Formation</span> vous propose des programmes <b>courts et ludiques en e-learning</b>, avec une vingtaine de formations dans sept domaines clés.</p>
-<p class="hero-p">Expert de la formation professionnelle, nous sommes <b>certifiés Qualiopi, gage de qualité et de confiance</b>.</p>
-<p class="hero-p">Référencé et reconnu par les principaux organismes financeurs (CPF, France Travail, OPCO…). Formation <b>accessible à tous</b>.</p>
-<div class="hero-fin">
-<img src="images/banniere-financement.webp" alt="Financement : France Travail, CPF, OPCO" style="border-radius:8px">
+<h1>Faisons grandir <span class="glow tw">vos compétences</span></h1>
+<p class="hero-p">Formations professionnelles <b>en e-learning et visioconférence</b>. 7 domaines, certifié Qualiopi, finançable CPF, France Travail et OPCO.</p>
+<div class="hero-stats">
+<div class="hero-stat"><span class="hero-stat-n" data-target="50">0</span><span class="hero-stat-u">+</span><span class="hero-stat-l">Formations</span></div>
+<div class="hero-stat-sep"></div>
+<div class="hero-stat"><span class="hero-stat-n" data-target="98">0</span><span class="hero-stat-u">%</span><span class="hero-stat-l">Satisfaction</span></div>
+<div class="hero-stat-sep"></div>
+<div class="hero-stat"><span class="hero-stat-n" data-target="500">0</span><span class="hero-stat-u">+</span><span class="hero-stat-l">Apprenants</span></div>
 </div>
-<div class="hero-btns"><a href="formations.html" class="btn-glow">Nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a href="inscription.html" class="btn-ghost">Devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+<div class="hero-btns"><a href="formations.html" class="btn-glow">Découvrir nos formations <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a href="inscription.html" class="btn-ghost">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
 </div>
 <div class="hero-imgs rv rv1">
 <video src="images/video-accueil.mp4" preload="auto" autoplay loop muted playsinline></video>
 </div>
 </div></div></section>
 
-<section class="certs" id="certs"><div class="w">
-<div class="sec-head rv"><div class="sec-tag">Certifications</div><div class="sec-h2">Notre expertise de la<br><span class="glow">formation professionnelle</span></div></div>
-<div class="cg">
-<div class="rv"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/image qualiopi vf.png" alt="Qualiopi"></div></div><p class="cc-label">Switching Formation est certifié Qualiopi au titre des catégories d'actions suivantes :<br>• Actions de formation<br>• Bilans de compétences</p></div>
-<div class="rv rv1"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/vtest.png" alt="VTest"></div></div><p class="cc-label">VTest Business English – 4 skills.</p></div>
-<div class="rv rv2"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/cpf-mcf.png" alt="CPF"></div></div><p class="cc-label">Référencé Mon Compte Formation.</p></div>
-<div class="rv rv3"><div class="cc"><div class="cc-logo"><img loading="lazy" src="images/france-travail.avif" alt="France Travail"></div></div><p class="cc-label">Reconnu par France Travail (AIF).</p></div>
-</div></div></section>
+<section class="certs" id="certs"><div class="certs-strip">
+<div class="certs-inner rv">
+
+<div class="cert-q">
+<div class="cert-q-logo"><img loading="lazy" src="images/image qualiopi vf.png" alt="Qualiopi"></div>
+<div class="cert-q-info">
+<div class="cert-q-title"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Certifié Qualiopi</div>
+<div class="cert-q-sub">Switching Formation est certifié Qualiopi au titre des catégories d'actions suivantes&nbsp;:</div>
+<div class="cert-q-tags"><span class="cert-q-tag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Actions de formation</span><span class="cert-q-tag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bilans de compétences</span></div>
+</div>
+</div>
+
+<div class="cert-others">
+<div class="cert-item rv"><div class="cert-item-logo"><img loading="lazy" src="images/vtest.png" alt="VTest"></div><span class="cert-item-txt">VTest Business English</span></div>
+<div class="cert-item rv rv1"><div class="cert-item-logo"><img loading="lazy" src="images/cpf-mcf.png" alt="CPF"></div><span class="cert-item-txt">Mon Compte Formation</span></div>
+<div class="cert-item rv rv2"><div class="cert-item-logo"><img loading="lazy" src="images/france-travail.avif" alt="France Travail"></div><span class="cert-item-txt">France Travail (AIF)</span></div>
+</div>
+
+</div>
+</div></section>
 
 <section class="forms" id="formations"><div class="w">
 <div class="sec-head rv"><div class="sec-tag">Nos domaines</div><div class="sec-h2">Découvrez nos <span class="glow">formations</span></div></div>
 <div class="fg">
   <a href="formations.html?cat=langues" class="fc fc--langues">
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="ico-globe">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M2 12h20"/>
-        <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <g class="ico-globe">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </g>
+        <circle class="ico-orbit" cx="12" cy="12" r="2" fill="currentColor" stroke="none" opacity=".7"/>
       </svg>
     </div></div>
     <div class="fc-body"><h3>Langues</h3><p>Anglais, français, Linguaskill, A1 à C2.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
@@ -484,16 +572,11 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
   <a href="formations.html?cat=graphisme" class="fc fc--graph">
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <g class="ico-brush">
-          <path d="M18 3l-3 3"/>
-          <path d="M15 6l-7.5 7.5"/>
-          <path d="M7.5 13.5L5 20l6.5-2.5"/>
-          <path d="M11.5 17.5l-4-4"/>
-          <path d="M18 3l3 3-3 3"/>
-        </g>
-        <circle class="ico-dot1" cx="6" cy="18" r="1.5" fill="currentColor" stroke="none"/>
-        <circle class="ico-dot2" cx="10" cy="15" r="1" fill="currentColor" stroke="none"/>
-        <circle class="ico-dot3" cx="8" cy="20" r="1" fill="currentColor" stroke="none"/>
+        <path class="ico-pen" d="M12 19l7-7 3 3-7 7-3-3z"/>
+        <path class="ico-pen" d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+        <path class="ico-pen" d="M2 2l7.586 7.586"/>
+        <circle class="ico-penpt1" cx="11" cy="11" r="1.5" fill="currentColor" stroke="none"/>
+        <circle class="ico-penpt2" cx="16" cy="8" r="1" fill="currentColor" stroke="none" opacity="0"/>
       </svg>
     </div></div>
     <div class="fc-body"><h3>Graphisme</h3><p>Photoshop, Illustrator, Canva.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
@@ -516,10 +599,12 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/>
-        <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
-        <polygon class="ico-needle" points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/>
-        <polygon class="ico-needle" points="12 21.5 13.5 14 12 13 10.5 14" fill="currentColor" opacity=".25" stroke="none"/>
-        <text x="12" y="6.5" font-size="3" font-weight="600" fill="currentColor" stroke="none" text-anchor="middle" font-family="sans-serif" opacity=".5">N</text>
+        <g class="ico-compass-g">
+          <polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/>
+          <polygon points="12 21.5 13.5 14 12 13 10.5 14" fill="currentColor" opacity=".25" stroke="none"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          <text x="12" y="6.5" font-size="3" font-weight="600" fill="currentColor" stroke="none" text-anchor="middle" font-family="sans-serif" opacity=".5">N</text>
+        </g>
       </svg>
     </div></div>
     <div class="fc-body"><h3>Bilan de compétences</h3><p>Accompagnement carrière.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
@@ -527,10 +612,15 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
   <a href="formations.html?cat=compta" class="fc fc--compta">
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <rect class="ico-anim-2" x="6" y="4" width="14" height="18" rx="2" opacity=".3"/>
-        <rect class="ico-anim-1" x="4" y="2" width="14" height="18" rx="2"/>
-        <path class="ico-anim-1" d="M8 7h6"/><path class="ico-anim-1" d="M8 10h8"/><path class="ico-anim-1" d="M8 13h5"/>
-        <path class="ico-anim-1" d="M8 16h3" opacity=".5"/>
+        <rect x="4" y="2" width="16" height="20" rx="2.5"/>
+        <rect x="7" y="5" width="10" height="4" rx="1" class="ico-calc-screen" fill="currentColor" opacity=".1" stroke="none"/>
+        <circle class="ico-calc-k1" cx="8.5" cy="13" r="1.2" fill="currentColor" opacity=".25" stroke="none"/>
+        <circle class="ico-calc-k2" cx="12" cy="13" r="1.2" fill="currentColor" opacity=".25" stroke="none"/>
+        <circle class="ico-calc-k3" cx="15.5" cy="13" r="1.2" fill="currentColor" opacity=".25" stroke="none"/>
+        <circle class="ico-calc-k4" cx="8.5" cy="17" r="1.2" fill="currentColor" opacity=".25" stroke="none"/>
+        <circle class="ico-calc-k5" cx="12" cy="17" r="1.2" fill="currentColor" opacity=".25" stroke="none"/>
+        <rect class="ico-calc-eq" x="14.3" y="15.8" width="2.4" height="2.4" rx=".6" fill="currentColor" opacity=".4" stroke="none"/>
+        <text x="12" y="8.2" font-size="4" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle" font-family="sans-serif" class="ico-calc-num" opacity=".5">247</text>
       </svg>
     </div></div>
     <div class="fc-body"><h3>Comptabilité &amp; Paie</h3><p>SILAE, CEGID, paie.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
@@ -598,13 +688,25 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.cg{grid-template-columns:rep
 </div></section>
 
 <footer><div class="w">
-<div class="ft-grid">
-<div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi. E-learning dans 7 domaines.</p></div>
-<div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis</a></div>
-<div class="ft-col"><h4>Formations</h4><a href="formations.html?cat=langues">Langues</a><a href="formations.html?cat=bureautique">Bureautique</a><a href="formations.html?cat=graphisme">Graphisme</a><a href="formations.html?cat=ia">IA</a></div>
-<div class="ft-col"><h4>Contact</h4><a href="tel:+33695185057">06 95 18 50 57</a><a href="mailto:contact@switchingformation.com">contact@switchingformation.com</a><a href="https://share.google/IBO3oFw47lcBnDr5P">Avis Google</a></div>
+<div class="ft-cta">
+<div class="ft-cta-text">Un projet de <em>formation</em> ? Parlons-en.</div>
+<div class="ft-cta-btns">
+<a href="inscription.html" class="ft-cta-btn primary">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="tel:+33695185057" class="ft-cta-btn secondary"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
 </div>
-<div class="ft-bottom"><div class="copy">Switching Formation® 2026</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a><span class="d">•</span><a href="donnees.html#qualiopi">Qualiopi</a></div></div>
+</div>
+<div class="ft-grid">
+<div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi, spécialisé dans la formation à distance. E-learning et visioconférence dans 7 domaines.</p>
+<div class="ft-brand-contact">
+<a href="tel:+33695185057"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
+<a href="mailto:contact&#64;switchingformation.com"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>contact&#64;switchingformation.com</a>
+</div>
+</div>
+<div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Nos formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis gratuit</a><a href="documentation.html">Documentation</a></div>
+<div class="ft-col"><h4>Formations</h4><a href="formations.html?cat=langues">Langues</a><a href="formations.html?cat=bureautique">Bureautique</a><a href="formations.html?cat=graphisme">Graphisme & Design</a><a href="formations.html?cat=web">Web & Digital</a><a href="formations.html?cat=compta">Comptabilité & Paie</a><a href="formations.html?cat=ia">Intelligence Artificielle</a><a href="formations.html?cat=bdc">Bilan de compétences</a></div>
+<div class="ft-col"><h4>Informations</h4><a href="https://share.google/IBO3oFw47lcBnDr5P" target="_blank">Avis Google ★★★★★</a><a href="cgv.html">Conditions générales</a><a href="mentions-legales.html">Mentions légales</a><a href="donnees.html">Données personnelles</a><a href="donnees.html#qualiopi">Certification Qualiopi</a></div>
+</div>
+<div class="ft-bottom"><div class="copy">© 2026 Switching Formation. Tous droits réservés.</div><div class="fl"><a href="cgv.html">CGV</a><span class="d">•</span><a href="mentions-legales.html">Mentions légales</a><span class="d">•</span><a href="donnees.html">Données</a></div></div>
 <div class="ft-mobile">
 <div class="ft-contact-m">
 <a href="tel:+33695185057" class="ft-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>06 95 18 50 57</span></a>
@@ -644,6 +746,19 @@ function submitForm(){
   document.getElementById('fOk').classList.add('on');
 }
 document.querySelectorAll('.rv').forEach(function(el){new IntersectionObserver(function(e){if(e[0].isIntersecting)e[0].target.classList.add('vis')},{threshold:.05}).observe(el)});
+// Hero stat counters
+document.querySelectorAll('.hero-stat-n[data-target]').forEach(function(el){
+  var target=parseInt(el.dataset.target),started=false;
+  new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting&&!started){started=true;var start=0,dur=1600,t0=null;
+      (function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);
+        var ease=1-Math.pow(1-p,3);
+        el.textContent=Math.round(ease*target);
+        if(p<1)requestAnimationFrame(step);
+      })(performance.now());
+    }
+  },{threshold:.5}).observe(el);
+});
 if(window.innerWidth<=768){var fc=document.querySelector('.form-card');if(fc){var _st=null;window.addEventListener('scroll',function(){var r=fc.getBoundingClientRect(),vh=window.innerHeight;if(r.bottom>0&&r.top<vh){var p=Math.max(0,1-Math.abs(r.top+r.height/2-vh/2)/(vh*.55));fc.style.transform='scale('+(1+p*.06).toFixed(3)+')';fc.style.transition='transform .12s ease-out';}clearTimeout(_st);_st=setTimeout(function(){fc.style.transform='scale(1)';fc.style.transition='transform .5s cubic-bezier(.16,1,.3,1)';},180);},{passive:true});}}
 window.addEventListener('scroll',function(){document.getElementById('hd').classList.toggle('scrolled',scrollY>10)},{passive:true});
 // title animated via CSS

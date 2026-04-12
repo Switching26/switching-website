@@ -6,7 +6,8 @@
     var btn = document.createElement('div');
     btn.className = 'nav-cmdk';
     btn.id = 'navSearchTrigger';
-    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Rechercher<span class="nav-cmdk-kbd">\u2318K</span>';
+    var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Rechercher<span class="nav-cmdk-kbd">' + (isMac ? '\u2318K' : 'Ctrl K') + '</span>';
     cta.parentNode.insertBefore(btn, cta);
   }
 
@@ -30,12 +31,12 @@
 
   // --- Colors by category ---
   var COLORS = {
-    langue: '#E8634A',
-    bureau: '#5B7083',
-    graphisme: '#D946A8',
-    web: '#3B82F6',
-    compta: '#F97316',
-    ia: '#7C3AED',
+    langue: '#2E86C1',
+    bureau: '#E67E22',
+    graphisme: '#0E9599',
+    web: '#4F63D2',
+    compta: '#8B6914',
+    ia: '#6C4FD2',
     bdc: '#D4A017'
   };
 

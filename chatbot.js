@@ -36,56 +36,67 @@
   /* ─── Inject CSS ─── */
   var style = document.createElement('style');
   style.textContent = '\
-/* ── Chat Bubble ── */\
+/* ── Chat Bubble — Dark Orb ── */\
 .sf-chat-bubble{\
   position:fixed;bottom:28px;right:28px;z-index:9998;\
   width:64px;height:64px;border-radius:50%;\
-  background:conic-gradient(from 0deg,#6366f1,#8b5cf6,#c084fc,#f0abfc,#818cf8,#60a5fa,#6366f1);\
-  background-size:100% 100%;\
+  background:#0F0F1A;\
   display:flex;align-items:center;justify-content:center;\
-  cursor:pointer;border:none;outline:none;\
-  -webkit-tap-highlight-color:transparent;\
+  cursor:pointer;border:1px solid rgba(139,92,246,.2);\
+  outline:none;-webkit-tap-highlight-color:transparent;\
   box-shadow:\
-    0 6px 28px rgba(139,92,246,.5),\
-    0 0 20px rgba(192,132,252,.3),\
-    inset 0 1px 0 rgba(255,255,255,.3);\
+    0 0 24px rgba(139,92,246,.35),\
+    0 0 48px rgba(99,102,241,.15),\
+    0 4px 16px rgba(0,0,0,.4),\
+    inset 0 0 20px rgba(139,92,246,.1);\
   transition:all .4s cubic-bezier(.16,1,.3,1);\
-  animation:sf-chat-spin 5s ease-in-out infinite,sf-chat-pulse 2.5s ease-in-out infinite;\
+  animation:sf-orb-glow 4s ease-in-out infinite;\
 }\
-/* Glow halo */\
+/* Rotating gradient ring */\
 .sf-chat-bubble::before{\
-  content:"";position:absolute;inset:-7px;border-radius:50%;\
-  background:conic-gradient(from 0deg,rgba(99,102,241,.3),rgba(192,132,252,.4),rgba(240,171,252,.3),rgba(96,165,250,.3),rgba(99,102,241,.3));\
-  animation:sf-chat-spin 5s ease-in-out infinite;\
-  filter:blur(8px);\
-  opacity:.7;\
+  content:"";position:absolute;inset:-3px;border-radius:50%;\
+  background:conic-gradient(from 0deg,#8B5CF6,#6366F1,#10ABAF,#8B5CF6);\
+  animation:sf-orb-spin 8s linear infinite;\
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#fff calc(100% - 2px));\
+  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#fff calc(100% - 2px));\
 }\
-/* Glass shine */\
+/* Inner living light — plasma effect */\
 .sf-chat-bubble::after{\
-  content:"";position:absolute;inset:2px;border-radius:50%;\
-  background:radial-gradient(ellipse 60% 40% at 35% 30%,rgba(255,255,255,.45),transparent 60%),\
-    radial-gradient(ellipse 30% 25% at 70% 70%,rgba(255,255,255,.15),transparent 50%);\
+  content:"";position:absolute;inset:1px;border-radius:50%;z-index:0;\
+  background:\
+    radial-gradient(circle at 30% 25%,rgba(139,92,246,.8),transparent 45%),\
+    radial-gradient(circle at 80% 75%,rgba(99,102,241,.7),transparent 40%),\
+    radial-gradient(circle at 50% 50%,rgba(168,85,247,.3),transparent 55%);\
+  background-size:300% 300%;\
   pointer-events:none;\
+  animation:sf-orb-inner 6s ease-in-out infinite;\
+  mix-blend-mode:screen;\
 }\
 .sf-chat-bubble.sf-chat-active::before,.sf-chat-bubble.sf-chat-active::after{animation:none;opacity:0;}\
 .sf-chat-bubble:hover{\
-  transform:scale(1.12);\
+  transform:scale(1.1);\
+  border-color:rgba(139,92,246,.4);\
   box-shadow:\
-    0 12px 44px rgba(139,92,246,.6),\
-    0 0 32px rgba(192,132,252,.4),\
-    0 0 0 8px rgba(139,92,246,.1),\
-    inset 0 1px 0 rgba(255,255,255,.35);\
+    0 0 36px rgba(139,92,246,.5),\
+    0 0 64px rgba(99,102,241,.25),\
+    0 4px 20px rgba(0,0,0,.5),\
+    inset 0 0 28px rgba(139,92,246,.15);\
 }\
 .sf-chat-bubble:active{transform:scale(.93);transition-duration:.1s;}\
-.sf-chat-bubble svg{width:28px;height:28px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));position:relative;z-index:1;}\
+.sf-chat-bubble svg{width:26px;height:26px;color:#fff;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(139,92,246,.6));position:relative;z-index:1;}\
 .sf-chat-bubble.sf-chat-active{display:none;}\
-@keyframes sf-chat-spin{\
-  0%,100%{filter:hue-rotate(0deg);}\
-  50%{filter:hue-rotate(100deg);}\
+@keyframes sf-orb-glow{\
+  0%,100%{box-shadow:0 0 24px rgba(139,92,246,.35),0 0 48px rgba(99,102,241,.15),0 4px 16px rgba(0,0,0,.4),inset 0 0 20px rgba(139,92,246,.1);}\
+  50%{box-shadow:0 0 32px rgba(139,92,246,.5),0 0 56px rgba(99,102,241,.25),0 4px 16px rgba(0,0,0,.4),inset 0 0 24px rgba(139,92,246,.15);}\
 }\
-@keyframes sf-chat-pulse{\
-  0%,100%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),inset 0 1px 0 rgba(255,255,255,.3);}\
-  50%{box-shadow:0 6px 28px rgba(139,92,246,.5),0 0 20px rgba(192,132,252,.3),0 0 0 16px rgba(139,92,246,0),inset 0 1px 0 rgba(255,255,255,.3);}\
+@keyframes sf-orb-spin{\
+  0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}\
+}\
+@keyframes sf-orb-inner{\
+  0%,100%{background-position:0% 0%;}\
+  25%{background-position:100% 0%;}\
+  50%{background-position:100% 100%;}\
+  75%{background-position:0% 100%;}\
 }\
 \
 /* ── Chat Panel ── */\
