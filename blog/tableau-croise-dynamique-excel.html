@@ -119,7 +119,73 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 <h1>Comment faire un tableau croise dynamique sur Excel</h1>
 <div class="article-meta"><span><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 13 avril 2026</span><span><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 7 min de lecture</span></div>
 <div class="article-hero" style="background:linear-gradient(135deg, rgba(230,126,34,.08) 0%, rgba(230,126,34,.04) 50%, rgba(241,245,249,.6) 100%)"><div class="article-hero-bg" style="background:radial-gradient(circle at 30% 50%, rgba(230,126,34,.15), transparent 70%), radial-gradient(circle at 70% 30%, rgba(230,126,34,.08), transparent 60%)"></div><div class="article-hero-icon" style="color:#E67E22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div></div>
-<p>Le <b>TCD</b> synthetise des milliers de lignes en clics.</p><h2>Creer un TCD</h2><ol><li>Selectionnez vos donnees</li><li>Insertion > Tableau croise dynamique</li><li>Glissez les champs</li></ol><h2>Astuces</h2><ul><li>Segments visuels</li><li>Groupement dates</li><li>Graphique croise</li></ul><p><a href='../formations.html?cat=bureautique'>Formation Excel</a>. <a href='../inscription.html'>Devis gratuit</a>.</p>
+
+<p>Le <b>tableau croise dynamique (TCD)</b> est sans doute la fonctionnalite la plus puissante d'Excel — et pourtant, la majorite des utilisateurs ne l'ont jamais utilisee. Avec un TCD, vous pouvez synthetiser des <b>milliers de lignes de donnees en quelques clics</b>, sans ecrire une seule formule. Ce tutoriel vous guide pas a pas, de la creation a l'analyse avancee.</p>
+
+<h2>A quoi sert un tableau croise dynamique ?</h2>
+<p>Imaginez que vous avez un fichier de 10 000 lignes de ventes avec les colonnes : Date, Produit, Region, Vendeur, Montant. Avec un TCD, vous pouvez obtenir en 3 clics :</p>
+<ul>
+<li>Le <b>chiffre d'affaires total par produit</b></li>
+<li>La <b>moyenne des ventes par region et par mois</b></li>
+<li>Le <b>nombre de transactions par vendeur</b></li>
+<li>Le <b>top 10 des meilleurs mois</b></li>
+<li>Une <b>comparaison annee par annee</b></li>
+</ul>
+<p>Tout cela sans formule SOMME.SI, sans RECHERCHEV, sans copier-coller. Le TCD fait tout automatiquement.</p>
+
+<h2>Creer votre premier TCD en 4 etapes</h2>
+<h3>Etape 1 : Preparez vos donnees</h3>
+<p>Votre tableau doit avoir des <b>en-tetes clairs</b> sur la premiere ligne (Date, Produit, Region...) et aucune ligne vide. Chaque colonne doit contenir un seul type de donnee.</p>
+
+<h3>Etape 2 : Inserez le TCD</h3>
+<ol>
+<li>Cliquez n'importe ou dans votre tableau de donnees</li>
+<li>Allez dans <b>Insertion > Tableau croise dynamique</b></li>
+<li>Excel detecte automatiquement la plage de donnees</li>
+<li>Choisissez "Nouvelle feuille de calcul" et cliquez OK</li>
+</ol>
+
+<h3>Etape 3 : Configurez les zones</h3>
+<p>A droite de l'ecran apparait le panneau des champs. Glissez vos colonnes dans les 4 zones :</p>
+<div style="background:var(--surface2);border:1px solid var(--bd);border-radius:var(--r);padding:24px;margin:24px 0">
+<ul style="margin:0">
+<li><b>Lignes</b> : ce que vous voulez analyser (ex: Produit, Vendeur, Region)</li>
+<li><b>Colonnes</b> : pour croiser avec une 2e dimension (ex: Annee, Trimestre)</li>
+<li><b>Valeurs</b> : les chiffres a calculer (ex: Somme du Montant, Nombre de transactions)</li>
+<li><b>Filtres</b> : pour filtrer l'ensemble du TCD sans modifier la structure</li>
+</ul>
+</div>
+
+<h3>Etape 4 : Analysez</h3>
+<p>Votre TCD est pret. Changez les champs, ajoutez des filtres, modifiez le calcul (somme, moyenne, nombre, max...) — tout se met a jour instantanement.</p>
+
+<h2>Fonctionnalites avancees du TCD</h2>
+
+<h3>Les segments (slicers)</h3>
+<p>Des <b>filtres visuels cliquables</b> qui rendent votre TCD interactif. Au lieu d'un menu deroulant, vous avez des boutons : cliquez sur "Paris" pour filtrer, cliquez sur "Lyon" pour changer. Ideal pour les presentations et les tableaux de bord.</p>
+<p>Pour les ajouter : cliquez dans le TCD > onglet <b>Analyse > Inserer un segment</b>.</p>
+
+<h3>Groupement par dates</h3>
+<p>Si votre TCD contient des dates, faites un clic droit sur une date > <b>Grouper</b>. Vous pouvez regrouper par mois, trimestre, annee — automatiquement. Ideal pour les analyses temporelles.</p>
+
+<h3>Champs calcules</h3>
+<p>Creez vos propres formules dans le TCD. Exemple : un champ "Marge" qui calcule Ventes - Couts pour chaque ligne. Allez dans <b>Analyse > Champs, elements et jeux > Champ calcule</b>.</p>
+
+<h3>Graphique croise dynamique</h3>
+<p>Transformez votre TCD en graphique interactif en un clic : <b>Analyse > Graphique croise dynamique</b>. Le graphique se met a jour automatiquement quand vous modifiez le TCD.</p>
+
+<h2>Les erreurs a eviter</h2>
+<ul>
+<li><b>Donnees mal structurees</b> : lignes vides, en-tetes manquants, donnees mixtes dans une colonne</li>
+<li><b>Ne pas actualiser</b> : quand vos donnees source changent, faites clic droit > Actualiser sur le TCD</li>
+<li><b>Trop de champs</b> : un TCD trop charge est illisible. Gardez 2-3 champs max en Lignes</li>
+</ul>
+
+<h2>Aller plus loin</h2>
+<p>Le TCD est au programme de notre <a href='../formations.html?cat=bureautique'>formation Excel Complet</a> avec <a href='certification-eni-preparer.html'>certification ENI</a>. Si vous debutez sur Excel, commencez par <a href='apprendre-excel-guide-debutant.html'>notre guide debutant</a>.</p>
+<p>Pour l'analyse de donnees a grande echelle, decouvrez aussi <a href='formation-power-bi-analyse-donnees.html'>Power BI</a> — le complement ideal du TCD.</p>
+<p><a href='../inscription.html'>Demandez un devis gratuit</a>.</p>
+
 <div class="article-cta"><p><b>Vous souhaitez en savoir plus ?</b></p><a href="../inscription.html" class="btn-glow">Demander un devis gratuit <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
 </article>
 <footer><div class="w">
