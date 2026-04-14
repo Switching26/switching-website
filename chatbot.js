@@ -418,6 +418,9 @@
 .sf-chat-nudge:hover .sf-chat-nudge-close{opacity:1;}\
 .sf-chat-nudge-close:hover{background:rgba(107,112,148,.16);}\
 .sf-chat-nudge-close svg{width:10px;height:10px;stroke:#6b7094;stroke-width:2.5;fill:none;stroke-linecap:round;}\
+@media(hover:none),(pointer:coarse){\
+  .sf-chat-nudge-close{opacity:1;}\
+}\
 @media(max-width:480px){\
   .sf-chat-nudge{right:20px;bottom:84px;max-width:230px;font-size:12.5px;padding:12px 14px;}\
   .sf-chat-nudge-emoji{font-size:18px;}\
