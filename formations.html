@@ -1271,8 +1271,8 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .dd-all{font-weight:600!important;color:var(--accent)!important}.dd-all:hover{background:var(--accent-gl2)!important;color:var(--accent)!important}
 
 /* PAGE HERO */
-.page-hero{padding:16px 0 0;position:relative}
-.hero-card{position:relative;border-radius:24px;overflow:hidden;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;background-image:url('images/hero-formations.webp');background-size:cover;background-position:center;background-color:#1E293B;box-shadow:0 20px 60px rgba(0,0,0,.12)}
+.page-hero{padding:16px 0 32px;position:relative}
+.hero-card{position:relative;border-radius:24px;overflow:hidden;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;background-image:url('images/hero-formations.webp');background-size:cover;background-position:center;background-color:#1E293B;box-shadow:0 20px 60px rgba(0,0,0,.12);margin-bottom:40px}
 .hero-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.7) 0%,rgba(15,23,42,.4) 40%,rgba(15,23,42,.15) 70%,transparent 100%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;padding:40px 44px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 18px 7px 14px;border-radius:var(--rf);font-size:12px;font-weight:600;color:#fff;margin-bottom:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -1286,11 +1286,15 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .hero-stat-l{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
 .hero-stat-sep{width:1px;height:28px;background:rgba(255,255,255,.15);flex-shrink:0}
 
-/* FILTERS (glassmorphism inside hero) */
-.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.flt{padding:8px 20px;border-radius:var(--rf);border:1px solid rgba(0,0,0,.1);font-size:13px;font-weight:500;color:rgba(255,255,255,.8);cursor:pointer;transition:all .25s var(--e);background:rgba(255,255,255,.1);font-family:var(--f);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.flt:hover{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3)}
-.flt.on{background:#fff;color:#0F172A;border-color:#fff;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+/* SIDEBAR LAYOUT */
+.f-layout{display:flex;gap:40px;align-items:flex-start}
+.f-sidebar{width:260px;flex-shrink:0;position:sticky;top:90px;height:max-content}
+.f-content{flex:1;min-width:0}
+.filters{display:flex;flex-direction:column;gap:6px}
+.flt{display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:16px;border:none;font-size:14px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .3s var(--e);background:transparent;text-align:left}
+.flt svg{width:18px;height:18px;flex-shrink:0}
+.flt:hover{background:rgba(0,0,0,.03);color:var(--text);transform:translateX(4px)}
+.flt.on{background:var(--accent);color:#fff;font-weight:600;box-shadow:0 8px 24px rgba(16,171,175,.25)}
 
 /* SECTION HEADERS */
 .sec-head{text-align:center;margin-bottom:36px}
@@ -1299,9 +1303,10 @@ header.scrolled .nav-pill{box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
 .sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0E9599);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* DOMAIN SECTIONS */
+/* DOMAIN SECTIONS & WATERMARK */
 .domain{padding:44px 0 12px;position:relative}
-.domain:first-of-type::before{content:'';position:absolute;top:-60px;left:-10%;right:-10%;height:300px;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(16,171,175,.04),transparent);pointer-events:none;z-index:0}
+.domain::before{content:attr(data-domain);position:absolute;top:-20px;left:-60px;font-family:'Poppins',sans-serif;font-size:240px;font-weight:900;color:var(--accent);opacity:0.02;text-transform:uppercase;z-index:0;pointer-events:none;white-space:nowrap;letter-spacing:-.04em}
+.domain:first-of-type::before{top:-60px}
 .domain::after{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.06),transparent);margin:12px 0 0}
 .domain:last-of-type::after{display:none}
 .domain-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
@@ -1461,10 +1466,14 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 .w{padding:0 18px}
 .topbar .w{flex-direction:column;gap:4px;text-align:center}
 .hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
-.page-hero{padding:12px 0 0}.hero-card{min-height:240px;background-image:none;background:#0F172A}.hero-card::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 80%,rgba(16,171,175,.25),transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(99,102,241,.2),transparent 55%),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(244,63,94,.08),transparent 50%);animation:meshMove 8s ease-in-out infinite alternate}.hero-card::after{background:none}
+.page-hero{padding:12px 0 0}.hero-card{min-height:240px;background-image:none;background:#0F172A;margin-bottom:24px}.hero-card::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 80%,rgba(16,171,175,.25),transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(99,102,241,.2),transparent 55%),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(244,63,94,.08),transparent 50%);animation:meshMove 8s ease-in-out infinite alternate}.hero-card::after{background:none}
 @keyframes meshMove{0%{opacity:.8;transform:scale(1) rotate(0deg)}100%{opacity:1;transform:scale(1.1) rotate(2deg)}}
 .hero-card h1{font-size:26px}.hero-inner{padding:20px 16px}.hero-desc{font-size:12px;margin-bottom:16px;line-height:1.6}
-.filters{gap:6px}.flt{padding:6px 12px;font-size:11px;border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.08)}
+.f-layout{flex-direction:column}
+.f-sidebar{width:100%;position:static;margin-bottom:24px}
+.filters{flex-direction:row;flex-wrap:wrap;gap:8px}
+.flt{padding:8px 16px;font-size:12px;border-radius:100px;text-align:center;justify-content:center}
+.flt:hover{transform:translateY(-2px)}
 .sec-h2{font-size:26px}
 .domain{padding:20px 0 8px}.domain-ico{width:36px;height:36px;border-radius:10px}.domain-ico svg{width:18px;height:18px}.domain-title{font-size:17px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}.domain-count{margin-left:0}.domain-desc{font-size:11.5px;margin-top:2px}.domain-header{gap:10px;margin-bottom:12px}
 .fg{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -1543,16 +1552,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="hero-tag"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/></svg>Plus de 50 formations</div>
 <h1>Toutes nos <span class="glow">formations</span></h1>
 <p class="hero-desc">Formations à distance en e-learning et visioconférence. Certifiées Qualiopi, finançables CPF, OPCO et France Travail. Présentiel sur mesure disponible.</p>
-<div class="filters">
-<button class="flt on" data-filter="all">Toutes</button>
-<button class="flt" data-filter="langues">Langues</button>
-<button class="flt" data-filter="bureautique">Bureautique</button>
-<button class="flt" data-filter="graphisme">Graphisme - Design</button>
-<button class="flt" data-filter="web">Web & Digital</button>
-<button class="flt" data-filter="compta">Comptabilité et Gestion de paie</button>
-<button class="flt" data-filter="ia">Intelligence Artificielle</button>
-<button class="flt" data-filter="bdc">Bilan de compétences</button>
-</div>
 <div class="hero-stats">
 <div class="hero-stat"><span class="hero-stat-n">50+</span><span class="hero-stat-l">Formations</span></div>
 <div class="hero-stat-sep"></div>
@@ -1562,9 +1561,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 </div>
+
+<div class="f-layout">
+<aside class="f-sidebar">
+<div class="filters">
+<button class="flt on" data-filter="all"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Toutes les formations</button>
+<button class="flt" data-filter="langues"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Langues & Outils</button>
+<button class="flt" data-filter="bureautique"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg> Bureautique</button>
+<button class="flt" data-filter="graphisme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg> Graphisme & Design</button>
+<button class="flt" data-filter="web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Web & Digital</button>
+<button class="flt" data-filter="compta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2.5"/><rect x="7" y="5" width="10" height="4" rx="1"/><circle cx="8.5" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><circle cx="8.5" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><rect x="14.3" y="15.8" width="2.4" height="2.4" rx=".6"/></svg> Compta & Paie</button>
+<button class="flt" data-filter="ia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="10" r="3"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="6" x2="12" y2="10"/><line x1="18" y1="6" x2="12" y2="10"/><line x1="12" y1="10" x2="6" y2="18"/><line x1="12" y1="10" x2="18" y2="18"/></svg> Intelligence Artificielle</button>
+<button class="flt" data-filter="bdc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/><polygon points="12 21.5 13.5 14 12 13 10.5 14" fill="currentColor" opacity=".25" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg> Bilan de compétences</button>
 </div>
-</div>
-</section>
+</aside>
+<main class="f-content">
+
 
 <!-- ═══════════════════════════ LANGUES ═══════════════════════════ -->
 <section class="domain rv" data-domain="langues">
@@ -1698,7 +1710,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="inscription.html" class="fc" style="--fc-c:#D4A017"><div class="fc-inner"><div class="fc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="12 2.5 13.5 10 12 11 10.5 10" fill="currentColor" opacity=".6" stroke="none"/><polygon points="12 21.5 13.5 14 12 13 10.5 14" fill="currentColor" opacity=".25" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></div><div class="fc-badges"><span class="fc-badge mode">Visioconférence</span><span class="fc-badge cpf">CPF</span></div><h3>Bilan de compétences — 15h</h3><p>Version condensée. Identifiez vos compétences clés et définissez votre projet professionnel en format accéléré.</p><div class="fc-meta"><span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>15h</span><span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Éligible CPF</span><span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>À distance</span></div><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div></a>
 </div></div>
 </section>
-
+</main>
+</div>
+</div>
+</section>
 <!-- CTA -->
 <section class="cta-section"><div class="w">
 <div class="cta-box rv">
