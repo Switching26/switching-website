@@ -215,20 +215,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div></div>
     <div class="fc-body"><h3>Graphisme</h3><p>Photoshop, Illustrator, Canva.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
   </a>
-  <a href="formations.html?cat=web" class="fc fc--web">
-    <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="16 18 22 12 16 6"/>
-        <polyline points="8 6 2 12 8 18"/>
-        <line class="ico-cursor" x1="12" y1="8" x2="12" y2="16" stroke-width="2"/>
-        <path class="ico-anim-1" d="M10 10h4" opacity=".4" stroke-width="1.2"/>
-        <path class="ico-anim-2" d="M9 14h6" opacity=".4" stroke-width="1.2"/>
-      </svg>
-    </div></div>
-    <div class="fc-body"><h3>Web &amp; Digital</h3><p>Développement, CMS, marketing.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
-  </a>
-</div>
-<div class="fg3">
   <a href="formations.html?cat=bdc" class="fc fc--bilan">
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -242,6 +228,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </svg>
     </div></div>
     <div class="fc-body"><h3>Bilan de compétences</h3><p>Accompagnement carrière.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+  </a>
+</div>
+<div class="fg3">
+  <a href="formations.html?cat=web" class="fc fc--web">
+    <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
+        <line class="ico-cursor" x1="12" y1="8" x2="12" y2="16" stroke-width="2"/>
+        <path class="ico-anim-1" d="M10 10h4" opacity=".4" stroke-width="1.2"/>
+        <path class="ico-anim-2" d="M9 14h6" opacity=".4" stroke-width="1.2"/>
+      </svg>
+    </div></div>
+    <div class="fc-body"><h3>Web &amp; Digital</h3><p>Développement, CMS, marketing.</p><span class="fc-link">Découvrir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
   </a>
   <a href="formations.html?cat=compta" class="fc fc--compta">
     <div class="fc-visual"><div class="blob"></div><div class="blob"></div><div class="ico-wrap">
@@ -393,7 +393,8 @@ document.querySelectorAll('.hero-stat-n[data-target]').forEach(function(el){
     }
   },{threshold:.5}).observe(el);
 });
-if(window.innerWidth<=768){var fc=document.querySelector('.form-card');if(fc){new IntersectionObserver(function(entries){entries.forEach(function(e){fc.classList.toggle('in-view',e.isIntersecting)})},{threshold:0.3}).observe(fc);}}
+if(window.innerWidth<=768){var fc=document.querySelector('.form-card');if(fc){new IntersectionObserver(function(entries){entries.forEach(function(e){fc.classList.toggle('in-view',e.isIntersecting)})},{threshold:0.3}).observe(fc);}
+}
 window.addEventListener('scroll',function(){document.getElementById('hd').classList.toggle('scrolled',scrollY>10)},{passive:true});
 // title animated via CSS
 function toggleMenu(){document.body.classList.toggle('menu-open');if(document.body.classList.contains('menu-open'))positionMenu()}
