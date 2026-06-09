@@ -144,7 +144,7 @@
     // === INTELLIGENCE ARTIFICIELLE ===
     { t: "Apprendre \u00e0 utiliser ChatGPT", c: "ia", k: "chatgpt prompt engineering ia intelligence artificielle openai gpt", i: I.chat },
     { t: "Midjourney PRO \u2014 Photos & Vid\u00e9os IA", c: "ia", k: "midjourney images photos vid\u00e9os ia g\u00e9n\u00e9rative intelligence artificielle", i: I.image },
-    { t: "IA conversationnelle \u2014 Cycle de vente", c: "ia", k: "ia vente prospection closing certifiante intelligence artificielle commercial", i: I.check },
+    { t: "IA conversationnelle \u2014 Cycle de vente", c: "ia", k: "ia vente prospection closing certifiante intelligence artificielle commercial", i: I.check, u: "/formation-ia-conversationnelle-cycle-vente-rs6792.html" },
     { t: "Copilot pour Microsoft 365", c: "ia", k: "copilot microsoft 365 word excel powerpoint ia intelligence artificielle", i: I.monitor },
     { t: "Vid\u00e9os avec l\u2019IA", c: "ia", k: "vid\u00e9o ia acad\u00e9mie cr\u00e9ation professionnelle intelligence artificielle", i: I.video },
     { t: "IA G\u00e9n\u00e9rative \u2014 Contenus (26h)", c: "ia", k: "ia g\u00e9n\u00e9rative contenus r\u00e9dactionnels visuels certifiante inkrea intelligence artificielle 26h", i: I.image },
@@ -373,7 +373,7 @@
       emptyBox.classList.remove('vis');
       resultsBox.innerHTML = FORMATIONS.map(function(f, idx) {
         var col = COLORS[f.c];
-        return '<a class="cmd-item" href="/inscription.html" data-i="' + idx + '">' +
+        return '<a class="cmd-item" href="' + (f.u || '/inscription.html') + '" data-i="' + idx + '">' +
           '<div class="cmd-item-icon" style="color:' + col + ';border-color:' + col + '22;background:' + col + '0a">' + f.i + '</div>' +
           '<div class="cmd-item-title">' + f.t + '</div>' +
           '<svg class="cmd-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>' +
@@ -408,7 +408,7 @@
     resultsBox.innerHTML = scored.map(function(item, idx) {
       var f = item.f;
       var col = COLORS[f.c];
-      return '<a class="cmd-item' + (idx === sel ? ' sel' : '') + '" href="/inscription.html" data-i="' + idx + '">' +
+      return '<a class="cmd-item' + (idx === sel ? ' sel' : '') + '" href="' + (f.u || '/inscription.html') + '" data-i="' + idx + '">' +
         '<div class="cmd-item-icon" style="color:' + col + ';border-color:' + col + '22;background:' + col + '0a">' + f.i + '</div>' +
         '<div class="cmd-item-title">' + highlight(f.t, q) + '</div>' +
         '<svg class="cmd-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>' +
