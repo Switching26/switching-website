@@ -210,14 +210,20 @@ async function gmailSend(to, subject, htmlBody) {
 
 // ─── EMAIL HELPERS ───
 
-function formatDateFR() {
-  const now = new Date();
-  const d = String(now.getDate()).padStart(2, '0');
-  const m = String(now.getMonth() + 1).padStart(2, '0');
-  const y = now.getFullYear();
-  const h = String(now.getHours()).padStart(2, '0');
-  const min = String(now.getMinutes()).padStart(2, '0');
-  return d + '/' + m + '/' + y + ' à ' + h + 'h' + min;
+function formatDateFR(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: 'Europe/Paris',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23'
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return parts.day + '/' + parts.month + '/' + parts.year + ' à ' + parts.hour + 'h' + parts.minute;
 }
 
 function getPageLabel(source) {
