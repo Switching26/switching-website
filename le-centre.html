@@ -228,7 +228,7 @@ h1 .glow{background:linear-gradient(135deg,#3DC8C9,#10ABAF,#7DD8D9);-webkit-back
 /* FOOTER */
 footer{background:#0F172A;padding:0;position:relative;overflow:hidden;z-index:50}
 footer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 10% 100%,rgba(16,171,175,.08),transparent),radial-gradient(ellipse 40% 50% at 90% 0%,rgba(99,102,241,.05),transparent);pointer-events:none}
-.ft-cta{position:relative;z-index:1;padding:40px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ft-cta{position:relative;z-index:1;padding:40px 0;border-bottom:0;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .ft-cta-text{font-family:'Poppins',sans-serif;font-size:20px;font-weight:600;color:#E2E8F0;letter-spacing:-.02em}
 .ft-cta-text em{font-style:normal;color:#3DC8C9}
 .ft-cta-btns{display:flex;gap:10px;flex-shrink:0}
@@ -263,7 +263,7 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .ft-contact-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.06);border-radius:12px;color:#94A3B8;text-decoration:none;font-size:13px;transition:all .2s}
 .ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
 .ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
-.ft-sep-m{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.ft-sep-m{display:none}
 .ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
 .ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
 .ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
@@ -701,13 +701,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div></section>
 
 <footer><div class="w">
-<div class="ft-cta">
-<div class="ft-cta-text">Un projet de <em>formation</em> ? Parlons-en.</div>
-<div class="ft-cta-btns">
-<a href="inscription.html" class="ft-cta-btn primary">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-<a href="tel:+33695185057" class="ft-cta-btn secondary"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>06 95 18 50 57</a>
-</div>
-</div>
 <div class="ft-grid">
 <div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi, spécialisé dans la formation à distance. E-learning et visioconférence dans 7 domaines.</p>
 <div class="ft-brand-contact">
