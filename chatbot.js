@@ -508,7 +508,7 @@
 </div>\
 <div class="sf-chat-messages"></div>\
 <div class="sf-chat-input-area">\
-  <input class="sf-chat-input" type="text" placeholder="Votre message..." autocomplete="off"/>\
+  <input class="sf-chat-input" type="text" name="sf-chat-message" placeholder="Votre message..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" inputmode="text" enterkeyhint="send" data-1p-ignore="true" data-lpignore="true"/>\
   <button class="sf-chat-send" aria-label="Envoyer"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>\
 </div>';
 
@@ -524,6 +524,29 @@
   var inputEl = panel.querySelector('.sf-chat-input');
   var sendBtn = panel.querySelector('.sf-chat-send');
   var closeBtn = panel.querySelector('.sf-chat-header-close');
+
+  // The chatbot never needs passwords, cards or address suggestions. Keep this
+  // policy on both the main composer and fields injected later in the dialogue.
+  function disableChatAutofill(field) {
+    if (!field || !field.matches || !field.matches('input,textarea,[contenteditable="true"]')) return;
+    field.setAttribute('autocomplete', 'off');
+    field.setAttribute('autocorrect', 'off');
+    field.setAttribute('autocapitalize', 'none');
+    field.setAttribute('data-1p-ignore', 'true');
+    field.setAttribute('data-lpignore', 'true');
+    field.spellcheck = false;
+  }
+  function disableChatAutofillIn(root) {
+    if (!root) return;
+    disableChatAutofill(root);
+    if (root.querySelectorAll) root.querySelectorAll('input,textarea,[contenteditable="true"]').forEach(disableChatAutofill);
+  }
+  disableChatAutofillIn(panel);
+  new MutationObserver(function(records) {
+    records.forEach(function(record) {
+      record.addedNodes.forEach(function(node) { disableChatAutofillIn(node); });
+    });
+  }).observe(panel, { childList: true, subtree: true });
 
   // ── Visual Viewport handling for mobile keyboard ──
   // When the keyboard opens on mobile, resize the panel to fit the visible area
@@ -634,7 +657,7 @@
       : label.toLowerCase().indexOf('tel') !== -1 || label.toLowerCase().indexOf('phone') !== -1 || label.toLowerCase().indexOf('téléphone') !== -1 || label.toLowerCase().indexOf('numero') !== -1 || label.toLowerCase().indexOf('numéro') !== -1 ? 'tel'
       : 'text';
     inp.placeholder = label;
-    inp.autocomplete = inp.type === 'email' ? 'email' : inp.type === 'tel' ? 'tel' : 'off';
+    disableChatAutofill(inp);
     var btn = document.createElement('button');
     btn.className = 'sf-chat-inline-submit';
     btn.innerHTML = '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
