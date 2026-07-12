@@ -169,6 +169,13 @@ pointer-events:none}
 .step-opt:hover .opt-dot{border-color:var(--accent)}
 .step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
 
+/* ═══ LOT B — wizard aux couleurs des domaines ═══ */
+.step-opt[style*="--so"] .opt-dot{border-color:color-mix(in srgb,var(--so) 55%,#CBD5E1)}
+.step-opt[style*="--so"]:hover{color:color-mix(in srgb,var(--so) 80%,#333);background:color-mix(in srgb,var(--so) 8%,#fff)}
+.step-opt[style*="--so"]:hover .opt-dot{border-color:var(--so);box-shadow:0 0 0 3px color-mix(in srgb,var(--so) 14%,transparent)}
+.step-opt[style*="--so"].selected{background:color-mix(in srgb,var(--so) 12%,#fff);color:color-mix(in srgb,var(--so) 85%,#111);box-shadow:0 4px 16px color-mix(in srgb,var(--so) 22%,transparent)}
+.step-opt[style*="--so"].selected .opt-dot{border-color:var(--so);background:var(--so)}
+
 /* FORM FIELDS */
 .ff{margin-bottom:10px}
 .ff label{display:block;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;color:var(--sub);margin-bottom:6px}
@@ -617,14 +624,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="step-label">Étape 1/5</div>
 <div class="step-q">Quel domaine vous intéresse ?</div>
 <div class="step-opts">
-<button class="step-opt"><span class="opt-dot"></span>Langues</button>
-<button class="step-opt"><span class="opt-dot"></span>Bureautique</button>
-<button class="step-opt"><span class="opt-dot"></span>Graphisme & PAO</button>
-<button class="step-opt"><span class="opt-dot"></span>Web & Digital</button>
-<button class="step-opt"><span class="opt-dot"></span>Bilan de compétences</button>
-<button class="step-opt"><span class="opt-dot"></span>Comptabilité / Paie</button>
-<button class="step-opt"><span class="opt-dot"></span>Intelligence Artificielle</button>
-<button class="step-opt"><span class="opt-dot"></span>Autre / Je ne sais pas</button>
+<button class="step-opt" style="--so:#2E86C1"><span class="opt-dot"></span>Langues</button>
+<button class="step-opt" style="--so:#E67E22"><span class="opt-dot"></span>Bureautique</button>
+<button class="step-opt" style="--so:#D64F8C"><span class="opt-dot"></span>Graphisme & PAO</button>
+<button class="step-opt" style="--so:#4F63D2"><span class="opt-dot"></span>Web & Digital</button>
+<button class="step-opt" style="--so:#D4A017"><span class="opt-dot"></span>Bilan de compétences</button>
+<button class="step-opt" style="--so:#8B6914"><span class="opt-dot"></span>Comptabilité / Paie</button>
+<button class="step-opt" style="--so:#0E9599"><span class="opt-dot"></span>Intelligence Artificielle</button>
+<button class="step-opt" style="--so:#10ABAF"><span class="opt-dot"></span>Autre / Je ne sais pas</button>
 </div>
 <div class="step-nav"><span></span><span></span></div>
 </div>
