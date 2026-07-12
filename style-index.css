@@ -509,3 +509,16 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-inner{flex-direction:c
 .form-card{will-change:transform,box-shadow;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s ease}
 .form-card.in-view{transform:scale(1.03);box-shadow:0 8px 40px rgba(16,171,175,.18),0 0 0 2px rgba(16,171,175,.12)}
 }
+
+/* ═══ HERO MICRO-VIES (Lot A) ═══ */
+.hero-orbs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-orbs i{position:absolute;border-radius:50%;filter:blur(52px)}
+.hero-orbs i:nth-child(1){width:380px;height:380px;left:-120px;top:-90px;background:radial-gradient(circle,rgba(16,171,175,.16),transparent 70%);animation:hOrbA 12s ease-in-out infinite alternate}
+.hero-orbs i:nth-child(2){width:300px;height:300px;right:-80px;bottom:-100px;background:radial-gradient(circle,rgba(99,102,241,.10),transparent 70%);animation:hOrbB 14s ease-in-out infinite alternate}
+@keyframes hOrbA{from{transform:translate(0,0) scale(1)}to{transform:translate(46px,26px) scale(1.15)}}
+@keyframes hOrbB{from{transform:translate(0,0) scale(1)}to{transform:translate(-38px,-22px) scale(1.12)}}
+.hero-tag::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(16,171,175,.8);margin-left:7px;animation:tagPulse 2.2s ease-in-out infinite}
+@keyframes tagPulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1 .glow{background:linear-gradient(90deg,#10ABAF,#3DC8C9,#0E9599,#10ABAF);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:slideUp .8s var(--e) .4s forwards,glowShift 7s linear infinite}
+@keyframes glowShift{from{background-position:0% 0}to{background-position:250% 0}}
+@media(prefers-reduced-motion:reduce){.hero-orbs i,.hero-tag::after{animation:none!important}.hero h1 .glow{animation:slideUp .8s var(--e) .4s forwards!important}}
