@@ -927,12 +927,12 @@
       if (!isOpen && !nudgeDismissed) {
         nudge.classList.add('sf-chat-nudge-visible');
       }
-    }, 4000);
+    }, 8000);
 
-    // Auto-hide after 12 seconds
+    // Auto-hide after 10 seconds
     setTimeout(function() {
       nudge.classList.remove('sf-chat-nudge-visible');
-    }, 16000);
+    }, 18000);
 
     // Click nudge opens chat
     nudge.addEventListener('click', function(e) {
