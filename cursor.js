@@ -17,10 +17,12 @@
   dot.className='sw-cursor-dot on-light';
   var ring=document.createElement('div');
   ring.className='sw-cursor-ring';
+  dot.style.visibility='hidden';
+  ring.style.visibility='hidden';
   document.body.appendChild(dot);
   document.body.appendChild(ring);
 
-  var mx=0,my=0,rx=0,ry=0;
+  var mx=0,my=0,rx=0,ry=0,seen=false;
   var currentMode='on-light';
 
   function getLuminance(r,g,b){
@@ -57,6 +59,7 @@
 
   document.addEventListener('mousemove',function(e){
     mx=e.clientX;my=e.clientY;
+    if(!seen){seen=true;rx=mx;ry=my;dot.style.visibility='';ring.style.visibility='';}
     dot.style.left=mx+'px';
     dot.style.top=my+'px';
     checkBackground();
