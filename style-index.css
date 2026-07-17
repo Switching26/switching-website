@@ -100,7 +100,10 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
    plus ; seul le contenu vidéo dérive sous le cadre, et le scale(1.07) force
    un ré-échantillonnage bilinéaire permanent : aucun pas de pixel possible.
    Dérive = ellipse 8 points en linear (vélocité jamais nulle, leçon ad6c602). */
-@keyframes heroPan{0%{transform:translate3d(0,5.5px,0) scale(1.07)}12.5%{transform:translate3d(4.9px,3.9px,0) scale(1.07)}25%{transform:translate3d(7px,0,0) scale(1.07)}37.5%{transform:translate3d(4.9px,-3.9px,0) scale(1.07)}50%{transform:translate3d(0,-5.5px,0) scale(1.07)}62.5%{transform:translate3d(-4.9px,-3.9px,0) scale(1.07)}75%{transform:translate3d(-7px,0,0) scale(1.07)}87.5%{transform:translate3d(-4.9px,3.9px,0) scale(1.07)}100%{transform:translate3d(0,5.5px,0) scale(1.07)}}
+/* Le rotate(0.02deg) est invisible mais force Chrome/Windows à sortir la vidéo
+   du plan overlay DirectComposition (positionné au pixel entier) vers la
+   composition texture bilinéaire : positionnement sous-pixel garanti. */
+@keyframes heroPan{0%{transform:translate3d(0,5.5px,0) scale(1.07) rotate(.02deg)}12.5%{transform:translate3d(4.9px,3.9px,0) scale(1.07) rotate(.02deg)}25%{transform:translate3d(7px,0,0) scale(1.07) rotate(.02deg)}37.5%{transform:translate3d(4.9px,-3.9px,0) scale(1.07) rotate(.02deg)}50%{transform:translate3d(0,-5.5px,0) scale(1.07) rotate(.02deg)}62.5%{transform:translate3d(-4.9px,-3.9px,0) scale(1.07) rotate(.02deg)}75%{transform:translate3d(-7px,0,0) scale(1.07) rotate(.02deg)}87.5%{transform:translate3d(-4.9px,3.9px,0) scale(1.07) rotate(.02deg)}100%{transform:translate3d(0,5.5px,0) scale(1.07) rotate(.02deg)}}
 .hero-vid{position:relative;width:100%;min-height:400px;border-radius:20px;overflow:hidden;border:1px solid var(--bd);box-shadow:0 20px 50px rgba(0,0,0,.12)}
 .hero-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;will-change:transform;animation:heroPan 16s linear infinite}
 
