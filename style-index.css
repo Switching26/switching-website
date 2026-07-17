@@ -89,7 +89,7 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .btn-glow:hover svg,.btn-ghost:hover svg{transform:translateX(3px)}
 
 .hero-imgs{display:flex;flex-direction:column}
-@keyframes floatMedia{0%, 100%{transform: translateY(0);} 50%{transform: translateY(-12px);}}
+@keyframes floatMedia{0%, 100%{transform: translate3d(0,0,0);} 50%{transform: translate3d(0,-12px,0);}}
 /* Float porté par le wrapper (compositing GPU pur), jamais par la <video> : animer la vidéo
    directement avec border-radius/ombre force iOS à re-rasteriser le masque à chaque frame -> saccades */
 .hero-vid{position:relative;width:100%;min-height:400px;border-radius:20px;overflow:hidden;border:1px solid var(--bd);box-shadow:0 20px 50px rgba(0,0,0,.12);animation:floatMedia 6s ease-in-out infinite;will-change:transform;transform:translateZ(0)}
@@ -641,3 +641,14 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-inner{flex-direction:c
 .hero h1 .glow{background:linear-gradient(90deg,#10ABAF,#3DC8C9,#0E9599,#10ABAF);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:slideUp .8s var(--e) .4s forwards,glowShift 7s linear infinite}
 @keyframes glowShift{from{background-position:0% 0}to{background-position:250% 0}}
 @media(prefers-reduced-motion:reduce){.hero-orbs i,.hero-tag::after,.hero-vid{animation:none!important}.hero h1 .glow{animation:slideUp .8s var(--e) .4s forwards!important}}
+
+/* PERF MOBILE — float vidéo fluide : sur iPhone, les animations satellites du hero
+   (box-shadow / background-position = repaints CPU, gros bitmaps blur(52px), grain
+   fixe plein écran = re-blend total à chaque frame) volent des frames au float.
+   On les fige sous 1024px : visuel quasi identique, GPU réservé à la vidéo. */
+@media(max-width:1024px){
+body::after{display:none}
+.hero-orbs i{animation:none!important}
+.hero .btn-glow{animation:none}
+.hero h1 .glow{animation:slideUp .8s var(--e) .4s forwards}
+}
