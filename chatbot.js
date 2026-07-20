@@ -38,7 +38,7 @@
   style.textContent = '\
 /* ── Chat Bubble — Encre Aurora ── */\
 .sf-chat-bubble{\
-  position:fixed;bottom:28px;right:28px;z-index:9998;\
+  position:fixed;bottom:calc(28px + env(safe-area-inset-bottom));right:28px;z-index:9998;\
   width:64px;height:64px;border-radius:50%;\
   background:#0F172A;\
   display:flex;align-items:center;justify-content:center;\
@@ -72,7 +72,7 @@
 \
 /* ── Chat Panel — nuit aurora ── */\
 .sf-chat-panel{\
-  position:fixed;bottom:96px;right:28px;z-index:9997;\
+  position:fixed;bottom:calc(96px + env(safe-area-inset-bottom));right:28px;z-index:9997;\
   width:380px;height:560px;\
   background:linear-gradient(160deg,#0F172A,#151E33 55%,#1E293B);\
   border-radius:24px;\
@@ -331,7 +331,7 @@
 \
 /* ── Contextual Nudge ── */\
 .sf-chat-nudge{\
-  position:fixed;bottom:96px;right:28px;z-index:9998;\
+  position:fixed;bottom:calc(96px + env(safe-area-inset-bottom));right:28px;z-index:9998;\
   background:linear-gradient(160deg,#0F172A,#1E293B);\
   padding:14px 18px;border-radius:16px 16px 4px 16px;\
   border:1px solid rgba(255,255,255,.1);\
@@ -395,7 +395,7 @@
   .sf-chat-nudge-close{opacity:1;}\
 }\
 @media(max-width:480px){\
-  .sf-chat-nudge{right:20px;bottom:84px;max-width:230px;font-size:12.5px;padding:12px 14px;}\
+  .sf-chat-nudge{right:20px;bottom:calc(84px + env(safe-area-inset-bottom));max-width:230px;font-size:12.5px;padding:12px 14px;}\
   .sf-chat-nudge-emoji{font-size:18px;}\
 }\
 \
@@ -416,13 +416,13 @@
   .sf-chat-backdrop{display:block;}\
   .sf-chat-panel{\
     position:fixed;\
-    bottom:12px;right:10px;left:10px;top:auto;\
-    width:auto;height:calc(100dvh - 24px);max-height:calc(100dvh - 24px);\
+    bottom:calc(12px + env(safe-area-inset-bottom));right:10px;left:10px;top:auto;\
+    width:auto;height:calc(100dvh - 24px - env(safe-area-inset-bottom));max-height:calc(100dvh - 24px - env(safe-area-inset-bottom));\
     border-radius:20px;\
     border:1px solid rgba(255,255,255,.12);\
     box-shadow:0 20px 60px rgba(0,0,0,.35);\
   }\
-  .sf-chat-bubble{bottom:20px;right:20px;width:56px;height:56px;}\
+  .sf-chat-bubble{bottom:calc(20px + env(safe-area-inset-bottom));right:20px;width:56px;height:56px;}\
   .sf-chat-bubble svg{width:24px;height:24px;}\
   .sf-chat-input-area{\
     padding:10px 12px;\
