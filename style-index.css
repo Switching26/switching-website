@@ -565,11 +565,11 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .ft-contact-item:hover{background:rgba(255,255,255,.1);color:#fff}
 .ft-contact-item svg{width:18px;height:18px;flex-shrink:0}
 .ft-sep-m{display:none}
-.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 0;line-height:1.5}
-.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 0;flex-wrap:wrap}
+.ft-brand-m{font-size:12px;color:#64748B;text-align:center;padding:8px 84px 8px 0;line-height:1.5}
+.ft-legal-m{display:flex;justify-content:center;gap:16px;padding:8px 84px 8px 0;flex-wrap:wrap}
 .ft-legal-m a{color:#64748B;text-decoration:none;font-size:11px;transition:color .2s}
 .ft-legal-m a:hover{color:#10ABAF}
-.ft-copy-m{font-size:11px;color:#64748B;text-align:center;opacity:.9;padding-top:4px}
+.ft-copy-m{font-size:11px;color:#64748B;text-align:center;opacity:.9;padding:4px 84px 0 0}
 
 /* MOBILE MENU */
 .menu-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;border-radius:12px;background:transparent;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
