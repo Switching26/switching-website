@@ -2019,6 +2019,32 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 .domain .fg{display:none}
 }
 @media(prefers-reduced-motion:reduce){.fwrap .avc{animation:none!important}}
+
+/* ═══ V1 MOBILE — héro clair + fil de sections (ajustements Samuel 21/07/2026) ═══ */
+.mhero{display:none}
+@media(max-width:768px){
+.page-hero .hero-card{display:none}
+.mhero{display:block;padding:6px 0 2px}
+.mhero-k{font-family:'Outfit',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#10ABAF}
+.mhero-t{font-family:'Poppins',sans-serif;font-size:30px;font-weight:700;letter-spacing:-.03em;color:#0F172A;line-height:1.1;margin-top:6px}
+.mhero-t em{font-style:normal;background:linear-gradient(135deg,#10ABAF,#0E9599,#3DC8C9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mhero p{font-size:13px;color:#64748B;margin-top:8px;font-family:'Outfit',sans-serif}
+.mdom{margin-left:-10px;margin-right:-10px}
+.f-sidebar .filters .flt{background:#fff;border:1px solid rgba(15,23,42,.08);color:#334155;border-radius:99px;padding:7px 13px;font-size:11.5px;font-weight:700;font-family:'Poppins',sans-serif;display:inline-flex;align-items:center;gap:7px;flex:none;box-shadow:none}
+.f-sidebar .filters .flt svg{display:none}
+.f-sidebar .filters .flt::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--fc);flex:none}
+.f-sidebar .filters .flt .flt-n{background:transparent;border:none;color:#94A3B8;font-size:10.5px;font-weight:700;padding:0;margin-left:1px}
+.f-sidebar .filters .flt.on{background:#0F172A;color:#fff;border-color:#0F172A}
+.f-sidebar .filters .flt.on::before{background:#fff}
+.f-sidebar .filters .flt.on .flt-n{color:#CBD5E1}
+.f-sidebar .filters .flt[data-filter=langues]{--fc:#3B82F6}
+.f-sidebar .filters .flt[data-filter=bureautique]{--fc:#10B981}
+.f-sidebar .filters .flt[data-filter=graphisme]{--fc:#F59E0B}
+.f-sidebar .filters .flt[data-filter=bdc]{--fc:#F43F5E}
+.f-sidebar .filters .flt[data-filter=web]{--fc:#A855F7}
+.f-sidebar .filters .flt[data-filter=compta]{--fc:#FB923C}
+.f-sidebar .filters .flt[data-filter=ia]{--fc:#6366F1}
+}
 </style>
 <link rel="stylesheet" href="/search-modal.css">
 </head>
@@ -2077,8 +2103,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
+
 <div class="w">
 <div class="breadcrumb" aria-label="Fil d'Ariane"><div class="w"><a href="index.html">Accueil</a><span class="bc-sep">/</span><span class="bc-current">Nos formations</span></div></div>
+<div class="mhero"><span class="mhero-k">Nos formations</span><div class="mhero-t">Toutes nos <em>formations</em></div><p>56 formations · 7 domaines · 100 % à distance · éligibles CPF</p></div>
 <div class="hero-card hero-v3">
 <div class="hero-orbs"><i></i><i></i><i></i></div>
 <div class="hero-stars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
