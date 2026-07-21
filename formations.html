@@ -1949,6 +1949,76 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
   .fc.rvc{opacity:1!important;transform:none!important;transition:none!important}
 }
 
+
+/* ═══ V1 MOBILE — cartes home exactes + listes fines (choix Samuel 21/07/2026) ═══ */
+.avc{background:var(--surface);border:1px solid var(--bd);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:transform .45s var(--e),box-shadow .45s var(--e),border-color .45s var(--e);position:relative;text-decoration:none;color:var(--text)}
+.avc:hover{transform:translateY(-6px);border-color:var(--dcb);box-shadow:0 24px 56px -24px rgba(15,23,42,.25),0 10px 24px -14px var(--dcb)}
+.av-visual{padding:18px 18px 0;background:linear-gradient(180deg,var(--dcs),transparent 88%),radial-gradient(circle,rgba(15,23,42,.055) 1px,transparent 1.4px);background-size:auto,15px 15px}
+.av-body{padding:15px 20px 19px;display:flex;flex-direction:column;gap:6px;flex:1}
+.av-tt{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.av-tt h3{font-family:'Poppins',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;color:#0F172A}
+.av-num{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em}
+.av-body p{font-size:13px;color:var(--sub);line-height:1.5}
+.av-tools{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+.av-link{display:inline-flex;align-items:center;gap:7px;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:var(--dc);margin-top:auto;padding-top:12px}
+.av-link svg{width:14px;height:14px;transition:transform .3s var(--e)}
+.avc:hover .av-link svg{transform:translateX(4px)}
+.avc{animation:avIn .55s var(--e) backwards}
+.avc:nth-child(2){animation-delay:.07s}.avc:nth-child(3){animation-delay:.14s}.avc:nth-child(4){animation-delay:.21s}.avc:nth-child(5){animation-delay:.28s}.avc:nth-child(6){animation-delay:.35s}.avc:nth-child(7){animation-delay:.42s}
+@keyframes avIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.av-win{background:#fff;border:1px solid var(--bd2);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px -18px rgba(15,23,42,.28),0 4px 12px -6px rgba(15,23,42,.08);transition:transform .45s var(--e),box-shadow .45s var(--e)}
+.avc:hover .av-win{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 22px 44px -18px rgba(15,23,42,.32),0 8px 18px -8px var(--dcb)}
+
+/* ═══ STUDIO DE NUIT — section formations (choisi par Samuel 21/07/2026) ═══ */
+.forms{background:radial-gradient(circle,rgba(255,255,255,.045) 1px,transparent 1.4px) 0 0/18px 18px,#0B1120}
+.forms::before{background:radial-gradient(ellipse 720px 520px at 10% 8%,rgba(16,171,175,.16),transparent 64%),radial-gradient(ellipse 640px 560px at 90% 88%,rgba(99,102,241,.14),transparent 64%),radial-gradient(ellipse 420px 320px at 72% 16%,rgba(244,63,94,.07),transparent 70%)}
+@media(min-width:1024px){.forms::before{inset:-6%;animation:fnAur 26s ease-in-out infinite alternate}}
+@keyframes fnAur{0%{transform:translate(0,0)}100%{transform:translate(-1.8%,1.4%)}}
+.forms .sec-h2{color:#F8FAFC}
+.forms .sec-tag{color:#2DD4BF}
+.forms .sec-tag::before,.forms .sec-tag::after{background:#2DD4BF;opacity:.4}
+.forms .sec-meta{color:#94A3B8}
+.forms .sec-meta b{color:#2DD4BF}
+.fstar{position:absolute;color:#A5B4FC;pointer-events:none;z-index:0;animation:fnTw 3.4s ease-in-out infinite}
+.fstar:nth-of-type(2){animation-delay:-.9s}.fstar:nth-of-type(3){animation-delay:-1.7s}.fstar:nth-of-type(4){animation-delay:-2.4s}.fstar:nth-of-type(5){animation-delay:-1.2s}.fstar:nth-of-type(6){animation-delay:-2.9s}.fstar:nth-of-type(7){animation-delay:-.5s}.fstar:nth-of-type(8){animation-delay:-2.1s}
+@keyframes fnTw{0%,100%{opacity:.1;transform:scale(.8)}50%{opacity:.6;transform:scale(1.1)}}
+.forms .avc{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.08);box-shadow:0 1px 2px rgba(0,0,0,.4)}
+.forms .avc::after{content:'';position:absolute;inset:0;border-radius:22px;padding:1px;background:linear-gradient(140deg,color-mix(in srgb,var(--dc) 55%,transparent),transparent 38% 62%,color-mix(in srgb,var(--dc) 28%,transparent));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.55}
+.forms .avc:hover{border-color:color-mix(in srgb,var(--dc) 40%,transparent);box-shadow:0 26px 60px -22px rgba(0,0,0,.65),0 0 44px -16px color-mix(in srgb,var(--dc) 55%,transparent)}
+.forms .av-visual{background:linear-gradient(180deg,color-mix(in srgb,var(--dc) 11%,transparent),transparent 88%),radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.4px);background-size:auto,15px 15px}
+.forms .av-win{border-color:rgba(255,255,255,.14);box-shadow:0 26px 62px -22px rgba(0,0,0,.78),0 0 36px -14px color-mix(in srgb,var(--dc) 50%,transparent)}
+.forms .avc:hover .av-win{box-shadow:0 30px 68px -22px rgba(0,0,0,.8),0 0 52px -14px color-mix(in srgb,var(--dc) 65%,transparent)}
+.forms .av-tt h3{color:#F8FAFC}
+.forms .av-body p{color:#B6C2D6}
+.forms .av-tools{color:#7C8AA5}
+.forms .av-num{color:#5B6B84}
+.forms .av-link{color:color-mix(in srgb,var(--dc) 62%,#fff)}
+.forms .av-chip:not(.dark){color:color-mix(in srgb,var(--dc) 45%,#fff);background:color-mix(in srgb,var(--dc) 17%,transparent);border-color:color-mix(in srgb,var(--dc) 40%,transparent)}
+.forms .av-bar:not(.dark){background:#F5F7FA}
+.forms .av-bar:not(.dark) .av-file{color:#475569}
+.forms .avc-ia{background:rgba(99,102,241,.06)}
+@media(prefers-reduced-motion:reduce){.fstar,.forms::before{animation:none!important}.fstar{opacity:.3}}
+/* ═══ fin STUDIO DE NUIT ═══ */
+.mdom{display:none}
+.fwrap{background:radial-gradient(circle,rgba(255,255,255,.045) 1px,transparent 1.4px) 0 0/18px 18px,#0B1120!important;border-radius:22px;padding:12px!important;position:relative;z-index:2;box-shadow:0 18px 40px -22px rgba(11,17,32,.55)}
+.fwrap::before{display:none!important}
+.fwrap .avc{max-width:none;animation:none}
+.mlist{background:#fff;border:1px solid rgba(15,23,42,.06);border-radius:16px;padding:6px 14px 14px;margin-top:-6px;box-shadow:0 10px 30px -18px rgba(15,23,42,.12)}
+.mrow{display:flex;align-items:center;gap:11px;padding:12px 4px;border-bottom:1px solid rgba(15,23,42,.06);text-decoration:none}
+.mrow:last-of-type{border-bottom:none}
+.mrow i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--mfc);font-style:normal}
+.mrow div{flex:1;min-width:0}
+.mrow b{display:block;font-family:'Poppins',sans-serif;font-size:13.5px;font-weight:600;color:#0F172A;letter-spacing:-.01em;line-height:1.3}
+.mrow span{font-size:11px;color:#64748B;font-family:'Outfit',sans-serif}
+.mrow svg{flex:none;width:14px;height:14px;color:#B4BCCB;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.mcta{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:var(--mfc);text-decoration:none}
+.mcta svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:768px){
+.mdom{display:block;padding:2px 0 10px}
+.domain .fhead{display:none}
+.domain .fg{display:none}
+}
+@media(prefers-reduced-motion:reduce){.fwrap .avc{animation:none!important}}
 </style>
 <link rel="stylesheet" href="/search-modal.css">
 </head>
@@ -2089,6 +2159,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">8 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#3B82F6"><div class="forms fwrap"><a href="formations.html?cat=langues" class="avc" style="--dc:#3B82F6;--dcs:rgba(59,130,246,0.07);--dcb:rgba(59,130,246,0.2);--dcd:#2f66bf">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">lecon_du_jour.board</span><span class="av-chip">Langues</span></div>
+      <div class="av-app lb-app">
+        <svg class="lb-sc" viewBox="0 0 480 178" aria-hidden="true">
+          <rect x="26" y="12" width="428" height="128" rx="15" fill="#FDFEFF" stroke="#E2E8F0" stroke-width="1.5"/>
+          <rect x="34" y="20" width="412" height="112" rx="10" fill="none" stroke="#F1F5F9" stroke-width="1.5"/>
+          <circle cx="110" cy="12" r="5" fill="#14B8A6"/><circle cx="108.5" cy="10.5" r="1.6" fill="#fff" opacity=".7"/>
+          <circle cx="370" cy="12" r="5" fill="#F59E0B"/><circle cx="368.5" cy="10.5" r="1.6" fill="#fff" opacity=".7"/>
+          <g transform="translate(398,22)"><defs><clipPath id="lbuk"><circle cx="10" cy="10" r="10"/></clipPath></defs><g clip-path="url(#lbuk)"><rect width="20" height="20" fill="#1E40AF"/><path d="M2.9 2.9l14.2 14.2M17.1 2.9L2.9 17.1" stroke="#fff" stroke-width="3.4"/><path d="M0 10h20M10 0v20" stroke="#fff" stroke-width="5.4"/><path d="M0 10h20M10 0v20" stroke="#DC2626" stroke-width="2.8"/></g></g>
+          <g transform="translate(52,30) rotate(-4)"><rect width="34" height="15" rx="4" fill="#0D9488" opacity=".12"/><text x="17" y="11" text-anchor="middle" font-family="Outfit,sans-serif" font-size="8.5" font-weight="800" fill="#0D9488" letter-spacing="1">ABC</text></g>
+          <g class="lb-les">
+            <defs><clipPath id="lbc1"><rect class="lb-rv1" x="44" y="34" width="0" height="40"/></clipPath><clipPath id="lbc2"><rect class="lb-rv2" x="62" y="72" width="0" height="38"/></clipPath></defs>
+            <text x="46" y="60" clip-path="url(#lbc1)" font-family="Caveat,cursive" font-size="30" font-weight="700" fill="#1E293B">Where are you from?</text>
+            <text x="66" y="96" clip-path="url(#lbc2)" font-family="Caveat,cursive" font-size="27" font-weight="700" fill="#D97706">→ I'm from Paris!</text>
+            <ellipse class="lb-circ" cx="225" cy="51" rx="36" ry="16.5" fill="none" stroke="#0D9488" stroke-width="2.6" stroke-linecap="round" transform="rotate(-2 225 51)"/>
+            <g class="lb-chk"><circle cx="322" cy="118" r="11" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.5"/><path d="M316.5 118 l3.8 4 l7 -8" stroke="#0D9488" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="340" y="122" font-family="Caveat,cursive" font-size="19" font-weight="700" fill="#0D9488">Well done!</text></g>
+          </g>
+          <g class="lb-mk1"><g transform="rotate(-38)"><rect x="-4" y="-5" width="30" height="10" rx="4" fill="#1E293B"/><path d="M26 -4 L34 0 L26 4 Z" fill="#0D9488"/><rect x="-4" y="-5" width="6" height="10" rx="3" fill="#0D9488"/></g></g>
+          <g class="lb-mk2"><g transform="rotate(-38)"><rect x="-4" y="-5" width="30" height="10" rx="4" fill="#1E293B"/><path d="M26 -4 L34 0 L26 4 Z" fill="#D97706"/><rect x="-4" y="-5" width="6" height="10" rx="3" fill="#D97706"/></g></g>
+          <g transform="translate(0,-32)"><g class="lb-tea">
+            <path d="M395 210 Q395 168 432 168 Q469 168 469 210 Z" fill="#B45309"/>
+            <path d="M415 172 L432 186 L449 172 L449 210 L415 210 Z" fill="#92400E" opacity=".4"/>
+            <circle cx="432" cy="146" r="17.5" fill="#B07B52"/>
+            <path d="M414 142 Q414 126 432 126 Q450 126 450 142 L450 146 Q444 134 432 134 Q420 134 414 146 Z" fill="#2F2A26"/>
+            <circle cx="447" cy="127" r="7.5" fill="#2F2A26"/>
+            <g class="lb-parm"><path d="M402 196 Q382 190 368 176" stroke="#B45309" stroke-width="10.5" fill="none" stroke-linecap="round"/><circle cx="364" cy="172" r="6" fill="#B07B52"/></g>
+          </g></g>
+        </svg>
+        <div class="lb-cap">La leçon du jour · avec votre formateur dédié</div>
+      </div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Langues</h3><span class="av-num">01</span></div>
+      <p>Anglais, français, Linguaskill, A1 à C2.</p>
+      <span class="av-tools">Anglais · Français FLE · Linguaskill · A1 → C2</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Anglais Niveau 1 (A1-A2)</b><span>Débutant · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Anglais Niveau 2 (B1-B2)</b><span>Intermédiaire · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Anglais Niveau 3 (C1-C2)</b><span>Avancé · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Français Niveau 1 (A1-A2)</b><span>Débutant · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Français Niveau 2 (B1-B2)</b><span>Intermédiaire · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Français Niveau 3 (C1-C2)</b><span>Avancé · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Anglais Niveaux 1,2,3 (A1-C2)</b><span>Parcours complet du débutant à… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Français Niveaux 1,2,3 (A1-C2)</b><span>Parcours complet du débutant à… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#2E86C1">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><text x="12" y="10.2" font-size="8.2" font-weight="800" text-anchor="middle" fill="#fff" stroke="none" font-family="Poppins,sans-serif" letter-spacing=".5">EN</text><rect x="4.7" y="14.6" width="4.1" height="3.6" rx="1.1" fill="#fff" stroke="none" opacity="1"/><rect x="10" y="14.6" width="4.1" height="3.6" rx="1.1" fill="#fff" stroke="none" opacity=".3"/><rect x="15.3" y="14.6" width="4.1" height="3.6" rx="1.1" fill="#fff" stroke="none" opacity=".3"/></svg></div><h3>Anglais Niveau 1 (A1-A2)</h3></div><p>Débutant. Bases de la communication en anglais, vocabulaire courant, expressions du quotidien.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
@@ -2135,6 +2245,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">10 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#10B981"><div class="forms fwrap"><a href="formations.html?cat=bureautique" class="avc" style="--dc:#10B981;--dcs:rgba(16,185,129,0.07);--dcb:rgba(16,185,129,0.2);--dcd:#0f8f67">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">Classeur.xlsx</span><span class="av-chip">Bureautique</span></div>
+      <div class="av-app">
+      <div class="xw-chart"><span class="xw-t">Graphique</span><div class="xw-b"><i></i><i></i><i></i><i></i></div></div>
+      <div class="xl-fx"><span class="xl-f">fx</span><span class="xl-type">=SOMME(C2:C4)</span><span class="xl-caret"></span></div>
+      <div class="xl-grid">
+        <div class="xl-r xl-h"><span></span><span>A</span><span>B</span><span>C</span></div>
+        <div class="xl-r xl-l"><span>1</span><span>Mois</span><span>CA</span><span>Objectif</span></div>
+        <div class="xl-r"><span>2</span><span>Janvier</span><span>8 240</span><span class="xl-sel1">8 000</span></div>
+        <div class="xl-r"><span>3</span><span>Février</span><span>7 980</span><span class="xl-sel1">8 200</span></div>
+        <div class="xl-r"><span>4</span><span>Mars</span><span>8 510</span><span class="xl-sel1">8 400</span></div>
+        <div class="xl-r"><span>5</span><span>Total</span><span></span><span class="xl-total"><b class="aw w44">24 730 €</b></span></div>
+      </div></div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Bureautique</h3><span class="av-num">02</span></div>
+      <p>Excel, Word, PowerPoint.</p>
+      <span class="av-tools">Excel · Word · PowerPoint · Certification TOSA</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Bases Informatiques</b><span>Maîtrisez les fondamentaux de … · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Excel VBA Complet</b><span>Automatisez vos tâches Excel a… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Word Complet</b><span>Mise en page, styles, publipos… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>PowerPoint Complet</b><span>Créez des présentations profes… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Outlook Complet</b><span>Messagerie, calendrier, tâches… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Pack Office Complet</b><span>Formation complète Excel + Wor… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Power BI</b><span>Analyse de données et tableaux… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Les Outils Collaboratifs Google</b><span>Google Docs, Sheets, Slides, D… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Microsoft 365</b><span>Utilisation de la plateforme c… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#E67E22">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16.2V20"/><path d="M10.5 7.2l5 2.2-2.2.9-.9 2.2z" fill="#fff" stroke="none"/></svg></div><h3>Bases Informatiques</h3></div><p>Maîtrisez les fondamentaux de l'informatique. Environnement Windows, gestion de fichiers, navigation internet.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
@@ -2197,6 +2330,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">13 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#F59E0B"><div class="forms fwrap"><a href="formations.html?cat=graphisme" class="avc" style="--dc:#F59E0B;--dcs:rgba(245,158,11,0.07);--dcb:rgba(245,158,11,0.2);--dcd:#ba7b0e">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">logo_v3.ai</span><span class="av-chip">Graphisme</span></div>
+      <div class="av-app">
+      <div class="gr-split">
+        <div class="gr-board">
+          <svg viewBox="0 0 200 116" fill="none">
+            <path class="gr-path" pathLength="100" d="M20 94 C 58 20, 126 20, 180 70" stroke="#F59E0B" stroke-width="2.4"/>
+            <g class="aw w34">
+              <line x1="20" y1="94" x2="56" y2="36" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3 3"/>
+              <line x1="180" y1="70" x2="134" y2="28" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3 3"/>
+              <rect x="16" y="90" width="8" height="8" fill="#fff" stroke="#F59E0B" stroke-width="1.6"/>
+              <rect x="176" y="66" width="8" height="8" fill="#fff" stroke="#F59E0B" stroke-width="1.6"/>
+              <circle cx="56" cy="36" r="4" fill="#F59E0B"/>
+              <circle cx="134" cy="28" r="4" fill="#F59E0B"/>
+            </g>
+            <circle class="gw-pen" r="3.2" fill="#F59E0B"/>
+          </svg>
+          <div class="gr-sw"><span style="background:#0F172A"></span><span class="aw wring" style="background:#F59E0B"></span><span style="background:#10ABAF"></span><span style="background:#F1F5F9"></span></div>
+        </div>
+        <div class="gr-layers">
+          <div class="gr-layer aw wlay"><span class="gr-eye"></span>Logo</div>
+          <div class="gr-layer"><span class="gr-eye"></span>Texte</div>
+          <div class="gr-layer"><span class="gr-eye"></span>Fond</div>
+        </div>
+      </div></div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Graphisme</h3><span class="av-num">03</span></div>
+      <p>Photoshop, Illustrator, Canva.</p>
+      <span class="av-tools">Photoshop · Illustrator · Canva</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Photoshop</b><span>Retouche photo, photomontage, … · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Illustrator</b><span>Création vectorielle, logos, i… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>InDesign</b><span>Mise en page professionnelle · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Canva</b><span>Création graphique simplifiée · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Webdesigner</b><span>Concevez des interfaces web mo… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Première Pro CC</b><span>Montage vidéo professionnel · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>After Effects</b><span>Motion design et effets visuels · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Final Cut Pro X</b><span>Montage vidéo sur Mac · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>SketchUp Pro</b><span>Modélisation 3D architecturale · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Autodesk Revit</b><span>Modélisation BIM · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>SolidWorks</b><span>Conception mécanique 3D · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>AutoCAD</b><span>Dessin technique 2D et 3D · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Permis de construire PCMI</b><span>Réglementations d'un permis de… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#D64F8C">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5.6A1.6 1.6 0 0 1 5.6 4H7M17 4h1.4A1.6 1.6 0 0 1 20 5.6V7M20 17v1.4a1.6 1.6 0 0 1-1.6 1.6H17M7 20H5.6A1.6 1.6 0 0 1 4 18.4V17" stroke-width="1.4" opacity=".55"/><text x="12" y="15.8" font-size="11" font-weight="800" text-anchor="middle" fill="#fff" stroke="none" font-family="Poppins,sans-serif">Ps</text></svg></div><h3>Photoshop</h3></div><p>Retouche photo, photomontage, création graphique. Du débutant au professionnel.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
@@ -2249,6 +2417,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">2 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#F43F5E"><div class="forms fwrap"><a href="formations.html?cat=bdc" class="avc" style="--dc:#F43F5E;--dcs:rgba(244,63,94,0.07);--dcb:rgba(244,63,94,0.2);--dcd:#ba334d">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">bilan_carriere.plan</span><span class="av-chip">Bilan</span></div>
+      <div class="av-app">
+      <svg class="bw-traj" viewBox="0 0 64 84" preserveAspectRatio="none"><path d="M4 82 C 34 74, 26 30, 58 6"/></svg><span class="bw-star">✦</span>
+      <div class="bd-steps">
+        <div class="bd-step"><span class="bd-dot done"><b class="aw w06">✓</b></span><div class="bd-tx"><b>Entretien & analyse</b><i>Réalisé</i></div></div>
+        <div class="bd-step"><span class="bd-dot now"></span><div class="bd-tx"><b>Tests & exploration</b><div class="bd-bar"><span></span></div></div></div>
+        <div class="bd-step"><span class="bd-dot next aw w64"></span><div class="bd-tx"><b>Projet & plan d'action</b><i class="aw w64">Votre nouvelle trajectoire</i></div></div>
+      </div></div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Bilan de compétences</h3><span class="av-num">04</span></div>
+      <p>Accompagnement carrière.</p>
+      <span class="av-tools">Entretiens · Tests · Projet professionnel</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Bilan de compétences — 24h</b><span>Faites le point sur votre parc… · Visioconférence</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Bilan de compétences — 15h</b><span>Version condensée · Visioconférence</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#D4A017">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 5.4l1.9 4.8L12 12l-1.9-1.8z" fill="#fff" stroke="none"/><path d="M12 18.6l-1.9-4.8L12 12l1.9 1.8z" fill="#fff" stroke="none" opacity=".4"/><path d="M12 2.2v1.2M12 20.6v1.2M2.2 12h1.2M20.6 12h1.2" stroke-width="1.3"/></svg></div><h3>Bilan de compétences — 24h</h3></div><p>Faites le point sur votre parcours, identifiez vos forces et construisez un projet professionnel aligné avec vos aspirations.</p><div class="fc-meta"><span class="fc-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24h</span><span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M15 10l-4 4-2-2"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Éligible CPF</span><span class="fc-tag"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>À distance</span></div><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">Visioconférence</span><span class="fc-badge cpf">CPF</span></div></div></div></a>
@@ -2288,6 +2475,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">9 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#A855F7"><div class="forms fwrap"><a href="formations.html?cat=web" class="avc" style="--dc:#A855F7;--dcs:rgba(168,85,247,0.07);--dcb:rgba(168,85,247,0.2);--dcd:#8144bf">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">index.html</span><span class="av-chip">Web & Digital</span></div>
+      <div class="av-app">
+      <span class="ww-dial"><svg viewBox="0 0 40 40"><circle class="t" cx="20" cy="20" r="15.9"/><circle class="v" cx="20" cy="20" r="15.9"/></svg><b>98</b><i>Perf</i></span>
+      <div class="wb-url"><span class="wb-lock"></span>switching-formation.fr</div>
+      <div class="wb-split">
+        <div class="wb-code">
+          <span class="aw w06"><em>&lt;nav&gt;</em>Menu<em>&lt;/nav&gt;</em></span>
+          <span class="aw w18"><em>&lt;h1&gt;</em>Votre site<em>&lt;/h1&gt;</em></span>
+          <span class="aw w34"><em>&lt;section&gt;</em>…<em>&lt;/section&gt;</em></span>
+          <span class="wb-cursor"></span>
+        </div>
+        <div class="wb-render">
+          <span class="wb-nav aw w12"></span>
+          <span class="wb-hero aw w26"><i>Votre site</i></span>
+          <div class="wb-cards"><i class="aw w44"></i><i class="aw w48"></i></div>
+        </div>
+      </div></div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Web & Digital</h3><span class="av-num">05</span></div>
+      <p>Développement, CMS, marketing.</p>
+      <span class="av-tools">Développement · CMS · Marketing digital</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Sites web avec WordPress</b><span>Création et gestion de site vi… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Sites e-commerce WordPress (WooCommerce)</b><span>Créez votre boutique en ligne … · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Marketing digital pour entrepreneurs</b><span>Stratégie digitale complète · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Réseaux sociaux & Ads</b><span>Publicité sur Facebook, Instag… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Réseaux sociaux</b><span>Community management · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Développeur Web</b><span>HTML, CSS, JavaScript · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Développeur informatique</b><span>Programmation, algorithmique, … · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>SEO : référencement web</b><span>Référencement naturel · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>SEA : Google Ads</b><span>Publicité payante sur Google · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#4F63D2">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.7"/><text x="12" y="15.6" font-size="9.5" font-weight="800" text-anchor="middle" fill="#fff" stroke="none" font-family="Poppins,sans-serif">W</text></svg></div><h3>Sites web avec WordPress</h3></div><p>Création et gestion de site vitrine. Thèmes, plugins, SEO. Aucun pré-requis technique.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
@@ -2335,6 +2550,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">5 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#FB923C"><div class="forms fwrap"><a href="formations.html?cat=compta" class="avc" style="--dc:#FB923C;--dcs:rgba(251,146,60,0.07);--dcb:rgba(251,146,60,0.2);--dcd:#bf7233">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">bulletin_mars.pdf</span><span class="av-chip">Paie</span></div>
+      <div class="av-app">
+      <span class="cw-eur e1">€</span><span class="cw-eur e2">€</span>
+      <div class="cp-doc">
+        <div class="cp-head">BULLETIN DE PAIE <span>Mars 2026</span></div>
+        <div class="cp-line aw w06"><span>Salaire de base</span><b>2 450,00</b></div>
+        <div class="cp-line aw w14"><span>Prime d'activité</span><b>150,00</b></div>
+        <div class="cp-line aw w22"><span>Cotisations</span><b>− 598,40</b></div>
+        <div class="cp-net aw w34"><span>Net à payer</span><b>2 001,60 €</b></div>
+        <div class="cp-stamp">SILAE ✓</div>
+      </div></div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Comptabilité & Paie</h3><span class="av-num">06</span></div>
+      <p>SILAE, CEGID, paie.</p>
+      <span class="av-tools">SILAE · CEGID · Bulletin de paie</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Gestion de la paie avec Ciel Paie</b><span>Paramétrage et utilisation de … · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Gestion de la paie avec Segid</b><span>Maîtrisez le logiciel Segid po… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Secrétaire Assistant Comptable</b><span>Comptabilité courante, rapproc… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Comptabilité Générale</b><span>Saisie comptable, écritures, b… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#8B6914">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></div><h3>Gestion de la paie avec Silae <span class="fc-badge cpf">CPF</span></h3></div><p>Maîtrisez Silae de A à Z. Bulletins de paie, DSN, charges sociales. Certification RNCP.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
@@ -2412,6 +2649,65 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fhead-meta"><span class="fhead-pill">9 formations</span><span class="fhead-pill ghost">Éligible CPF</span><span class="fhead-pill ghost">À distance</span></div>
 </div>
 </div>
+<div class="mdom" style="--mfc:#6366F1"><div class="forms fwrap"><a href="formations.html?cat=ia" class="avc avc-ia" style="--dc:#6366F1;--dcs:rgba(99,102,241,0.07);--dcb:rgba(99,102,241,0.2);--dcd:#4d51bb">
+    <div class="av-visual">
+    <div class="av-win">
+      <div class="av-bar"><span class="av-dots"><i></i><i></i><i></i></span><span class="av-file">assistant.ia</span><span class="av-chip">IA générative</span></div>
+<div class="av-app r0-app s2">
+  <span class="r0-blob b1"></span><span class="r0-blob b2"></span><span class="r0-blob b3"></span>
+  <div class="r0-bar"><span class="r0-star">✦</span><span class="r0-qs"><span class="r0-q q1">Rédige une relance client convaincante</span><span class="r0-q q2">Transforme ces chiffres en graphique</span><span class="r0-q q3">Crée un visuel pour notre campagne</span></span><span class="r0-ring"></span></div>
+  <div class="r0-st">
+    <div class="r0-c c1"><b>Texte généré<span class="r0-live"><i></i>✦ IA</span></b>
+      <span class="r0-t t1">Bonjour Madame Lemoine,</span>
+      <span class="r0-t t2">notre proposition reste valable jusqu'à vendredi —</span>
+      <span class="r0-t t3"><span class="hl">échangeons de vive voix</span>.</span>
+      <span class="r0-sk"><i></i><i></i><i></i></span>
+    </div>
+    <div class="r0-c c2"><b>Graphique généré<span class="r0-live"><i></i>✦ IA</span><span class="r0-bdg">+32 % au T4</span></b>
+      <div class="r0-ch">
+        <svg class="r0-tr" viewBox="0 0 100 52" preserveAspectRatio="none"><polyline pathLength="100" points="7,40 34,30 62,34 93,10"/></svg>
+        <div class="r0-cb"><i style="--h:20px"></i><span>T1</span></div>
+        <div class="r0-cb"><i style="--h:30px"></i><span>T2</span></div>
+        <div class="r0-cb"><i style="--h:25px"></i><span>T3</span></div>
+        <div class="r0-cb"><i style="--h:44px"></i><span>T4</span></div>
+      </div>
+    </div>
+    <div class="r0-c c3"><b>Visuel généré<span class="r0-live"><i></i>✦ IA</span></b>
+      <div class="r0-cv">
+    <span class="r0-cell" style="left:0%;top:0%;background-position:0% 0.0%;animation-delay:0.16s"></span>
+    <span class="r0-cell" style="left:20%;top:0%;background-position:25% 0.0%;animation-delay:0.08s"></span>
+    <span class="r0-cell" style="left:40%;top:0%;background-position:50% 0.0%;animation-delay:0.33s"></span>
+    <span class="r0-cell" style="left:60%;top:0%;background-position:75% 0.0%;animation-delay:0.04s"></span>
+    <span class="r0-cell" style="left:80%;top:0%;background-position:100% 0.0%;animation-delay:0.27s"></span>
+    <span class="r0-cell" style="left:0%;top:25%;background-position:0% 33.33%;animation-delay:0.18s"></span>
+    <span class="r0-cell" style="left:20%;top:25%;background-position:25% 33.33%;animation-delay:0.03s"></span>
+    <span class="r0-cell" style="left:40%;top:25%;background-position:50% 33.33%;animation-delay:0.25s"></span>
+    <span class="r0-cell" style="left:60%;top:25%;background-position:75% 33.33%;animation-delay:0.02s"></span>
+    <span class="r0-cell" style="left:80%;top:25%;background-position:100% 33.33%;animation-delay:0.22s"></span>
+    <span class="r0-cell" style="left:0%;top:50%;background-position:0% 66.66%;animation-delay:0.03s"></span>
+    <span class="r0-cell" style="left:20%;top:50%;background-position:25% 66.66%;animation-delay:0.05s"></span>
+    <span class="r0-cell" style="left:40%;top:50%;background-position:50% 66.66%;animation-delay:0.21s"></span>
+    <span class="r0-cell" style="left:60%;top:50%;background-position:75% 66.66%;animation-delay:0.41s"></span>
+    <span class="r0-cell" style="left:80%;top:50%;background-position:100% 66.66%;animation-delay:0.06s"></span>
+    <span class="r0-cell" style="left:0%;top:75%;background-position:0% 99.99%;animation-delay:0.11s"></span>
+    <span class="r0-cell" style="left:20%;top:75%;background-position:25% 99.99%;animation-delay:0.31s"></span>
+    <span class="r0-cell" style="left:40%;top:75%;background-position:50% 99.99%;animation-delay:0.47s"></span>
+    <span class="r0-cell" style="left:60%;top:75%;background-position:75% 99.99%;animation-delay:0.29s"></span>
+    <span class="r0-cell" style="left:80%;top:75%;background-position:100% 99.99%;animation-delay:0.2s"></span>
+      <span class="r0-vtag">Prêt à publier ✓</span>
+      </div>
+    </div>
+  </div>
+  <div class="r0-cap"><span class="k1"><i>✍</i>Rédiger</span><span class="k2"><i>◔</i>Analyser</span><span class="k3"><i>◐</i>Créer</span></div>
+</div>
+    </div></div>
+    <div class="av-body">
+      <div class="av-tt"><h3>Intelligence Artificielle</h3><span class="av-num">07</span></div>
+      <p>Rédiger, analyser, créer — avec l'IA.</p>
+      <span class="av-tools">IA générative · Prompts · Productivité · Création</span>
+      <span class="av-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a></div><div class="mlist"><a class="mrow" href="inscription.html"><i></i><div><b>Apprendre à utiliser ChatGPT (Gratuit & Plus)</b><span>Prompt engineering · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Créer des photos et vidéos avec Midjourney PRO</b><span>Génération d'images · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>IA conversationnelle dans le cycle de vente</b><span>Intégrez l'IA dans votre prosp… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Copilot pour Microsoft 365 — Bonnes pratiques</b><span>Exploitez Copilot dans Word, E… · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>L'Art de créer des vidéos avec l'IA</b><span>Vidéo IA Académie · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Contenus rédactionnels & visuels — IA générative (26h)</b><span>Certifiante RS6776 - Inkrea · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>IA Business Pro 2025-2026 — OptimIA</b><span>Automatisation avec Make · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>Contenus rédactionnels & visuels — IA générative (10h)</b><span>Certifiante RS6776 - Inkrea · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mrow" href="inscription.html"><i></i><div><b>CapCut — Montages vidéos avec l'IA</b><span>Montage réseaux sociaux · E-learning</span></div><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a><a class="mcta" href="inscription.html">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></div>
 <div class="fg">
 <a href="inscription.html" class="fc fc-v8" style="--fc-c:#0E9599">
 <div class="fc-inner"><div class="fc-head"><div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7A2.6 2.6 0 0 1 6.6 4.4h10.8A2.6 2.6 0 0 1 20 7v6.4a2.6 2.6 0 0 1-2.6 2.6H10.4L6 19.6v-3.6h.6A2.6 2.6 0 0 1 4 13.4z"/><path d="M8.3 9.3h7.4M8.3 12h4.2"/><path d="M18.7 3l.75 1.95L21.4 5.7l-1.95.75L18.7 8.4l-.75-1.95L16 5.7l1.95-.75z" fill="#fff" stroke="none"/></svg></div><h3>Apprendre à utiliser ChatGPT (Gratuit & Plus)</h3></div><p>Prompt engineering. Maîtrisez ChatGPT pour booster votre productivité au quotidien.</p><div class="fc-foot"><span class="fc-link">Demander un devis <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><div class="fc-badges"><span class="fc-badge mode">E-learning</span></div></div></div></a>
