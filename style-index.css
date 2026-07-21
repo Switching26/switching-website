@@ -196,38 +196,33 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 @media(prefers-reduced-motion:reduce){
   .avc,.aw,.xl-type,.xl-caret,.gr-path,.bd-bar span,.cp-stamp,.wb-cursor{animation:none!important;opacity:1!important;width:auto!important;stroke-dashoffset:0!important}
 }
-/* — Atelier Langues : la leçon vivante — */
-.lv-app{padding:13px 14px 11px;display:flex;flex-direction:column;gap:9px}
-.lv-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.lv-ex{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--sub)}
-.lv-ex b{color:color-mix(in srgb,var(--dc) 82%,#111)}
-.lv-bar{flex:1;max-width:110px;height:4px;border-radius:99px;background:#EEF2F7;overflow:hidden}
-.lv-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--dc),color-mix(in srgb,var(--dc) 55%,#fff));width:40%;animation:lvBar 11s cubic-bezier(.2,.8,.3,1) infinite}
-@keyframes lvBar{0%,36%{width:40%}44%,96%{width:60%}100%{width:40%}}
-.lv-sent{font-family:'Poppins',sans-serif;font-size:14.5px;font-weight:600;color:#0F172A;letter-spacing:-.01em}
-.lv-gap{display:inline-block;min-width:44px;border-bottom:2px solid color-mix(in srgb,var(--dc) 32%,transparent);margin:0 2px;text-align:center;color:color-mix(in srgb,var(--dc) 82%,#111)}
-.lv-gap b{font-weight:700;opacity:0;animation:lvFill 11s cubic-bezier(.2,.8,.3,1) infinite}
-@keyframes lvFill{0%,42%{opacity:0}46%,95%{opacity:1}98%,100%{opacity:0}}
-.lv-chips{display:flex;gap:7px;flex-wrap:wrap}
-.lv-chip{font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:600;color:var(--sub);background:#F8FAFC;border:1px solid var(--bd2);border-radius:10px;padding:6.5px 13px}
-.lv-chip.good{animation:lvGood 11s cubic-bezier(.2,.8,.3,1) infinite}
-@keyframes lvGood{0%,28%{background:#F8FAFC;color:#475569;border-color:#E2E8F0;transform:none;box-shadow:none}32%,34%{transform:scale(.94)}36%,95%{background:var(--dc);color:#fff;border-color:var(--dc);transform:none;box-shadow:0 6px 14px -6px color-mix(in srgb,var(--dc) 55%,transparent)}98%,100%{background:#F8FAFC;color:#475569;border-color:#E2E8F0;box-shadow:none}}
-.lv-chip.bad{animation:lvBad 11s cubic-bezier(.2,.8,.3,1) infinite}
-@keyframes lvBad{0%,36%{opacity:1}40%,95%{opacity:.35}98%,100%{opacity:1}}
-.lv-fb{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#059669;background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.22);border-radius:8px;padding:4.5px 9px;width:fit-content}
-.lv-fb i{font-style:normal;width:13px;height:13px;border-radius:50%;background:#10B981;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:8px}
-.lv-foot{margin-top:auto;display:flex;align-items:center;gap:4px}
-.lv-lvl{font-size:8.5px;font-weight:700;color:#94A3B8;background:#F1F5F9;border-radius:5px;padding:2.5px 5.5px}
-.lv-lvl.on{background:var(--dc);color:#fff;box-shadow:0 3px 8px -2px color-mix(in srgb,var(--dc) 50%,transparent)}
-.lv-streak{margin-left:auto;font-size:9.5px;font-weight:700;color:var(--sub);position:relative;width:56px;text-align:right;height:12px}
-.lv-streak span{position:absolute;right:0;top:0;white-space:nowrap}
-.lv-streak .a{animation:lvSa 11s cubic-bezier(.2,.8,.3,1) infinite}
-.lv-streak .b{opacity:0;animation:lvSb 11s cubic-bezier(.2,.8,.3,1) infinite;color:color-mix(in srgb,var(--dc) 82%,#111)}
-@keyframes lvSa{0%,46%{opacity:1}50%,96%{opacity:0}100%{opacity:1}}
-@keyframes lvSb{0%,48%{opacity:0;transform:translateY(4px)}52%,95%{opacity:1;transform:none}98%,100%{opacity:0}}
+/* — Atelier Langues : la leçon au tableau — */
+.lb-app{background:#fff}
+.lb-app::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 45% at 88% 8%,rgba(245,158,11,.07),transparent 70%),radial-gradient(ellipse 45% 40% at 8% 85%,rgba(20,184,166,.08),transparent 70%);pointer-events:none}
+.lb-sc{width:100%;height:100%;display:block}
+.lb-les{animation:lbLes 11s linear infinite}
+@keyframes lbLes{0%,93%{opacity:1}98.5%,100%{opacity:0}}
+.lb-rv1{animation:lbRv1 11s cubic-bezier(.3,0,.45,1) infinite}
+@keyframes lbRv1{0%,5%{width:0}30%,100%{width:218px}}
+.lb-rv2{animation:lbRv2 11s cubic-bezier(.3,0,.45,1) infinite}
+@keyframes lbRv2{0%,38%{width:0}58%,100%{width:190px}}
+.lb-mk1{animation:lbMk1 11s cubic-bezier(.3,0,.45,1) infinite}
+@keyframes lbMk1{0%,3.5%{transform:translate(46px,48px);opacity:0}5%{opacity:1;transform:translate(50px,48px)}11%{opacity:1;transform:translate(102px,45px)}17%{opacity:1;transform:translate(152px,49px)}23%{opacity:1;transform:translate(206px,45px)}30%{opacity:1;transform:translate(266px,47px)}33%,100%{opacity:0;transform:translate(272px,44px)}}
+.lb-mk2{animation:lbMk2 11s cubic-bezier(.3,0,.45,1) infinite}
+@keyframes lbMk2{0%,36.5%{transform:translate(64px,82px);opacity:0}38%{opacity:1;transform:translate(68px,82px)}44%{opacity:1;transform:translate(118px,79px)}50%{opacity:1;transform:translate(168px,83px)}58%{opacity:1;transform:translate(252px,80px)}61%,100%{opacity:0;transform:translate(258px,78px)}}
+.lb-circ{stroke-dasharray:165;stroke-dashoffset:165;animation:lbCirc 11s cubic-bezier(.4,0,.3,1) infinite}
+@keyframes lbCirc{0%,63%{stroke-dashoffset:165;opacity:0}64%{opacity:1}74%,93%{stroke-dashoffset:0;opacity:1}98.5%,100%{stroke-dashoffset:0;opacity:0}}
+.lb-chk{opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:lbChk 11s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes lbChk{0%,77%{opacity:0;transform:scale(.5)}81%{opacity:1;transform:scale(1.12)}84%,93%{opacity:1;transform:scale(1)}98.5%,100%{opacity:0}}
+.lb-tea{transform-box:fill-box;transform-origin:50% 90%;animation:lbBob 4.6s ease-in-out infinite alternate}
+@keyframes lbBob{from{transform:translateY(0)}to{transform:translateY(-2.5px)}}
+.lb-parm{transform-box:fill-box;transform-origin:82% 30%;animation:lbPoint 11s ease-in-out infinite}
+@keyframes lbPoint{0%,4%{transform:rotate(0)}8%,28%{transform:rotate(-7deg)}34%,38%{transform:rotate(0)}42%,56%{transform:rotate(-7deg)}62%,100%{transform:rotate(0)}}
+.lb-cap{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#94A3B8;pointer-events:none}
 @media(prefers-reduced-motion:reduce){
-.lv-bar i,.lv-chip,.lv-gap b,.lv-fb,.lv-sent,.lv-chips,.lv-streak .a{animation:none!important;opacity:1!important}
-.lv-streak .b{display:none}
+.lb-les,.lb-rv1,.lb-rv2,.lb-mk1,.lb-mk2,.lb-circ,.lb-chk,.lb-tea,.lb-parm{animation:none!important}
+.lb-rv1{width:218px!important}.lb-rv2{width:190px!important}
+.lb-mk1,.lb-mk2{display:none}.lb-circ{stroke-dashoffset:0;opacity:1}.lb-chk{opacity:1}
 }
 .xl-fx{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--bd2);background:#FBFDFC}
 .xl-f{font-size:9px;font-weight:800;font-style:italic;color:var(--muted)}
