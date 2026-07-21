@@ -2050,8 +2050,8 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 #hnav{display:none}
 #filsent{height:1px}
 @media(max-width:768px){
-.f-sidebar{position:static;width:100vw;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:none;margin:0 0 0 calc(50% - 50vw);padding:6px 0 10px;z-index:auto}
-.f-sidebar .filters{padding:0 18px 2px}
+.f-sidebar{position:static;width:100vw;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:none;margin:0 0 0 calc(50% - 50vw);padding:2px 0 6px;z-index:auto}
+.f-sidebar .filters{padding:4px 18px 6px}
 .filters{position:relative;scroll-snap-type:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
 .filters::after{content:'';flex:0 0 10px}
 #hnav{display:block;max-height:0;opacity:0;overflow:hidden;transition:max-height .38s var(--e),opacity .28s ease;border-radius:0 0 16px 16px}
@@ -2059,6 +2059,11 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 #hnav .filters{padding:8px 18px 12px;margin:0}
 header.fused #hnav{max-height:64px;opacity:1}
 header.fused{box-shadow:0 12px 34px rgba(0,0,0,.10)}
+}
+@media(hover:none){
+.flt:hover{transform:none}
+.avc:hover{transform:none}
+.avc:hover .av-win{transform:none}
 }
 </style>
 <link rel="stylesheet" href="/search-modal.css">
