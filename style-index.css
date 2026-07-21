@@ -697,3 +697,64 @@ body::after{display:none}
 .forms .avc-ia{background:rgba(99,102,241,.06)}
 @media(prefers-reduced-motion:reduce){.fstar,.forms::before{animation:none!important}.fstar{opacity:.3}}
 /* ═══ fin STUDIO DE NUIT ═══ */
+
+/* ═══ SCÈNES WOW — ateliers (GO Samuel 21/07/2026 · Langues et IA volontairement exclues) ═══ */
+/* Bureautique : le graphique naît de la SOMME */
+.xw-chart{position:absolute;right:9px;bottom:9px;width:46%;max-width:150px;background:#fff;border:1px solid rgba(16,185,129,.35);border-radius:10px;box-shadow:0 14px 30px -12px rgba(15,23,42,.45);padding:7px 9px 6px;z-index:4;opacity:0;transform:translateY(10px) scale(.88);transform-origin:80% 100%;animation:xwIn 11s var(--e) infinite;font-family:'Outfit',sans-serif}
+@keyframes xwIn{0%,50%{opacity:0;transform:translateY(10px) scale(.88)}53%,92%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(10px) scale(.88)}}
+.xw-t{font-size:7.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0F766E;display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.xw-t::before{content:'';width:5px;height:5px;border-radius:50%;background:#10B981}
+.xw-b{display:flex;align-items:flex-end;gap:5px;height:34px}
+.xw-b i{flex:1;border-radius:3px 3px 1px 1px;background:linear-gradient(180deg,#34D399,#10B981);transform-origin:bottom;transform:scaleY(0)}
+.xw-b i:nth-child(1){height:52%;animation:xwB1 11s var(--e) infinite}
+.xw-b i:nth-child(2){height:48%;animation:xwB2 11s var(--e) infinite}
+.xw-b i:nth-child(3){height:64%;animation:xwB3 11s var(--e) infinite}
+.xw-b i:nth-child(4){height:92%;animation:xwB4 11s var(--e) infinite;background:linear-gradient(180deg,#6EE7B7,#10B981)}
+@keyframes xwB1{0%,54%{transform:scaleY(0)}58%,92%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+@keyframes xwB2{0%,56%{transform:scaleY(0)}60%,92%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+@keyframes xwB3{0%,58%{transform:scaleY(0)}62%,92%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+@keyframes xwB4{0%,60%{transform:scaleY(0)}64%,92%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+/* Graphisme : la plume trace la Bézier, le trait s'illumine au choix couleur */
+.gw-pen{offset-path:path('M20 94 C 58 20, 126 20, 180 70');offset-distance:0%;opacity:0;animation:gwPen 11s var(--e) infinite;filter:drop-shadow(0 0 5px rgba(245,158,11,.95))}
+@keyframes gwPen{0%,5.5%{offset-distance:0%;opacity:0}6.5%{opacity:1}30%{offset-distance:100%;opacity:1}32%{offset-distance:100%;opacity:0}33%,100%{offset-distance:100%;opacity:0}}
+@supports not (offset-path:path('M0 0')){.gw-pen{display:none}}
+.gr-path{animation:grdraw 11s var(--e) infinite,gwGlow 11s var(--e) infinite}
+@keyframes gwGlow{0%,48%{filter:none}51%,58%{filter:drop-shadow(0 0 6px rgba(245,158,11,.85))}62%,100%{filter:none}}
+/* Bilan : trajectoire pointillée vers l'étoile, onde sur l'étape en cours */
+.bd-step{position:relative;z-index:1}
+.bw-traj{position:absolute;right:8px;top:12px;width:64px;height:70%;z-index:0;overflow:visible;opacity:.4}
+.bw-traj path{stroke:var(--dc);stroke-width:1.6;stroke-linecap:round;fill:none;stroke-dasharray:2.5 4.5;animation:bwMarch 1.6s linear infinite}
+@keyframes bwMarch{to{stroke-dashoffset:-7}}
+.bw-star{position:absolute;right:12px;top:10px;font-size:12px;color:var(--dc);z-index:2;opacity:0;animation:bwStar 11s var(--e) infinite;text-shadow:0 0 9px color-mix(in srgb,var(--dc) 70%,transparent)}
+@keyframes bwStar{0%,64%{opacity:0;transform:scale(.4) rotate(-30deg)}67%,93%{opacity:1;transform:scale(1) rotate(0)}97%,100%{opacity:0}}
+.bd-dot.now{position:relative}
+.bd-dot.now::before{content:'';position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--dc);opacity:0;animation:bwRip 2.2s ease-out infinite}
+@keyframes bwRip{0%{opacity:.55;transform:scale(.7)}70%,100%{opacity:0;transform:scale(1.7)}}
+/* Web : cadran Performance 98 après le rendu */
+.ww-dial{position:absolute;right:10px;bottom:16px;width:42px;height:42px;z-index:5;opacity:0;animation:wwIn 11s var(--e) infinite;font-family:'Outfit',sans-serif}
+.ww-dial::before{content:'';position:absolute;inset:0;border-radius:50%;background:#fff;box-shadow:0 10px 24px -8px rgba(15,23,42,.45)}
+@keyframes wwIn{0%,49%{opacity:0;transform:scale(.82)}52%,93%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(.82)}}
+.ww-dial svg{width:100%;height:100%;transform:rotate(-90deg);position:absolute;inset:0}
+.ww-dial .t{fill:none;stroke:#EEF2F6;stroke-width:3.4}
+.ww-dial .v{fill:none;stroke:var(--dc);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:wwArc 11s var(--e) infinite}
+@keyframes wwArc{0%,52%{stroke-dashoffset:100}64%,93%{stroke-dashoffset:2}97%,100%{stroke-dashoffset:100}}
+.ww-dial b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#7E22CE;opacity:0;animation:wwNum 11s var(--e) infinite}
+.ww-dial i{position:absolute;left:0;right:0;bottom:-10px;text-align:center;font-style:normal;font-size:6.5px;font-weight:800;letter-spacing:.1em;color:#94A3B8;text-transform:uppercase;opacity:0;animation:wwNum 11s var(--e) infinite}
+@keyframes wwNum{0%,56%{opacity:0}60%,93%{opacity:1}97%,100%{opacity:0}}
+/* Paie : éclat doré sur le net, € en filigrane */
+.cw-eur{position:absolute;font-family:'Poppins',sans-serif;font-weight:700;color:#FB923C;opacity:.07;pointer-events:none;z-index:0}
+.cw-eur.e1{right:13%;top:14%;font-size:30px;animation:cwFl 20s ease-in-out infinite}
+.cw-eur.e2{left:9%;bottom:28%;font-size:22px;animation:cwFl 24s ease-in-out -10s infinite}
+@keyframes cwFl{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(-6px,7px) rotate(4deg)}}
+.cp-net{position:relative;overflow:hidden}
+.cp-net::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 32%,rgba(255,255,255,.8) 50%,transparent 68%);background-size:240% 100%;background-position:135% 0;opacity:0;animation:cwSh 11s linear infinite}
+@keyframes cwSh{0%,37%{background-position:135% 0;opacity:0}38%{opacity:1}46%{background-position:-60% 0;opacity:1}47%,100%{opacity:0}}
+.cp-net b{animation:cwPop 11s var(--e) infinite}
+@keyframes cwPop{0%,34%{transform:scale(1)}36.5%{transform:scale(1.09)}39%,100%{transform:scale(1)}}
+/* rattrapage delay pseudo-éléments (les delays .av-app * ne s'appliquent pas aux ::after) */
+.avc:nth-child(6) .cp-net::after{animation-delay:-8.9s}
+@media(prefers-reduced-motion:reduce){
+.gw-pen,.bw-star,.bw-traj,.ww-dial,.cw-eur,.xw-chart{display:none}
+.cp-net::after,.cp-net b,.bd-dot.now::before{animation:none!important}
+}
+/* ═══ fin SCÈNES WOW ═══ */
