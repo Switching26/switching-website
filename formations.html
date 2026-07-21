@@ -2030,20 +2030,32 @@ header.scrolled{background:rgba(241,244,248,.82);box-shadow:0 4px 28px rgba(0,0,
 .mhero-t em{font-style:normal;background:linear-gradient(135deg,#10ABAF,#0E9599,#3DC8C9);-webkit-background-clip:text;background-clip:text;color:transparent}
 .mhero p{font-size:13px;color:#64748B;margin-top:8px;font-family:'Outfit',sans-serif}
 .mdom{margin-left:-10px;margin-right:-10px}
-.f-sidebar .filters .flt{background:#fff;border:1px solid rgba(15,23,42,.08);color:#334155;border-radius:99px;padding:7px 13px;font-size:11.5px;font-weight:700;font-family:'Poppins',sans-serif;display:inline-flex;align-items:center;gap:7px;flex:none;box-shadow:none}
-.f-sidebar .filters .flt svg{display:none}
-.f-sidebar .filters .flt::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--fc);flex:none}
-.f-sidebar .filters .flt .flt-n{background:transparent;border:none;color:#94A3B8;font-size:10.5px;font-weight:700;padding:0;margin-left:1px}
-.f-sidebar .filters .flt.on{background:#0F172A;color:#fff;border-color:#0F172A}
-.f-sidebar .filters .flt.on::before{background:#fff}
-.f-sidebar .filters .flt.on .flt-n{color:#CBD5E1}
-.f-sidebar .filters .flt[data-filter=langues]{--fc:#3B82F6}
-.f-sidebar .filters .flt[data-filter=bureautique]{--fc:#10B981}
-.f-sidebar .filters .flt[data-filter=graphisme]{--fc:#F59E0B}
-.f-sidebar .filters .flt[data-filter=bdc]{--fc:#F43F5E}
-.f-sidebar .filters .flt[data-filter=web]{--fc:#A855F7}
-.f-sidebar .filters .flt[data-filter=compta]{--fc:#FB923C}
-.f-sidebar .filters .flt[data-filter=ia]{--fc:#6366F1}
+.filters .flt{background:#fff;border:1px solid rgba(15,23,42,.08);color:#334155;border-radius:99px;padding:7px 13px;font-size:11.5px;font-weight:700;font-family:'Poppins',sans-serif;display:inline-flex;align-items:center;gap:7px;flex:none;box-shadow:none}
+.filters .flt svg{display:none}
+.filters .flt::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--fc);flex:none}
+.filters .flt .flt-n{background:transparent;border:none;color:#94A3B8;font-size:10.5px;font-weight:700;padding:0;margin-left:1px}
+.filters .flt.on{background:#0F172A;color:#fff;border-color:#0F172A}
+.filters .flt.on::before{background:#fff}
+.filters .flt.on .flt-n{color:#CBD5E1}
+.filters .flt[data-filter=langues]{--fc:#3B82F6}
+.filters .flt[data-filter=bureautique]{--fc:#10B981}
+.filters .flt[data-filter=graphisme]{--fc:#F59E0B}
+.filters .flt[data-filter=bdc]{--fc:#F43F5E}
+.filters .flt[data-filter=web]{--fc:#A855F7}
+.filters .flt[data-filter=compta]{--fc:#FB923C}
+.filters .flt[data-filter=ia]{--fc:#6366F1}
+}
+
+/* ═══ NAVBAR FUSIONNANTE MOBILE (GO Samuel 21/07/2026) ═══ */
+#hnav{display:none}
+#filsent{height:1px}
+@media(max-width:768px){
+.f-sidebar{position:static;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:none;margin:0 calc(50% - 50vw);padding:6px 18px 10px;z-index:auto}
+#hnav{display:block;max-height:0;opacity:0;overflow:hidden;transition:max-height .38s var(--e),opacity .28s ease;border-radius:0 0 16px 16px}
+#hnav::before{content:'';display:block;height:1px;background:rgba(15,23,42,.06);margin:0 14px}
+#hnav .filters{padding:8px 14px 12px;margin:0}
+header.fused #hnav{max-height:64px;opacity:1}
+header.fused{box-shadow:0 12px 34px rgba(0,0,0,.10)}
 }
 </style>
 <link rel="stylesheet" href="/search-modal.css">
@@ -2070,7 +2082,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 <a href="documentation.html" class="nav-cta"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Documentation</a>
 <button class="menu-toggle" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
-</div></div></header>
+</div><div id="hnav"></div></div></header>
 <div class="menu-backdrop" onclick="closeMenu()"></div>
 <div class="menu-drop" id="menuDrop">
 <div class="menu-card">
@@ -2127,6 +2139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <div class="f-layout">
+<div id="filsent"></div>
 <aside class="f-sidebar">
 <div class="filters">
 <button class="flt on" data-filter="all" style="--fc:#10ABAF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="flt-t">Toutes les formations</span><span class="flt-n">56</span></button>
@@ -2952,6 +2965,20 @@ document.querySelectorAll('.domain').forEach(function(sec){
     btn.classList.toggle('near',e[0].isIntersecting);
   },{threshold:0,rootMargin:'-25% 0px -35% 0px'}).observe(sec);
 });
+})();
+</script>
+<script>
+(function(){
+var hd=document.getElementById('hd'),hn=document.getElementById('hnav'),fs=document.querySelector('.f-sidebar'),fl=document.querySelector('.filters'),sent=document.getElementById('filsent');
+if(!hd||!hn||!fs||!fl||!sent)return;
+function mob(){return window.matchMedia('(max-width:768px)').matches}
+function fuse(){if(hd.classList.contains('fused'))return;hd.classList.add('fused');hn.appendChild(fl)}
+function unfuse(){if(!hd.classList.contains('fused'))return;hd.classList.remove('fused');fs.appendChild(fl)}
+new IntersectionObserver(function(es){
+  if(!mob()){unfuse();return}
+  if(es[0].isIntersecting){unfuse()}else{fuse()}
+},{rootMargin:'-84px 0px 0px 0px'}).observe(sent);
+window.addEventListener('resize',function(){if(!mob())unfuse()});
 })();
 </script>
 </body>
