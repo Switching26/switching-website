@@ -2980,10 +2980,10 @@ document.querySelectorAll('.domain').forEach(function(sec){
 var hd=document.getElementById('hd'),hn=document.getElementById('hnav'),fs=document.querySelector('.f-sidebar'),fl=document.querySelector('.filters'),sent=document.getElementById('filsent');
 if(!hd||!hn||!fs||!fl||!sent)return;
 function mob(){return window.matchMedia('(max-width:768px)').matches}
-function center(){var a=fl.querySelector('.flt.on');if(!a)return;var t=a.offsetLeft-(fl.clientWidth-a.offsetWidth)/2;fl.scrollLeft=Math.max(0,Math.min(t,fl.scrollWidth-fl.clientWidth))}
+function center(sm){var a=fl.querySelector('.flt.on');if(!a)return;var t=Math.max(0,Math.min(a.offsetLeft-(fl.clientWidth-a.offsetWidth)/2,fl.scrollWidth-fl.clientWidth));if(sm&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){try{fl.scrollTo({left:t,behavior:'smooth'})}catch(e){fl.scrollLeft=t}}else{fl.scrollLeft=t}}
 function fuse(){if(hd.classList.contains('fused'))return;hd.classList.add('fused');hn.appendChild(fl);center()}
 function unfuse(){if(!hd.classList.contains('fused'))return;hd.classList.remove('fused');fs.appendChild(fl);center()}
-document.querySelectorAll('.flt').forEach(function(b){b.addEventListener('click',function(){if(mob())setTimeout(center,60)})});
+document.querySelectorAll('.flt').forEach(function(b){b.addEventListener('click',function(){if(mob())setTimeout(function(){center(true)},60)})});
 new IntersectionObserver(function(es){
   if(!mob()){unfuse();return}
   if(es[0].isIntersecting){unfuse()}else{fuse()}
