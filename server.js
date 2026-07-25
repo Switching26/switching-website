@@ -19,7 +19,8 @@ process.on('uncaughtException', (err) => {
   console.error('Uncaught exception:', err);
 });
 
-const ADMIN_HASH = process.env.ADMIN_HASH || '8996bd75d6e4094d491883145c6e5c510698072c853c0e86ff817fdad44aaf44';
+// No default hash: admin access is disabled (fail-closed) if ADMIN_HASH is not set.
+const ADMIN_HASH = process.env.ADMIN_HASH || null;
 
 // ─── GMAIL API SETUP ───
 const GMAIL_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -624,15 +625,63 @@ function saveDB() {
 
 // ─── MIDDLEWARE ───
 
+app.disable('x-powered-by');
+
+// Never serve server-side or build config files publicly
+const BLOCKED_STATIC = new Set(['/server.js', '/package.json', '/package-lock.json', '/nixpacks.toml']);
+app.use((req, res, next) => {
+  const p = req.path.toLowerCase();
+  if (BLOCKED_STATIC.has(p) || p.startsWith('/data/')) {
+    return res.status(404).send('Not found');
+  }
+  next();
+});
+
+// Basic security headers
+app.use((req, res, next) => {
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
+// Rate-limit failed admin attempts: 10 failures / 15 min per IP
+const adminRateLimit = new Map();
+function checkAdminRate(ip) {
+  const now = Date.now();
+  const entries = adminRateLimit.get(ip) || [];
+  const recent = entries.filter(t => now - t < 900000);
+  if (recent.length >= 10) return false;
+  recent.push(now);
+  adminRateLimit.set(ip, recent);
+  return true;
+}
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entries] of adminRateLimit) {
+    const recent = entries.filter(t => now - t < 900000);
+    if (recent.length === 0) adminRateLimit.delete(ip);
+    else adminRateLimit.set(ip, recent);
+  }
+}, 300000);
+
+function adminTokenOk(token) {
+  if (!ADMIN_HASH || !token) return false;
+  const hash = crypto.createHash('sha256').update(token).digest();
+  const expected = Buffer.from(ADMIN_HASH, 'hex');
+  return hash.length === expected.length && crypto.timingSafeEqual(hash, expected);
+}
+
 function requireAdmin(req, res, next) {
   const token = req.headers['x-admin-token'];
   if (!token) return res.status(401).json({ error: 'Non autorisé' });
-  const hash = crypto.createHash('sha256').update(token).digest('hex');
-  if (hash !== ADMIN_HASH) return res.status(403).json({ error: 'Code incorrect' });
+  if (!checkAdminRate(req.ip)) return res.status(429).json({ error: 'Trop de tentatives, réessayez plus tard' });
+  if (!adminTokenOk(token)) return res.status(403).json({ error: 'Code incorrect' });
   next();
 }
 
@@ -737,11 +786,7 @@ app.delete('/api/submissions', requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/api/export', (req, res) => {
-  const token = req.query.token || req.headers['x-admin-token'];
-  if (!token) return res.status(401).json({ error: 'Non autorisé' });
-  const hash = crypto.createHash('sha256').update(token).digest('hex');
-  if (hash !== ADMIN_HASH) return res.status(403).json({ error: 'Code incorrect' });
+app.get('/api/export', requireAdmin, (req, res) => {
   const rows = db.exec('SELECT * FROM submissions ORDER BY id DESC');
   const headers = ['Date', 'Source', 'Secteur', 'Statut', 'Financement', 'Prenom', 'Nom', 'Email', 'Indicatif', 'Telephone', 'Message', 'Lu'];
   let csv = '\ufeff' + headers.join(';') + '\n';

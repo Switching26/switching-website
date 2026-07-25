@@ -497,8 +497,15 @@ async function deleteSub(id){
 }
 
 // EXPORT CSV
-document.getElementById('exportBtn').addEventListener('click',function(){
-  window.open('/api/export?token='+encodeURIComponent(adminCode));
+document.getElementById('exportBtn').addEventListener('click',async function(){
+  var res=await fetch('/api/export',{headers:authHeaders()});
+  if(!res.ok){alert('Export impossible ('+res.status+')');return;}
+  var blob=await res.blob();
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='switching-demandes.csv';
+  document.body.appendChild(a);a.click();a.remove();
+  URL.revokeObjectURL(url);
 });
 
 // CLEAR ALL
