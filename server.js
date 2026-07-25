@@ -627,11 +627,38 @@ function saveDB() {
 
 app.disable('x-powered-by');
 
+// Railway runs the app behind an edge proxy: trust one hop so req.ip is the
+// real client IP (required for rate limits to work per visitor).
+app.set('trust proxy', 1);
+
 // Never serve server-side or build config files publicly
 const BLOCKED_STATIC = new Set(['/server.js', '/package.json', '/package-lock.json', '/nixpacks.toml']);
+// Whitelist of publicly servable file extensions (site assets only)
+const ALLOWED_STATIC_EXT = new Set([
+  '.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.avif', '.svg',
+  '.ico', '.gif', '.woff', '.woff2', '.ttf', '.otf', '.xml', '.txt', '.mp4',
+  '.webm', '.pdf',
+]);
 app.use((req, res, next) => {
-  const p = req.path.toLowerCase();
-  if (BLOCKED_STATIC.has(p) || p.startsWith('/data/')) {
+  // req.path is the RAW path: decode + normalize dot segments and duplicate
+  // slashes first, otherwise variants like /static/../server.js, //server.js
+  // or /static/%2e%2e/server.js bypass the blocklist while express.static
+  // still resolves them to the real file.
+  let p;
+  try {
+    p = path.posix.normalize(decodeURIComponent(req.path)).toLowerCase();
+  } catch {
+    return res.status(404).send('Not found');
+  }
+  const hasDotSegment = p.split('/').some(seg => seg.length > 0 && seg.startsWith('.'));
+  const ext = path.posix.extname(p);
+  if (
+    BLOCKED_STATIC.has(p) ||
+    p.startsWith('/data/') ||
+    p.startsWith('/node_modules/') ||
+    hasDotSegment ||
+    (ext !== '' && !ALLOWED_STATIC_EXT.has(ext))
+  ) {
     return res.status(404).send('Not found');
   }
   next();
