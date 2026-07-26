@@ -126,25 +126,37 @@ IMPORTANT :
 - N'invente JAMAIS d'informations. Si tu ne sais pas, dis-le et oriente vers un conseiller.
 - Maximum 20 échanges par conversation. Après 15 échanges, propose de finaliser ou d'appeler.`;
 
-// Rate limiting for chat
-const chatRateLimit = new Map();
-function checkChatRate(ip) {
+// Generic fixed-window rate limiter. Returns false when `key` exceeds `limit`
+// hits within `windowMs`. Behind Railway's proxy chain a spoofed/rotating
+// X-Forwarded-For can churn req.ip, so every limiter also enforces a global
+// cap ('*' key) that bounds total abuse regardless of the source IP.
+function rateEntry(map, key, limit, windowMs) {
   const now = Date.now();
-  const entries = chatRateLimit.get(ip) || [];
-  const recent = entries.filter(t => now - t < 60000);
-  if (recent.length >= 10) return false;
-  recent.push(now);
-  chatRateLimit.set(ip, recent);
+  const entries = (map.get(key) || []).filter(t => now - t < windowMs);
+  if (entries.length >= limit) return false;
+  entries.push(now);
+  map.set(key, entries);
   return true;
 }
-// Clean up rate limit map periodically
-setInterval(() => {
+function cleanRateMap(map, windowMs) {
   const now = Date.now();
-  for (const [ip, entries] of chatRateLimit) {
-    const recent = entries.filter(t => now - t < 60000);
-    if (recent.length === 0) chatRateLimit.delete(ip);
-    else chatRateLimit.set(ip, recent);
+  for (const [key, entries] of map) {
+    const recent = entries.filter(t => now - t < windowMs);
+    if (recent.length === 0) map.delete(key);
+    else map.set(key, recent);
   }
+}
+
+// Rate limiting for chat: 10/min per IP + 60/min global
+const chatRateLimit = new Map();
+const chatRateGlobal = new Map();
+function checkChatRate(ip) {
+  return rateEntry(chatRateLimit, ip, 10, 60000) && rateEntry(chatRateGlobal, '*', 60, 60000);
+}
+// Clean up rate limit maps periodically
+setInterval(() => {
+  cleanRateMap(chatRateLimit, 60000);
+  cleanRateMap(chatRateGlobal, 60000);
 }, 300000);
 
 // Get a fresh access token from Google using the refresh token
@@ -677,24 +689,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
-// Rate-limit failed admin attempts: 10 failures / 15 min per IP
+// Rate-limit failed admin attempts: 10 failures / 15 min per IP + 40 / 15 min
+// global cap (spoofed X-Forwarded-For can rotate req.ip through the proxy).
 const adminRateLimit = new Map();
+const adminRateGlobal = new Map();
 function checkAdminRate(ip) {
-  const now = Date.now();
-  const entries = adminRateLimit.get(ip) || [];
-  const recent = entries.filter(t => now - t < 900000);
-  if (recent.length >= 10) return false;
-  recent.push(now);
-  adminRateLimit.set(ip, recent);
-  return true;
+  return rateEntry(adminRateLimit, ip, 10, 900000) && rateEntry(adminRateGlobal, '*', 40, 900000);
 }
 setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entries] of adminRateLimit) {
-    const recent = entries.filter(t => now - t < 900000);
-    if (recent.length === 0) adminRateLimit.delete(ip);
-    else adminRateLimit.set(ip, recent);
-  }
+  cleanRateMap(adminRateLimit, 900000);
+  cleanRateMap(adminRateGlobal, 900000);
 }, 300000);
 
 function adminTokenOk(token) {
@@ -707,9 +711,11 @@ function adminTokenOk(token) {
 function requireAdmin(req, res, next) {
   const token = req.headers['x-admin-token'];
   if (!token) return res.status(401).json({ error: 'Non autorisé' });
+  // A valid token is never rate-limited (prevents lockout DoS); only failed
+  // attempts consume rate-limit slots.
+  if (adminTokenOk(token)) return next();
   if (!checkAdminRate(req.ip)) return res.status(429).json({ error: 'Trop de tentatives, réessayez plus tard' });
-  if (!adminTokenOk(token)) return res.status(403).json({ error: 'Code incorrect' });
-  next();
+  return res.status(403).json({ error: 'Code incorrect' });
 }
 
 // ─── CHAT NOTIFICATION HELPERS ───
@@ -760,7 +766,20 @@ async function sendChatNotification(convId, page, messages) {
 
 // ─── API ROUTES ───
 
+// Rate-limit lead submissions: 5 / 10 min per IP + 30 / 10 min global
+// (each submission sends notification emails).
+const submitRateLimit = new Map();
+const submitRateGlobal = new Map();
+setInterval(() => {
+  cleanRateMap(submitRateLimit, 600000);
+  cleanRateMap(submitRateGlobal, 600000);
+}, 300000);
+
 app.post('/api/submit', (req, res) => {
+  const ip = req.ip || req.socket.remoteAddress;
+  if (!rateEntry(submitRateLimit, ip, 5, 600000) || !rateEntry(submitRateGlobal, '*', 30, 600000)) {
+    return res.status(429).json({ error: 'Trop de demandes. Réessayez dans quelques minutes.' });
+  }
   const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = req.body;
   if (!prenom && !email && !tel) {
     return res.status(400).json({ error: 'Au moins un champ de contact requis' });
@@ -832,7 +851,9 @@ app.post('/api/chat', async (req, res) => {
   if (!anthropicClient) {
     return res.status(503).json({ error: 'Chatbot not configured' });
   }
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  // req.ip (trust proxy) — the raw X-Forwarded-For header is spoofable and
+  // unstable through Railway's proxy chain, which silently disabled the limiter.
+  const ip = req.ip || req.socket.remoteAddress;
   if (!checkChatRate(ip)) {
     return res.status(429).json({ error: 'Trop de messages. Réessayez dans une minute.' });
   }
