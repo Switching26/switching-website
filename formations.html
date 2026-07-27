@@ -2122,6 +2122,36 @@ header.fused{box-shadow:0 12px 34px rgba(0,0,0,.10)}
 .avc:hover{transform:none}
 .avc:hover .av-win{transform:none}
 }
+
+/* Mobile : resserre l'espace entre la fin du dernier domaine et le CTA de page
+   (56px de padding-top laissaient un grand vide pointille). */
+@media(max-width:768px){
+  .cta-section{padding-top:22px}
+  .domain:last-of-type .mdom{padding-bottom:2px}
+}
+
+/* CTA de page en FOND CLAIR — alignement sur les money pages formation
+   (demande Samuel 27/07/2026 : tous les cadrans du site en clair). */
+.cta-box{
+  background:linear-gradient(135deg,rgba(16,171,175,.06),rgba(16,171,175,.03));
+  border:1px solid rgba(16,171,175,.12);
+  box-shadow:0 12px 36px -24px rgba(15,23,42,.16)
+}
+.cta-box::before{
+  background:radial-gradient(ellipse 50% 60% at 20% 50%,rgba(16,171,175,.07),transparent),
+             radial-gradient(ellipse 40% 50% at 80% 40%,rgba(99,102,241,.045),transparent)
+}
+.cta-box::after{
+  background:linear-gradient(135deg,rgba(16,171,175,.3),transparent 45%,transparent 58%,rgba(99,102,241,.14))
+}
+.cta-box h2{color:#0F172A}
+.cta-box h2 em{color:#10ABAF}
+.cta-box p{color:#64748B}
+.cta-box .sheen{display:none}
+.cta-chip{color:#0E7C7E;background:#fff;border:1px solid rgba(16,171,175,.26)}
+.cta-chip svg{stroke:#10ABAF}
+.btn-ghost-w{background:#fff;color:#0F172A;border:1px solid rgba(15,23,42,.14)}
+.btn-ghost-w:hover{background:#fff;color:#0F172A;border-color:rgba(16,171,175,.45)}
 </style>
 <link rel="stylesheet" href="/search-modal.css">
 </head>
