@@ -475,10 +475,11 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0E9599,#3DC8C9);-webki
 .step-opt .opt-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--bd2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .step-opt.selected .opt-dot{border-color:var(--accent);background:var(--accent)}.step-opt.selected .opt-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
 .ff{margin-bottom:8px}
-.ff select,.ff input{width:100%;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--text);background:var(--white);transition:all .2s;-webkit-appearance:none;appearance:none}
+.ff select,.ff input,.ff textarea{width:100%;padding:12px 16px;border:1px solid var(--bd2);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--text);background:var(--white);transition:all .2s;-webkit-appearance:none;appearance:none}
+.ff textarea{display:block;resize:vertical;min-height:82px;line-height:1.5}
 .ff select{color:var(--muted);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2371717A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
-.ff input:focus,.ff select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
-.ff input::placeholder{color:var(--muted)}
+.ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-gl)}
+.ff input::placeholder,.ff textarea::placeholder{color:var(--muted)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.frp{display:grid;grid-template-columns:110px 1fr;gap:8px}
 .consent{display:flex;align-items:flex-start;gap:8px;margin:14px 0;font-size:12px;color:var(--muted);line-height:1.4}.consent input{width:16px;height:16px;accent-color:var(--accent);margin-top:1px;flex-shrink:0}
