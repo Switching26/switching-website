@@ -1313,6 +1313,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .page-hero h1{font-size:25px}
   .page-hero h1 .h1-sub{font-size:16px;margin-top:6px}
 }
+
+/* Raccord CTA -> footer (recette du site : formations/financement/le-centre).
+   Sans ces 2 classes le footer démarre à 0px, la 1re carte contact est collée
+   au bord haut de la zone sombre et paraît coupée. */
+@media(max-width:768px){
+  .cta-section--footer-bridge{padding-bottom:32px}
+  footer.footer--after-page-cta{padding-top:24px}
+}
 </style>
 
 <section class="page-hero">
@@ -1430,7 +1438,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div></section>
 
-<section class="cta-section"><div class="w">
+<section class="cta-section cta-section--footer-bridge"><div class="w">
 <div class="cta-box rv">
 <h2>Prêt à créer vos propres visuels&nbsp;?</h2>
 <p>Devis personnalisé et étude de votre financement sous 24–48 h. Un conseiller vous accompagne de A à Z.</p>
@@ -1440,7 +1448,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 </div></section>
-<footer><div class="w">
+<footer class="footer--after-page-cta"><div class="w">
 <div class="ft-grid">
 <div class="ft-brand"><img src="images/logo-switching-blanc.png" alt="SF"><p>Organisme certifié Qualiopi. Formations individuelles dans 7 domaines.</p></div>
 <div class="ft-col"><h4>Navigation</h4><a href="le-centre.html">Le centre</a><a href="formations.html">Formations</a><a href="financement.html">Financement</a><a href="inscription.html">Devis</a><a href="blog.html">Blog</a></div>
