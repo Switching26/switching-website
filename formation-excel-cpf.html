@@ -754,6 +754,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 .xl-dur{display:inline-block;margin-top:9px;font-family:'Poppins',sans-serif;font-size:11.5px;font-weight:700;color:var(--sub);background:var(--surface2);border-radius:100px;padding:3px 11px}
 @media(max-width:980px){.xl-hero-grid{grid-template-columns:1fr;gap:24px}}
 @media(max-width:640px){.xl-win-wrap .av-app{height:196px}.xl-offer{padding:22px 20px}.xl-offer .pv{font-size:32px}}
+
+/* H1 mobile — corrige la spécificité : les media queries `h1{}` nues (0,0,1)
+   ne battaient pas `.page-hero h1` (0,1,1), le titre restait à 48px sur mobile */
+@media(max-width:768px){
+  .page-hero h1{font-size:30px;line-height:1.15;letter-spacing:-.02em}
+  .page-hero h1 .h1-sub{display:block;margin-top:8px;font-size:18px;line-height:1.32;letter-spacing:0}
+}
+@media(max-width:480px){
+  .page-hero h1{font-size:25px}
+  .page-hero h1 .h1-sub{font-size:16px;margin-top:6px}
+}
 </style>
 
 <section class="page-hero">

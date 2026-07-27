@@ -600,6 +600,17 @@ h1{font-size:22px}
  .ang-cecrl{flex-wrap:wrap;gap:8px}
  .ang-lv{flex:1 1 28%;font-size:15px;padding:12px 2px 9px}
 }
+
+/* H1 mobile — corrige la spécificité : les media queries `h1{}` nues (0,0,1)
+   ne battaient pas `.page-hero h1` (0,1,1), le titre restait à 48px sur mobile */
+@media(max-width:768px){
+  .page-hero h1{font-size:30px;line-height:1.15;letter-spacing:-.02em}
+  .page-hero h1 .h1-sub{display:block;margin-top:8px;font-size:18px;line-height:1.32;letter-spacing:0}
+}
+@media(max-width:480px){
+  .page-hero h1{font-size:25px}
+  .page-hero h1 .h1-sub{font-size:16px;margin-top:6px}
+}
 </style></head>
 <body>
 <!-- Google Tag Manager (noscript) -->
