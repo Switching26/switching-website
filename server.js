@@ -435,7 +435,7 @@ const TEMPLATE_PROSPECT = `<table role="presentation" cellpadding="0" cellspacin
 </table>
 </td></tr>
 <tr><td style="padding-top:12px;text-align:center;">
-<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11 18 99 4 · Actions de formation et bilan de compétences</p>
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11189 94 · Actions de formation et bilan de compétences</p>
 </td></tr>
 </table>
 </td></tr>
@@ -510,7 +510,7 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 </table>
 </td></tr>
 <tr><td style="padding-top:12px;text-align:center;">
-<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11 18 99 4</p>
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11189 94</p>
 </td></tr>
 </table>
 </td></tr>
@@ -557,7 +557,7 @@ const TEMPLATE_CHAT_NOTIFY = `<table role="presentation" cellpadding="0" cellspa
 </table>
 </td></tr>
 <tr><td style="padding-top:12px;text-align:center;">
-<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11 18 99 4</p>
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11189 94</p>
 </td></tr>
 </table>
 </td></tr>
