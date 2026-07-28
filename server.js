@@ -72,7 +72,7 @@ INFORMATIONS SUR LE CENTRE :
 - Email : contact@switchingformation.com
 - Horaires : Lundi-Vendredi 9h-18h
 - Certifications : Qualiopi (Actions de formation + Bilans de compétences)
-- Modalités standards : Visioconférence (toutes formations) + E-learning (selon les modules)
+- Modalités standards : À distance (toutes formations) + E-learning (selon les modules)
 - Présentiel : possible mais sur-mesure uniquement — toujours le mentionner si on pose la question sur les formats disponibles, en précisant que ce n'est pas d'office et qu'un conseiller établit un devis personnalisé. Pour les entreprises : intra ou inter-entreprise à partir de 2 personnes. Pour les particuliers : devis sur-mesure possible. Ne jamais le proposer spontanément comme option standard.
 - Certifications délivrées : ENI, RNCP, VTest
 
@@ -243,6 +243,7 @@ function getPageLabel(source) {
   if (source === 'documentation') return 'Page Documentation';
   if (source === 'inscription' || source === 'devis') return 'Formulaire Devis';
   if (source === 'chatbot') return 'Chatbot IA';
+  if (source === 'formation') return 'Page formation';
   return 'Formulaire Accueil';
 }
 
@@ -275,6 +276,8 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     sourceBg = 'rgba(59,130,246,.15)';
     sourceColor = '#3B82F6';
     sourceLabel = 'Formulaire Devis';
+  } else if (data.source === 'formation') {
+    sourceLabel = 'Page formation';
   } else {
     sourceLabel = 'Formulaire Accueil';
   }
@@ -337,7 +340,7 @@ async function sendEmails(data) {
   }
 
   // 2) Email to admin
-  const sourceTag = data.source === 'chatbot' ? '[Chatbot]' : (data.source === 'inscription' || data.source === 'devis') ? '[Devis]' : '[Formulaire]';
+  const sourceTag = data.source === 'chatbot' ? '[Chatbot]' : (data.source === 'inscription' || data.source === 'devis' || data.source === 'formation') ? '[Devis]' : '[Formulaire]';
   const adminSubject = '🎯 ' + sourceTag + ' Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
   console.log('  → Admin email to:', NOTIFY_EMAIL);
   promises.push(
