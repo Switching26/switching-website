@@ -179,11 +179,18 @@ async function getAccessToken() {
 }
 
 // Build a RFC 2822 email message and encode as base64url
+// A recipient address reaches us straight from the public form. A CR/LF inside
+// it would close the To: header and let the caller append their own (Bcc:,
+// Reply-To:) to a mail sent from our domain. Strip them before building.
+function sanitizeHeaderValue(value) {
+  return String(value == null ? '' : value).replace(/[\r\n]+/g, ' ').trim();
+}
+
 function buildMimeMessage(to, subject, htmlBody) {
   const boundary = 'boundary_' + Date.now();
   const lines = [
     'From: "Switching Formation" <' + GMAIL_FROM + '>',
-    'To: ' + to,
+    'To: ' + sanitizeHeaderValue(to),
     'Subject: =?UTF-8?B?' + Buffer.from(subject).toString('base64') + '?=',
     'MIME-Version: 1.0',
     'Content-Type: multipart/alternative; boundary=' + boundary,
@@ -239,6 +246,23 @@ function formatDateFR(date = new Date()) {
   return parts.day + '/' + parts.month + '/' + parts.year + ' à ' + parts.hour + 'h' + parts.minute;
 }
 
+// Visitor-supplied fields land inside the HTML of the internal notification
+// mail and of the prospect confirmation. Escape them so a crafted "message" or
+// "nom" cannot inject markup (fake button, fake link) into a mail we send.
+function escapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Same, plus line breaks preserved — for the free-text message block.
+function escapeHtmlMultiline(value) {
+  return escapeHtml(value).replace(/\r?\n/g, '<br>');
+}
+
 function getPageLabel(source) {
   if (source === 'documentation') return 'Page Documentation';
   if (source === 'inscription' || source === 'devis') return 'Formulaire Devis';
@@ -249,9 +273,9 @@ function getPageLabel(source) {
 
 function buildProspectEmail(data) {
   const vars = {
-    '{{PRENOM}}': data.prenom || '',
-    '{{NOM}}': data.nom || '',
-    '{{FORMATION}}': data.secteur || 'Non précisée'
+    '{{PRENOM}}': escapeHtml(data.prenom),
+    '{{NOM}}': escapeHtml(data.nom),
+    '{{FORMATION}}': escapeHtml(data.secteur || 'Non précisée')
   };
   let html = TEMPLATE_PROSPECT;
   for (const [k, v] of Object.entries(vars)) {
@@ -291,17 +315,17 @@ function buildAdminEmail(data, dateFR, pageLabel) {
   }
 
   const vars = {
-    '{{PRENOM}}': data.prenom || '',
-    '{{NOM}}': data.nom || '',
-    '{{EMAIL}}': data.email || 'Non renseigné',
-    '{{TEL}}': tel,
-    '{{FORMATION}}': data.secteur || 'Non précisée',
-    '{{STATUT}}': data.statut || 'Non précisé',
-    '{{FINANCEMENT}}': data.financement || 'Non précisé',
-    '{{VILLE}}': data.ville || 'Non renseignée',
-    '{{ENTREPRISE}}': data.entreprise || 'Non renseignée',
-    '{{MODALITE}}': data.modalite || 'Non précisée',
-    '{{MESSAGE}}': data.message || 'Aucun message',
+    '{{PRENOM}}': escapeHtml(data.prenom),
+    '{{NOM}}': escapeHtml(data.nom),
+    '{{EMAIL}}': escapeHtml(data.email || 'Non renseigné'),
+    '{{TEL}}': escapeHtml(tel),
+    '{{FORMATION}}': escapeHtml(data.secteur || 'Non précisée'),
+    '{{STATUT}}': escapeHtml(data.statut || 'Non précisé'),
+    '{{FINANCEMENT}}': escapeHtml(data.financement || 'Non précisé'),
+    '{{VILLE}}': escapeHtml(data.ville || 'Non renseignée'),
+    '{{ENTREPRISE}}': escapeHtml(data.entreprise || 'Non renseignée'),
+    '{{MODALITE}}': escapeHtml(data.modalite || 'Non précisée'),
+    '{{MESSAGE}}': escapeHtmlMultiline(data.message || 'Aucun message'),
     '{{DATE}}': dateFR,
     '{{PAGE}}': pageLabel,
     '{{SOURCE}}': sourceLabel,
@@ -679,12 +703,34 @@ app.use((req, res, next) => {
   next();
 });
 
+// Every page carries inline <style>/<script>, and GTM injects tags at runtime,
+// so script-src/style-src have to stay permissive — tightening them would need
+// a nonce pass over ~200 static pages. The directives that cost nothing here
+// are the ones that actually blunt an injection: no plugins, no rewritten
+// <base>, no third-party framing, and forms that can only post back to us.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https:",
+  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net",
+  "frame-src 'self' https://www.googletagmanager.com https://www.google.com",
+  "media-src 'self' data: https:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  'upgrade-insecure-requests'
+].join('; ');
+
 // Basic security headers
 app.use((req, res, next) => {
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Content-Security-Policy', CSP);
   next();
 });
 
@@ -772,6 +818,31 @@ async function sendChatNotification(convId, page, messages) {
 // Rate-limit lead submissions: 5 / 10 min per IP + 30 / 10 min global
 // (each submission sends notification emails).
 const submitRateLimit = new Map();
+// Nothing bounded the size of a submitted field: a single POST could push
+// megabytes into the SQLite file and into the notification mail. Cap each one,
+// generously enough that a real prospect never hits the limit.
+const SUBMISSION_LIMITS = {
+  source: 40, secteur: 120, statut: 80, financement: 80,
+  prenom: 80, nom: 80, email: 200, indicatif: 8, tel: 40,
+  ville: 120, entreprise: 160, modalite: 80, message: 4000
+};
+
+function clampSubmission(body) {
+  const out = {};
+  for (const [field, max] of Object.entries(SUBMISSION_LIMITS)) {
+    const raw = body ? body[field] : undefined;
+    if (raw == null) continue;
+    const str = typeof raw === 'string' ? raw : String(raw);
+    const trimmed = str.trim();
+    if (trimmed) out[field] = trimmed.slice(0, max);
+  }
+  return out;
+}
+
+function isPlausibleEmail(value) {
+  return /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[a-zA-Z]{2,}$/.test(value);
+}
+
 const submitRateGlobal = new Map();
 setInterval(() => {
   cleanRateMap(submitRateLimit, 600000);
@@ -783,9 +854,12 @@ app.post('/api/submit', (req, res) => {
   if (!rateEntry(submitRateLimit, ip, 5, 600000) || !rateEntry(submitRateGlobal, '*', 30, 600000)) {
     return res.status(429).json({ error: 'Trop de demandes. Réessayez dans quelques minutes.' });
   }
-  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = req.body;
+  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = clampSubmission(req.body);
   if (!prenom && !email && !tel) {
     return res.status(400).json({ error: 'Au moins un champ de contact requis' });
+  }
+  if (email && !isPlausibleEmail(email)) {
+    return res.status(400).json({ error: 'Adresse email invalide' });
   }
   db.run(
     `INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message)
@@ -958,8 +1032,11 @@ app.post('/api/chat', async (req, res) => {
     const submitMatch = fullText.match(/\[SUBMIT:\s*(\{.+?\})\]/);
     if (submitMatch) {
       try {
-        const data = JSON.parse(submitMatch[1]);
+        // These fields are relayed from what the visitor typed to the bot, so
+        // they get the same clamping/validation as the plain form.
+        const data = clampSubmission(JSON.parse(submitMatch[1]));
         data.source = 'chatbot';
+        if (data.email && !isPlausibleEmail(data.email)) delete data.email;
         db.run(
           'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
