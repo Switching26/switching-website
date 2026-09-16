@@ -363,7 +363,7 @@ async function sendEmails(data) {
     promises.push(
       gmailSend(
         data.email,
-        'Switching Formation — Votre demande a bien été reçue',
+        (data.source === 'mmfcpf' ? 'Mes Meilleures Formations CPF' : 'Switching Formation') + ' — Votre demande a bien été reçue',
         buildProspectEmail(data)
       ).then(r => console.log('  ✓ Prospect email sent:', r.id))
        .catch(err => console.error('  ✗ Prospect email FAILED:', err.message))
