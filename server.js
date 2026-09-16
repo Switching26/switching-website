@@ -280,7 +280,7 @@ function buildProspectEmail(data) {
     '{{NOM}}': escapeHtml(data.nom),
     '{{FORMATION}}': escapeHtml(data.secteur || 'Non précisée')
   };
-  let html = TEMPLATE_PROSPECT;
+  let html = data.source === 'mmfcpf' ? TEMPLATE_PROSPECT_MMFCPF : TEMPLATE_PROSPECT;
   for (const [k, v] of Object.entries(vars)) {
     html = html.split(k).join(v);
   }
@@ -295,7 +295,11 @@ function buildAdminEmail(data, dateFR, pageLabel) {
   let sourceBg = 'rgba(16,171,175,.15)';
   let sourceColor = '#0E9599';
   let sourceLabel = pageLabel;
-  if (isChatbot) {
+  if (data.source === 'mmfcpf') {
+    sourceBg = 'rgba(27,79,156,.15)';
+    sourceColor = '#1B4F9C';
+    sourceLabel = 'Mes Meilleures Formations CPF';
+  } else if (isChatbot) {
     sourceBg = 'rgba(99,102,241,.15)';
     sourceColor = '#6366F1';
     sourceLabel = 'Chatbot IA';
@@ -336,7 +340,7 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{SOURCE_COLOR}}': sourceColor,
     '{{TRANSCRIPT_SECTION}}': transcriptSection
   };
-  let html = TEMPLATE_ADMIN;
+  let html = data.source === 'mmfcpf' ? TEMPLATE_ADMIN_MMFCPF : TEMPLATE_ADMIN;
   for (const [k, v] of Object.entries(vars)) {
     html = html.split(k).join(v);
   }
@@ -543,6 +547,168 @@ const TEMPLATE_ADMIN = `<table role="presentation" cellpadding="0" cellspacing="
 </table>
 </td></tr>
 </table>`;
+
+// --- Variantes Mes Meilleures Formations CPF (source: 'mmfcpf') ---
+const TEMPLATE_PROSPECT_MMFCPF = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
+<tr><td align="center" style="padding:12px 16px 24px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:560px;max-width:560px;">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://mesmeilleuresformationscpf.com/assets/logo-512.png" alt="Mes Meilleures Formations CPF" width="48" height="48" style="display:block;">
+</td></tr>
+<tr><td>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fff;border-radius:16px;overflow:hidden;">
+<tr><td style="padding:32px 36px 0;">
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:700;color:#1a1a1a;margin:0 0 6px;letter-spacing:-.3px;">Demande bien reçue ✓</h1>
+<p style="font-size:13px;color:#999;margin:0 0 24px;">Nous revenons vers vous très rapidement.</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+</td></tr>
+<tr><td style="padding:24px 36px;">
+<p style="margin:0 0 14px;line-height:1.7;font-size:14px;color:#444;">Bonjour <strong style="color:#1a1a1a;">{{PRENOM}} {{NOM}}</strong>,</p>
+<p style="margin:0 0 14px;line-height:1.7;font-size:14px;color:#444;">Merci pour votre intérêt pour la formation <strong style="color:#1B4F9C;">{{FORMATION}}</strong>. Votre demande a bien été enregistrée.</p>
+<p style="margin:0 0 18px;line-height:1.7;font-size:14px;color:#444;">Un conseiller pédagogique vous <strong style="color:#1a1a1a;">recontactera sous 24h</strong> pour :</p>
+</td></tr>
+<tr><td style="padding:0 36px 4px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+<tr><td style="padding:16px 0;border-bottom:1px solid #f0f0ee;">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
+<td style="vertical-align:middle;padding-right:16px;" width="40"><div style="width:36px;height:36px;border-radius:50%;background:#f4f3ef;text-align:center;line-height:36px;font-family:Georgia,serif;font-size:15px;font-weight:700;color:#1B4F9C;">1</div></td>
+<td style="vertical-align:middle;"><p style="margin:0;font-size:14px;font-weight:600;color:#1a1a1a;">Échange sur vos objectifs</p><p style="margin:3px 0 0;font-size:12px;color:#999;line-height:1.5;">On fait le point sur votre niveau et vos besoins.</p></td>
+</tr></table>
+</td></tr>
+<tr><td style="padding:16px 0;border-bottom:1px solid #f0f0ee;">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
+<td style="vertical-align:middle;padding-right:16px;" width="40"><div style="width:36px;height:36px;border-radius:50%;background:#f4f3ef;text-align:center;line-height:36px;font-family:Georgia,serif;font-size:15px;font-weight:700;color:#1B4F9C;">2</div></td>
+<td style="vertical-align:middle;"><p style="margin:0;font-size:14px;font-weight:600;color:#1a1a1a;">Programme personnalisé</p><p style="margin:3px 0 0;font-size:12px;color:#999;line-height:1.5;">On vous envoie le programme détaillé et le devis.</p></td>
+</tr></table>
+</td></tr>
+<tr><td style="padding:16px 0;">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
+<td style="vertical-align:middle;padding-right:16px;" width="40"><div style="width:36px;height:36px;border-radius:50%;background:#f4f3ef;text-align:center;line-height:36px;font-family:Georgia,serif;font-size:15px;font-weight:700;color:#1B4F9C;">3</div></td>
+<td style="vertical-align:middle;"><p style="margin:0;font-size:14px;font-weight:600;color:#1a1a1a;">Aide au financement</p><p style="margin:3px 0 0;font-size:12px;color:#999;line-height:1.5;">CPF, OPCO, France Travail — on identifie la meilleure option.</p></td>
+</tr></table>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding:24px 36px 28px;">
+<p style="margin:0 0 20px;line-height:1.7;font-size:14px;color:#444;">Une question ? Appelez-nous au <strong><a href="tel:+33695185057" style="color:#1B4F9C;text-decoration:none;">06 95 18 50 57</a></strong></p>
+<div style="text-align:center;">
+<a href="https://mesmeilleuresformationscpf.com/#formations" style="display:inline-block;padding:14px 36px;background:#1B4F9C;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border-radius:100px;">Voir nos formations</a>
+</div>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding-top:16px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fff;border-radius:14px;overflow:hidden;">
+<tr><td style="padding:22px 28px;">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
+<td style="vertical-align:top;padding-right:16px;"><img src="https://mesmeilleuresformationscpf.com/assets/logo-512.png" alt="MMFCPF" width="40" height="40" style="display:block;"></td>
+<td style="vertical-align:top;">
+<p style="margin:0;font-size:15px;font-weight:700;color:#1a1a1a;">Mes Meilleures Formations CPF</p>
+<p style="margin:3px 0 0;font-size:10px;color:#1B4F9C;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;">Organisme certifié Qualiopi</p>
+<p style="margin:6px 0 0;font-size:11px;color:#999;">18 rue Coriolis, 75012 Paris</p>
+</td></tr></table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:14px;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:12px;"><tr>
+<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-phone.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
+<td style="font-size:12px;color:#888;padding-right:16px;"><a href="tel:+33695185057" style="color:#888;text-decoration:none;">06 95 18 50 57</a></td>
+<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-email.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
+<td style="font-size:12px;color:#888;padding-right:16px;"><a href="mailto:contact@switchingformation.com" style="color:#888;text-decoration:none;">contact&#64;switchingformation.com</a></td>
+</tr></table>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;"><tr>
+<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-globe.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
+<td style="font-size:12px;"><a href="https://mesmeilleuresformationscpf.com" style="color:#1a1a1a;text-decoration:none;font-weight:600;">mesmeilleuresformationscpf.com</a></td>
+</tr></table>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr>
+<td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#EAF1FB;font-size:9px;color:#0E2A5C;font-weight:700;letter-spacing:.4px;">QUALIOPI</div></td>
+<td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#EEF2FF;font-size:9px;color:#4F46E5;font-weight:700;letter-spacing:.4px;">CPF</div></td>
+<td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#FFF7ED;font-size:9px;color:#EA580C;font-weight:700;letter-spacing:.4px;">OPCO</div></td>
+<td><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#F0F4FF;font-size:9px;color:#3B82F6;font-weight:700;letter-spacing:.4px;">FRANCE TRAVAIL</div></td>
+</tr></table>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding-top:12px;text-align:center;">
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">Un service de Switching Formation · SIRET 910 375 716 00016 · NDA 11 94 11189 94</p>
+</td></tr>
+</table>
+</td></tr>
+</table>`;
+
+const TEMPLATE_ADMIN_MMFCPF = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
+<tr><td align="center" style="padding:12px 16px 24px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:560px;max-width:560px;">
+<tr><td align="center" style="padding-bottom:24px;">
+<img src="https://mesmeilleuresformationscpf.com/assets/logo-512.png" alt="MMFCPF" width="40" height="40" style="display:block;">
+</td></tr>
+<tr><td>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fff;border-radius:16px;overflow:hidden;">
+<tr><td>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:#0F172A;border-radius:12px;overflow:hidden;margin:0;">
+<tr><td style="padding:20px 28px;">
+<p style="margin:0;font-size:18px;font-weight:700;color:#fff;">🎯 Nouveau prospect</p>
+<p style="margin:4px 0 0;font-size:12px;color:#94A3B8;">Reçu le {{DATE}} via <span style="display:inline-block;padding:2px 8px;border-radius:6px;background:{{SOURCE_BG}};color:{{SOURCE_COLOR}};font-weight:700;font-size:11px;letter-spacing:.3px;">{{SOURCE}}</span></p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:12px 0 0;"><tr><td width="33%" style="height:3px;background:#1B4F9C;font-size:1px;line-height:3px;">&nbsp;</td><td width="34%" style="height:3px;background:#ffffff;font-size:1px;line-height:3px;">&nbsp;</td><td width="33%" style="height:3px;background:#E1000F;font-size:1px;line-height:3px;">&nbsp;</td></tr></table></td></tr>
+</table>
+</td></tr>
+<tr><td style="padding:24px 28px 0;">
+<p style="margin:0 0 2px;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Prospect</p>
+<p style="margin:0 0 16px;font-size:22px;font-weight:700;color:#1a1a1a;">{{PRENOM}} {{NOM}}</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+</td></tr>
+<tr><td style="padding:16px 28px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Email</td>
+<td style="font-size:14px;padding:6px 0;"><a href="mailto:{{EMAIL}}" style="color:#1B4F9C;text-decoration:none;font-weight:600;">{{EMAIL}}</a></td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Téléphone</td>
+<td style="font-size:14px;padding:6px 0;"><a href="tel:{{TEL}}" style="color:#1B4F9C;text-decoration:none;font-weight:600;">{{TEL}}</a></td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Formation</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FORMATION}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Statut</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{STATUT}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Financement</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FINANCEMENT}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Modalité</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{MODALITE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Ville</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{VILLE}}</td>
+</tr>
+<tr>
+<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Entreprise</td>
+<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{ENTREPRISE}}</td>
+</tr>
+</table>
+</td></tr>
+<tr><td style="padding:0 28px 20px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+<p style="margin:14px 0 0;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Message</p>
+<p style="margin:6px 0 0;font-size:13px;color:#666;line-height:1.6;font-style:italic;background:#f9f9f7;padding:12px 16px;border-radius:8px;">{{MESSAGE}}</p>
+{{TRANSCRIPT_SECTION}}
+</td></tr>
+<tr><td style="padding:0 28px 28px;text-align:center;">
+<a href="mailto:{{EMAIL}}" style="display:inline-block;padding:12px 32px;background:#1B4F9C;color:#fff;text-decoration:none;font-weight:700;font-size:13px;border-radius:100px;">Répondre au prospect →</a>
+</td></tr>
+</table>
+</td></tr>
+<tr><td style="padding-top:12px;text-align:center;">
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11189 94</p>
+</td></tr>
+</table>
+</td></tr>
+</table>`;
+
 
 const TEMPLATE_CHAT_NOTIFY = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4f3ef;font-family:Arial,Helvetica,sans-serif;">
 <tr><td align="center" style="padding:12px 16px 24px;">
