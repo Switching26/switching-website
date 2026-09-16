@@ -28,6 +28,8 @@ const GMAIL_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const GMAIL_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
 const GMAIL_FROM = process.env.GMAIL_FROM || 'contact@switchingformation.com';
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'contact@switchingformation.com';
+const NOTIFY_EMAIL_MMFCPF = process.env.NOTIFY_EMAIL_MMFCPF || NOTIFY_EMAIL;
+const MMFCPF_ORIGINS = ['https://mesmeilleuresformationscpf.com', 'https://www.mesmeilleuresformationscpf.com'];
 
 let gmailReady = false;
 
@@ -268,6 +270,7 @@ function getPageLabel(source) {
   if (source === 'inscription' || source === 'devis') return 'Formulaire Devis';
   if (source === 'chatbot') return 'Chatbot IA';
   if (source === 'formation') return 'Page formation';
+  if (source === 'mmfcpf') return 'Site Mes Meilleures Formations CPF';
   return 'Formulaire Accueil';
 }
 
@@ -364,12 +367,13 @@ async function sendEmails(data) {
   }
 
   // 2) Email to admin
-  const sourceTag = data.source === 'chatbot' ? '[Chatbot]' : (data.source === 'inscription' || data.source === 'devis' || data.source === 'formation') ? '[Devis]' : '[Formulaire]';
+  const sourceTag = data.source === 'mmfcpf' ? '[MMFCPF]' : data.source === 'chatbot' ? '[Chatbot]' : (data.source === 'inscription' || data.source === 'devis' || data.source === 'formation') ? '[Devis]' : '[Formulaire]';
   const adminSubject = '🎯 ' + sourceTag + ' Nouveau prospect — ' + (data.prenom || '') + ' ' + (data.nom || '') + ' — ' + (data.secteur || 'Non précisée');
-  console.log('  → Admin email to:', NOTIFY_EMAIL);
+  const adminTo = data.source === 'mmfcpf' ? NOTIFY_EMAIL_MMFCPF : NOTIFY_EMAIL;
+  console.log('  → Admin email to:', adminTo);
   promises.push(
     gmailSend(
-      NOTIFY_EMAIL,
+      adminTo,
       adminSubject,
       buildAdminEmail(data, dateFR, pageLabel)
     ).then(r => console.log('  ✓ Admin email sent:', r.id))
@@ -849,7 +853,22 @@ setInterval(() => {
   cleanRateMap(submitRateGlobal, 600000);
 }, 300000);
 
-app.post('/api/submit', (req, res) => {
+// Autorise le formulaire du site Mes Meilleures Formations CPF (hébergé ailleurs)
+function allowMmfcpfOrigin(req, res, next) {
+  const origin = req.headers.origin;
+  if (origin && MMFCPF_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Max-Age', '86400');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+}
+app.options('/api/submit', allowMmfcpfOrigin);
+
+app.post('/api/submit', allowMmfcpfOrigin, (req, res) => {
   const ip = req.ip || req.socket.remoteAddress;
   if (!rateEntry(submitRateLimit, ip, 5, 600000) || !rateEntry(submitRateGlobal, '*', 30, 600000)) {
     return res.status(429).json({ error: 'Trop de demandes. Réessayez dans quelques minutes.' });
