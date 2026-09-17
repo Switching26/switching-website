@@ -611,14 +611,13 @@ const TEMPLATE_PROSPECT_MMFCPF = `<table role="presentation" cellpadding="0" cel
 <td style="vertical-align:top;">
 <p style="margin:0;font-size:15px;font-weight:700;color:#1a1a1a;">Mes Meilleures Formations CPF</p>
 <p style="margin:3px 0 0;font-size:10px;color:#1B4F9C;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;">Organisme certifié Qualiopi</p>
-<p style="margin:6px 0 0;font-size:11px;color:#999;">18 rue Coriolis, 75012 Paris</p>
 </td></tr></table>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:14px;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;"><tr>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:14px 0 0 56px;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:9px 0 0 56px;"><tr>
 <td style="padding-right:7px;"><img src="https://mesmeilleuresformationscpf.com/assets/logo-512.png" alt="" width="15" height="15" style="display:inline-block;vertical-align:middle;"></td>
 <td style="font-size:12px;"><a href="https://mesmeilleuresformationscpf.com" style="color:#1a1a1a;text-decoration:none;font-weight:600;">mesmeilleuresformationscpf.com</a></td>
 </tr></table>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:14px 0 0 56px;"><tr>
 <td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#EAF1FB;font-size:9px;color:#0E2A5C;font-weight:700;letter-spacing:.4px;">QUALIOPI</div></td>
 <td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#EEF2FF;font-size:9px;color:#4F46E5;font-weight:700;letter-spacing:.4px;">CPF</div></td>
 <td style="padding-right:5px;"><div style="display:inline-block;padding:3px 9px;border-radius:5px;background:#FFF7ED;font-size:9px;color:#EA580C;font-weight:700;letter-spacing:.4px;">OPCO</div></td>
