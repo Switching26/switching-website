@@ -333,6 +333,13 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{ENTREPRISE}}': escapeHtml(data.entreprise || 'Non renseignée'),
     '{{MODALITE}}': escapeHtml(data.modalite || 'Non précisée'),
     '{{MESSAGE}}': escapeHtmlMultiline(data.message || 'Aucun message'),
+    '{{ANCIENNETE}}': escapeHtml(data.anciennete || 'Non précisé'),
+    '{{MESSAGE_SECTION}}': (data.message || '').trim()
+      ? `<tr><td style="padding:22px 28px 0;">
+<p style="margin:0 0 6px;font-size:9px;font-weight:700;color:#A9B4C4;text-transform:uppercase;letter-spacing:1.2px;">Son message</p>
+<p style="margin:0;font-size:14px;color:#3C4A5C;line-height:1.7;background:#F8FAFC;padding:14px 16px;border-radius:10px;border-left:3px solid #1B4F9C;">${escapeHtmlMultiline(data.message.trim())}</p>
+</td></tr>`
+      : '',
     '{{DATE}}': dateFR,
     '{{PAGE}}': pageLabel,
     '{{SOURCE}}': sourceLabel,
@@ -590,7 +597,6 @@ const TEMPLATE_PROSPECT_MMFCPF = `<table role="presentation" cellpadding="0" cel
 </table>
 </td></tr>
 <tr><td style="padding:24px 36px 28px;">
-<p style="margin:0 0 20px;line-height:1.7;font-size:14px;color:#444;">Une question ? Appelez-nous au <strong><a href="tel:+33695185057" style="color:#1B4F9C;text-decoration:none;">06 95 18 50 57</a></strong></p>
 <div style="text-align:center;">
 <a href="https://mesmeilleuresformationscpf.com/#formations" style="display:inline-block;padding:14px 36px;background:#1B4F9C;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border-radius:100px;">Voir nos formations</a>
 </div>
@@ -608,14 +614,8 @@ const TEMPLATE_PROSPECT_MMFCPF = `<table role="presentation" cellpadding="0" cel
 <p style="margin:6px 0 0;font-size:11px;color:#999;">18 rue Coriolis, 75012 Paris</p>
 </td></tr></table>
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:14px;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:12px;"><tr>
-<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-phone.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
-<td style="font-size:12px;color:#888;padding-right:16px;"><a href="tel:+33695185057" style="color:#888;text-decoration:none;">06 95 18 50 57</a></td>
-<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-email.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
-<td style="font-size:12px;color:#888;padding-right:16px;"><a href="mailto:contact@switchingformation.com" style="color:#888;text-decoration:none;">contact&#64;switchingformation.com</a></td>
-</tr></table>
 <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;"><tr>
-<td style="padding-right:6px;"><img src="https://web-production-0c02.up.railway.app/static/icon-globe.png" alt="" width="12" height="12" style="display:inline-block;vertical-align:middle;"></td>
+<td style="padding-right:7px;"><img src="https://mesmeilleuresformationscpf.com/assets/logo-512.png" alt="" width="15" height="15" style="display:inline-block;vertical-align:middle;"></td>
 <td style="font-size:12px;"><a href="https://mesmeilleuresformationscpf.com" style="color:#1a1a1a;text-decoration:none;font-weight:600;">mesmeilleuresformationscpf.com</a></td>
 </tr></table>
 <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:14px;"><tr>
@@ -643,67 +643,53 @@ const TEMPLATE_ADMIN_MMFCPF = `<table role="presentation" cellpadding="0" cellsp
 <tr><td>
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#fff;border-radius:16px;overflow:hidden;">
 <tr><td>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:#0F172A;border-radius:12px;overflow:hidden;margin:0;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:#0E1A2B;border-radius:12px;overflow:hidden;margin:0;">
 <tr><td style="padding:20px 28px;">
-<p style="margin:0;font-size:18px;font-weight:700;color:#fff;">🎯 Nouveau prospect</p>
-<p style="margin:4px 0 0;font-size:12px;color:#94A3B8;">Reçu le {{DATE}} via <span style="display:inline-block;padding:2px 8px;border-radius:6px;background:{{SOURCE_BG}};color:{{SOURCE_COLOR}};font-weight:700;font-size:11px;letter-spacing:.3px;">{{SOURCE}}</span></p>
+<p style="margin:0;font-size:18px;font-weight:700;color:#fff;">Nouvelle demande</p>
+<p style="margin:4px 0 0;font-size:12px;color:#9EC5FF;">Formulaire du site &middot; {{DATE}}</p>
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:12px 0 0;"><tr><td width="33%" style="height:3px;background:#1B4F9C;font-size:1px;line-height:3px;">&nbsp;</td><td width="34%" style="height:3px;background:#ffffff;font-size:1px;line-height:3px;">&nbsp;</td><td width="33%" style="height:3px;background:#E1000F;font-size:1px;line-height:3px;">&nbsp;</td></tr></table></td></tr>
 </table>
 </td></tr>
-<tr><td style="padding:24px 28px 0;">
-<p style="margin:0 0 2px;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Prospect</p>
-<p style="margin:0 0 16px;font-size:22px;font-weight:700;color:#1a1a1a;">{{PRENOM}} {{NOM}}</p>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
-</td></tr>
-<tr><td style="padding:16px 28px;">
+<tr><td style="padding:26px 28px 0;">
+<p style="margin:0 0 18px;font-size:23px;font-weight:700;color:#0E1A2B;letter-spacing:-.2px;">{{PRENOM}} {{NOM}}</p>
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
 <tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Email</td>
-<td style="font-size:14px;padding:6px 0;"><a href="mailto:{{EMAIL}}" style="color:#1B4F9C;text-decoration:none;font-weight:600;">{{EMAIL}}</a></td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Téléphone</td>
-<td style="font-size:14px;padding:6px 0;"><a href="tel:{{TEL}}" style="color:#1B4F9C;text-decoration:none;font-weight:600;">{{TEL}}</a></td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Formation</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FORMATION}}</td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Statut</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{STATUT}}</td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Financement</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{FINANCEMENT}}</td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Modalité</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{MODALITE}}</td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Ville</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{VILLE}}</td>
-</tr>
-<tr>
-<td style="font-size:11px;color:#bbb;padding:6px 0;width:100px;vertical-align:top;">Entreprise</td>
-<td style="font-size:14px;color:#1a1a1a;font-weight:600;padding:6px 0;">{{ENTREPRISE}}</td>
+<td width="50%" style="padding:0 8px 0 0;vertical-align:top;">
+<a href="tel:{{TEL}}" style="display:block;padding:13px 16px;background:#1B4F9C;border-radius:10px;color:#fff;text-decoration:none;text-align:center;font-size:14px;font-weight:700;">{{TEL}}</a>
+</td>
+<td width="50%" style="padding:0 0 0 8px;vertical-align:top;">
+<a href="mailto:{{EMAIL}}" style="display:block;padding:13px 16px;background:#F1F5FB;border-radius:10px;color:#1B4F9C;text-decoration:none;text-align:center;font-size:13px;font-weight:700;">{{EMAIL}}</a>
+</td>
 </tr>
 </table>
 </td></tr>
-<tr><td style="padding:0 28px 20px;">
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;"><tr><td style="height:1px;background:#eee;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
-<p style="margin:14px 0 0;font-size:9px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:1.2px;">Message</p>
-<p style="margin:6px 0 0;font-size:13px;color:#666;line-height:1.6;font-style:italic;background:#f9f9f7;padding:12px 16px;border-radius:8px;">{{MESSAGE}}</p>
-{{TRANSCRIPT_SECTION}}
+<tr><td style="padding:26px 28px 6px;">
+<p style="margin:0 0 4px;font-size:9px;font-weight:700;color:#A9B4C4;text-transform:uppercase;letter-spacing:1.2px;">Sa demande</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td style="font-size:12px;color:#8A97A8;padding:10px 0;width:150px;vertical-align:top;border-bottom:1px solid #F0F3F7;">Formation souhaitée</td>
+<td style="font-size:14px;color:#0E1A2B;font-weight:700;padding:10px 0;border-bottom:1px solid #F0F3F7;">{{FORMATION}}</td>
+</tr>
+<tr>
+<td style="font-size:12px;color:#8A97A8;padding:10px 0;vertical-align:top;border-bottom:1px solid #F0F3F7;">Situation actuelle</td>
+<td style="font-size:14px;color:#0E1A2B;font-weight:600;padding:10px 0;border-bottom:1px solid #F0F3F7;">{{STATUT}}</td>
+</tr>
+<tr>
+<td style="font-size:12px;color:#8A97A8;padding:10px 0;vertical-align:top;">Temps travaillé depuis 2015</td>
+<td style="font-size:14px;color:#0E1A2B;font-weight:600;padding:10px 0;">{{ANCIENNETE}}</td>
+</tr>
+</table>
 </td></tr>
-<tr><td style="padding:0 28px 28px;text-align:center;">
-<a href="mailto:{{EMAIL}}" style="display:inline-block;padding:12px 32px;background:#1B4F9C;color:#fff;text-decoration:none;font-weight:700;font-size:13px;border-radius:100px;">Répondre au prospect →</a>
+{{MESSAGE_SECTION}}
+<tr><td style="padding:22px 28px 26px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background:#F1F5FB;border-radius:10px;">
+<tr><td style="padding:12px 16px;font-size:12px;color:#5C6B7F;line-height:1.6;">Éligible au <strong style="color:#1B4F9C;">CPF</strong> &middot; demande à traiter depuis le CRM.</td></tr>
+</table>
 </td></tr>
 </table>
 </td></tr>
 <tr><td style="padding-top:12px;text-align:center;">
-<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 · NDA 11 94 11189 94</p>
+<p style="font-size:9px;color:#bbb;letter-spacing:.2px;">SIRET 910 375 716 00016 &middot; NDA 11 94 11189 94</p>
 </td></tr>
 </table>
 </td></tr>
