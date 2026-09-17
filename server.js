@@ -980,7 +980,7 @@ const submitRateLimit = new Map();
 const SUBMISSION_LIMITS = {
   source: 40, secteur: 120, statut: 80, financement: 80,
   prenom: 80, nom: 80, email: 200, indicatif: 8, tel: 40,
-  ville: 120, entreprise: 160, modalite: 80, message: 4000
+  ville: 120, entreprise: 160, modalite: 80, anciennete: 80, message: 4000
 };
 
 function clampSubmission(body) {
@@ -1025,7 +1025,7 @@ app.post('/api/submit', allowMmfcpfOrigin, (req, res) => {
   if (!rateEntry(submitRateLimit, ip, 5, 600000) || !rateEntry(submitRateGlobal, '*', 30, 600000)) {
     return res.status(429).json({ error: 'Trop de demandes. Réessayez dans quelques minutes.' });
   }
-  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite } = clampSubmission(req.body);
+  const { source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite, anciennete } = clampSubmission(req.body);
   if (!prenom && !email && !tel) {
     return res.status(400).json({ error: 'Au moins un champ de contact requis' });
   }
@@ -1039,7 +1039,7 @@ app.post('/api/submit', allowMmfcpfOrigin, (req, res) => {
      prenom || null, nom || null, email || null, indicatif || null, tel || null, message || null]
   );
   saveDB();
-  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite })
+  sendEmails({ source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message, ville, entreprise, modalite, anciennete })
     .then(() => console.log('Emails sent for:', prenom, nom))
     .catch(err => console.error('Email sending failed:', err.message));
   res.json({ ok: true });
