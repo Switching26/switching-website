@@ -3,7 +3,7 @@ const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const initSqlJs = require('sql.js');
-const Anthropic = require('@anthropic-ai/sdk');
+const claudeCode = require('./ai-client.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -49,14 +49,7 @@ if (GMAIL_CLIENT_ID && GMAIL_CLIENT_SECRET && GMAIL_REFRESH_TOKEN) {
 }
 
 // ─── CHATBOT AI SETUP ───
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-let anthropicClient = null;
-if (ANTHROPIC_API_KEY) {
-  anthropicClient = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
-  console.log('✓ Anthropic API configured — chatbot enabled');
-} else {
-  console.log('⚠ ANTHROPIC_API_KEY not set — chatbot disabled');
-}
+console.log(claudeCode.configured() ? 'Claude Code bridge configured' : 'Claude Code bridge unavailable');
 
 const CHAT_SYSTEM_PROMPT = `Tu es l'Assistant Switching Formation, le conseiller pédagogique virtuel de Switching Formation, un centre de formation professionnelle certifié Qualiopi à Paris 12ᵉ.
 
@@ -1095,7 +1088,7 @@ app.get('/api/export', requireAdmin, (req, res) => {
 
 // ─── CHATBOT ENDPOINT (simple JSON — no SSE, no streaming) ───
 app.post('/api/chat', async (req, res) => {
-  if (!anthropicClient) {
+  if (!claudeCode.configured()) {
     return res.status(503).json({ error: 'Chatbot not configured' });
   }
   // req.ip (trust proxy) — the raw X-Forwarded-For header is spoofable and
@@ -1107,6 +1100,10 @@ app.post('/api/chat', async (req, res) => {
   const { messages, visitor_id, conversation_id, page } = req.body;
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages requis' });
+  }
+
+  if (messages.length > 80 || messages.some(m => !m || !['user', 'assistant'].includes(m.role) || typeof m.content !== 'string' || m.content.length > 8000) || JSON.stringify(messages).length > 100000) {
+    return res.status(400).json({ error: 'Conversation trop longue ou invalide.' });
   }
 
   // Get or create conversation
@@ -1140,7 +1137,7 @@ app.post('/api/chat', async (req, res) => {
   // Limit conversation length
   let trimmed = messages.slice(-40);
 
-  // Anthropic API requires first message to be role:"user"
+  // Keep history rooted in the initial visitor request.
   while (trimmed.length > 0 && trimmed[0].role === 'assistant') {
     trimmed = trimmed.slice(1);
   }
@@ -1151,14 +1148,7 @@ app.post('/api/chat', async (req, res) => {
   try {
     console.log('Chat API call — messages:', trimmed.length, '| first role:', trimmed[0]?.role);
 
-    const response = await anthropicClient.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 400,
-      system: CHAT_SYSTEM_PROMPT,
-      messages: trimmed
-    });
-
-    const fullText = response.content[0]?.text || '';
+    const fullText = await claudeCode.complete(trimmed, CHAT_SYSTEM_PROMPT);
     console.log('Chat API OK — length:', fullText.length);
 
     // Save bot response to chat_messages
@@ -1230,30 +1220,7 @@ app.post('/api/chat', async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error('Chat API error:', err.message, '| status:', err?.status, '| type:', err?.constructor?.name);
-    res.status(err?.status || 500).json({ error: 'Une erreur est survenue. Réessayez.', details: err.message });
-  }
-});
-
-// ─── CHATBOT TEST ENDPOINT (admin only) ───
-app.get('/api/test-chat', requireAdmin, async (req, res) => {
-  if (!anthropicClient) {
-    return res.json({ ok: false, error: 'Anthropic API not configured' });
-  }
-  try {
-    const response = await anthropicClient.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 50,
-      messages: [{ role: 'user', content: 'Dis juste "OK ça marche"' }]
-    });
-    res.json({ ok: true, model: 'claude-sonnet-4-6', response: response.content[0].text });
-  } catch (err) {
-    res.json({
-      ok: false,
-      error: err.message,
-      status: err.status,
-      type: err.constructor?.name,
-      details: err.error || null
-    });
+    res.status(503).json({ error: 'L’assistant est momentanément indisponible. Réessayez ou utilisez le formulaire de contact.' });
   }
 });
 
