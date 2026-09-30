@@ -114,6 +114,20 @@ async function main() {
     }
     assert(log.includes('emails will NOT be sent'));
     assert(log.includes('Claude Code bridge unavailable'));
+    for (const [oldPath, destination] of [
+      ['/politique-en-mati%C3%A8re-de-cookies', '/donnees.html'],
+      ['/politique-de-confidentialit%C3%A9/', '/donnees.html'],
+      ['/web-digital', '/formations.html?cat=web'],
+      ['/web-digital?utm_source=legacy&cat=wrong', '/formations.html?cat=web&utm_source=legacy'],
+      ['/politique-de-confidentialit%C3%A9?ref=old', '/donnees.html?ref=old'],
+    ]) {
+      for (const method of ['GET', 'HEAD']) {
+        const response = await get(oldPath, {}, method);
+        assert.equal(response.status, 301);
+        assert.equal(response.headers.location, destination);
+      }
+    }
+    assert.equal((await get('/web-digital', {}, 'POST')).status, 404);
     const metricHeaders = { 'X-Audience-Token': 'static-test-read-key-at-least-32-characters' };
     const readAudience = async () => JSON.parse((await get('/api/audience', metricHeaders)).body);
     assert.equal((await readAudience()).total, 0);

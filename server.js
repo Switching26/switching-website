@@ -889,6 +889,28 @@ app.use((req, res, next) => {
   next();
 });
 
+// Exact replacements for the three obsolete Wix URLs reported by Search Console.
+// Only navigation methods redirect; unrelated missing pages remain true 404s.
+const LEGACY_PAGES = new Map([
+  ['/politique-en-matière-de-cookies', '/donnees.html'],
+  ['/politique-de-confidentialité', '/donnees.html'],
+  ['/web-digital', '/formations.html?cat=web'],
+]);
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  let oldPath;
+  try { oldPath = decodeURIComponent(req.path).normalize('NFC').replace(/\/$/, ''); }
+  catch { return next(); }
+  const target = LEGACY_PAGES.get(oldPath);
+  if (!target) return next();
+  const destination = new URL(target, 'https://www.switching-formation.fr');
+  const incoming = new URLSearchParams(req.originalUrl.split('?').slice(1).join('?'));
+  for (const [name, value] of incoming) {
+    if (!destination.searchParams.has(name)) destination.searchParams.append(name, value);
+  }
+  return res.redirect(301, destination.pathname + destination.search);
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', (req, res, next) => {
