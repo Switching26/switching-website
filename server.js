@@ -5,6 +5,7 @@ const fs = require('fs');
 const initSqlJs = require('sql.js');
 const claudeCode = require('./ai-client.cjs');
 const { publicCompression, staticHeaders } = require('./static-delivery.cjs');
+const { createAudience } = require('./audience.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -755,6 +756,11 @@ function findDBDir() {
 const DB_DIR = findDBDir();
 fs.mkdirSync(DB_DIR, { recursive: true });
 const DB_FILE = path.join(DB_DIR, 'submissions.db');
+const audience = createAudience({
+  file: path.join(DB_DIR, 'audience-counts.json'),
+  sitemap: path.join(__dirname, 'sitemap.xml'),
+  token: process.env.AUDIENCE_READ_TOKEN,
+});
 
 let db;
 
@@ -890,6 +896,7 @@ app.use('/api', (req, res, next) => {
   next();
 });
 app.use(publicCompression);
+app.use(audience.middleware);
 app.use(express.static(__dirname, { extensions: ['html'], setHeaders: staticHeaders }));
 
 // Rate-limit failed admin attempts: 10 failures / 15 min per IP + 40 / 15 min
@@ -968,6 +975,9 @@ async function sendChatNotification(convId, page, messages) {
 }
 
 // ─── API ROUTES ───
+
+// A separate read-only key grants access only to anonymous page counters.
+app.get('/api/audience', audience.report);
 
 // Rate-limit lead submissions: 5 / 10 min per IP + 30 / 10 min global
 // (each submission sends notification emails).
@@ -1315,11 +1325,12 @@ initDB().then(() => {
   process.on('SIGTERM', () => {
     console.log('SIGTERM received — shutting down gracefully');
     server.close(() => {
+      audience.close();
       console.log('Server closed');
       process.exit(0);
     });
     // Force exit after 5s if connections don't close
-    setTimeout(() => process.exit(0), 5000);
+    setTimeout(() => { audience.close(); process.exit(0); }, 5000);
   });
 }).catch(err => {
   console.error('Failed to initialize database:', err);

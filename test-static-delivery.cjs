@@ -18,7 +18,7 @@ async function main() {
     'formation-excel-vba-cpf.html', 'formation-word-cpf.html',
     'formation-powerpoint-cpf.html', 'formation-anglais-cpf.html',
     'formation-photoshop-cpf.html', 'formation-silae-paie-cpf.html'];
-  for (const name of [...pages, 'server.js', 'ai-client.cjs', 'static-delivery.cjs',
+  for (const name of [...pages, 'server.js', 'ai-client.cjs', 'static-delivery.cjs', 'audience.cjs',
     'style-index.css', 'chatbot.js', 'robots.txt', 'sitemap.xml',
     'google3a68c31226138741.html']) {
     fs.copyFileSync(path.join(__dirname, name), path.join(scratch, name));
@@ -32,7 +32,8 @@ async function main() {
   await new Promise(resolve => probe.close(resolve));
   const child = spawn(process.execPath, ['server.js'], {
     cwd: scratch,
-    env: { PATH: process.env.PATH, PORT: String(port), DB_PATH: path.join(scratch, 'db'), NODE_ENV: 'test' },
+    env: { PATH: process.env.PATH, PORT: String(port), DB_PATH: path.join(scratch, 'db'), NODE_ENV: 'test',
+      AUDIENCE_READ_TOKEN: 'static-test-read-key-at-least-32-characters' },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   const childExit = once(child, 'exit');
@@ -91,7 +92,7 @@ async function main() {
       assert.equal(res.headers['x-robots-tag'], 'noindex, nofollow');
       assert.equal(res.headers['content-encoding'], undefined);
     }
-    for (const url of ['/api/stats', '/api/submissions']) {
+    for (const url of ['/api/stats', '/api/submissions', '/api/audience']) {
       const res = await get(url, { 'Accept-Encoding': 'gzip' });
       assert.equal(res.status, 401);
       assert.equal(res.headers['cache-control'], 'private, no-store');
@@ -113,6 +114,17 @@ async function main() {
     }
     assert(log.includes('emails will NOT be sent'));
     assert(log.includes('Claude Code bridge unavailable'));
+    const metricHeaders = { 'X-Audience-Token': 'static-test-read-key-at-least-32-characters' };
+    const readAudience = async () => JSON.parse((await get('/api/audience', metricHeaders)).body);
+    assert.equal((await readAudience()).total, 0);
+    const browserHeaders = { Accept: 'text/html', 'User-Agent': 'Mozilla/5.0 Safari/605.1', 'Sec-Fetch-Dest': 'document' };
+    await get('/formation-excel-cpf.html?email=never-store@example.test', browserHeaders);
+    await get('/', { ...browserHeaders, DNT: '1' });
+    const audience = await readAudience();
+    assert.equal(audience.total, 1);
+    assert.equal(audience.pages[0].page, '/formation-excel-cpf.html');
+    assert.equal((await get('/api/audience', metricHeaders)).headers['cache-control'], 'private, no-store');
+    assert.equal((await get('/data/audience-counts.json')).status, 404);
     console.log(JSON.stringify({ result: 'PASS', pages: 8, checks: 'identity/gzip/brotli, 304, HEAD, ranges, cache, private API/admin, verifier, 404', homepageBytes: sizes }));
   } finally {
     if (child.exitCode === null) {
@@ -120,6 +132,9 @@ async function main() {
       child.kill('SIGTERM');
       await childExit;
     }
+    const savedAudience = JSON.parse(fs.readFileSync(path.join(scratch, 'db', 'audience-counts.json')));
+    assert.equal(Object.values(savedAudience.counts).reduce((n, rows) => n + Object.values(rows).reduce((a, b) => a + b, 0), 0), 1);
+    assert(!JSON.stringify(savedAudience).includes('never-store'));
     fs.rmSync(scratch, { recursive: true, force: true });
   }
 }
