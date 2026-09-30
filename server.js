@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const initSqlJs = require('sql.js');
 const claudeCode = require('./ai-client.cjs');
+const { publicCompression, staticHeaders } = require('./static-delivery.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -884,7 +885,12 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname, { extensions: ['html'] }));
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'private, no-store');
+  next();
+});
+app.use(publicCompression);
+app.use(express.static(__dirname, { extensions: ['html'], setHeaders: staticHeaders }));
 
 // Rate-limit failed admin attempts: 10 failures / 15 min per IP + 40 / 15 min
 // global cap (spoofed X-Forwarded-For can rotate req.ip through the proxy).
