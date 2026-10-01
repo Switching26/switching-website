@@ -120,7 +120,8 @@ function render(focus){
  if(focus)$('step-q').focus({preventScroll:true});
 }
 function smooth(){return matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}
-function scrollTo(el){var t=el.getBoundingClientRect().top+window.scrollY-84;window.scrollTo({top:Math.max(t,0),behavior:smooth()})}
+function headOffset(){var hd=document.getElementById('hd');if(!hd)return 84;var top=parseFloat(getComputedStyle(hd).top)||0;return Math.ceil(hd.offsetHeight+top+12)}
+function scrollTo(el){var t=el.getBoundingClientRect().top+window.scrollY-headOffset();window.scrollTo({top:Math.max(t,0),behavior:smooth()})}
 function go(k){st.i=k;if(k>st.far)st.far=k;showDoc(STEPS[k].doc);render(true);scrollTo(app)}
 $('step-opts').addEventListener('change',function(e){if(e.target.name==='step-opt'){st.pick[st.i]=+e.target.value;$('step-hint').textContent=''}});
 $('validate-step').addEventListener('click',function(){

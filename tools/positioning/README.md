@@ -1,6 +1,6 @@
 # Tests publics de positionnement
 
-Sources des six questionnaires : `tests.json`. Pages générées avec `python3 tools/build-positioning.py`, sans dépendance externe. Le moteur partagé est `assets/positioning/quiz.js` ; les gabarits sont dans ce dossier. Le cas SILAE réutilise le prototype pédagogique relu le 30 septembre 2026, avec son moteur `assets/positioning/silae.js`.
+Sources des six questionnaires : `tests.json`. Pages générées avec `python3 tools/build-positioning.py`, sans dépendance externe. Les encarts d'accès des 18 pages d'entrée se régénèrent avec `python3 tools/positioning/entries.py` (idempotent, ne touche que les blocs `.sf-resource`). Les petites illustrations métier (classeur, page, diapositive, messagerie, code, courrier, bulletin, repère) sont dans `specimens.py`, stylées par `assets/positioning/entry.css` et décoratives (`aria-hidden`). Le moteur partagé est `assets/positioning/quiz.js` ; les gabarits sont dans ce dossier. Le cas SILAE réutilise le prototype pédagogique relu le 30 septembre 2026, avec son moteur `assets/positioning/silae.js`.
 
 ## Périmètre
 

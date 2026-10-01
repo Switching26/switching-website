@@ -63,7 +63,8 @@ form.addEventListener('change',function(e){
 form.addEventListener('input',function(e){
  if(e.target.id==='q-number'){var raw=e.target.value.trim();state.a[state.i]=raw?{kind:'number',raw:raw}:null;$('skip-question').setAttribute('aria-pressed','false');setHint('')}
 });
-function scrollApp(){var t=app.getBoundingClientRect().top+window.scrollY-72;window.scrollTo({top:Math.max(t,0),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+function headOffset(){var hd=document.getElementById('hd');if(!hd)return 72;var top=parseFloat(getComputedStyle(hd).top)||0;return Math.ceil(hd.offsetHeight+top+12)}
+function scrollApp(){var t=app.getBoundingClientRect().top+window.scrollY-headOffset();window.scrollTo({top:Math.max(t,0),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
 function go(n){state.i=n;render(true);scrollApp()}
 function advance(){if(state.i<Q.length-1)go(state.i+1);else showResult()}
 form.addEventListener('submit',function(e){

@@ -5,11 +5,15 @@ import html
 import json
 import re
 from collections import Counter
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / 'tools/positioning'
 SITE = 'https://www.switching-formation.fr'
 TESTS = json.loads((SRC / 'tests.json').read_text())
+sys.path.insert(0, str(SRC))
+from specimens import spec  # noqa: E402
+ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 esc = html.escape
 
 def head(title, description, filename, extra=''):
@@ -28,7 +32,7 @@ def head(title, description, filename, extra=''):
 <meta name="theme-color" content="#FAFBFC"><link rel="icon" href="/images/fav-sf-web.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/positioning/base.css">{extra}
+<link rel="stylesheet" href="/assets/positioning/base.css"><link rel="stylesheet" href="/assets/positioning/entry.css">{extra}
 <script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>
 </head><body>'''
 
@@ -77,6 +81,7 @@ for config in TESTS:
     body = body.replace('class="q-dom" id="q-domain">Bases', 'class="q-dom" id="q-domain">'+esc(next(iter(config['domains']))))
     fallback = '<p class="note" id="engine-fallback">Le test nécessite JavaScript. S’il ne se charge pas, <a href="/'+config['offer']+'">consultez les formations associées</a> ou <a href="/inscription.html">contactez un conseiller</a>.</p>'
     body = body.replace('<noscript>', fallback+'<noscript>')
+    body = body.replace('__SPEC__', spec(slug))
     filename = 'test-'+slug+'.html'
     title = 'Test '+name+' gratuit — '+str(count)+' questions avec corrigé'
     desc = f'Test de positionnement {name} gratuit et sans inscription : {count} questions, {config["minutes"]} minutes, résultat immédiat et corrigé expliqué. Repère indicatif.'
@@ -95,11 +100,38 @@ silae += header('Cas pratique SILAE') + (SRC / 'silae-body.tpl').read_text() + f
 silae += '<script src="/assets/positioning/silae.js" defer></script></body></html>\n'
 (ROOT / 'demonstration-silae.html').write_text(silae)
 
-cards = ''
-for t in TESTS:
-    cards += f'''<a class="resource-card" href="/test-{t['slug']}.html"><span class="eyebrow">{len(t['questions'])} questions · {t['minutes']} min</span><h2>Test {esc(t['name'])}</h2><p>{esc(t['intro'])}</p><span class="resource-link">Faire le test <span aria-hidden="true">→</span></span></a>'''
-hub = '''<main id="top"><section class="hub-hero w"><span class="eyebrow">Gratuit · Sans inscription</span><h1>Quelques minutes pour<br>situer vos repères.</h1><p class="lead">Excel, Word, PowerPoint, Outlook, Excel VBA ou anglais : choisissez votre test de positionnement, obtenez votre résultat et découvrez les notions à travailler.</p><p class="hub-note">Des questionnaires courts et indicatifs, avec un corrigé expliqué. Aucun email demandé pour consulter votre résultat.</p></section><section class="w" aria-label="Choisir un test"><div class="resource-grid">'''
-hub += cards + '''</div></section><section class="w hub-silae" aria-labelledby="silae-title"><div><span class="eyebrow">Paie · Cas pratique guidé</span><h2 id="silae-title">Avant de valider une paie,<br>quels contrôles effectuer ?</h2><p>Une absence à préciser, des pièces à croiser et un doublon à éviter. Travaillez quatre décisions sur un dossier fictif, avec un corrigé à chaque étape.</p><p class="note">Une illustration pédagogique des réflexes de paie, sans accès au logiciel SILAE.</p></div><a class="btn btn-primary" href="/demonstration-silae.html">Essayer le cas SILAE <span aria-hidden="true">→</span></a></section><section class="w hub-help"><h2>Et après votre résultat ?</h2><p>Repérez vos points d'appui et les notions à revoir. Vous pouvez consulter la formation correspondante ou préparer un échange avec un conseiller. Vous choisissez vous-même les informations que vous souhaitez lui transmettre.</p><p>Ces tests ne sont ni une certification ni une validation d'admission. Le test d'anglais porte sur l'écrit ; un positionnement complet doit aussi tenir compte de l'oral et de la compréhension audio.</p><a class="btn btn-ghost" href="/formations.html">Explorer les formations</a></section></main>'''
+def card(href, kind, meta, title, domains, link, extra='', intro=''):
+    intro = f'<span class="rc-intro">{intro}</span>' if intro else ''
+    return (f'<a class="resource-card rc--{kind}" href="{href}"><span class="rc-vis" aria-hidden="true">{spec(kind)}</span>'
+            f'<span class="rc-body"><span class="rc-meta">{meta}</span><h3>{title}</h3>'
+            f'<span class="rc-dom">{domains}</span>{intro}{extra}<span class="resource-link">{link}{ARROW}</span></span></a>')
+
+BY = {t['slug']: t for t in TESTS}
+def test_card(slug):
+    t = BY[slug]
+    n = len(t['questions'])
+    meta = f"{n} questions{' écrites' if slug == 'anglais' else ''} · {esc(t['minutes'])} min"
+    title = 'Test d’anglais' if slug == 'anglais' else 'Test ' + esc(t['name'])
+    return card(f'/test-{slug}.html', slug, meta, title, ' · '.join(esc(d) for d in t['domains']), 'Faire le test',
+                intro=esc(t['intro']) if slug == 'excel' else '')
+
+office = ''.join(test_card(s) for s in ('excel', 'word', 'powerpoint', 'outlook', 'excel-vba'))
+more = test_card('anglais') + card('/demonstration-silae.html', 'silae', 'Cas pratique · 4 décisions · 5 min environ',
+    'Cas pratique SILAE', 'Avant de valider une paie, quels contrôles effectuer&nbsp;?', 'Essayer le cas',
+    '<span class="rc-note">Dossier fictif, sans accès au logiciel SILAE.</span>')
+hub = ('<main id="top"><section class="hub-hero w"><div class="hub-copy"><span class="eyebrow">Gratuit · Sans inscription</span>'
+       '<h1>Quelques minutes pour <br>situer vos repères.</h1>'
+       '<p class="lead">Excel, Word, PowerPoint, Outlook, Excel VBA ou anglais : choisissez votre test de positionnement, obtenez votre résultat et découvrez les notions à travailler.</p>'
+       '<ul class="hub-facts"><li><b>3 à 8 min</b><span>par test</span></li><li><b>Immédiat</b><span>résultat et corrigé</span></li><li><b>Sans email</b><span>rien à remplir</span></li></ul>'
+       '<p class="hub-note">Des questionnaires courts et indicatifs, avec un corrigé expliqué. Aucun email demandé pour consulter votre résultat.</p></div>'
+       '<div class="hub-vis" aria-hidden="true"><div class="hv hv1">' + spec('word') + '</div><div class="hv hv2">' + spec('excel') + '</div><div class="hv hv3">' + spec('repere') + '</div></div></section>'
+       '<section class="w hub-sec" aria-labelledby="sec-office"><div class="hub-sec-h"><h2 id="sec-office">Bureautique</h2><p>Cinq tests, un logiciel à la fois.</p></div>'
+       '<div class="resource-grid">' + office + '</div></section>'
+       '<section class="w hub-sec" aria-labelledby="sec-more"><div class="hub-sec-h"><h2 id="sec-more">Anglais et paie</h2><p>Un test écrit et un cas guidé sur dossier fictif.</p></div>'
+       '<div class="resource-grid resource-grid--duo">' + more + '</div></section>'
+       '<section class="w hub-help"><div><h2>Et après votre résultat ?</h2><p>Repérez vos points d\'appui et les notions à revoir. Vous pouvez consulter la formation correspondante ou préparer un échange avec un conseiller. Vous choisissez vous-même les informations que vous souhaitez lui transmettre.</p>'
+       '<p class="note">Ces tests ne sont ni une certification ni une validation d\'admission. Le test d\'anglais porte sur l\'écrit ; un positionnement complet doit aussi tenir compte de l\'oral et de la compréhension audio.</p></div>'
+       '<a class="btn btn-ghost" href="/formations.html">Explorer les formations' + ARROW + '</a></section></main>')
 doc = head('Tests de positionnement gratuits et cas pratique SILAE', 'Six tests courts en bureautique et anglais, avec résultat et corrigé immédiats, et un cas pratique SILAE. Sans inscription.', 'tests-positionnement.html', '<link rel="stylesheet" href="/assets/positioning/hub.css">')
 (ROOT / 'tests-positionnement.html').write_text(doc + header('Choisir un test') + hub + footer() + '</body></html>\n')
 print('Built six tests, SILAE case and resource hub')

@@ -18,6 +18,7 @@
 <noscript><span class="nojs">Le test est interactif et nécessite JavaScript. Activez-le dans votre navigateur pour répondre aux questions et obtenir votre résultat. Vous pouvez aussi consulter directement <a href="__SITE__/formation-excel-cpf.html">notre formation Excel</a>.</span></noscript>
 </div>
 <aside class="map" aria-labelledby="map-t">
+<div class="map-spec" aria-hidden="true">__SPEC__</div>
 <p class="map-k">Ce que couvre le test</p>
 <p class="map-t" id="map-t">Trois domaines, dix situations</p>
 <ol>

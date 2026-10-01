@@ -1,1 +1,108 @@
-.hub-hero{padding-top:52px;padding-bottom:40px}.hub-hero h1{font-family:var(--h);font-size:48px;line-height:1.15;letter-spacing:-.04em;font-weight:600;margin:18px 0 22px}.hub-hero .lead{max-width:750px}.hub-note{font-size:14px;color:var(--sub);margin-top:18px;max-width:700px}.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.resource-card{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid var(--bd2);border-radius:20px;padding:26px;transition:transform .2s,border-color .2s}.resource-card:hover{border-color:var(--accent);transform:translateY(-3px)}.resource-card h2{font-family:var(--h);font-size:23px;font-weight:600;letter-spacing:-.02em;margin:18px 0 12px}.resource-card p{font-size:15px;color:var(--sub);line-height:1.65;margin-bottom:24px}.resource-link{font-weight:700;color:var(--accent-ink);font-size:14px;margin-top:auto}.resource-link span{margin-left:8px}.hub-silae{margin-top:60px;margin-bottom:60px;display:flex;align-items:center;justify-content:space-between;gap:32px}.hub-silae>div{max-width:710px}.hub-silae h2,.hub-help h2{font-family:var(--h);font-size:30px;line-height:1.25;font-weight:600;letter-spacing:-.03em;margin:18px 0}.hub-silae p{color:var(--sub);margin-bottom:10px}.hub-silae .btn{flex-shrink:0}.hub-help{padding-top:32px;padding-bottom:60px;border-top:1px solid var(--bd2)}.hub-help p{max-width:760px;color:var(--sub);margin-bottom:18px}.hub-help .btn{margin-top:10px}@media(max-width:1024px){.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-silae{flex-direction:column;align-items:flex-start}}@media(max-width:600px){.hub-hero{padding-top:28px;padding-bottom:28px}.hub-hero h1{font-size:32px}.resource-grid{grid-template-columns:1fr;gap:14px}.resource-card{padding:24px}.hub-silae{margin-top:42px;margin-bottom:42px}.hub-silae h2,.hub-help h2{font-size:25px}.hub-silae .btn{width:100%}}
+/* ---------- page de choix des tests ---------- */
+.hub-hero{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-top:44px;padding-bottom:52px}
+.hub-hero h1{font-family:var(--h);font-size:50px;line-height:1.08;letter-spacing:-.04em;font-weight:600;color:var(--ink);margin:16px 0 18px;text-wrap:balance}
+.hub-hero .lead{max-width:600px}
+.hub-facts{list-style:none;display:flex;margin:26px 0 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);max-width:560px}
+.hub-facts li{flex:1;padding:12px 0}
+.hub-facts li+li{padding-left:18px;border-left:1px solid var(--bd)}
+.hub-facts b{display:block;font-family:var(--h);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1.3}
+.hub-facts span{font-size:12.5px;color:var(--sub)}
+.hub-note{font-size:13.5px;color:var(--sub);margin-top:14px;max-width:560px}
+
+/* trois pièces posées sur la table : composition fixe, sans animation permanente */
+.hub-vis{position:relative;height:300px}
+.hub-vis::before{content:'';position:absolute;inset:8% 4% 6%;border-radius:32px;background:radial-gradient(ellipse at 50% 55%,rgba(16,171,175,.08),transparent 70%)}
+.hv{position:absolute}
+.hv .sf-spec{font-size:13px}
+.hv1{left:2%;top:18px;transform:rotate(-5deg);opacity:.92}
+.hv2{right:2%;top:0;transform:rotate(3deg)}
+.hv3{left:20%;bottom:0;z-index:2}
+.hv3 .sf-spec{font-size:12px;box-shadow:0 2px 4px rgba(15,23,42,.05),0 28px 50px -24px rgba(15,23,42,.38)}
+
+/* sections */
+.hub-sec{padding-bottom:44px}
+.hub-sec-h{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding-top:22px;margin-bottom:18px;border-top:1px solid var(--bd)}
+.hub-sec-h h2{font-family:var(--h);font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.hub-sec-h p{font-size:14px;color:var(--sub)}
+
+/* cartes : spécimen + identité + domaines */
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.resource-card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--bd);border-radius:22px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.03);transition:transform .4s var(--e),box-shadow .4s var(--e),border-color .3s;-webkit-tap-highlight-color:transparent}
+.resource-card:hover{transform:translateY(-3px);border-color:rgba(8,124,128,.28);box-shadow:0 22px 44px -28px rgba(15,23,42,.35)}
+.resource-card:active{transform:scale(.99)}
+.resource-card:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px;border-radius:22px}
+.rc-vis{display:grid;place-items:center;height:168px;background:linear-gradient(180deg,#F4F7FA,#ECF1F5);border-bottom:1px solid var(--bd)}
+.rc-vis .sf-spec{font-size:11px;transition:transform .5s var(--e)}
+.resource-card:hover .rc-vis .sf-spec{transform:translateY(-3px) rotate(-1deg)}
+.rc-body{display:flex;flex-direction:column;flex:1;padding:18px 22px 20px}
+.rc-meta{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.resource-card h3{font-family:var(--h);font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.25;margin:6px 0 4px}
+.rc-dom{font-size:14px;color:var(--sub);line-height:1.5}
+.rc-note{font-size:12.5px;color:var(--sub);margin-top:6px}
+.resource-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;font-size:14px;font-weight:700;color:var(--accent-ink)}
+.resource-link svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--e)}
+.resource-card:hover .resource-link svg{transform:translateX(3px)}
+
+/* Excel en tête : carte horizontale sur deux colonnes */
+.resource-grid>.rc--excel{grid-column:span 2;flex-direction:row}
+.rc--excel .rc-vis{width:46%;height:auto;min-height:200px;border-bottom:0;border-right:1px solid var(--bd)}
+.rc--excel .rc-vis .sf-spec{font-size:13px}
+.rc--excel .rc-body{justify-content:center;padding:26px 30px}
+.rc--excel h3{font-size:26px}
+
+/* anglais + paie : deux cartes horizontales */
+.resource-grid--duo{grid-template-columns:repeat(2,minmax(0,1fr))}
+.resource-grid--duo .resource-card{flex-direction:row}
+.resource-grid--duo .rc-vis{width:44%;height:auto;min-height:190px;border-bottom:0;border-right:1px solid var(--bd)}
+.resource-grid--duo .rc-body{justify-content:center;padding:22px 26px}
+
+.hub-help{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-top:28px;padding-bottom:64px}
+.hub-help::before{content:'';position:absolute;top:0;left:32px;right:32px;border-top:1px solid var(--bd)}
+.rc-intro{display:block;font-size:14.5px;color:var(--sub);line-height:1.6;margin-top:12px;max-width:440px}
+.hub-help>div{max-width:760px}
+.hub-help h2{font-family:var(--h);font-size:24px;line-height:1.25;font-weight:600;letter-spacing:-.025em;color:var(--ink);margin-bottom:10px}
+.hub-help p{color:var(--sub);font-size:15px}
+.hub-help .note{margin-top:10px}
+.hub-help .btn{flex-shrink:0}
+
+@media(max-width:1024px){
+.hub-hero{grid-template-columns:1fr;gap:0;padding-bottom:36px}
+.hub-vis{display:none}
+.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.resource-grid>.rc--excel{grid-column:1/-1}
+.resource-grid--duo .resource-card{flex-direction:column}
+.resource-grid--duo .rc-vis{width:auto;min-height:0;height:168px;border-right:0;border-bottom:1px solid var(--bd)}
+.hub-help{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:600px){
+.hub-hero{padding-top:22px;padding-bottom:26px}
+.hub-hero h1{font-size:33px;margin:12px 0 12px}
+.hub-hero h1 br{display:none}
+.lead{font-size:15.5px}
+.hub-facts{margin-top:20px}
+.hub-facts li+li{padding-left:12px}
+.hub-facts b{font-size:15px}
+.hub-facts span{font-size:12px}
+.hub-sec{padding-bottom:30px}
+.hub-sec-h{padding-top:18px;margin-bottom:12px;gap:2px 12px}
+.hub-sec-h h2{font-size:19px}
+.hub-sec-h p{font-size:13.5px}
+.resource-grid,.resource-grid--duo{grid-template-columns:1fr;gap:10px}
+.resource-grid>.rc--excel{grid-column:auto}
+/* sur iPhone : une ligne compacte par test, le spécimen en vignette */
+.resource-card,.resource-grid>.rc--excel,.resource-grid--duo .resource-card{flex-direction:row;align-items:stretch;border-radius:18px}
+.rc-vis,.rc--excel .rc-vis,.resource-grid--duo .rc-vis{width:100px;min-height:0;height:auto;flex-shrink:0;border-bottom:0;border-right:1px solid var(--bd)}
+.rc-vis .sf-spec,.rc--excel .rc-vis .sf-spec{font-size:5.6px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 14px -10px rgba(15,23,42,.35)}
+.rc-body,.rc--excel .rc-body,.resource-grid--duo .rc-body{padding:13px 14px 13px 16px;justify-content:flex-start}
+.rc-meta{font-size:10.5px;letter-spacing:.1em}
+.resource-card h3,.rc--excel h3{font-size:17.5px;margin:3px 0 2px}
+.rc-dom{font-size:13.5px}
+.rc-note{font-size:12px}
+.resource-link{padding-top:8px;font-size:13.5px}
+.resource-card:hover{transform:none}
+.hub-help{padding-bottom:48px}
+.hub-help::before{left:18px;right:18px}
+.rc-intro{display:none}
+.hub-help h2{font-size:21px}
+.hub-help .btn{width:100%}
+}
