@@ -231,3 +231,4 @@ fieldset{border:0;min-width:0}
 }
 
 .silae-pathways{padding:40px 0 64px}
+.silae-pathways .res-actions{display:flex;flex-wrap:wrap;gap:12px}
