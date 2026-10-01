@@ -1,0 +1,164 @@
+<main id="top">
+<section class="hero">
+<div class="w hero-grid">
+<div>
+<span class="fict-tag"><i aria-hidden="true"></i>Cas fictif · illustration pédagogique, sans connexion au logiciel SILAE</span>
+<h1>Avant de valider une paie&nbsp;: les bons contrôles</h1>
+<p class="sub">Un cas guidé pour découvrir notre approche de la formation SILAE</p>
+<p class="lead">Atelier Horizon prépare la paie de septembre 2026 de Camille Martin. Une absence arrive sans motif. À vous de décider, étape par étape, puis de comparer votre choix avec la démarche attendue.</p>
+<div class="hero-cta">
+<button type="button" class="btn btn-primary js-only" id="start-demo">Commencer le cas guidé<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+<p class="note">Quatre décisions, environ 5 minutes (estimation). Aucun montant, aucune donnée réelle.</p>
+</div>
+<noscript><span class="nojs">Le cas guidé est interactif et nécessite JavaScript. Sans lui, vous pouvez lire ci-dessous les quatre gestes de la méthode et le programme de la formation.</span></noscript>
+</div>
+<div class="stack" aria-label="Les pièces du dossier d'exercice">
+<div class="paper p1"><div class="pk">Pièce 1 <em>FS-01</em></div><p class="pt">Fiche salarié</p><p class="pl"><span>Salariée</span><b>Camille Martin</b></p><p class="pl"><span>Période</span><b>Septembre 2026</b></p></div>
+<div class="paper p2"><div class="pk">Pièce 2 <em>RA-09</em></div><p class="pt">Relevé d'absence</p><p class="pl"><span>17 septembre · 1 journée</span><span class="flag">motif non renseigné</span></p><p class="pl"><span>Période</span><b>Septembre 2026</b></p></div>
+<div class="paper p3"><div class="pk">Pièce 3 <em>RH-03</em></div><p class="pt">Confirmation RH</p><p class="pl"><span>Qualification de l'absence</span><b class="later">obtenue à l'étape 1</b></p><p class="pl"><span>Règle de valorisation</span><b class="later">non fournie</b></p></div>
+</div>
+</div>
+</section>
+
+<section class="method" aria-labelledby="method-t">
+<div class="w">
+<div class="method-head">
+<div><span class="eyebrow">La méthode</span><h2 class="h2" id="method-t" style="margin-top:10px">Quatre gestes avant de valider</h2></div>
+<p class="lead">Dans le logiciel comme ailleurs, un bulletin juste commence par des informations sûres. La formation vous fait pratiquer ces contrôles sur des cas complets.</p>
+</div>
+<ol class="gests">
+<li><i>01</i><h3>Qualifier l'information</h3><p>Une donnée incertaine se clarifie avant la saisie, avec la pièce qui la justifie.</p></li>
+<li><i>02</i><h3>Comparer aux pièces</h3><p>Identité, période et cohérence des documents : on sait d'où vient chaque information.</p></li>
+<li><i>03</i><h3>Saisir sans doublon</h3><p>Vérifier ce qui existe déjà, puis saisir une variable traçable, une seule fois.</p></li>
+<li><i>04</i><h3>Contrôler et expliquer</h3><p>Face à un écart, remonter aux pièces, aux variables et au paramétrage avant de valider.</p></li>
+</ol>
+</div>
+</section>
+
+<section class="demo" id="demo-app" hidden aria-label="Cas guidé Atelier Horizon">
+<div class="w">
+<div class="demo-grid">
+
+<div class="dossier" id="dossier">
+<div class="dh"><div><p class="k">Dossier d'exercice</p><p class="t">Atelier Horizon · paie de septembre 2026</p></div><span class="fx-tag">Documents fictifs</span></div>
+<div class="tabs" role="tablist" aria-label="Pièces du dossier">
+<button class="tab" role="tab" id="tab-fiche" aria-controls="doc-fiche" data-doc="fiche">Fiche salarié</button>
+<button class="tab" role="tab" id="tab-releve" aria-controls="doc-releve" data-doc="releve">Relevé</button>
+<button class="tab" role="tab" id="tab-rh" aria-controls="doc-rh" data-doc="rh">Confirm. RH</button>
+<button class="tab" role="tab" id="tab-registre" aria-controls="doc-registre" data-doc="registre">Registre</button>
+</div>
+
+<article class="doc" role="tabpanel" id="doc-fiche" aria-labelledby="tab-fiche" tabindex="0">
+<div class="doc-top"><b>Fiche salarié</b><span class="ref">FS-01</span></div>
+<dl class="fields"><dt>Entreprise</dt><dd>Atelier Horizon</dd><dt>Salariée</dt><dd>Camille Martin</dd><dt>Période de paie</dt><dd>Septembre 2026</dd><dt>Dossier</dt><dd>Exercice pédagogique</dd></dl>
+<p class="doc-foot">Document fictif créé pour l'exercice.</p>
+</article>
+
+<article class="doc" role="tabpanel" id="doc-releve" aria-labelledby="tab-releve" tabindex="0" hidden>
+<div class="doc-top"><b>Relevé d'absence</b><span class="ref">RA-09</span></div>
+<dl class="fields"><dt>Salariée</dt><dd>Camille Martin</dd><dt>Période</dt><dd>Septembre 2026</dd><dt>Fichier reçu</dt><dd style="font-family:var(--mono);font-weight:400;font-size:12.5px">releve_sept.pdf</dd></dl>
+<table class="rows"><thead><tr><th scope="col">Date</th><th scope="col">Événement</th><th scope="col">Durée</th><th scope="col">Motif</th></tr></thead>
+<tbody><tr><td>17/09/2026</td><td>Absence</td><td>1 journée</td><td><span class="flag">non renseigné</span><span class="anno">Qualifié ensuite par RH-03</span></td></tr></tbody></table>
+<p class="doc-foot">Document fictif créé pour l'exercice.</p>
+</article>
+
+<article class="doc" role="tabpanel" id="doc-rh" aria-labelledby="tab-rh" tabindex="0" hidden>
+<div id="rh-locked" class="locked-msg">Cette pièce n'est pas encore au dossier.<br>Elle arrive après votre décision à l'étape 1.</div>
+<div id="rh-open" hidden>
+<div class="doc-top"><b>Confirmation RH</b><span class="ref">RH-03</span></div>
+<div class="memo"><p class="from">Service RH · Atelier Horizon · objet&nbsp;: absence du 17 septembre, Camille Martin</p><p>Le 17 septembre 2026 correspond à <b>une journée de congé autorisée</b>.</p></div>
+<p class="doc-foot">Aucune règle de valorisation n'est donnée dans cet exercice. Document fictif.</p>
+</div>
+</article>
+
+<article class="doc" role="tabpanel" id="doc-registre" aria-labelledby="tab-registre" tabindex="0" hidden>
+<div id="reg-locked" class="locked-msg">Le registre d'exercice s'ouvre à l'étape 3.</div>
+<div id="reg-open" hidden>
+<div class="doc-top"><b>Registre d'exercice</b><span class="count" id="reg-count">1 ligne</span></div>
+<table class="rows"><thead><tr><th scope="col">Date</th><th scope="col">Variable</th><th scope="col">Quantité</th><th scope="col">Pièce</th></tr></thead>
+<tbody><tr><td>17/09</td><td>Congé</td><td>1 journée</td><td><span class="ref">RH-03</span></td></tr></tbody></table>
+<p class="doc-foot">Registre pédagogique de l'exercice : ce n'est pas l'écran d'un logiciel.</p>
+</div>
+</article>
+</div>
+
+<div class="work">
+<ol class="stepper" id="stepper" aria-label="Étapes du cas"></ol>
+<div class="card" id="step-card">
+<div id="step-body">
+<p class="step-k" id="step-k"></p>
+<h2 class="step-q" id="step-q" tabindex="-1"></h2>
+<p class="step-ctx" id="step-ctx"></p>
+<div id="step-visual"></div>
+<fieldset><legend class="sr">Votre décision</legend><div class="opts" id="step-opts"></div></fieldset>
+<p class="hint" id="step-hint" role="status" aria-live="polite"></p>
+<div class="step-actions"><button type="button" class="btn btn-ghost" id="validate-step">Valider ma décision</button></div>
+<div id="step-feedback" aria-live="polite"></div>
+<div id="step-after"></div>
+</div>
+<div class="step-nav">
+<button type="button" class="btn btn-quiet" id="previous-step"><svg viewBox="0 0 24 24" style="transform:scaleX(-1)"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Étape précédente</button>
+<button type="button" class="btn btn-primary" id="next-step">Étape suivante<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+</div>
+</div>
+</div>
+</div>
+
+<section class="result" id="demo-result" hidden tabindex="-1" aria-labelledby="res-h">
+<div class="res-grid">
+<div>
+<span class="eyebrow">Synthèse</span>
+<p class="res-big" id="res-big">0<small> / 4 bons réflexes</small></p>
+<h2 class="res-h" id="res-h">Votre parcours dans le dossier</h2>
+<p class="res-p" id="res-p"></p>
+<ol class="res-list" id="res-list"></ol>
+</div>
+<div class="nextbox">
+<h3>Et maintenant&nbsp;?</h3>
+<p>Dites-nous où vous en êtes avec la paie&nbsp;: la suite proposée en dépend.</p>
+<fieldset><legend class="sr">Votre expérience</legend>
+<div class="profiles" id="profiles">
+<label class="prof"><input type="radio" name="profile" value="bases"><span class="dot"></span>Mes bases de paie sont à consolider</label>
+<label class="prof"><input type="radio" name="profile" value="decouvre"><span class="dot"></span>Je connais la paie et je découvre SILAE</label>
+<label class="prof"><input type="radio" name="profile" value="perfection"><span class="dot"></span>J'utilise déjà SILAE et veux me perfectionner</label>
+</div></fieldset>
+<div id="advice" aria-live="polite"></div>
+<p class="prereq">La formule SILAE 20&nbsp;h demande la maîtrise des fondamentaux de la paie. L'admission se fait après un entretien&nbsp;: rien n'est automatique.</p>
+<div class="cta-row">
+<a class="btn btn-primary" id="offer-link" href="/formation-silae-20h-cpf.html">Voir la formation SILAE 20&nbsp;h<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<a class="btn btn-ghost" id="ask-advice" href="/inscription.html">Demander conseil</a>
+</div>
+
+<div style="margin-top:18px"><button type="button" class="btn btn-ghost" id="prepare-contact">Préparer mon échange</button></div>
+<div class="prep-out" id="prep-out" hidden>
+<label class="sr" for="prep-text">Texte récapitulatif à copier</label>
+<textarea id="prep-text" readonly></textarea>
+<div class="prep-row"><button type="button" class="btn btn-ghost" id="copy-prep">Copier le texte</button><p class="note" id="copy-status" role="status" aria-live="polite">Ce texte n'est ni enregistré ni transmis.</p></div>
+</div>
+</div>
+</div>
+<div class="res-foot"><p class="note">Cas fictif · illustration pédagogique, sans connexion au logiciel SILAE.</p><button type="button" class="btn btn-quiet" id="restart-demo">Recommencer le cas</button></div>
+</section>
+</div>
+</section>
+
+<section class="course" aria-labelledby="course-t">
+<div class="w course-grid">
+<div>
+<span class="eyebrow">Formation SILAE 20&nbsp;h</span>
+<h2 class="h2" id="course-t" style="margin-top:10px">Ces gestes, pratiqués dans le logiciel</h2>
+<p class="lead">En visioconférence individuelle avec un formateur paie, la formule de 20&nbsp;h va de la prise en main au cycle de paie complet. Elle prépare le Bloc&nbsp;1 / CCP1 du titre Gestionnaire de paie (RNCP37948).</p>
+<p class="prereq">Prérequis&nbsp;: les fondamentaux de la paie. Admission après entretien.</p>
+<div class="cta-row"><a class="btn btn-ghost" href="/formation-silae-20h-cpf.html">Voir le programme détaillé<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div>
+<ol class="mods" aria-label="Les six modules">
+<li><div>Introduction et paramétrage de SILAE<span>Découverte du logiciel · dossier entreprise</span></div></li>
+<li><div>Détermination de la rémunération brute<span>Brut · éléments variables · exercice</span></div></li>
+<li><div>Calcul et contrôle des cotisations sociales<span>Cotisations · plafonds · tranches</span></div></li>
+<li><div>Du brut au net, éléments non soumis à cotisations<span>Prélèvement à la source · titres restaurant · net</span></div></li>
+<li><div>Congés payés et absences maladie<span>Congés payés · maladie · subrogation</span></div></li>
+<li><div>Cycle de paie complet et DSN<span>Bulletins · contrôles · DSN</span></div></li>
+</ol>
+</div>
+</section>
+<section class="silae-pathways"><div class="w"><h2 class="h2">Choisir votre parcours en paie</h2><p class="lead" style="margin:16px 0 22px">Ce cas illustre des réflexes communs. Le parcours se choisit selon vos acquis, votre objectif et l'accompagnement recherché.</p><div class="res-actions"><a class="btn btn-ghost" href="/formation-silae-paie-cpf.html">SILAE en e-learning</a><a class="btn btn-ghost" href="/formation-silae-20h-cpf.html">SILAE en visioconférence</a><a class="btn btn-ghost" href="/formation-gestionnaire-de-paie-titre-pro.html">Titre professionnel Gestionnaire de paie</a></div></div></section></main>

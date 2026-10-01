@@ -1,0 +1,778 @@
+[
+  {
+    "slug": "excel",
+    "name": "Excel",
+    "minutes": "5 à 8",
+    "offer": "formation-excel-cpf.html",
+    "intro": "Dix questions courtes sur de petits tableaux pour situer vos repères en bases, en formules et en analyse. Votre résultat s'affiche immédiatement, avec le corrigé expliqué.",
+    "scope": "Les questions vérifient des connaissances et du raisonnement. Elles ne mesurent pas votre manipulation réelle d'Excel.",
+    "domains": {
+      "Bases": "Trier sans séparer les lignes, filtrer, lire un format de nombre.",
+      "Formules": "Calcul simple, plage de cellules, référence fixe, condition.",
+      "Analyse": "Résumer des données, actualiser une synthèse, choisir un graphique."
+    },
+    "goals": [
+      "Tenir mes tableaux du quotidien",
+      "Mieux construire mes formules",
+      "Analyser et synthétiser des données",
+      "Automatiser des tâches répétitives"
+    ],
+    "visuals": {
+      "q3": {
+        "cols": [
+          "",
+          "A"
+        ],
+        "rows": [
+          [
+            "1",
+            "0,2"
+          ]
+        ]
+      },
+      "q4": {
+        "cols": [
+          "",
+          "B",
+          "C",
+          "D"
+        ],
+        "rows": [
+          [
+            "2",
+            "3",
+            "18",
+            "=B2*C2 → ?"
+          ]
+        ],
+        "f": [
+          3
+        ]
+      },
+      "q6": {
+        "cols": [
+          "",
+          "A",
+          "B",
+          "C"
+        ],
+        "rows": [
+          [
+            "1",
+            "",
+            "coefficient",
+            ""
+          ],
+          [
+            "4",
+            "A4",
+            "",
+            "?"
+          ]
+        ],
+        "lab": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      }
+    },
+    "questions": [
+      {
+        "id": "q1",
+        "domain": "Bases",
+        "type": "choice",
+        "title": "Conserver chaque ligne intacte",
+        "context": "Votre tableau comporte Nom, Service et Montant. Vous voulez trier les montants du plus grand au plus petit.",
+        "options": [
+          "Trier uniquement les cellules de la colonne Montant, sans étendre la sélection",
+          "Trier le tableau complet selon la colonne Montant",
+          "Copier les montants dans la colonne Nom"
+        ],
+        "answer": 1,
+        "explanation": "Le tri doit déplacer ensemble toutes les cellules d'une même ligne. Dans un tableau structuré, le tri de colonne conserve cette association ; sur une plage, étendez la sélection aux données liées."
+      },
+      {
+        "id": "q2",
+        "domain": "Bases",
+        "type": "choice",
+        "title": "Afficher seulement un service",
+        "context": "Le tableau contient les services Commercial, RH et Support. Vous voulez voir uniquement les lignes RH sans supprimer les autres.",
+        "options": [
+          "Supprimer toutes les lignes hors RH",
+          "Masquer le nom des autres services dans leurs cellules",
+          "Appliquer un filtre sur Service = RH"
+        ],
+        "answer": 2,
+        "explanation": "Un filtre masque temporairement les lignes qui ne correspondent pas au critère. Les données restent présentes et réapparaissent après suppression du filtre."
+      },
+      {
+        "id": "q3",
+        "domain": "Bases",
+        "type": "choice",
+        "title": "Lire un pourcentage",
+        "context": "Une cellule contient le nombre 0,2. Vous appliquez le format Pourcentage, avec zéro décimale.",
+        "options": [
+          "20 %",
+          "0,2 %",
+          "2 %"
+        ],
+        "answer": 0,
+        "explanation": "Le format Pourcentage affiche la valeur multipliée par 100 avec le symbole %. La valeur stockée reste 0,2."
+      },
+      {
+        "id": "q4",
+        "domain": "Formules",
+        "type": "number",
+        "title": "Calculer un total",
+        "context": "B2 contient une quantité de 3 ; C2 contient un prix unitaire de 18. La formule en D2 est =B2*C2. Quel nombre s'affiche ?",
+        "answer": 54,
+        "explanation": "3 × 18 = 54. La formule multiplie les deux valeurs ; elle ne les additionne pas."
+      },
+      {
+        "id": "q5",
+        "domain": "Formules",
+        "type": "choice",
+        "title": "Additionner une plage",
+        "context": "Vous devez additionner les valeurs de D2 à D6 incluses, dans Excel en français.",
+        "options": [
+          "=SOMME(D2;D6)",
+          "=SOMME(D2:D6)",
+          "=MOYENNE(D2:D6)"
+        ],
+        "answer": 1,
+        "explanation": "Les deux-points désignent la plage continue D2 à D6. SOMME(D2;D6) n'additionne que D2 et D6 ; MOYENNE calcule une moyenne."
+      },
+      {
+        "id": "q6",
+        "domain": "Formules",
+        "type": "choice",
+        "title": "Garder une référence fixe",
+        "context": "La cellule B1 contient un coefficient. En C4, vous calculez A4 multiplié par ce coefficient. Vous recopierez la formule vers le bas, en gardant B1 fixe.",
+        "options": [
+          "=A4*B1",
+          "=$A$4*B1",
+          "=A4*$B$1"
+        ],
+        "answer": 2,
+        "explanation": "A4 devient A5, A6… lors de la recopie. $B$1 conserve à la fois la colonne B et la ligne 1. Une référence mixte B$1 fonctionnerait aussi pour une recopie uniquement verticale."
+      },
+      {
+        "id": "q7",
+        "domain": "Formules",
+        "type": "choice",
+        "title": "Utiliser une condition",
+        "context": "En B2 figure le montant d'une commande. Vous voulez afficher « À vérifier » dès 1 000 inclus, et « OK » sinon, dans Excel en français.",
+        "options": [
+          "=SI(B2>=1000;\"À vérifier\";\"OK\")",
+          "=SI(B2>1000;\"À vérifier\";\"OK\")",
+          "=SI(B2<1000;\"À vérifier\";\"OK\")"
+        ],
+        "answer": 0,
+        "explanation": "Le signe >= inclut exactement 1 000. > exclurait cette valeur ; < sélectionnerait les montants inférieurs au seuil."
+      },
+      {
+        "id": "q8",
+        "domain": "Analyse",
+        "type": "choice",
+        "title": "Résumer plusieurs centaines de ventes",
+        "context": "Chaque ligne contient un mois, un commercial et un montant. Vous voulez comparer les totaux par mois et commercial.",
+        "options": [
+          "Créer une capture d'écran de toutes les lignes",
+          "Utiliser un tableau croisé dynamique avec les montants résumés par Somme",
+          "Fusionner les cellules des commerciaux identiques"
+        ],
+        "answer": 1,
+        "explanation": "Un tableau croisé dynamique regroupe et résume les données. Vérifiez que le calcul utilisé pour les montants est Somme : si Excel les traite comme du texte, il peut proposer un comptage."
+      },
+      {
+        "id": "q9",
+        "domain": "Analyse",
+        "type": "choice",
+        "title": "Actualiser une synthèse",
+        "context": "Des ventes ont été ajoutées dans le tableau structuré utilisé comme source de votre tableau croisé dynamique. Les résultats de la synthèse n'ont pas changé.",
+        "options": [
+          "Changer la couleur du tableau",
+          "Retaper les totaux calculés à la main",
+          "Actualiser le tableau croisé dynamique et vérifier sa source"
+        ],
+        "answer": 2,
+        "explanation": "L'actualisation recalcule la synthèse à partir de la source. Un tableau structuré peut intégrer les nouvelles lignes ; une plage fixe doit être étendue si elle ne les couvre pas."
+      },
+      {
+        "id": "q10",
+        "domain": "Analyse",
+        "type": "choice",
+        "title": "Montrer une évolution mensuelle",
+        "context": "Vous disposez des totaux de ventes des douze mois, dans l'ordre chronologique. Vous voulez faire ressortir leur évolution.",
+        "options": [
+          "Un graphique en courbes avec les mois dans l'ordre",
+          "Un diagramme en secteurs avec douze parts",
+          "Une image décorative sans axe"
+        ],
+        "answer": 0,
+        "explanation": "Une courbe permet de suivre une évolution dans le temps. Un graphique en colonnes peut aussi convenir ; un secteur montre surtout des parts d'un total."
+      }
+    ]
+  },
+  {
+    "slug": "word",
+    "name": "Word",
+    "minutes": "3 à 5",
+    "offer": "formation-word-cpf.html",
+    "intro": "Six situations de travail pour faire le point sur la structure d'un document, sa mise en page et la révision à plusieurs.",
+    "scope": "Ce questionnaire vérifie des connaissances. Il ne mesure pas votre rapidité ni votre manipulation réelle de Word.",
+    "domains": {
+      "Structure": "Styles de titres et sommaire automatique.",
+      "Mise en page": "Sauts de page et orientation d'une section.",
+      "Révision": "Modifications suivies et diffusion du document."
+    },
+    "goals": [
+      "Structurer des documents longs",
+      "Améliorer mes mises en page",
+      "Réviser des documents en équipe",
+      "Gagner du temps au quotidien"
+    ],
+    "questions": [
+      {
+        "id": "w1",
+        "domain": "Structure",
+        "type": "choice",
+        "title": "Des titres cohérents",
+        "context": "Vous préparez un rapport de 20 pages. Comment garder des titres cohérents et pouvoir modifier leur apparence ensemble ?",
+        "options": [
+          "Mettre chaque titre en gras à la main",
+          "Appliquer les styles Titre 1, Titre 2…",
+          "Utiliser uniquement des majuscules"
+        ],
+        "answer": 1,
+        "explanation": "Les styles de titre structurent le document. Modifier un style met à jour les paragraphes qui l'utilisent."
+      },
+      {
+        "id": "w2",
+        "domain": "Mise en page",
+        "type": "choice",
+        "title": "Commencer un chapitre",
+        "context": "Un chapitre doit commencer sur une nouvelle page, même si vous ajoutez du texte avant. Quelle action convient ?",
+        "options": [
+          "Appuyer plusieurs fois sur Entrée",
+          "Augmenter l'interligne",
+          "Insérer un saut de page avant le chapitre"
+        ],
+        "answer": 2,
+        "explanation": "Un saut de page impose une nouvelle page. Des paragraphes vides se déplacent lorsque le contenu change."
+      },
+      {
+        "id": "w3",
+        "domain": "Structure",
+        "type": "choice",
+        "title": "Créer un sommaire",
+        "context": "Les titres de votre rapport utilisent déjà Titre 1 et Titre 2. Comment obtenir un sommaire avec les numéros de page ?",
+        "options": [
+          "Insérer une table des matières automatique, puis la mettre à jour après les modifications",
+          "Saisir tous les titres et numéros de page à la main",
+          "Insérer une table des illustrations"
+        ],
+        "answer": 0,
+        "explanation": "La table des matières automatique s'appuie notamment sur les styles de titre. Il faut la mettre à jour lorsque les titres ou la pagination changent."
+      },
+      {
+        "id": "w4",
+        "domain": "Mise en page",
+        "type": "choice",
+        "title": "Un tableau large dans un rapport",
+        "context": "Une page au milieu du rapport doit être en paysage ; les pages avant et après doivent rester en portrait. Quel principe utiliser ?",
+        "options": [
+          "Modifier l'orientation de tout le document",
+          "Isoler la partie avec des sauts de section et changer l'orientation de cette section",
+          "Réduire le zoom du document"
+        ],
+        "answer": 1,
+        "explanation": "Les sections permettent des mises en page différentes dans un même document. Des sauts de section avant et après la partie concernée isolent son orientation."
+      },
+      {
+        "id": "w5",
+        "domain": "Révision",
+        "type": "choice",
+        "title": "Relire à plusieurs",
+        "context": "Vous voulez proposer des corrections qu'un collègue pourra accepter ou refuser individuellement. Quelle fonction choisir ?",
+        "options": [
+          "Le suivi des modifications",
+          "Le correcteur orthographique uniquement",
+          "Le mode lecture"
+        ],
+        "answer": 0,
+        "explanation": "Le suivi des modifications conserve la trace des corrections pour les accepter ou les refuser. Un commentaire sert plutôt à poser une question ou à expliquer une remarque."
+      },
+      {
+        "id": "w6",
+        "domain": "Révision",
+        "type": "choice",
+        "title": "Diffuser la version finale",
+        "context": "Vous envoyez une version finale pour lecture, en conservant au mieux la mise en page. Quel format convient généralement ?",
+        "options": [
+          "TXT, pour conserver tous les styles",
+          "CSV, pour garder les images",
+          "PDF, après vérification de l'export"
+        ],
+        "answer": 2,
+        "explanation": "Un PDF convient à la diffusion pour lecture. Vérifiez le rendu exporté et conservez le fichier Word pour de futures modifications."
+      }
+    ]
+  },
+  {
+    "slug": "powerpoint",
+    "name": "PowerPoint",
+    "minutes": "3 à 5",
+    "offer": "formation-powerpoint-cpf.html",
+    "intro": "Six questions pour vérifier vos réflexes : organiser un diaporama, rendre les diapositives lisibles et présenter avec aisance.",
+    "scope": "Ce questionnaire porte sur vos connaissances. Il ne remplace pas l'observation d'une présentation que vous avez créée.",
+    "domains": {
+      "Structure": "Dispositions et masque des diapositives.",
+      "Lisibilité": "Hiérarchie de l'information et alignements.",
+      "Présentation": "Notes du présentateur et formats de partage."
+    },
+    "goals": [
+      "Créer des présentations plus claires",
+      "Harmoniser mes diapositives",
+      "Mieux présenter à l'oral",
+      "Réutiliser un modèle d'équipe"
+    ],
+    "questions": [
+      {
+        "id": "p1",
+        "domain": "Structure",
+        "type": "choice",
+        "title": "Garder la même charte",
+        "context": "Vous voulez appliquer une police et un logo communs aux diapositives utilisant le même masque. Où centraliser ces éléments ?",
+        "options": [
+          "Dans les notes du présentateur",
+          "Dans le masque des diapositives et les dispositions concernées",
+          "Dans le correcteur orthographique"
+        ],
+        "answer": 1,
+        "explanation": "Le masque et ses dispositions centralisent les éléments communs. Les diapositives doivent utiliser les dispositions adaptées ; des mises en forme locales peuvent nécessiter une correction."
+      },
+      {
+        "id": "p2",
+        "domain": "Lisibilité",
+        "type": "choice",
+        "title": "Une diapositive trop chargée",
+        "context": "Une diapositive contient un long paragraphe en petits caractères. Quelle amélioration aide le public à suivre votre idée ?",
+        "options": [
+          "Réduire encore la police",
+          "Ajouter une animation à chaque mot",
+          "Garder l'idée principale et quelques points clés, puis déplacer les détails dans les notes ou sur d'autres diapositives"
+        ],
+        "answer": 2,
+        "explanation": "Une hiérarchie claire aide à lire et à écouter. Les détails peuvent figurer dans les notes, un document complémentaire ou plusieurs diapositives."
+      },
+      {
+        "id": "p3",
+        "domain": "Structure",
+        "type": "choice",
+        "title": "Une nouvelle diapositive",
+        "context": "Vous avez besoin d'un titre et de deux colonnes de contenu dans votre modèle. Quel premier réflexe favorise la cohérence ?",
+        "options": [
+          "Choisir la disposition prévue pour ce contenu",
+          "Créer toutes les zones de texte au hasard",
+          "Insérer une diapositive sous forme d'image"
+        ],
+        "answer": 0,
+        "explanation": "Une disposition fournit des emplacements cohérents avec le modèle. Vous pouvez ensuite ajuster le contenu sans reconstruire systématiquement la mise en page."
+      },
+      {
+        "id": "p4",
+        "domain": "Lisibilité",
+        "type": "choice",
+        "title": "Trois blocs bien alignés",
+        "context": "Trois blocs de même taille doivent être alignés et espacés régulièrement. Quelle méthode est la plus fiable ?",
+        "options": [
+          "Les déplacer à l'œil uniquement",
+          "Sélectionner les blocs, puis utiliser Aligner et Distribuer",
+          "Augmenter leur ombre"
+        ],
+        "answer": 1,
+        "explanation": "Les commandes d'alignement et de distribution permettent un placement régulier. Vérifiez l'option d'alignement sur la sélection ou sur la diapositive selon l'effet souhaité."
+      },
+      {
+        "id": "p5",
+        "domain": "Présentation",
+        "type": "choice",
+        "title": "Voir ses notes sans les projeter",
+        "context": "Vous présentez depuis PowerPoint sur ordinateur avec deux écrans. Quelle fonction permet d'afficher vos notes sur votre écran tout en montrant le diaporama au public ?",
+        "options": [
+          "Le mode Présentateur",
+          "Le mode Trieuse de diapositives",
+          "La page des commentaires partagés"
+        ],
+        "answer": 0,
+        "explanation": "Le mode Présentateur affiche notamment les notes et la diapositive suivante. Vérifiez les écrans avant de commencer ; en visioconférence, partagez le diaporama plutôt que votre écran de notes."
+      },
+      {
+        "id": "p6",
+        "domain": "Présentation",
+        "type": "choice",
+        "title": "Partager un support de lecture",
+        "context": "Vous exportez le diaporama en PDF pour que les participants puissent le relire. Que faut-il prévoir ?",
+        "options": [
+          "Les animations resteront toutes interactives",
+          "Le PDF deviendra un fichier PowerPoint modifiable",
+          "Le PDF sera un support statique : contrôler les pages et ne pas compter sur les animations"
+        ],
+        "answer": 2,
+        "explanation": "Le PDF conserve un rendu statique des diapositives. Il faut vérifier que le message reste compréhensible sans animations ni lecture des médias."
+      }
+    ]
+  },
+  {
+    "slug": "outlook",
+    "name": "Outlook",
+    "minutes": "3 à 5",
+    "offer": "formations.html?cat=bureautique",
+    "offerLabel": "Voir les formations bureautiques",
+    "intro": "Six situations courantes pour faire le point sur les destinataires d'un message, l'organisation de la boîte mail et les invitations de réunion.",
+    "scope": "Les questions portent sur des principes communs de messagerie. Les menus peuvent varier selon votre version d'Outlook et votre compte.",
+    "domains": {
+      "Messagerie": "Destinataires et réponses collectives.",
+      "Organisation": "Recherche et classement automatique.",
+      "Calendrier": "Invitations et mises à jour de réunion."
+    },
+    "goals": [
+      "Mieux organiser mes emails",
+      "Gérer mon calendrier",
+      "Éviter les erreurs d'envoi",
+      "Retrouver mes informations plus vite"
+    ],
+    "questions": [
+      {
+        "id": "o1",
+        "domain": "Messagerie",
+        "type": "choice",
+        "title": "Masquer la liste des destinataires",
+        "context": "Vous adressez une information à plusieurs contacts externes qui ne doivent pas voir leurs adresses respectives. Quel champ utiliser pour ces contacts ?",
+        "options": [
+          "À",
+          "Cc",
+          "Cci"
+        ],
+        "answer": 2,
+        "explanation": "Les destinataires placés en Cci ne sont pas affichés aux autres destinataires. Vérifiez les champs avant l'envoi et ne mettez pas la liste de contacts en À ou Cc."
+      },
+      {
+        "id": "o2",
+        "domain": "Calendrier",
+        "type": "choice",
+        "title": "Organiser une réunion",
+        "context": "Trois collègues doivent recevoir une proposition de réunion et pouvoir l'accepter ou la refuser. Que créer ?",
+        "options": [
+          "Un rendez-vous personnel sans participants",
+          "Une invitation de réunion avec participants, date et horaire",
+          "Une catégorie de couleur dans votre boîte mail"
+        ],
+        "answer": 1,
+        "explanation": "Une réunion avec participants envoie une invitation. Un rendez-vous personnel ne prévient pas les collègues si vous ne les y invitez pas."
+      },
+      {
+        "id": "o3",
+        "domain": "Organisation",
+        "type": "choice",
+        "title": "Retrouver une facture",
+        "context": "Vous connaissez l'expéditeur et un mot de l'objet d'une facture reçue. Quel réflexe limite la recherche ?",
+        "options": [
+          "Utiliser la recherche et ses filtres d'expéditeur ou d'objet",
+          "Ouvrir tous les messages un par un",
+          "Trier uniquement par taille des messages"
+        ],
+        "answer": 0,
+        "explanation": "Combiner les critères connus permet de cibler la recherche. Vérifiez également le dossier ou la boîte dans lesquels vous cherchez."
+      },
+      {
+        "id": "o4",
+        "domain": "Messagerie",
+        "type": "choice",
+        "title": "Répondre au bon groupe",
+        "context": "Un email est adressé à plusieurs collègues. Votre réponse concerne seulement l'expéditeur. Que choisir en vérifiant les destinataires ?",
+        "options": [
+          "Répondre à tous",
+          "Transférer à toute l'équipe",
+          "Répondre"
+        ],
+        "answer": 2,
+        "explanation": "Répondre vise l'expéditeur, tandis que Répondre à tous inclut les destinataires concernés du message. Le contrôle des champs reste nécessaire avant l'envoi."
+      },
+      {
+        "id": "o5",
+        "domain": "Organisation",
+        "type": "choice",
+        "title": "Classer des messages récurrents",
+        "context": "Vous souhaitez déplacer automatiquement les nouveaux emails d'un expéditeur précis dans un dossier dédié. Quelle fonction convient ?",
+        "options": [
+          "Une signature automatique",
+          "Une règle avec condition sur l'expéditeur et action de déplacement",
+          "Une réponse d'absence"
+        ],
+        "answer": 1,
+        "explanation": "Une règle associe des conditions et des actions, comme déplacer un message. Les règles disponibles et leur exécution dépendent du compte et de la version d'Outlook."
+      },
+      {
+        "id": "o6",
+        "domain": "Calendrier",
+        "type": "choice",
+        "title": "Décaler une réunion organisée par vous",
+        "context": "Vous êtes l'organisateur et l'horaire doit changer. Comment informer les participants correctement ?",
+        "options": [
+          "Modifier la réunion et envoyer la mise à jour aux participants",
+          "Déplacer uniquement une note personnelle",
+          "Changer l'heure de votre ordinateur"
+        ],
+        "answer": 0,
+        "explanation": "La mise à jour de l'invitation informe les participants et leur permet d'actualiser leur calendrier. Changer une note personnelle ne les prévient pas."
+      }
+    ]
+  },
+  {
+    "slug": "excel-vba",
+    "name": "Excel VBA",
+    "minutes": "4 à 6",
+    "offer": "formation-excel-vba-cpf.html",
+    "intro": "Six mini-situations pour situer vos repères en macros : comprendre leur rôle, lire quelques lignes de VBA et sécuriser une automatisation.",
+    "scope": "Aucun code n'est exécuté. Ce test vérifie votre compréhension de courts exemples, pas votre capacité à développer seul une application VBA.",
+    "domains": {
+      "Repères": "Rôle d'une macro et lecture d'une affectation.",
+      "Logique": "Boucles et conditions.",
+      "Fiabilité": "Feuille ciblée et déclaration des variables."
+    },
+    "goals": [
+      "Découvrir les macros",
+      "Automatiser des tâches répétitives",
+      "Comprendre un code existant",
+      "Fiabiliser mes automatisations"
+    ],
+    "questions": [
+      {
+        "id": "v1",
+        "domain": "Repères",
+        "type": "choice",
+        "title": "À quoi sert une macro ?",
+        "context": "Vous réalisez chaque semaine la même série d'opérations dans Excel. Quel est l'intérêt principal d'une macro adaptée ?",
+        "options": [
+          "Augmenter automatiquement la précision de toutes les données",
+          "Automatiser une suite d'actions répétitives",
+          "Remplacer la sauvegarde du classeur"
+        ],
+        "answer": 1,
+        "explanation": "Une macro automatise des opérations. Elle ne garantit pas la qualité des données ; travaillez sur une copie lors des essais et vérifiez le résultat."
+      },
+      {
+        "id": "v2",
+        "domain": "Repères",
+        "type": "choice",
+        "title": "Lire une affectation",
+        "context": "Dans une macro Excel, que fait cette ligne ?\nWorksheets(\"Ventes\").Range(\"A1\").Value = 10",
+        "options": [
+          "Écrit la valeur 10 en A1 de la feuille Ventes",
+          "Ajoute dix feuilles au classeur",
+          "Met la police de A1 en taille 10"
+        ],
+        "answer": 0,
+        "explanation": "La propriété Value définit ici le contenu de la cellule A1. Worksheets désigne la feuille ; dans un code destiné à plusieurs classeurs, on précise aussi le classeur concerné."
+      },
+      {
+        "id": "v3",
+        "domain": "Logique",
+        "type": "choice",
+        "title": "Compter les passages d'une boucle",
+        "context": "Combien de fois l'instruction dans cette boucle est-elle exécutée ?\nFor i = 1 To 3\n    Debug.Print i\nNext i",
+        "options": [
+          "Deux fois",
+          "Quatre fois",
+          "Trois fois"
+        ],
+        "answer": 2,
+        "explanation": "Sans Step explicite, le compteur augmente de 1. Il prend les valeurs 1, 2 puis 3 : l'instruction s'exécute trois fois."
+      },
+      {
+        "id": "v4",
+        "domain": "Logique",
+        "type": "choice",
+        "title": "Comprendre une condition",
+        "context": "Que vaut etiquette après ce code ?\nmontant = 120\nIf montant >= 100 Then\n    etiquette = \"À contrôler\"\nElse\n    etiquette = \"Standard\"\nEnd If",
+        "options": [
+          "Standard",
+          "À contrôler",
+          "100"
+        ],
+        "answer": 1,
+        "explanation": "120 est supérieur ou égal à 100. La branche Then est donc exécutée et etiquette reçoit le texte « À contrôler »."
+      },
+      {
+        "id": "v5",
+        "domain": "Fiabilité",
+        "type": "choice",
+        "title": "Écrire dans la bonne feuille",
+        "context": "Votre macro doit écrire dans la feuille Ventes du classeur qui contient le code, quelle que soit la feuille affichée. Quelle écriture cible explicitement cet emplacement ?",
+        "options": [
+          "ThisWorkbook.Worksheets(\"Ventes\").Range(\"A1\").Value = 10",
+          "ActiveCell.Value = 10",
+          "Selection.Value = 10"
+        ],
+        "answer": 0,
+        "explanation": "ThisWorkbook désigne le classeur contenant le code ; Worksheets puis Range précisent la feuille et la cellule. ActiveCell et Selection dépendent de ce qui est sélectionné."
+      },
+      {
+        "id": "v6",
+        "domain": "Fiabilité",
+        "type": "choice",
+        "title": "Repérer une faute dans une variable",
+        "context": "Vous écrivez total puis totla par erreur. Quelle instruction placée en tête du module oblige à déclarer les variables et aide à repérer ce type de faute à la compilation ?",
+        "options": [
+          "On Error Resume Next",
+          "Application.ScreenUpdating = False",
+          "Option Explicit"
+        ],
+        "answer": 2,
+        "explanation": "Option Explicit impose la déclaration des variables. Une variable non déclarée provoque une erreur de compilation, ce qui aide à repérer les fautes de frappe."
+      }
+    ]
+  },
+  {
+    "slug": "anglais",
+    "name": "anglais",
+    "minutes": "4 à 6",
+    "offer": "formation-anglais-cpf.html",
+    "offerLabel": "Découvrir les formations d'anglais",
+    "intro": "Huit questions courtes de grammaire, de vocabulaire et de lecture, dans des situations du quotidien et du travail. Corrigé et explications en français.",
+    "scope": "Ce test écrit donne un premier repère. Il n'évalue ni l'oral ni la compréhension audio et n'attribue pas de niveau CECRL officiel. Le positionnement complet est à confirmer avec un conseiller.",
+    "domains": {
+      "Grammaire": "Présent, passé et expression d'une expérience.",
+      "Vocabulaire": "Sens de mots et demandes professionnelles.",
+      "Compréhension": "Informations pratiques dans de courts messages."
+    },
+    "goals": [
+      "Reprendre les bases",
+      "Échanger au travail",
+      "Comprendre des emails",
+      "Préparer un projet personnel"
+    ],
+    "questions": [
+      {
+        "id": "a1",
+        "domain": "Grammaire",
+        "type": "choice",
+        "title": "Présenter quelqu'un",
+        "context": "Choose the missing word: “She ___ in London.”",
+        "options": [
+          "live",
+          "lives",
+          "living"
+        ],
+        "answer": 1,
+        "explanation": "Au présent simple, le verbe prend généralement un -s avec he, she ou it : « She lives in London »."
+      },
+      {
+        "id": "a2",
+        "domain": "Vocabulaire",
+        "type": "choice",
+        "title": "Une échéance",
+        "context": "In an email, “The deadline is Friday” means:",
+        "options": [
+          "La date limite est vendredi",
+          "Le bureau sera fermé vendredi",
+          "La réunion est annulée vendredi"
+        ],
+        "answer": 0,
+        "explanation": "Deadline désigne une date ou une heure limite pour accomplir une tâche."
+      },
+      {
+        "id": "a3",
+        "domain": "Compréhension",
+        "type": "choice",
+        "title": "Un changement de salle",
+        "context": "Read: “Today's meeting starts at 10:30 in Room B, not Room A. Please bring your laptop.”\nWhere should you go?",
+        "options": [
+          "Room A",
+          "The reception desk",
+          "Room B"
+        ],
+        "answer": 2,
+        "explanation": "Le message précise « in Room B, not Room A » : le rendez-vous a lieu dans la salle B."
+      },
+      {
+        "id": "a4",
+        "domain": "Grammaire",
+        "type": "choice",
+        "title": "Parler d'hier",
+        "context": "Choose the correct sentence:",
+        "options": [
+          "Yesterday, I send the report.",
+          "Yesterday, I sent the report.",
+          "Yesterday, I sending the report."
+        ],
+        "answer": 1,
+        "explanation": "Yesterday situe l'action dans le passé. Le prétérit irrégulier de send est sent."
+      },
+      {
+        "id": "a5",
+        "domain": "Vocabulaire",
+        "type": "choice",
+        "title": "Demander une précision",
+        "context": "You did not understand the last point in a conversation. What could you say politely?",
+        "options": [
+          "Could you repeat that, please?",
+          "I agree with every point.",
+          "The meeting is over."
+        ],
+        "answer": 0,
+        "explanation": "« Could you repeat that, please? » demande poliment à la personne de répéter. Les autres phrases n'expriment pas cette demande."
+      },
+      {
+        "id": "a6",
+        "domain": "Grammaire",
+        "type": "choice",
+        "title": "Une expérience qui continue",
+        "context": "You started working here in 2022 and still work here. Choose the best sentence:",
+        "options": [
+          "I worked here tomorrow.",
+          "I work here since 2022.",
+          "I have worked here since 2022."
+        ],
+        "answer": 2,
+        "explanation": "Le present perfect (« have worked ») relie une situation commencée dans le passé au présent. Since introduit le point de départ, ici 2022."
+      },
+      {
+        "id": "a7",
+        "domain": "Compréhension",
+        "type": "choice",
+        "title": "Une commande partielle",
+        "context": "Read: “We can deliver 12 chairs on Monday. The remaining 8 will arrive on Thursday. Please confirm whether two deliveries are acceptable.”\nWhat does the supplier need?",
+        "options": [
+          "An immediate payment for 8 chairs",
+          "Confirmation that two deliveries are acceptable",
+          "A new address for Monday"
+        ],
+        "answer": 1,
+        "explanation": "Le fournisseur demande explicitement de confirmer si deux livraisons conviennent. Il ne demande ni paiement immédiat ni nouvelle adresse."
+      },
+      {
+        "id": "a8",
+        "domain": "Compréhension",
+        "type": "choice",
+        "title": "Une condition à respecter",
+        "context": "Read: “Your place is reserved until 5 p.m. on Tuesday. If we have not received your payment by then, we will offer it to another participant.”\nWhat must happen to keep the place?",
+        "options": [
+          "The payment must be received by 5 p.m. on Tuesday",
+          "An email must be sent on Wednesday",
+          "The participant must arrive at 5 p.m. on Tuesday"
+        ],
+        "answer": 0,
+        "explanation": "Le paiement doit avoir été reçu avant l'échéance indiquée. Le texte parle de la réservation, pas de l'heure d'arrivée à la formation."
+      }
+    ]
+  }
+]

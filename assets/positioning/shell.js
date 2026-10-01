@@ -1,0 +1,1 @@
+(function(){var hd=document.getElementById('hd');if(!hd)return;var t=false;function u(){hd.classList.toggle('scrolled',window.scrollY>8);t=false}window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(u)}},{passive:true});u();})();
