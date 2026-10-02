@@ -1,0 +1,56 @@
+/* Barre du haut en verre liquide façon Apple (02/10/2026), commune à toutes les pages qui ont <header id="hd">.
+   Script associé : /nav-glass.js (déformation des bords sur Chrome/Android, reflet mobile, passage en sombre). */
+/* ── Verre liquide : la barre ── */
+header#hd.lg{position:sticky!important;top:calc(10px + env(safe-area-inset-top))!important;z-index:1000;isolation:isolate;
+ background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.10))!important;
+ -webkit-backdrop-filter:blur(6px) saturate(1.9) brightness(1.06)!important;backdrop-filter:blur(6px) saturate(1.9) brightness(1.06)!important;
+ border:0!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.28),inset 0 0 0 .5px rgba(255,255,255,.5),inset 0 0 24px rgba(255,255,255,.16),
+  0 1px 2px rgba(15,23,42,.06),0 14px 36px -14px rgba(15,23,42,.30)!important;
+ transition:background .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1),padding .4s cubic-bezier(.16,1,.3,1)!important}
+header#hd.lg.lens{-webkit-backdrop-filter:blur(6px) saturate(1.9) brightness(1.06)!important;backdrop-filter:url(#sf-lens) blur(2.2px) saturate(1.9) brightness(1.06)!important}
+header#hd.lg::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.3px;pointer-events:none;z-index:2;
+ background:linear-gradient(var(--lg-ang,125deg),rgba(255,255,255,.98),rgba(255,255,255,.25) 22%,rgba(255,255,255,0) 45%,rgba(255,255,255,0) 60%,rgba(255,255,255,.35) 82%,rgba(255,255,255,.85));
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+header#hd.lg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+ background:radial-gradient(160px 46px at var(--lg-x,28%) 0%,rgba(255,255,255,.65),transparent 72%),radial-gradient(120px 36px at calc(100% - var(--lg-x,28%)) 100%,rgba(255,255,255,.22),transparent 72%);
+ transition:background .2s linear}
+/* sombre au-dessus des zones sombres */
+header#hd.lg.lg-dark{background:linear-gradient(180deg,rgba(15,23,42,.42),rgba(15,23,42,.26))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 0 .5px rgba(255,255,255,.18),inset 0 0 24px rgba(255,255,255,.05),0 14px 36px -14px rgba(0,0,0,.55)!important}
+header#hd.lg.lg-dark::before{opacity:.55}
+header#hd.lg.lg-dark::after{opacity:.35}
+header#hd.lg .logo img,header#hd.lg .menu-toggle .bar,header#hd.lg .nav-pill a,header#hd.lg .nav-cmdk{transition:filter .4s,background-color .4s,color .4s,transform .3s cubic-bezier(.16,1,.3,1)}
+header#hd.lg.lg-dark .logo img{filter:brightness(0) invert(1)}
+header#hd.lg.lg-dark .menu-toggle .bar{background:#fff!important}
+/* intérieur (ordinateur) : tout se fond dans le même verre */
+header#hd.lg .nav-pill{background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+header#hd.lg .nav-pill a{color:#334155}
+header#hd.lg .nav-pill a:hover{background:rgba(255,255,255,.35)}
+header#hd.lg .nav-pill a.active{color:#0E9599!important;background:rgba(255,255,255,.62)!important;box-shadow:inset 0 1px 0 #fff,0 4px 14px -6px rgba(15,23,42,.25)!important}
+header#hd.lg .nav-cmdk{background:rgba(255,255,255,.28)!important;border-color:rgba(255,255,255,.55)!important;color:#475569!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)!important}
+header#hd.lg.lg-dark .nav-pill a{color:rgba(255,255,255,.82)}
+header#hd.lg.lg-dark .nav-pill a.active{color:#5EEAD4!important;background:rgba(255,255,255,.14)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)!important}
+header#hd.lg.lg-dark .nav-cmdk{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.2)!important;color:rgba(255,255,255,.8)!important}
+header#hd.lg .nav-cta{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 20px -8px rgba(16,171,175,.7)!important}
+header#hd.lg .menu-toggle{border-radius:14px}
+header#hd.lg a:active,header#hd.lg .menu-toggle:active,header#hd.lg .nav-cmdk:active{transform:scale(.95)}
+/* ordinateur : capsule flottante */
+@media(min-width:1025px){
+ header#hd.lg{margin:12px auto 0!important;width:calc(100% - 40px)!important;max-width:1240px;border-radius:26px!important;padding:6px 0!important}
+ header#hd.lg.scrolled{padding:2px 0!important}
+ header#hd.lg{background:linear-gradient(180deg,rgba(255,255,255,.46),rgba(255,255,255,.28))!important;-webkit-backdrop-filter:blur(12px) saturate(1.9) brightness(1.05)!important;backdrop-filter:blur(12px) saturate(1.9) brightness(1.05)!important}
+ header#hd.lg.lens{backdrop-filter:url(#sf-lens) blur(9px) saturate(1.9) brightness(1.05)!important}
+ header#hd.lg.lg-dark{background:linear-gradient(180deg,rgba(15,23,42,.55),rgba(15,23,42,.4))!important}
+ header#hd.lg > .w{padding:0 14px 0 22px!important}
+}
+@media(max-width:1024px){header#hd.lg{border-radius:22px!important;margin:8px 12px 0!important}}
+/* menu téléphone : même matière, plus dense pour lire */
+.lg-menu .menu-drop .menu-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.58))!important;
+ -webkit-backdrop-filter:blur(22px) saturate(1.9)!important;backdrop-filter:blur(22px) saturate(1.9)!important;border:0!important;border-radius:24px!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(255,255,255,.6),0 24px 60px -20px rgba(15,23,42,.35)!important}
+/* pages de tests : menu dans la barre */
+header#hd.lg.lg-dark .mnav summary .bar{background:#fff!important}
+/* réglage « réduire la transparence » : verre plein, lisible */
+@media(prefers-reduced-transparency:reduce){header#hd.lg,header#hd.lg.lens{background:rgba(255,255,255,.96)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}header#hd.lg.lg-dark{background:rgba(15,23,42,.96)!important}}
+
