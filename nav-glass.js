@@ -1,7 +1,10 @@
 /* Barre du haut en verre liquide (02/10/2026). Voir /nav-glass.css. */
 (function(){
 var h=document.getElementById('hd');if(!h)return;
-var s=document.createElement('div');s.innerHTML='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="sf-lens" x="0" y="0" width="100%" height="100%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">\n<feImage id="sf-lens-map" x="0" y="0" width="100" height="60" preserveAspectRatio="none" result="map"/>\n<feDisplacementMap in="SourceGraphic" in2="map" scale="-55" xChannelSelector="R" yChannelSelector="G"/></filter></svg>';document.body.appendChild(s.firstChild);
+function filt(id,sc){return '<filter id="'+id+'" x="0" y="0" width="100%" height="100%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">'+
+ '<feImage id="'+id+'-map" x="0" y="0" width="100" height="60" preserveAspectRatio="none" result="map"/>'+
+ '<feDisplacementMap in="SourceGraphic" in2="map" scale="'+sc+'" xChannelSelector="R" yChannelSelector="G"/></filter>'}
+var s=document.createElement('div');s.innerHTML='<svg width="0" height="0" style="position:absolute" aria-hidden="true">'+filt('sf-lens',-55)+filt('sf-lens-menu',-60)+'</svg>';document.body.appendChild(s.firstChild);
 h.classList.add('lg');document.body.classList.add('lg-menu');
 var chromium=!!(navigator.userAgentData&&navigator.userAgentData.brands&&navigator.userAgentData.brands.some(function(b){return /Chrom/.test(b.brand)}));
 var img=document.getElementById('sf-lens-map'),lastW=0,lastH=0;
@@ -32,4 +35,19 @@ var tick=false;function sample(){tick=false;var r=h.getBoundingClientRect(),y=r.
  [.1,.3,.5,.7,.9].forEach(function(f){var els=document.elementsFromPoint(r.left+r.width*f,y);for(var k=0;k<els.length;k++){if(els[k]===h||h.contains(els[k]))continue;var L=lum(els[k]);if(L!==null){n++;if(L<.35)dark++;break}}});
  h.classList.toggle('lg-dark',n>0&&dark/n>=.8)}
 addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(sample)}},{passive:true});setTimeout(sample,300);setX(.25);
+// menu téléphone : sous-titres sous chaque entrée, et même verre que la barre
+var card=document.querySelector('.menu-drop .menu-card');
+if(card){
+ var SUB={'index.html':'Faisons grandir vos compétences','le-centre.html':'Paris 12ᵉ · depuis 2021','financement.html':'CPF, OPCO, France Travail','inscription.html':'Gratuit, réponse sous 24 h'};
+ var wrap=function(el,sub){for(var n=el.lastChild;n;n=n.previousSibling){if(n.nodeType===3&&n.textContent.trim()){var t=document.createElement('span');t.className='mc-t';
+  t.innerHTML='<b></b>'+(sub?'<small></small>':'');t.firstChild.textContent=n.textContent.trim();if(sub)t.lastChild.textContent=sub;el.replaceChild(t,n);return}}};
+ document.querySelectorAll('.mc-nav > a.mc-link').forEach(function(a){var k=(a.getAttribute('href')||'').split('/').pop()||'index.html';wrap(a,SUB[k]||'')});
+ var tl=document.querySelector('.mc-toggle .mc-tl'),cnt=document.querySelector('.mcx-all small');if(tl)wrap(tl,cnt?cnt.textContent:'');
+ if(chromium){var mimg=document.getElementById('sf-lens-menu-map'),mw=0,mh=0;
+  var mbuild=function(){var w=card.offsetWidth,hh=card.offsetHeight;if(!w||!hh||(w===mw&&hh===mh))return;mw=w;mh=hh;
+   mimg.setAttribute('href',lens(w,hh,28,22));mimg.setAttribute('width',w);mimg.setAttribute('height',hh);card.classList.add('lens')};
+  var isOpen=function(){return document.body.classList.contains('menu-open')};
+  new MutationObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  if('ResizeObserver' in window)new ResizeObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(card)}
+}
 })();

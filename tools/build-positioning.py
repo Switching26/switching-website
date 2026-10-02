@@ -32,7 +32,7 @@ def head(title, description, filename, extra=''):
 <meta name="theme-color" content="#FAFBFC"><link rel="icon" href="/images/fav-sf-web.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/positioning/base.css"><link rel="stylesheet" href="/assets/positioning/entry.css"><link rel="stylesheet" href="/end-block.css"><link rel="stylesheet" href="/nav-glass.css?v=1">{extra}
+<link rel="stylesheet" href="/assets/positioning/base.css"><link rel="stylesheet" href="/assets/positioning/entry.css"><link rel="stylesheet" href="/end-block.css"><link rel="stylesheet" href="/nav-glass.css?v=2">{extra}
 <script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>
 </head><body>'''
 
