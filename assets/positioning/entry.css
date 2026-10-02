@@ -2,7 +2,7 @@
    Scoped classes only, so existing course, catalogue and article layouts stay untouched. */
 
 /* ---------- specimens : small, quiet, drawn with HTML/CSS ---------- */
-.sf-spec{--ink:#0F172A;--sub:#64748B;--line:rgba(15,23,42,.09);--soft:#F1F5F9;--tl:#087C80;--tl-gl:rgba(16,171,175,.12);
+.sf-spec{--ink:#0F172A;--sub:#64748B;--line:rgba(15,23,42,.09);--soft:#F1F5F9;--tl:#171F2D;--tl-gl:rgba(32,44,64,.12);
 font-size:10px;width:15em;height:10.6em;position:relative;box-sizing:border-box;background:#fff;border:1px solid rgba(15,23,42,.1);border-radius:1em;
 box-shadow:0 1px 2px rgba(15,23,42,.05),0 1.4em 2.6em -1.6em rgba(15,23,42,.3);font-family:'Almarai',system-ui,sans-serif;color:var(--ink);overflow:hidden;line-height:1.2;text-align:left;flex-shrink:0}
 .sf-spec *{box-sizing:border-box}
@@ -59,7 +59,7 @@ box-shadow:0 1px 2px rgba(15,23,42,.05),0 1.4em 2.6em -1.6em rgba(15,23,42,.3);f
 .sf-spec--vba>span::before{content:counter(l);display:inline-block;width:1.6em;color:#475569}
 .sf-spec--vba .in{padding-left:1.4em}.sf-spec--vba .in2{padding-left:2.8em;color:#94A3B8}
 .sf-spec--vba .in::before{margin-left:-1.4em;width:3em}.sf-spec--vba .in2::before{margin-left:-2.8em;width:4.4em}
-.sf-spec--vba em{color:#5FD3D4}
+.sf-spec--vba em{color:#95A3B8}
 
 /* Anglais : courrier professionnel */
 .sf-spec--en{padding:1em 1.1em;display:flex;flex-direction:column;gap:.42em}
@@ -102,13 +102,13 @@ box-shadow:0 1px 2px rgba(15,23,42,.05),0 1.4em 2.6em -1.6em rgba(15,23,42,.3);f
 .sf-resource-spec{display:grid;place-items:center;width:188px;height:136px;border-radius:15px;background:linear-gradient(180deg,#F4F7FA,#EDF2F6);overflow:hidden}
 .sf-resource-spec .sf-spec{font-size:10.4px}
 .sf-resource-kicker{display:flex;align-items:center;gap:8px;margin:0 0 8px!important;font-family:'Almarai',system-ui,sans-serif;font-size:11px!important;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#526176!important;line-height:1.4!important}
-.sf-resource-kicker::before{content:'';width:6px;height:6px;border-radius:50%;background:#10ABAF;box-shadow:0 0 0 3px rgba(16,171,175,.14);flex-shrink:0}
+.sf-resource-kicker::before{content:'';width:6px;height:6px;border-radius:50%;background:#202C40;box-shadow:0 0 0 3px rgba(32,44,64,.14);flex-shrink:0}
 .sf-resource h2,.sf-resource h3{font-family:'Poppins',system-ui,sans-serif;font-size:21px;font-weight:600;line-height:1.3;letter-spacing:-.02em;margin:0 0 6px;color:#0F172A;text-wrap:balance}
 .sf-resource-copy>p:not(.sf-resource-kicker){font-family:'Almarai',system-ui,sans-serif;font-size:15px;line-height:1.6;color:#526176;margin:0;max-width:640px;text-wrap:pretty}
 .sf-resource-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.sf-resource a.sf-resource-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 20px 0 22px;border-radius:100px;border:1px solid #087C80;background:#087C80;color:#fff;font-family:'Almarai',system-ui,sans-serif;font-size:14.5px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap;box-shadow:0 8px 20px -10px rgba(8,124,128,.55);transition:background .25s,transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;-webkit-tap-highlight-color:transparent}
+.sf-resource a.sf-resource-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 20px 0 22px;border-radius:100px;border:1px solid #171F2D;background:#171F2D;color:#fff;font-family:'Almarai',system-ui,sans-serif;font-size:14.5px;font-weight:700;line-height:1.3;text-decoration:none;white-space:nowrap;box-shadow:0 8px 20px -10px rgba(23,31,45,.55);transition:background .25s,transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;-webkit-tap-highlight-color:transparent}
 .sf-resource a.sf-resource-button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s cubic-bezier(.16,1,.3,1);flex-shrink:0}
-.sf-resource a.sf-resource-button:hover{background:#06696C;transform:translateY(-1px)}
+.sf-resource a.sf-resource-button:hover{background:#131A26;transform:translateY(-1px)}
 .sf-resource a.sf-resource-button:hover svg{transform:translateX(3px)}
 .sf-resource a.sf-resource-button:active{transform:scale(.98)}
 .sf-resource a.sf-resource-button:focus-visible{outline:3px solid #0F172A;outline-offset:3px}
@@ -116,8 +116,8 @@ box-shadow:0 1px 2px rgba(15,23,42,.05),0 1.4em 2.6em -1.6em rgba(15,23,42,.3);f
 /* plusieurs tests dans un même encart : liens discrets */
 .sf-resource-multi .sf-resource-links{justify-content:flex-start}
 .sf-resource-multi a.sf-resource-button{background:#fff;color:#0F172A;border-color:rgba(15,23,42,.14);box-shadow:none;padding:0 16px 0 18px;font-size:14px}
-.sf-resource-multi a.sf-resource-button svg{color:#087C80}
-.sf-resource-multi a.sf-resource-button:hover{background:#fff;border-color:#087C80}
+.sf-resource-multi a.sf-resource-button svg{color:#171F2D}
+.sf-resource-multi a.sf-resource-button:hover{background:#fff;border-color:#171F2D}
 .sf-resource-multi .sf-resource-in{grid-template-columns:auto minmax(0,1fr)}
 .sf-resource-multi .sf-resource-links{grid-column:2}
 

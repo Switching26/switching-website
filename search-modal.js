@@ -31,13 +31,14 @@
 
   // --- Colors by category ---
   var COLORS = {
-    langue: '#2E86C1',
-    bureau: '#E67E22',
-    graphisme: '#0E9599',
-    web: '#4F63D2',
-    compta: '#8B6914',
-    ia: '#6C4FD2',
-    bdc: '#D4A017'
+    // couleurs des domaines (les mêmes que l'accueil et le menu)
+    langue: '#3B82F6',
+    bureau: '#10B981',
+    graphisme: '#F59E0B',
+    web: '#A855F7',
+    compta: '#FB923C',
+    ia: '#6366F1',
+    bdc: '#F43F5E'
   };
 
   // --- Category aliases for smart search ---
