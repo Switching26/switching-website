@@ -28,5 +28,5 @@
 </nav>
 </details>
 </div>
-</div></div></header><script src="/nav-glass.js?v=2" defer></script>
+</div></div></header><script src="/nav-glass.js?v=3" defer></script>
 <div class="w"><nav class="bc" aria-label="Fil d'Ariane"><a href="/index.html">Accueil</a><span class="bc-sep" aria-hidden="true">/</span><a href="/tests-positionnement.html">Tests gratuits</a><span class="bc-sep" aria-hidden="true">/</span><span class="bc-current" aria-current="page">{{CRUMB}}</span></nav><a class="bc-back" href="/formations.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Retour aux formations</a></div>

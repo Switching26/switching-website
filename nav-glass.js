@@ -50,4 +50,11 @@ if(card){
   new MutationObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(document.body,{attributes:true,attributeFilter:['class']});
   if('ResizeObserver' in window)new ResizeObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(card)}
 }
+// barre devis des pages formation : repère « Faites défiler » tant que la fin du formulaire n'est pas atteinte
+var qs=document.querySelector('.qb-scroll');
+if(qs){var qm=document.createElement('div');qm.className='qb-more';qm.setAttribute('aria-hidden','true');
+ qm.innerHTML='Faites défiler<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';qs.after(qm);
+ var qe=function(){qs.classList.toggle('qb-end',qs.scrollTop+qs.clientHeight>=qs.scrollHeight-4)};
+ qs.addEventListener('scroll',qe,{passive:true});addEventListener('resize',qe);
+ new MutationObserver(function(){setTimeout(qe,650)}).observe(h,{attributes:true,attributeFilter:['class']});qe()}
 })();

@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED = {'tests-positionnement.html', 'demonstration-silae.html', 'test-anglais.html', 'test-excel.html',
              'test-excel-vba.html', 'test-outlook.html', 'test-powerpoint.html', 'test-word.html'}
-VERSION = '2'  # à augmenter à chaque changement de /nav-glass.css ou /nav-glass.js
+VERSION = '3'  # à augmenter à chaque changement de /nav-glass.css ou /nav-glass.js
 LINK = '<link rel="stylesheet" href="/nav-glass.css?v=%s">' % VERSION
 SCRIPT = '<script src="/nav-glass.js?v=%s" defer></script>' % VERSION
 
