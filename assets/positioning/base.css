@@ -137,3 +137,17 @@ header .w{padding:0}
 @media(prefers-reduced-motion:reduce){
 *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* ---------- retour + pied de page court (02/10/2026) ---------- */
+.bc-back{display:inline-flex;align-items:center;gap:8px;margin:12px 0 0;font:600 13.5px/1 Poppins,sans-serif;color:#0F172A;text-decoration:none;padding:10px 14px 10px 11px;border-radius:999px;background:#fff;border:1px solid rgba(15,23,42,.1)}
+.bc-back svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bc-back:hover{border-color:rgba(15,23,42,.22)}
+footer.ft-compact{padding:28px 0 24px}
+.ftc-links{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ftc-links a{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border-radius:14px;padding:14px 16px;color:#CBD5E1;font-size:14px;text-decoration:none;transition:background .2s}
+.ftc-links a:hover{background:rgba(255,255,255,.09)}
+.ftc-links svg{width:18px;height:18px;flex:none;fill:none;stroke:#94A3B8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ftc-bottom{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 18px;margin-top:16px;font-size:12px;color:#64748B}
+.ftc-bottom .fl{display:flex;flex-wrap:wrap;gap:6px 16px}
+.ftc-bottom a{color:#94A3B8;text-decoration:none}
+@media(max-width:768px){.ftc-links{grid-template-columns:1fr}.ftc-bottom{flex-direction:column}}

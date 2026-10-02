@@ -14,7 +14,6 @@
 </nav>
 <a href="/documentation.html" class="nav-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Documentation</a>
 <div class="hdr-mob">
-<a href="/tests-positionnement.html" class="hdr-m">Tests gratuits</a>
 <details class="mnav">
 <summary aria-label="Menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></summary>
 <nav class="mnav-card" aria-label="Menu mobile">
@@ -30,4 +29,4 @@
 </details>
 </div>
 </div></div></header>
-<div class="w"><nav class="bc" aria-label="Fil d'Ariane"><a href="/index.html">Accueil</a><span class="bc-sep" aria-hidden="true">/</span><a href="/tests-positionnement.html">Tests gratuits</a><span class="bc-sep" aria-hidden="true">/</span><span class="bc-current" aria-current="page">{{CRUMB}}</span></nav></div>
+<div class="w"><nav class="bc" aria-label="Fil d'Ariane"><a href="/index.html">Accueil</a><span class="bc-sep" aria-hidden="true">/</span><a href="/tests-positionnement.html">Tests gratuits</a><span class="bc-sep" aria-hidden="true">/</span><span class="bc-current" aria-current="page">{{CRUMB}}</span></nav><a class="bc-back" href="/formations.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Retour aux formations</a></div>

@@ -15,13 +15,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specimens import spec  # noqa: E402
 
 PAGES = [
-    'formation-excel-cpf.html', 'formation-excel-vba-cpf.html', 'formation-word-cpf.html',
-    'formation-powerpoint-cpf.html', 'formation-anglais-cpf.html', 'formation-anglais-niveau-2-b1-b2-rs6905.html',
-    'formation-silae-paie-cpf.html', 'formation-silae-20h-cpf.html', 'formation-gestionnaire-de-paie-titre-pro.html',
+    # Pages formation en style Studio (02/10/2026) : le test est une ligne de « En bref », plus un bloc.
+    # Accueil et catalogue : blocs retirés à la demande de Samuel.
+    'formation-anglais-niveau-2-b1-b2-rs6905.html',
     'blog/apprendre-excel-guide-debutant.html', 'blog/tableau-croise-dynamique-excel.html',
     'blog/formation-excel-en-ligne-guide.html', 'blog/formation-word-fonctions-avancees.html',
     'blog/astuces-powerpoint-presentations.html', 'blog/formation-anglais-professionnel.html',
-    'blog/formation-silae-logiciel-paie.html', 'formations.html', 'index.html',
+    'blog/formation-silae-logiciel-paie.html',
 ]
 KIND = {'/test-excel.html': 'excel', '/test-word.html': 'word', '/test-powerpoint.html': 'powerpoint',
         '/test-outlook.html': 'outlook', '/test-excel-vba.html': 'excel-vba', '/test-anglais.html': 'anglais',

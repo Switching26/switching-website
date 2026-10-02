@@ -433,6 +433,54 @@
   .sf-chat-input{font-size:16px;}\
   .sf-chat-inline-field{font-size:16px;}\
 }\
+/* ── Pastille Encre + fenêtre claire (02/10/2026, choix Samuel) ── */\
+.sf-chat-bubble{width:auto;height:auto;border-radius:999px;background:#fff;display:flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;animation:none;box-shadow:0 16px 36px -10px rgba(15,23,42,.38),0 0 0 1px rgba(15,23,42,.06);text-align:left;font:inherit;color:#0F172A;}\
+.sf-chat-bubble::before,.sf-chat-bubble::after{display:none;}\
+.sf-chat-bubble:hover{transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(15,23,42,.42),0 0 0 1px rgba(15,23,42,.08);}\
+.sf-chat-pill-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1E293B,#0F172A);}\
+.sf-chat-bubble .sf-chat-pill-av svg{width:19px;height:19px;fill:#fff;stroke:none;filter:none;}\
+.sf-chat-pill-t{display:flex;flex-direction:column;}\
+.sf-chat-pill-t b{font-family:"Poppins",sans-serif;font-weight:600;font-size:14.5px;line-height:1.15;color:#0F172A;}\
+.sf-chat-pill-t small{display:flex;align-items:center;gap:5px;font-family:"Almarai",sans-serif;font-size:11.5px;line-height:1.3;color:#64748B;}\
+.sf-chat-pill-t small i{width:6px;height:6px;border-radius:50%;background:#22C55E;flex:none;}\
+.sf-chat-nudge{display:none!important;}\
+.sf-chat-panel{background:#fff;border:1px solid rgba(15,23,42,.08);box-shadow:0 32px 80px -16px rgba(15,23,42,.35);}\
+.sf-chat-panel::before,.sf-chat-panel::after{display:none;}\
+.sf-chat-header{border-bottom:1px solid rgba(15,23,42,.07);background:#fff;}\
+.sf-chat-header-avatar{background:linear-gradient(135deg,#1E293B,#0F172A);box-shadow:none;}\
+.sf-chat-header-title{color:#0F172A;}\
+.sf-chat-header-status{color:#64748B;}\
+.sf-chat-header-dot{background:#22C55E;box-shadow:none;}\
+.sf-chat-header-close{background:#F1F5F9;}\
+.sf-chat-header-close svg{stroke:#64748B;}\
+.sf-chat-messages{background:#F7F8FA;}\
+.sf-chat-messages::-webkit-scrollbar-thumb{background:rgba(15,23,42,.15);}\
+.sf-chat-msg-bot .sf-chat-msg-bubble{background:#fff;color:#1E293B;border:1px solid rgba(15,23,42,.07);backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 6px 16px -12px rgba(15,23,42,.3);}\
+.sf-chat-msg-bubble strong,.sf-chat-msg-bubble b{color:#0F172A;}\
+.sf-chat-msg-bubble a{color:#0F172A;}\
+.sf-chat-msg-user .sf-chat-msg-bubble{background:#1E293B;box-shadow:none;}\
+.sf-chat-btn{background:#fff;border:1px solid rgba(15,23,42,.14);color:#0F172A;}\
+.sf-chat-btn:hover{background:#0F172A;color:#fff;border-color:#0F172A;box-shadow:0 6px 18px -8px rgba(15,23,42,.45);}\
+.sf-chat-typing{background:#fff;border:1px solid rgba(15,23,42,.07);backdrop-filter:none;-webkit-backdrop-filter:none;}\
+.sf-chat-typing-dot{background:#64748B;}\
+.sf-chat-input-area{background:#fff;border-top:1px solid rgba(15,23,42,.07);}\
+.sf-chat-input{background:#F1F5F9;border:1px solid transparent;color:#0F172A;}\
+.sf-chat-input::placeholder{color:#94A3B8;}\
+.sf-chat-input:focus{border-color:rgba(15,23,42,.25);box-shadow:0 0 0 3px rgba(15,23,42,.06);}\
+.sf-chat-send{background:#0F172A;box-shadow:none;}\
+.sf-chat-send:hover{box-shadow:0 4px 14px -4px rgba(15,23,42,.5);}\
+.sf-chat-success{background:#ECFDF5;border-color:#A7F3D0;color:#047857;}\
+.sf-chat-inline-input{background:#fff;border:1px solid rgba(15,23,42,.1);}\
+.sf-chat-inline-label{color:#0F172A;}\
+.sf-chat-inline-field{background:#F8FAFC;border:1px solid rgba(15,23,42,.12);color:#0F172A;}\
+.sf-chat-inline-field::placeholder{color:#94A3B8;}\
+.sf-chat-inline-field:focus{border-color:rgba(15,23,42,.3);box-shadow:0 0 0 3px rgba(15,23,42,.06);}\
+.sf-chat-inline-submit{background:#0F172A;box-shadow:none;}\
+.sf-chat-error .sf-chat-msg-bubble{background:#FEF2F2!important;color:#B91C1C!important;border:1px solid #FECACA;}\
+@media(max-width:480px){\
+  .sf-chat-bubble{width:auto;height:auto;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));}\
+  .sf-chat-panel{border:1px solid rgba(15,23,42,.08);box-shadow:0 20px 60px rgba(15,23,42,.25);}\
+}\
 ';
   document.head.appendChild(style);
 
@@ -460,11 +508,7 @@
   var bubble = document.createElement('button');
   bubble.className = 'sf-chat-bubble';
   bubble.setAttribute('aria-label', 'Ouvrir le chat');
-  bubble.innerHTML = '\
-<svg viewBox="0 0 24 24">\
-<path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>\
-<path d="M12 6.5c.6 2.2 1.8 3.4 4 4-2.2.6-3.4 1.8-4 4-.6-2.2-1.8-3.4-4-4 2.2-.6 3.4-1.8 4-4z" fill="white" stroke="none"/>\
-</svg>';
+  bubble.innerHTML = '<span class="sf-chat-pill-av"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="sf-chat-pill-t"><b>Une question ?</b><small><i></i>Sophie vous répond</small></span>';
 
   // Panel
   var panel = document.createElement('div');
