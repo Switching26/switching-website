@@ -652,6 +652,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  </div>
 </div></section>
 
+<!-- VIDEO FINANCEMENT -->
+<section class="fv-sec"><div class="sx-w">
+ <div class="fv-vid sx-rv"><video src="images/video-financement.mp4?v=1" poster="images/video-financement-poster.webp?v=1" preload="metadata" autoplay loop muted playsinline aria-label="Le financement de votre formation en 20 secondes"></video><button class="fv-snd" type="button" aria-label="Activer le son de la vidéo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span>Son</span></button></div>
+</div></section>
+<style>
+.fv-sec{padding:8px 0 56px}
+.fv-vid{position:relative;max-width:980px;margin:0 auto;border-radius:22px;overflow:hidden;aspect-ratio:16/9;background:#0B1120;box-shadow:0 40px 80px -36px rgba(15,23,42,.6),0 0 0 1px rgba(15,23,42,.06)}
+.fv-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fv-snd{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border:0;border-radius:999px;background:rgba(15,23,42,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font:600 13px/1 inherit;cursor:pointer}
+.fv-snd:hover{background:rgba(15,23,42,.82)}
+.fv-snd:focus-visible{outline:2px solid #202C40;outline-offset:3px}
+.fv-snd svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:767px){.fv-sec{padding:4px 0 36px}.fv-vid{border-radius:16px}.fv-snd{right:9px;bottom:9px;padding:8px 11px;font-size:12px}}
+</style>
+<script>
+(function(){var w=document.querySelector('.fv-vid'),v=w&&w.querySelector('video'),b=w&&w.querySelector('.fv-snd');if(!v||!b)return;
+var MUTE='<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/>',ON='<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>';
+var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(calm){v.removeAttribute('autoplay');v.pause()}
+function paint(){var on=!v.muted;b.querySelector('svg').innerHTML=on?ON:MUTE;b.querySelector('span').textContent=on?'Couper le son':'Son';b.setAttribute('aria-label',on?'Couper le son de la vidéo':'Activer le son de la vidéo')}
+b.addEventListener('click',function(){if(v.muted){v.muted=false;v.currentTime=0;var p=v.play();if(p)p.catch(function(){})}else{v.muted=true}paint()});
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){if(e[0].isIntersecting){if(!calm||!v.muted){var p=v.play();if(p)p.catch(function(){})}}else{v.pause()}},{threshold:.15}).observe(v);})();
+</script>
+
 <section class="sx-sec sx-cream"><div class="sx-w sx-center">
  <p class="sx-k sx-rv"><i></i>Trois façons de financer</p>
  <h2 class="sx-h2 sx-rv">Le bon financement, <span class="sx-hl">sans paperasse pour vous</span>.</h2>
