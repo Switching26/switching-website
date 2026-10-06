@@ -2754,10 +2754,12 @@ function center(sm){var a=fl.querySelector('.flt.on');if(!a)return;var t=Math.ma
 function fuse(){if(hd.classList.contains('fused'))return;hd.classList.add('fused');hn.appendChild(fl);center()}
 function unfuse(){if(!hd.classList.contains('fused'))return;hd.classList.remove('fused');fs.appendChild(fl);center()}
 document.querySelectorAll('.flt').forEach(function(b){b.addEventListener('click',function(){if(mob())setTimeout(function(){center(true)},60)})});
-new IntersectionObserver(function(es){
-  if(!mob()){unfuse();return}
-  if(es[0].isIntersecting){unfuse()}else{fuse()}
-},{rootMargin:'-84px 0px 0px 0px'}).observe(sent);
+/* Seuil fixe calcule hors fusion + hysteresis : Safari iOS n'a pas d'ancrage de scroll, l'en-tete qui grandit repoussait la page et relancait la bascule en boucle (06/10/2026). */
+var T=null,tk=0;
+function th(){if(!hd.classList.contains('fused'))T=sent.getBoundingClientRect().top+window.scrollY-84;return T}
+function chk(){tk=0;if(!mob()){unfuse();return}var t=th(),y=window.scrollY;if(hd.classList.contains('fused')){if(y<t-40)unfuse()}else if(y>t+16){fuse()}}
+window.addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(chk)},{passive:true});
+window.addEventListener('load',chk);chk();
 window.addEventListener('resize',function(){if(!mob())unfuse()});
 })();
 </script>
