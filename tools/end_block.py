@@ -14,6 +14,7 @@ Lancer : python3 tools/end_block.py
 from pathlib import Path
 import html as H
 import re
+from social_links import FOOT as SOCIAL
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP = {'404.html', 'admin.html', 'google3a68c31226138741.html', 'chatbot-button-futuristic.html',
@@ -33,7 +34,7 @@ FOOT = f'''<div class="eb-foot"><div class="eb-w">
  <div class="eb-cols">
   <div><h4>Formations</h4><a href="/formations.html?cat=langues">Langues</a><a href="/formations.html?cat=bureautique">Bureautique</a><a href="/formations.html?cat=graphisme">Graphisme</a><a href="/formations.html?cat=compta">Compta &amp; Paie</a><a href="/formations.html?cat=ia">Intelligence Artificielle</a><a href="/formations.html">Toutes les formations</a></div>
   <div><h4>Le site</h4><a href="/le-centre.html">Le centre</a><a href="/financement.html">Financement</a><a href="/tests-positionnement.html">Tests gratuits</a><a href="/blog.html">Blog</a><a href="/documentation.html">Documentation</a></div>
-  <div><h4>Contact</h4><a class="eb-chip" href="mailto:contact&#64;switchingformation.com">{MAIL}contact&#64;switchingformation.com</a><a class="eb-chip" href="https://g.page/r/CdvHtOBE4CjYEBM/review" target="_blank" rel="noopener">{STAR}Avis Google ★★★★★</a><p class="eb-hours">Du lundi au vendredi, 9 h – 18 h</p></div>
+  <div><h4>Contact</h4><a class="eb-chip" href="mailto:contact&#64;switchingformation.com">{MAIL}contact&#64;switchingformation.com</a><a class="eb-chip" href="https://g.page/r/CdvHtOBE4CjYEBM/review" target="_blank" rel="noopener">{STAR}Avis Google ★★★★★</a><p class="eb-hours">Du lundi au vendredi, 9 h – 18 h</p>{SOCIAL}</div>
  </div>
  <nav class="eb-mlinks" aria-label="Liens utiles"><a href="/formations.html">Formations</a><a href="/le-centre.html">Le centre</a><a href="/financement.html">Financement</a><a href="/tests-positionnement.html">Tests gratuits</a><a href="/blog.html">Blog</a></nav>
  <div class="eb-legal"><span>© 2026 Switching Formation</span><a href="/cgv.html">CGV</a><a href="/mentions-legales.html">Mentions légales</a><a href="/donnees.html">Données personnelles</a></div>

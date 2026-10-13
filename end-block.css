@@ -65,3 +65,17 @@ footer.eb{position:relative;background:#0B1120;color:#E2E8F0;overflow:hidden;fon
 
 .eb-band h2 b,.eb-band h2 em{font-weight:inherit;font-style:normal;color:#F8FAFC}
 @media(max-width:900px){.eb-foot{padding-bottom:calc(92px + env(safe-area-inset-bottom))}}
+
+/* Réseaux sociaux (13/10/2026) — colonne Contact, logos aux couleurs des réseaux */
+.sfs-ig{--br:linear-gradient(45deg,#F9CE34 0%,#EE2A7B 48%,#6228D7 100%)}.sfs-li{--br:#0A66C2}.sfs-yt{--br:#FF0033}
+.eb-soc{margin-top:16px}
+.eb-soc span{display:block;font:600 11px/1 Poppins,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 10px}
+.ebs-i{display:flex;gap:10px}
+.eb-cols a.sfs-f{width:42px;height:42px;padding:0;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--br);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 8px 18px -10px rgba(0,0,0,.6);transition:transform .3s cubic-bezier(.16,1,.3,1),filter .3s}
+.eb-cols a.sfs-f svg{width:19px;height:19px}
+.eb-cols a.sfs-f:active{transform:scale(.92)}
+@media(hover:hover){.eb-cols a.sfs-f:hover{transform:translateY(-2px);filter:brightness(1.1)}}
+@media(max-width:900px){
+ .eb-cols .eb-soc{display:flex!important;align-items:center;justify-content:space-between;flex-basis:100%;margin-top:6px;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.07)}
+ .eb-soc span{margin:0;font-size:12.5px;letter-spacing:.08em;color:rgba(226,232,240,.75)}
+}
