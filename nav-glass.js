@@ -49,7 +49,20 @@ if(card){
   var isOpen=function(){return document.body.classList.contains('menu-open')};
   new MutationObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(document.body,{attributes:true,attributeFilter:['class']});
   if('ResizeObserver' in window)new ResizeObserver(function(){if(isOpen())requestAnimationFrame(mbuild)}).observe(card)}
+ // verre sombre du menu au-dessus d'une zone sombre (14/10/2026) : 15 points sous le panneau
+ var md=card.parentElement,mlum=function(el){for(var n=el;n&&n!==document.documentElement;n=n.parentElement){
+  if(n.tagName==='VIDEO'||n.tagName==='IMG')return .25;var c=getComputedStyle(n).backgroundColor.match(/[\d.]+/g);
+  if(c&&(c[3]===undefined||+c[3]>.6))return (.2126*c[0]+.7152*c[1]+.0722*c[2])/255}return 1};
+ var msample=function(){var r=card.getBoundingClientRect(),dark=0,n=0;
+  for(var i=1;i<=3;i++)for(var j=1;j<=5;j++){var els=document.elementsFromPoint(r.left+r.width*i/4,r.top+r.height*j/6);
+   for(var k=0;k<els.length;k++){var e=els[k];if(md.contains(e)||e.classList.contains('menu-backdrop')||h.contains(e))continue;n++;if(mlum(e)<.4)dark++;break}}
+  md.classList.toggle('mg-dark',n>0&&dark/n>=.5)};
+ new MutationObserver(function(){if(document.body.classList.contains('menu-open'))requestAnimationFrame(msample)}).observe(document.body,{attributes:true,attributeFilter:['class']});
 }
+// logos réseaux du pied de page : le trait se dessine quand on arrive dessus (14/10/2026)
+var fsoc=document.querySelector('.eb-soc');
+if(fsoc&&'IntersectionObserver' in window){fsoc.classList.add('sfl-wait');
+ var fio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fsoc.classList.add('sfl-go');fsoc.classList.remove('sfl-wait');fio.disconnect()}})},{threshold:.6});fio.observe(fsoc)}
 // barre devis des pages formation : repère « Faites défiler » tant que la fin du formulaire n'est pas atteinte
 var qs=document.querySelector('.qb-scroll');
 if(qs){var qm=document.createElement('div');qm.className='qb-more';qm.setAttribute('aria-hidden','true');

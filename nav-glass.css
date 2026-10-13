@@ -150,14 +150,48 @@ html body .qb-f input,html body .qb-f select,html body .qb-f textarea{border-col
 }
 @media(prefers-reduced-motion:reduce){.qb-more svg{animation:none}}
 
-/* Réseaux sociaux dans le menu téléphone (13/10/2026) */
-.mc-social{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 12px 14px;padding:12px 12px 12px 16px;border-radius:20px;background:rgba(255,255,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 18px -14px rgba(15,23,42,.35)}
+/* Réseaux sociaux dans le menu téléphone (13/10/2026, logos « trait dessiné » 14/10/2026) */
+.mc-social{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 12px 14px;padding:10px 8px 10px 16px;border-radius:20px;background:rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 .5px rgba(255,255,255,.55)}
 body.lg-menu.menu-open .mc-social{animation:lgIn .5s cubic-bezier(.16,1,.3,1) both;animation-delay:.32s}
 .mcs-t b{display:block;font:600 14px/1.15 Poppins,sans-serif;color:#0F172A}
-.mcs-t small{display:block;font:400 11.5px/1.3 Almarai,sans-serif;color:#64748B;margin-top:3px}
-.mcs-i{display:flex;gap:8px}
-.sfs-ig{--br:linear-gradient(45deg,#F9CE34 0%,#EE2A7B 48%,#6228D7 100%)}.sfs-li{--br:#0A66C2}.sfs-yt{--br:#FF0033}
-.mc-social a.sfs-b{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--br);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 16px -8px rgba(15,23,42,.45);text-decoration:none;transition:transform .25s cubic-bezier(.16,1,.3,1)}
-.mc-social a.sfs-b svg{width:20px;height:20px}
-.mc-social a.sfs-b:active{transform:scale(.9)}
-@media(prefers-reduced-motion:reduce){body.lg-menu.menu-open .mc-social{animation:none}}
+.mcs-t small{display:block;font:400 11.5px/1.3 Almarai,sans-serif;color:#475569;margin-top:3px}
+.mcs-i{display:flex;gap:4px}
+.mc-social a.sfs-b{width:46px;height:46px;display:grid;place-items:center;text-decoration:none;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.mc-social a.sfs-b svg{width:46px;height:46px;overflow:visible}
+.mc-social a.sfs-b:active{transform:scale(.88)}
+.mc-social .sfl .dr{stroke-dasharray:1;stroke-dashoffset:0}.mc-social .sfl .pop{transform-box:fill-box;transform-origin:center}
+body.menu-open .mc-social .sfl .dr{animation:sflDraw 1s cubic-bezier(.65,0,.35,1) both;animation-delay:calc(.35s + var(--i,0) * .14s)}
+body.menu-open .mc-social .sfl .pop{animation:sflPop .45s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(1.05s + var(--i,0) * .14s)}
+@keyframes sflDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sflPop{from{transform:scale(0)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){body.lg-menu.menu-open .mc-social{animation:none}.mc-social .sfl .dr,.mc-social .sfl .pop{animation:none!important}}
+
+/* Panneau du menu en verre liquide « Équilibré » (14/10/2026) : même recette que la barre,
+   et verre sombre automatique au-dessus d'une zone sombre (classe .mg-dark posée par /nav-glass.js) */
+body.lg-menu .menu-drop .menu-card{background:linear-gradient(180deg,rgba(255,255,255,.44),rgba(255,255,255,.26))!important;
+ -webkit-backdrop-filter:blur(13px) saturate(1.9) brightness(1.06)!important;backdrop-filter:blur(13px) saturate(1.9) brightness(1.06)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.3),inset 0 0 0 .5px rgba(255,255,255,.55),inset 0 0 36px rgba(255,255,255,.2),0 1px 2px rgba(15,23,42,.06),0 30px 70px -26px rgba(15,23,42,.45)!important;
+ transition:background .45s cubic-bezier(.16,1,.3,1)!important}
+body.lg-menu .menu-drop .menu-card.lens{backdrop-filter:url(#sf-lens-menu) blur(7px) saturate(1.9) brightness(1.06)!important}
+body.lg-menu .menu-drop::before{background:radial-gradient(240px 80px at var(--lg-x,28%) 0%,rgba(255,255,255,.7),transparent 72%),radial-gradient(200px 60px at calc(100% - var(--lg-x,28%)) 100%,rgba(255,255,255,.25),transparent 72%)!important;height:100%!important;border-radius:28px!important}
+body.lg-menu .menu-drop:not(.mg-dark) .mc-t b{text-shadow:0 0 14px rgba(255,255,255,.75)}
+body.lg-menu .menu-drop:not(.mg-dark) .mc-t small{color:#475569!important;text-shadow:0 0 10px rgba(255,255,255,.8)}
+body.lg-menu .mc-ico{background:rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(255,255,255,.7),0 6px 14px -9px rgba(15,23,42,.35)!important}
+body.lg-menu .mc-link.active{background:rgba(255,255,255,.42)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(255,255,255,.6),0 8px 20px -14px rgba(15,23,42,.35)!important}
+body.lg-menu .mc-link.active .mc-ico{background:#202C40!important}
+body.lg-menu .mc-formations{background:rgba(255,255,255,.2)!important}
+body.lg-menu .mc-phone{background:rgba(255,255,255,.4)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(255,255,255,.6),0 8px 18px -12px rgba(15,23,42,.3)!important}
+body.lg-menu .menu-drop.mg-dark .menu-card{background:linear-gradient(180deg,rgba(15,23,42,.56),rgba(15,23,42,.40))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.08),inset 0 0 0 .5px rgba(255,255,255,.2),inset 0 0 30px rgba(255,255,255,.05),0 30px 70px -26px rgba(0,0,0,.6)!important}
+body.lg-menu .menu-drop.mg-dark::before{opacity:.35}body.lg-menu .menu-drop.mg-dark::after{opacity:.6}
+body.lg-menu .menu-drop.mg-dark .mc-link,body.lg-menu .menu-drop.mg-dark .mc-toggle,body.lg-menu .menu-drop.mg-dark .mc-t b,body.lg-menu .menu-drop.mg-dark .mcs-t b,body.lg-menu .menu-drop.mg-dark .mcx-d,body.lg-menu .menu-drop.mg-dark .mcx-all b{color:#F8FAFC!important}
+body.lg-menu .menu-drop.mg-dark .mc-t small,body.lg-menu .menu-drop.mg-dark .mcs-t small,body.lg-menu .menu-drop.mg-dark .mcx-all small,body.lg-menu .menu-drop.mg-dark .mcx-d em{color:rgba(226,232,240,.7)!important}
+body.lg-menu .menu-drop.mg-dark .mc-ico{background:rgba(255,255,255,.12)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 .5px rgba(255,255,255,.14)!important}
+body.lg-menu .menu-drop.mg-dark .mc-link.active{background:rgba(255,255,255,.13)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 .5px rgba(255,255,255,.12)!important}
+body.lg-menu .menu-drop.mg-dark .mc-link.active .mc-ico{background:#fff!important;color:#0F172A!important}
+body.lg-menu .menu-drop.mg-dark .mc-link::after{border-color:rgba(255,255,255,.5)!important}
+body.lg-menu .menu-drop.mg-dark .mc-arr{stroke:rgba(255,255,255,.5)!important}
+body.lg-menu .menu-drop.mg-dark .mc-sep{background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent)!important}
+body.lg-menu .menu-drop.mg-dark .mc-formations,body.lg-menu .menu-drop.mg-dark .mcx-all{background:rgba(255,255,255,.08)!important}
+body.lg-menu .menu-drop.mg-dark .mc-phone{background:rgba(255,255,255,.13)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 .5px rgba(255,255,255,.14)!important}
+body.lg-menu .menu-drop.mg-dark .mc-social{background:rgba(255,255,255,.08)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 .5px rgba(255,255,255,.1)!important}
