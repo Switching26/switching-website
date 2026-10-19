@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
+const { isIP } = require('node:net');
 const initSqlJs = require('sql.js');
 const claudeCode = require('./ai-client.cjs');
 const { publicCompression, staticHeaders } = require('./static-delivery.cjs');
@@ -9,6 +10,35 @@ const { createAudience } = require('./audience.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Cloudflare overwrites this header on our www hostname. Never trust a Host,
+// X-Forwarded-For or CF-Connecting-IP header as proof that traffic passed its
+// filtering. Reject direct origin traffic before parsing bodies or serving files.
+const ORIGIN_TOKEN = process.env.SITE_ORIGIN_TOKEN || '';
+if ((process.env.NODE_ENV === 'production' || ORIGIN_TOKEN) && ORIGIN_TOKEN.length < 32) {
+  throw new Error('SITE_ORIGIN_TOKEN must contain at least 32 characters in production');
+}
+const originTokenBytes = Buffer.from(ORIGIN_TOKEN);
+app.disable('x-powered-by');
+app.use((req, res, next) => {
+  if (!ORIGIN_TOKEN) return next(); // Explicit local/test mode only.
+  const supplied = req.headers['x-switching-origin'];
+  const received = Buffer.from(typeof supplied === 'string' ? supplied : '');
+  delete req.headers['x-switching-origin'];
+  if (received.length !== originTokenBytes.length || !crypto.timingSafeEqual(received, originTokenBytes)) {
+    res.setHeader('Cache-Control', 'private, no-store');
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    return res.status(403).type('text/plain').send('Forbidden');
+  }
+  req.verifiedSiteOrigin = true;
+  next();
+});
+
+function visitorIp(req) {
+  const cfIp = req.headers['cf-connecting-ip'];
+  if (req.verifiedSiteOrigin && typeof cfIp === 'string' && isIP(cfIp)) return cfIp;
+  return req.ip || req.socket.remoteAddress;
+}
 
 // Prevent server crash on unhandled promise rejections (e.g. aborted streams)
 process.on('unhandledRejection', (err) => {
@@ -819,10 +849,8 @@ function saveDB() {
 
 // ─── MIDDLEWARE ───
 
-app.disable('x-powered-by');
-
-// Railway runs the app behind an edge proxy: trust one hop so req.ip is the
-// real client IP (required for rate limits to work per visitor).
+// Fallback for local tests. In production visitorIp() uses CF-Connecting-IP
+// only after authenticating our Cloudflare-to-origin request header.
 app.set('trust proxy', 1);
 
 // Never serve server-side or build config files publicly
@@ -946,7 +974,7 @@ function requireAdmin(req, res, next) {
   // A valid token is never rate-limited (prevents lockout DoS); only failed
   // attempts consume rate-limit slots.
   if (adminTokenOk(token)) return next();
-  if (!checkAdminRate(req.ip)) return res.status(429).json({ error: 'Trop de tentatives, réessayez plus tard' });
+  if (!checkAdminRate(visitorIp(req))) return res.status(429).json({ error: 'Trop de tentatives, réessayez plus tard' });
   return res.status(403).json({ error: 'Code incorrect' });
 }
 
@@ -1051,7 +1079,7 @@ function allowMmfcpfOrigin(req, res, next) {
 app.options('/api/submit', allowMmfcpfOrigin);
 
 app.post('/api/submit', allowMmfcpfOrigin, (req, res) => {
-  const ip = req.ip || req.socket.remoteAddress;
+  const ip = visitorIp(req);
   if (!rateEntry(submitRateLimit, ip, 5, 600000) || !rateEntry(submitRateGlobal, '*', 30, 600000)) {
     return res.status(429).json({ error: 'Trop de demandes. Réessayez dans quelques minutes.' });
   }
@@ -1129,9 +1157,9 @@ app.post('/api/chat', async (req, res) => {
   if (!claudeCode.configured()) {
     return res.status(503).json({ error: 'Chatbot not configured' });
   }
-  // req.ip (trust proxy) — the raw X-Forwarded-For header is spoofable and
-  // unstable through Railway's proxy chain, which silently disabled the limiter.
-  const ip = req.ip || req.socket.remoteAddress;
+  // The client IP is trusted only through the authenticated Cloudflare origin.
+  // Keep a global limit as well, for abuse from multiple addresses.
+  const ip = visitorIp(req);
   if (!checkChatRate(ip)) {
     return res.status(429).json({ error: 'Trop de messages. Réessayez dans une minute.' });
   }
