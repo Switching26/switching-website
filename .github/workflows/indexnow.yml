@@ -1,0 +1,41 @@
+name: IndexNow
+# Prévient Bing (IndexNow) des pages publiques modifiées, une fois la nouvelle version en ligne.
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml']
+  workflow_dispatch:
+    inputs:
+      tout:
+        description: Signaler toutes les pages du plan du site
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+jobs:
+  signaler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Pages modifiées
+        id: pages
+        env:
+          AVANT: ${{ github.event.before }}
+          TOUT: ${{ inputs.tout }}
+        run: |
+          if [ "$TOUT" = "true" ]; then python3 .github/indexnow/indexnow.py pages "" "$GITHUB_SHA" --tout > urls.txt
+          else python3 .github/indexnow/indexnow.py pages "$AVANT" "$GITHUB_SHA" > urls.txt; fi
+          cat urls.txt
+          echo "n=$(grep -c . urls.txt || true)" >> "$GITHUB_OUTPUT"
+      - name: Attendre la mise en ligne
+        if: steps.pages.outputs.n != '0' && inputs.tout != true
+        run: python3 .github/indexnow/indexnow.py attendre urls.txt
+      - name: Signaler à IndexNow
+        if: steps.pages.outputs.n != '0'
+        run: python3 .github/indexnow/indexnow.py envoyer urls.txt
