@@ -97,7 +97,7 @@ INFORMATIONS SUR LE CENTRE :
 - Adresse : 18 rue Coriolis, 75012 Paris
 - Téléphone : 06 95 18 50 57
 - Email : contact@switchingformation.com
-- Horaires : Lundi-Vendredi 9h-18h
+- Horaires : Lundi-Vendredi 9h-19h30
 - Certifications : Qualiopi (Actions de formation + Bilans de compétences)
 - Modalités standards : À distance (toutes formations) + E-learning (selon les modules)
 - Présentiel : possible mais sur-mesure uniquement — toujours le mentionner si on pose la question sur les formats disponibles, en précisant que ce n'est pas d'office et qu'un conseiller établit un devis personnalisé. Pour les entreprises : intra ou inter-entreprise à partir de 2 personnes. Pour les particuliers : devis sur-mesure possible. Ne jamais le proposer spontanément comme option standard.
