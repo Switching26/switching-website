@@ -17,3 +17,11 @@
 .vf-link:hover{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:900px){.vf-grid{grid-template-columns:1fr;gap:22px}.vf-l{margin-top:16px}}
 @media(max-width:767px){.vf-vid{border-radius:16px}.vf-snd{right:9px;bottom:9px;padding:8px 11px;font-size:12px}.vf-grid .vf-p{font-size:15px}}
+/* Page à formules : boutons de durée au-dessus de la vidéo */
+.vf-media{min-width:0}
+.vf-tabs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:0 0 14px}
+.vf-tab{border:0;cursor:pointer;background:#fff;color:#0F172A;font:600 14px/1 Poppins,sans-serif;padding:15px 0;border-radius:999px;text-align:center;white-space:nowrap;box-shadow:0 6px 16px -10px rgba(15,23,42,.45),0 1px 2px rgba(15,23,42,.06);transition:background .3s cubic-bezier(.16,1,.3,1),color .3s cubic-bezier(.16,1,.3,1)}
+.vf-tab:hover{background:#F1F5F9}
+.vf-tab[aria-pressed="true"]{background:#0F172A;color:#fff}
+.vf-tab:focus-visible{outline:2px solid #202C40;outline-offset:3px}
+@media(max-width:380px){.vf-tabs{gap:5px}.vf-tab{font-size:13px}}
