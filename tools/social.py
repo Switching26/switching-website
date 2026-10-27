@@ -4,9 +4,9 @@
 - Menu téléphone : bloc « Rejoignez-nous » (Instagram, LinkedIn, YouTube) sous téléphone / Documentation,
   sur toutes les pages qui ont le menu (.mc-bottom). Styles dans /nav-glass.css.
 - Accueil : section « Nos derniers Shorts » entre Témoignages et la fin de page, styles /shorts.css,
-  script /shorts.js, vidéos dans images/shorts/ (720x1280, son AAC, faststart) + affiche .webp.
+  script /shorts.js, vidéos sur Cloudflare R2 (MEDIA/shorts/, 720x1280, son AAC, faststart) + affiche .webp dans images/shorts/.
 Le pied de page (colonne Contact) est géré par tools/end_block.py. Liens : tools/social_links.py.
-Pour changer les vidéos : modifier SHORTS, déposer images/shorts/<slug>.mp4 et .webp, relancer.
+Pour changer les vidéos : modifier SHORTS, envoyer <slug>.mp4 dans le bucket R2 (clé shorts/<slug>.mp4), déposer images/shorts/<slug>.webp, relancer.
 Lancer : python3 tools/social.py
 """
 from pathlib import Path
@@ -14,6 +14,8 @@ import re
 from social_links import MENU, NETWORKS, YT, YT_URL, icons
 
 ROOT = Path(__file__).resolve().parents[1]
+# Vidéos hébergées sur Cloudflare R2 (bucket switching-site-videos), plus dans le dépôt (27/10/2026)
+MEDIA = 'https://media.switching-formation.fr'
 
 # (fichier, titre, domaine, couleur du domaine, durée en s)
 SHORTS = [
@@ -36,7 +38,7 @@ def card(i, s):
     slug, title, dom, col, dur = s
     return (f'<article class="sh-card" data-i="{i}" style="--c:{col}">'
             f'<video muted loop playsinline preload="none" poster="images/shorts/{slug}.webp" '
-            f'data-src="images/shorts/{slug}.mp4"></video>'
+            f'data-src="{MEDIA}/shorts/{slug}.mp4"></video>'
             f'<span class="sh-dom"><i></i>{dom}</span>{VOL.format(x="")}'
             f'<div class="sh-cap"><b>{title}</b><small><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg>'
             f'{dur // 60}:{dur % 60:02d}</small></div><span class="sh-prog"><i></i></span></article>')
