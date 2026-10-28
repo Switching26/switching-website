@@ -60,3 +60,7 @@
 .shv-p{top:calc(50% - 46px)}.shv-n{top:calc(50% + 6px)}
 @media(max-width:600px){.shv-stage{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0}.shv-top{top:calc(14px + env(safe-area-inset-top))}}
 @media(prefers-reduced-motion:reduce){.sh-card,.shv-stage{transition:none}}
+/* accueil-v3 (28/10/2026) — ordinateur : les 7 shorts tiennent sur une ligne, centrés d'un bord à l'autre
+   (avant, la ligne partait du bord du contenu et sortait à droite de l'écran). */
+@media(min-width:1180px){.sh-rail{justify-content:center;overflow:visible;padding:6px 24px 18px;scroll-padding:0}.sh-card{flex:1 1 0;min-width:0;max-width:228px}.sh-more,.sh-nav{display:none}}
+@media(min-width:1180px) and (max-width:1499px){.sh-cap b{font-size:12.5px}.sh-dom{font-size:9.5px}}

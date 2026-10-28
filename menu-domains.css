@@ -1,20 +1,37 @@
-/* Menu Formations à pastilles couleur — téléphone et ordinateur (02/10/2026).
-   Couleurs = celles des domaines de l'accueil. Compteurs = ceux des filtres de formations.html. */
-.nav-dd{min-width:300px}
-.nav-dd > a.mdx-all{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0F172A;color:#fff;border-radius:14px;padding:12px 14px;margin:0 0 6px;text-decoration:none}
-.nav-dd > a.mdx-all:hover{background:#1E293B;color:#fff}
-.mcx-all b,.mdx-all b{display:block;font:600 14px/1.2 Poppins,sans-serif;color:#fff}
-.mcx-all small,.mdx-all small{display:block;font:400 11.5px/1.35 Almarai,sans-serif;color:rgba(255,255,255,.62)}
-.mcx-all svg,.mdx-all svg{width:18px;height:18px;flex:none;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.nav-dd > a.mdx-d{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;font:500 14px/1.2 Poppins,sans-serif;color:#0F172A;text-decoration:none}
-.nav-dd > a.mdx-d:hover{background:#F4F6F9;color:#0F172A}
-.mdx-d em,.mcx-d em{margin-left:auto;font:500 12px/1 Poppins,sans-serif;font-style:normal;color:#94A3B8}
-.mdx-sq{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;transition:transform .2s}
-.mdx-sq svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.nav-dd > a.mdx-d:hover .mdx-sq{transform:scale(1.06)}
-.mc-formations > a.mcx-all{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0F172A;border-radius:14px;padding:12px 14px;margin:6px 4px 8px 22px;text-decoration:none;-webkit-tap-highlight-color:transparent}
-.mc-formations > a.mcx-all:active{background:#1E293B}
-.mc-formations > a.mcx-d{display:flex;align-items:center;gap:12px;padding:7px 12px 7px 22px;border-radius:10px;text-decoration:none;font:500 14.5px/1.2 Poppins,sans-serif;color:#0F172A;-webkit-tap-highlight-color:transparent}
-.mc-formations > a.mcx-d:active{background:rgba(15,23,42,.04)}
-.mc-formations > a.mcx-d em{padding-right:6px}
+/* Menu Formations — téléphone et ordinateur (02/10/2026, refait le 28/10/2026 : panneau clair à pastilles).
+   Couleurs = puces du haut de l'accueil. Compteurs = ceux des filtres de formations.html.
+   Markup généré par tools/menu_domains.py.
+   ⚠️ Fond BLANC PLEIN obligatoire pour le panneau ordinateur : il vit dans la barre en verre
+   (flou d'arrière-plan) et un fond même à 97 % y laisse nettement voir la page derrière. */
+
+/* ---------- ordinateur ---------- */
+.nav-dd{width:584px;min-width:0;padding:12px;border:0;border-radius:24px;background:#fff;box-shadow:0 36px 80px -30px rgba(15,23,42,.42),0 0 0 1px rgba(15,23,42,.06);text-align:left;cursor:default}
+.nav-dd .mdx-top{padding:6px 12px 10px;font:700 10.5px/1 Poppins,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#94A3B8}
+.nav-dd .mdx-g{display:grid;grid-template-columns:1fr 1fr;gap:2px 4px}
+header#hd .nav-dd a.mdx-d,header#hd .nav-dd a.mdx-all{display:flex;align-items:center;gap:13px;padding:12px 13px;border-radius:15px;background:transparent;color:#0F172A!important;white-space:normal;text-decoration:none;font-weight:400;box-shadow:none!important;filter:none;transition:background .2s}
+header#hd .nav-dd a.mdx-d:hover{background:color-mix(in srgb,var(--c) 9%,#fff)}
+.nav-dd .mdx-d i{width:10px;height:10px;border-radius:3px;background:var(--c);flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 15%,transparent);transition:box-shadow .3s,transform .3s}
+.nav-dd .mdx-d:hover i{box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 24%,transparent);transform:scale(1.06)}
+.nav-dd .mdx-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.nav-dd .mdx-t b{font:600 14px/1.2 Poppins,sans-serif;color:#0F172A}
+.nav-dd .mdx-t small{font:400 12px/1.3 Almarai,sans-serif;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-dd .mdx-d em{margin-left:auto;padding-left:6px;font:500 12px/1 Poppins,sans-serif;font-style:normal;color:#A3AEBE}
+header#hd .nav-dd a.mdx-all{justify-content:space-between;background:#F3F5F8}
+header#hd .nav-dd a.mdx-all:hover{background:#EAEEF3}
+.nav-dd .mdx-dots{display:flex;gap:3px;margin-top:4px}
+.nav-dd .mdx-dots i{width:6px;height:6px;border-radius:2px}
+.nav-dd .mdx-all svg{width:18px;height:18px;flex:none;fill:none;stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.nav-dd .mdx-all:hover svg{transform:translateX(3px)}
+
+/* ---------- téléphone ---------- */
+.mc-formations > a.mcx-all{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(15,23,42,.055);border-radius:14px;padding:12px 14px;margin:6px 4px 8px 22px;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.mc-formations > a.mcx-all:active{background:rgba(15,23,42,.09)}
 .mc-formations > a.mcx-all > span{display:block}
+.mcx-all b{display:block;font:600 14px/1.2 Poppins,sans-serif;color:#0F172A}
+.mcx-all small{display:block;font:400 11.5px/1.35 Almarai,sans-serif;color:#64748B}
+.mcx-all svg{width:18px;height:18px;flex:none;fill:none;stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+body .menu-drop.mg-dark .mcx-all svg{stroke:#F8FAFC}
+.mc-formations > a.mcx-d{display:flex;align-items:center;gap:12px;padding:9px 12px 9px 22px;border-radius:10px;text-decoration:none;font:500 14.5px/1.2 Poppins,sans-serif;color:#0F172A;-webkit-tap-highlight-color:transparent}
+.mc-formations > a.mcx-d:active{background:rgba(15,23,42,.04)}
+.mcx-dot{width:10px;height:10px;border-radius:3px;flex:none;margin:0 4px 0 2px}
+.mcx-d em{margin-left:auto;padding-right:6px;font:500 12px/1 Poppins,sans-serif;font-style:normal;color:#94A3B8}

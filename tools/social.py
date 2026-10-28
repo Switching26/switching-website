@@ -24,8 +24,8 @@ SHORTS = [
     ('photoshop-ia', 'Photoshop et l’IA', 'Graphisme', '#F59E0B', 21),
     ('cpf-explique', 'Le CPF en 45 secondes', 'Financement', '#64748B', 48),
     ('paie', 'Te lancer dans la paie ?', 'Compta &amp; Paie', '#FB923C', 20),
-    ('ia-prompt', 'L’IA, pas un moteur de recherche', 'Intelligence Artificielle', '#6366F1', 23),
-    ('bilan', 'Changer de métier, sans savoir lequel ?', 'Bilan de compétences', '#F43F5E', 29),
+    ('ia-prompt', 'L’IA, pas un moteur de recherche', 'IA', '#6366F1', 23),
+    ('bilan', 'Changer de métier, sans savoir lequel ?', 'Bilan', '#F43F5E', 29),
 ]
 
 VOL = ('<button class="sh-vol{x}" type="button" aria-label="Activer le son"><svg class="v-off" viewBox="0 0 24 24">'

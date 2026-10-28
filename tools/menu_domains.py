@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Menu Formations à pastilles couleur (02/10/2026), idempotent.
+"""Menu Formations, idempotent (02/10/2026, refait le 28/10/2026).
 
-Remplace le contenu du menu déroulant ordinateur (.nav-dd) et du sous-menu
-téléphone (.mc-formations) : « Toutes nos formations » en premier, puis les
-sept domaines avec pastille de couleur et nombre de formations.
+Ordinateur (.nav-dd) : panneau clair en 2 colonnes, une pastille de couleur,
+le nom, une ligne d'explication et le nombre de formations par domaine, puis
+« Toutes nos formations » en dernière case (plus de bloc noir ni de carrés).
+Téléphone (.mc-formations) : « Toutes nos formations » en ligne claire, puis
+les sept domaines avec une petite pastille.
 Compteurs à garder alignés sur les filtres de formations.html.
+Styles : /menu-domains.css (version VERSION ci-dessous, reportée sur les pages).
 Lancer : python3 tools/menu_domains.py
 """
 from pathlib import Path
@@ -27,9 +30,23 @@ DOMS = [('langues', 'Langues', 'lang', '#3B82F6', 8), ('bureautique', 'Bureautiq
 TOTAL = 58
 ARR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
+VERSION = 2
+DESC = {'langues': 'Anglais, français · A1 → C2', 'bureautique': 'Excel, Word, PowerPoint…',
+        'graphisme': 'Photoshop, Illustrator, Canva…', 'web': 'Développement, CMS, marketing…',
+        'compta': 'SILAE, Ciel Paie, Segid…', 'ia': 'Rédiger, analyser, créer', 'bdc': 'Accompagnement carrière'}
+DOTS = ''.join(f'<i style="background:{c}"></i>' for _, _, _, c, _ in DOMS)
+
+
 def items(p):
+    if p == 'mdx':  # ordinateur
+        doms = ''.join(f'<a href="formations.html?cat={slug}" class="mdx-d" style="--c:{c}"><i></i>'
+                       f'<span class="mdx-t"><b>{name}</b><small>{DESC[slug]}</small></span><em>{n}</em></a>'
+                       for slug, name, k, c, n in DOMS)
+        all_ = (f'<a href="formations.html" class="mdx-all"><span class="mdx-t"><b>Toutes nos formations</b>'
+                f'<small>{TOTAL} formations · 7 domaines</small><span class="mdx-dots">{DOTS}</span></span>{ARR}</a>')
+        return f'<div class="mdx-top">Nos domaines</div><div class="mdx-g">{doms}{all_}</div>'
     all_ = (f'<a href="formations.html" class="{p}-all"><span><b>Toutes nos formations</b><small>{TOTAL} formations · 7 domaines</small></span>{ARR}</a>')
-    doms = ''.join(f'<a href="formations.html?cat={slug}" class="{p}-d"><span class="mdx-sq" style="background:{c}"><svg viewBox="0 0 24 24" aria-hidden="true">{ICO[k]}</svg></span>{name}<em>{n}</em></a>'
+    doms = ''.join(f'<a href="formations.html?cat={slug}" class="{p}-d"><i class="mcx-dot" style="background:{c}"></i>{name}<em>{n}</em></a>'
                    for slug, name, k, c, n in DOMS)
     return all_ + doms
 
@@ -54,8 +71,9 @@ for p in pages:
     t = p.read_text(encoding='utf-8')
     t, d = swap(t, '<div class="nav-dd">', 'mdx')
     t, m = swap(t, '<div class="mc-formations">', 'mcx')
+    t = re.sub(r'/menu-domains\.css(\?v=\d+)?"', f'/menu-domains.css?v={VERSION}"', t)
     if '/menu-domains.css' not in t:
-        t = t.replace('</head>', '<link rel="stylesheet" href="/menu-domains.css">\n</head>', 1)
+        t = t.replace('</head>', f'<link rel="stylesheet" href="/menu-domains.css?v={VERSION}">\n</head>', 1)
     p.write_text(t, encoding='utf-8')
     done += 1
     print(f'{p.name}: ordinateur {d} · téléphone {m}')
