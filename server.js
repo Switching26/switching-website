@@ -117,7 +117,7 @@ CATALOGUE DE FORMATIONS (7 domaines, 57 formations) :
 
 6. INTELLIGENCE ARTIFICIELLE (9 formations) : ChatGPT (Gratuit & Plus), Midjourney PRO, IA conversationnelle cycle de vente (RS6792), Copilot Microsoft 365, L'Art de créer des vidéos avec l'IA, Contenus rédactionnels & visuels IA (26h, RS6776), IA Business Pro OptimIA, Contenus rédactionnels & visuels IA (10h, RS6776), CapCut Montages vidéos IA
 
-7. BILAN DE COMPÉTENCES (2 formations) : Bilan 24h (CPF), Bilan 16h (CPF)
+7. BILAN DE COMPÉTENCES (2 formations) : Bilan 12h (CPF), Bilan 16h (CPF)
 
 FINANCEMENT :
 - CPF (Mon Compte Formation) : la plupart des formations sont éligibles

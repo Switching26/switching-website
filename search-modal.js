@@ -154,8 +154,8 @@
     { t: "CapCut \u2014 Montages vid\u00e9os IA", c: "ia", k: "capcut montage vid\u00e9o ia r\u00e9seaux sociaux tiktok intelligence artificielle", i: I.video },
 
     // === BILAN DE COMPÉTENCES ===
-    { t: "Bilan de comp\u00e9tences \u2014 24h CPF", c: "bdc", k: "bilan comp\u00e9tences 24h cpf orientation projet professionnel reconversion", i: I.compass },
-    { t: "Bilan de comp\u00e9tences \u2014 15h CPF", c: "bdc", k: "bilan comp\u00e9tences 15h cpf condens\u00e9 projet reconversion", i: I.compass }
+    { t: "Bilan de comp\u00e9tences \u2014 16h CPF", c: "bdc", k: "bilan comp\u00e9tences 16h cpf orientation projet professionnel reconversion", i: I.compass },
+    { t: "Bilan de comp\u00e9tences \u2014 12h CPF", c: "bdc", k: "bilan comp\u00e9tences 12h cpf condens\u00e9 projet reconversion", i: I.compass }
   ];
 
   // --- Accent normalization for smart search ---
