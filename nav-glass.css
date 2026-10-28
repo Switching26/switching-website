@@ -195,3 +195,46 @@ body.lg-menu .menu-drop.mg-dark .mc-sep{background:linear-gradient(90deg,transpa
 body.lg-menu .menu-drop.mg-dark .mc-formations,body.lg-menu .menu-drop.mg-dark .mcx-all{background:rgba(255,255,255,.08)!important}
 body.lg-menu .menu-drop.mg-dark .mc-phone{background:rgba(255,255,255,.13)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 .5px rgba(255,255,255,.14)!important}
 body.lg-menu .menu-drop.mg-dark .mc-social{background:rgba(255,255,255,.08)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 .5px rgba(255,255,255,.1)!important}
+
+/* Menu téléphone « épuré » A · Compact (28/10/2026, choisi par Samuel sur aperçu).
+   « Accueil » n'est plus délavé : le reflet du verre (::before, z-index 2) était peint PAR-DESSUS la 1re ligne ;
+   il passe sous le contenu. Verre plus dense (la couleur de la page ne déteint plus), icônes sans tuile, lignes plus fines,
+   ligne active sur pastille blanche pleine, boutons du bas en pilules. :root garde la même force que l'aperçu. */
+/* verre un peu plus dense (la couleur de la page ne déteint plus), plus de halo blanc flou sous les textes */
+:root body.lg-menu .menu-drop:not(.mg-dark) .menu-card{background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,.64))!important;-webkit-backdrop-filter:blur(18px) saturate(1.5) brightness(1.04)!important;backdrop-filter:blur(18px) saturate(1.5) brightness(1.04)!important}
+:root body.lg-menu .menu-drop:not(.mg-dark) .menu-card.lens{backdrop-filter:url(#sf-lens-menu) blur(12px) saturate(1.5) brightness(1.04)!important}
+:root body.lg-menu .menu-drop .mc-t b,:root body.lg-menu .menu-drop .mc-t small{text-shadow:none!important}
+/* le reflet du verre passe SOUS le contenu : avant, il était peint par-dessus la 1re ligne (« Accueil » délavé) */
+:root body.lg-menu .menu-drop::before{z-index:0!important}
+:root body.lg-menu .menu-drop .menu-card{z-index:1}
+:root body.lg-menu .mc-sep{margin:4px 18px!important}
+:root body.lg-menu .mc-link.active{background:#fff!important;box-shadow:0 1px 0 rgba(15,23,42,.04),0 8px 22px -14px rgba(15,23,42,.45)!important}
+:root body.lg-menu .mc-link.active .mc-t b{color:#0F172A!important}
+:root body.lg-menu .mc-bottom{gap:8px!important;padding:6px 10px 10px!important}
+:root body.lg-menu .mc-phone,:root body.lg-menu .mc-doc{border-radius:999px!important;padding:12px 10px!important;font:600 13.5px/1 Poppins,sans-serif!important;min-height:44px}
+:root body.lg-menu .mc-phone svg,:root body.lg-menu .mc-doc svg{width:15px!important;height:15px!important}
+:root body.lg-menu .menu-drop:not(.mg-dark) .mc-phone{background:#fff!important;box-shadow:0 1px 0 rgba(15,23,42,.04),0 6px 16px -12px rgba(15,23,42,.4)!important}
+:root body.lg-menu .mc-doc{box-shadow:0 8px 18px -12px rgba(16,171,175,.75)!important}
+:root .mc-social{margin:0 10px 10px;padding:8px 6px 8px 14px;border-radius:16px}
+:root .mcs-t b{font-size:13px}
+:root .mcs-t small{font-size:11px}
+:root .mc-social a.sfs-b,:root .mc-social a.sfs-b svg{width:36px;height:36px}
+/* verre sombre (au-dessus d'une zone sombre) */
+:root body.lg-menu .menu-drop.mg-dark .menu-card{background:linear-gradient(180deg,rgba(15,23,42,.8),rgba(15,23,42,.7))!important;-webkit-backdrop-filter:blur(18px) saturate(1.4)!important;backdrop-filter:blur(18px) saturate(1.4)!important}
+:root body.lg-menu .menu-drop.mg-dark .menu-card.lens{backdrop-filter:url(#sf-lens-menu) blur(12px) saturate(1.4)!important}
+:root body.lg-menu .menu-drop.mg-dark .mc-ico{background:transparent!important;color:rgba(248,250,252,.82)!important;box-shadow:none!important}
+:root body.lg-menu .menu-drop.mg-dark .mc-link.active{background:rgba(255,255,255,.16)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)!important}
+:root body.lg-menu .menu-drop.mg-dark .mc-link.active .mc-t b{color:#fff!important}
+:root body.lg-menu .menu-drop.mg-dark .mc-phone{background:rgba(255,255,255,.14)!important;box-shadow:none!important}
+
+/* lignes : sous-titres gardés, icônes sans tuile, tout plus fin */
+:root body.lg-menu .mc-nav{padding:8px 8px 4px!important}
+:root body.lg-menu .mc-link,:root body.lg-menu .mc-toggle{gap:12px!important;padding:8px 10px!important;border-radius:16px!important;font:600 15px/1.2 Poppins,sans-serif!important;min-height:52px}
+:root body.lg-menu .mc-ico{width:32px!important;height:32px!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;color:#475569!important}
+:root body.lg-menu .mc-ico svg{width:19px!important;height:19px!important}
+:root body.lg-menu .mc-t small{font:400 12px/1.25 Almarai,sans-serif!important;margin-top:2px!important;color:#64748B!important}
+:root body.lg-menu .mc-link::after{width:6px;height:6px;border-right-width:1.5px;border-top-width:1.5px;border-color:#B6C0CE;margin-right:4px}
+:root body.lg-menu .mc-link.active .mc-ico{background:#0F172A!important;color:#fff!important;box-shadow:0 6px 14px -8px rgba(15,23,42,.7)!important}
+:root body.lg-menu .mc-link.active .mc-ico svg{width:16px!important;height:16px!important}
+:root body.lg-menu .menu-drop.mg-dark .mc-link.active .mc-ico{background:#fff!important;color:#0F172A!important}
+
