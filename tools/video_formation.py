@@ -46,6 +46,9 @@ VIDEOS = [
     ('formation-anglais-niveau-2-b1-b2-rs6905.html', 'anglais B1/B2', 'anglais-b1-b2', '7IHlux6fIOU', 61, 1793299334,
      'Anglais de B1 à B2 — formation 110 h avec visio individuelle',
      'Découvrez en une minute la formation « Anglais Niveau 2 (B1/B2) » (110 heures) de Switching Formation. Accessible dès le niveau A2.'),
+    ('formation-gestionnaire-de-paie-titre-pro.html', 'Gestionnaire de paie', 'tp-paie-630h', 'KTnBZY0A6-M', 57, 1793307168,
+     'Titre Pro Gestionnaire de paie — formation 630 h en e-learning',
+     'Découvrez en une minute la formation « Titre professionnel Gestionnaire de paie » (630 heures) de Switching Formation.'),
 ]
 
 # Page à formules : un seul lecteur, un bouton par durée (heures, identifiant YouTube, horodatage) ; `defaut` = vidéo affichée d'abord.
