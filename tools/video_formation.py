@@ -37,13 +37,13 @@ VIDEOS = [
     ('formation-photoshop-cpf.html', 'Photoshop', 'photoshop-20h', 'GTGw6Shnx7w', 55, 1793118195,
      "Photoshop, de l'initiation à l'IA — formation 20 h en e-learning",
      "Découvrez en une minute la formation « Photoshop – De l'initiation au perfectionnement avec l'IA » (20 heures) de Switching Formation."),
-    ('formation-anglais-cpf.html', 'anglais B1/B2', 'anglais-b1-b2', 'K1iseA1yNz8', 49, 1793117776,
+    ('formation-anglais-cpf.html', 'anglais B1/B2', 'anglais-b1-b2', '7IHlux6fIOU', 61, 1793299334,
      'Anglais de B1 à B2 — formation 110 h avec visio individuelle',
      'Découvrez en une minute la formation « Anglais Niveau 2 (B1/B2) » (110 heures) de Switching Formation. Accessible dès le niveau A2.'),
     ('formation-silae-20h-cpf.html', 'SILAE 20 h', 'silae-20h', 'x4IUZcJS0bA', 57, 1793117561,
      'Gestion de la paie avec SILAE — formation 20 h en one-to-one',
      'Découvrez en une minute la formation « Gestion de la paie avec le logiciel SILAE » (20 heures) de Switching Formation.'),
-    ('formation-anglais-niveau-2-b1-b2-rs6905.html', 'anglais B1/B2', 'anglais-b1-b2', 'K1iseA1yNz8', 49, 1793117776,
+    ('formation-anglais-niveau-2-b1-b2-rs6905.html', 'anglais B1/B2', 'anglais-b1-b2', '7IHlux6fIOU', 61, 1793299334,
      'Anglais de B1 à B2 — formation 110 h avec visio individuelle',
      'Découvrez en une minute la formation « Anglais Niveau 2 (B1/B2) » (110 heures) de Switching Formation. Accessible dès le niveau A2.'),
 ]
@@ -65,8 +65,11 @@ CSS = f'<link rel="stylesheet" href="/video-formation.css?v={V}">'
 JS = f'<script src="/video-formation.js?v={V}" defer></script>'
 
 
+VERSIONS = {'anglais-b1-b2': 2}  # version du fichier R2 (vidéo remplacée le 29/10/2026 : séquence coach IA)
+
+
 def player(nom, cle):
-    return (f'<div class="vf-vid"><video data-src="{MEDIA}/formations/{cle}.mp4?v=1" poster="/images/video-{cle}-poster.webp?v=1" '
+    return (f'<div class="vf-vid"><video data-src="{MEDIA}/formations/{cle}.mp4?v={VERSIONS.get(cle, 1)}" poster="/images/video-{cle}-poster.webp?v=1" '
             f'preload="none" muted loop playsinline aria-label="Présentation de la formation {nom} en une minute"></video>'
             f'<button class="vf-snd" type="button" aria-label="Activer le son de la vidéo">{MUTE}<span>Son</span></button></div>')
 
