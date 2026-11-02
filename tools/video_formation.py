@@ -22,31 +22,31 @@ V = 2  # version des fichiers communs : l'augmenter après toute modification de
 
 # page, nom affiché, clé, identifiant YouTube, durée (s), mise en ligne publique (horodatage YouTube), titre, description
 VIDEOS = [
-    ('formation-excel-cpf.html', 'Excel', 'excel-30h', 'bXAUTpw6w4U', 55, 1793118012,
+    ('formation-excel-cpf.html', 'Excel', 'excel-30h', 'yXa7WZpZNzI', 55, 1793647840,
      'Excel de débutant à avancé — formation 30 h en e-learning',
      'Découvrez en une minute la formation « Excel – Niveau débutant à avancé » (30 heures) de Switching Formation.'),
-    ('formation-excel-vba-cpf.html', 'Excel VBA', 'vba-21h', 'tYEM1_EOiv0', 55, 1793118123,
+    ('formation-excel-vba-cpf.html', 'Excel VBA', 'vba-21h', 'ZNacK7YGSmM', 55, 1793648217,
      'Excel VBA, macros et programmation — formation 21 h en e-learning',
      'Découvrez en une minute la formation « Excel VBA – Macros et programmation » (21 heures) de Switching Formation.'),
-    ('formation-word-cpf.html', 'Word', 'word-30h', 'IsU2dyfvvyw', 55, 1793118044,
+    ('formation-word-cpf.html', 'Word', 'word-30h', 'vScXJam8zWU', 55, 1793647949,
      'Word de débutant à avancé — formation 30 h en e-learning',
      'Découvrez en une minute la formation « Word – Niveau débutant à avancé » (30 heures) de Switching Formation.'),
-    ('formation-powerpoint-cpf.html', 'PowerPoint', 'powerpoint-25h', 'WG4rqb5yhb0', 55, 1793118078,
+    ('formation-powerpoint-cpf.html', 'PowerPoint', 'powerpoint-25h', 'JOEz911Hn8U', 55, 1793648099,
      'PowerPoint de débutant à avancé — formation 25 h en e-learning',
      'Découvrez en une minute la formation « PowerPoint – Niveau débutant à avancé » (25 heures) de Switching Formation.'),
-    ('formation-photoshop-cpf.html', 'Photoshop', 'photoshop-20h', 'GTGw6Shnx7w', 55, 1793118195,
+    ('formation-photoshop-cpf.html', 'Photoshop', 'photoshop-20h', 'QEFPJG99ElM', 55, 1793648478,
      "Photoshop, de l'initiation à l'IA — formation 20 h en e-learning",
      "Découvrez en une minute la formation « Photoshop – De l'initiation au perfectionnement avec l'IA » (20 heures) de Switching Formation."),
     ('formation-anglais-cpf.html', 'anglais B1/B2', 'anglais-b1-b2', '7IHlux6fIOU', 61, 1793299334,
      'Anglais de B1 à B2 — formation 110 h avec visio individuelle',
      'Découvrez en une minute la formation « Anglais Niveau 2 (B1/B2) » (110 heures) de Switching Formation. Accessible dès le niveau A2.'),
-    ('formation-silae-20h-cpf.html', 'SILAE 20 h', 'silae-20h', 'x4IUZcJS0bA', 57, 1793117561,
+    ('formation-silae-20h-cpf.html', 'SILAE 20 h', 'silae-20h', '-AWDXf-ccck', 57, 1793647077,
      'Gestion de la paie avec SILAE — formation 20 h en one-to-one',
      'Découvrez en une minute la formation « Gestion de la paie avec le logiciel SILAE » (20 heures) de Switching Formation.'),
     ('formation-anglais-niveau-2-b1-b2-rs6905.html', 'anglais B1/B2', 'anglais-b1-b2', '7IHlux6fIOU', 61, 1793299334,
      'Anglais de B1 à B2 — formation 110 h avec visio individuelle',
      'Découvrez en une minute la formation « Anglais Niveau 2 (B1/B2) » (110 heures) de Switching Formation. Accessible dès le niveau A2.'),
-    ('formation-gestionnaire-de-paie-titre-pro.html', 'Gestionnaire de paie', 'tp-paie-630h', 'KTnBZY0A6-M', 57, 1793307168,
+    ('formation-gestionnaire-de-paie-titre-pro.html', 'Gestionnaire de paie', 'tp-paie-630h', 'WzZp_12ArKo', 57, 1793647727,
      'Titre Pro Gestionnaire de paie — formation 630 h en e-learning',
      'Découvrez en une minute la formation « Titre professionnel Gestionnaire de paie » (630 heures) de Switching Formation.'),
 ]
@@ -56,9 +56,9 @@ FORMULES = {
     'page': 'formation-silae-paie-cpf.html', 'nom': 'SILAE', 'prefixe': 'silae', 'defaut': 20, 'duree': 57,
     'titre': 'Gestion de la paie avec SILAE — formation {h} h en one-to-one',
     'description': 'Découvrez en une minute la formation « Gestion de la paie avec le logiciel SILAE » ({h} heures) de Switching Formation.',
-    'liste': [(11, 'jv-iSHJ3VgI', 1793117471), (15, 'sU5moYzPJgc', 1793117525), (20, 'x4IUZcJS0bA', 1793117561),
-              (25, '55ide23yGFw', 1793117595), (30, 'XGFrKurddlo', 1793117630), (50, 'APS6kSEJQlY', 1793117671),
-              (55, 'x7m-8n9D-98', 1793117703)],
+    'liste': [(11, 'bk1kPtupOXI', 1793646809), (15, '0XxEiaFlUo0', 1793646948), (20, '-AWDXf-ccck', 1793647077),
+              (25, 'B0mhfuh2pmE', 1793647199), (30, 'gvbnCS8M_Mk', 1793647336), (50, 'Nak_cYavHwM', 1793647459),
+              (55, 'u8oQi22DIyg', 1793647595)],
 }
 
 STUDIO_MARK = '</div></section><section class="st-sec"><div class="w">\n <div class="st-headrow"><div class="st-head"><p class="st-k">En bref</p>'
@@ -68,7 +68,9 @@ CSS = f'<link rel="stylesheet" href="/video-formation.css?v={V}">'
 JS = f'<script src="/video-formation.js?v={V}" defer></script>'
 
 
-VERSIONS = {'anglais-b1-b2': 2}  # version du fichier R2 (vidéo remplacée le 29/10/2026 : séquence coach IA)
+VERSIONS = {'anglais-b1-b2': 2,  # version du fichier R2 (vidéo remplacée le 29/10/2026 : séquence coach IA)
+            # 02/11/2026 : nouvelle ouverture « univers » (fini les trois écrans plein cadre du début)
+            'excel-30h': 2, 'vba-21h': 2, 'word-30h': 2, 'powerpoint-25h': 2, 'photoshop-20h': 2, 'silae-20h': 2, 'tp-paie-630h': 2, 'silae-11h': 2, 'silae-15h': 2, 'silae-25h': 2, 'silae-30h': 2, 'silae-50h': 2, 'silae-55h': 2}
 
 
 def player(nom, cle):
@@ -99,7 +101,7 @@ def bloc_formules(f):
     nom, pre, defaut = f['nom'], f['prefixe'], f['defaut']
     tabs = ''.join(
         '<button class="vf-tab" type="button" aria-pressed="' + ('true' if h == defaut else 'false') + '" '
-        f'data-src="{MEDIA}/formations/{pre}-{h}h.mp4?v=1" data-poster="/images/video-{pre}-{h}h-poster.webp?v=1" '
+        f'data-src="{MEDIA}/formations/{pre}-{h}h.mp4?v={VERSIONS.get(f'{pre}-{h}h', 1)}" data-poster="/images/video-{pre}-{h}h-poster.webp?v=1" '
         f'data-label="Présentation de la formule {nom} {h} h en une minute">{h} h</button>' for h, _, _ in f['liste'])
     return ('<section class="st-sec st-tint vf-sec"><div class="w"><div class="vf-grid">'
             f'<div class="st-head"><p class="st-k">En vidéo</p><h2>La formation {nom} en une minute</h2>'
@@ -107,7 +109,7 @@ def bloc_formules(f):
             f'<p class="vf-l"><a class="vf-link" href="{PLAYLIST}" target="_blank" rel="noopener">Toutes nos formations en vidéo sur '
             f'<span class="vf-nw">YouTube&nbsp;{ARROW}</span></a></p></div>'
             f'<div class="vf-media"><div class="vf-tabs" role="group" aria-label="Durée de la formule">{tabs}</div>'
-            f'<div class="vf-vid"><video data-src="{MEDIA}/formations/{pre}-{defaut}h.mp4?v=1" poster="/images/video-{pre}-{defaut}h-poster.webp?v=1" '
+            f'<div class="vf-vid"><video data-src="{MEDIA}/formations/{pre}-{defaut}h.mp4?v={VERSIONS.get(f'{pre}-{defaut}h', 1)}" poster="/images/video-{pre}-{defaut}h-poster.webp?v=1" '
             f'preload="none" muted loop playsinline aria-label="Présentation de la formule {nom} {defaut} h en une minute"></video>'
             f'<button class="vf-snd" type="button" aria-label="Activer le son de la vidéo">{MUTE}<span>Son</span></button></div></div>'
             '</div></div></section>')
