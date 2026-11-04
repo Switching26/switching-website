@@ -1057,10 +1057,49 @@ function isPlausibleEmail(value) {
   return /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[a-zA-Z]{2,}$/.test(value);
 }
 
+// Bot filter (04/11/2026): a robot posted 3 identical leads in 10 s with random
+// mixed-case strings ("lmbvyGsPUSWgFcTUjlbx") and a Gmail address padded with
+// dots, which also made the site mail its confirmation to a stranger. Such
+// submissions get a normal-looking "ok" but are neither stored nor mailed.
+function looksRandom(value) {
+  if (!value) return false;
+  return value.split(/\s+/).some(word => {
+    if (!/^[A-Za-z]{10,}$/.test(word)) return false;
+    const flips = (word.match(/[a-z][A-Z]/g) || []).length;
+    return flips >= 4;
+  });
+}
+
+function isPaddedGmail(email) {
+  const m = /^([^@]+)@(gmail|googlemail)\.com$/i.exec(email || '');
+  return !!m && (m[1].match(/\./g) || []).length >= 4;
+}
+
+function botReason(d) {
+  if (['prenom', 'nom', 'message', 'ville', 'entreprise'].some(f => looksRandom(d[f]))) return 'random text';
+  if (isPaddedGmail(d.email)) return 'padded gmail';
+  return null;
+}
+
+// Same lead resubmitted within 10 min (double click, or a robot hammering):
+// only the first one sends mails, so nobody receives the same confirmation twice.
+const recentLeads = new Map();
+function isRepeatLead(d) {
+  const email = (d.email || '').toLowerCase().replace(/^([^@]+)@(gmail|googlemail)\.com$/,
+    (_, local) => local.split('+')[0].replace(/\./g, '') + '@gmail.com');
+  const key = [email || (d.tel || '').replace(/\D/g, ''), d.secteur || '', d.message || ''].join('|');
+  const now = Date.now();
+  const seen = recentLeads.get(key);
+  recentLeads.set(key, now);
+  return !!seen && now - seen < 600000;
+}
+
 const submitRateGlobal = new Map();
 setInterval(() => {
   cleanRateMap(submitRateLimit, 600000);
   cleanRateMap(submitRateGlobal, 600000);
+  const cutoff = Date.now() - 600000;
+  for (const [k, t] of recentLeads) if (t < cutoff) recentLeads.delete(k);
 }, 300000);
 
 // Autorise le formulaire du site Mes Meilleures Formations CPF (hébergé ailleurs)
@@ -1089,6 +1128,16 @@ app.post('/api/submit', allowMmfcpfOrigin, (req, res) => {
   }
   if (email && !isPlausibleEmail(email)) {
     return res.status(400).json({ error: 'Adresse email invalide' });
+  }
+  const lead = { email, tel, secteur, message, prenom, nom, ville, entreprise };
+  const reason = botReason(lead);
+  if (reason) {
+    console.warn('Lead ignored (' + reason + ') from ip', ip);
+    return res.json({ ok: true });
+  }
+  if (isRepeatLead(lead)) {
+    console.warn('Lead repeat ignored from ip', ip);
+    return res.json({ ok: true });
   }
   db.run(
     `INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message)
