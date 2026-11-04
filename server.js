@@ -1286,7 +1286,9 @@ app.post('/api/chat', async (req, res) => {
       saveDB();
       const msgRows = db.exec('SELECT role, content FROM chat_messages WHERE conversation_id = ? ORDER BY id ASC', [convId]);
       const convMessages = msgRows.length ? msgRows[0].values.map(r => ({ role: r[0], content: r[1] })) : [];
-      sendChatNotification(convId, page, convMessages).catch(err => console.error('Chat notify error:', err.message));
+      const visitorText = convMessages.filter(m => m.role === 'user').map(m => m.content).join(' ');
+      if (looksRandom(visitorText)) console.warn('Chat notification skipped (random text) for conversation', convId);
+      else sendChatNotification(convId, page, convMessages).catch(err => console.error('Chat notify error:', err.message));
     }
 
     const result = { text: fullText, conversation_id: convId };
@@ -1312,6 +1314,16 @@ app.post('/api/chat', async (req, res) => {
         const data = clampSubmission(JSON.parse(submitMatch[1]));
         data.source = 'chatbot';
         if (data.email && !isPlausibleEmail(data.email)) delete data.email;
+        // Same bot filter as the plain form: the visitor still sees the normal
+        // end of conversation, but nothing is stored or mailed.
+        const reason = botReason(data) || (isRepeatLead(data) ? 'repeat' : null);
+        if (reason) {
+          console.warn('Chatbot lead ignored (' + reason + ') for conversation', convId);
+          db.run('UPDATE conversations SET status = ? WHERE id = ?', ['completed', convId]);
+          saveDB();
+          result.submit = data;
+          return res.json(result);
+        }
         db.run(
           'INSERT INTO submissions (date, source, secteur, statut, financement, prenom, nom, email, indicatif, tel, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
           [new Date().toISOString(), 'chatbot', data.secteur || null, data.statut || null, data.financement || null,
