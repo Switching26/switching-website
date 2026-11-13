@@ -115,32 +115,23 @@ h1 .glow{background:linear-gradient(135deg,var(--accent),#0F172A,#475569);-webki
 .sec-h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:600;color:#0F172A;letter-spacing:-.03em;line-height:1.15}
 .sec-h2 .glow{color:var(--accent);background:linear-gradient(135deg,var(--accent),#0F172A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* CERTS — Compact trust strip */
+/* CERTS — carte rangée : Qualiopi à gauche, partenaires à droite */
 .certs{padding:0;background:transparent;position:relative}
-.certs-strip{max-width:1200px;margin:-20px auto 0;padding:0 32px;position:relative;z-index:10}
-.certs-inner{background:var(--surface);border:1px solid var(--bd);border-radius:20px;padding:28px 36px;display:flex;align-items:center;gap:0;box-shadow:0 8px 40px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.02);position:relative;overflow:hidden}
-.certs-inner::before{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:linear-gradient(135deg,rgba(32,44,64,.15),transparent 40%,transparent 60%,rgba(32,44,64,.08));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-
-/* Qualiopi hero badge — left side */
-.cert-q{display:flex;align-items:center;gap:16px;padding-right:28px;border-right:1px solid var(--bd);flex-shrink:0}
-.cert-q-logo{width:72px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cert-q-logo img{max-width:100%;max-height:100%;object-fit:contain}
-.cert-q-info{display:flex;flex-direction:column;gap:2px}
-.cert-q-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;white-space:nowrap}
-.cert-q-title svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.cert-q-sub{font-size:11px;color:var(--muted);line-height:1.3}
-.cert-q-tags{display:flex;gap:5px;margin-top:4px}
-.cert-q-tag{font-size:9.5px;font-weight:600;color:var(--accent);background:var(--accent-gl);padding:3px 10px 3px 7px;border-radius:var(--rf);letter-spacing:.02em;display:inline-flex;align-items:center;gap:4px}
-.cert-q-tag svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-
-/* Other certs — right side flow */
-.cert-others{display:flex;align-items:center;gap:0;flex:1;justify-content:space-evenly;padding-left:20px}
-.cert-item{display:flex;align-items:center;gap:12px;padding:8px 16px;border-radius:12px;transition:all .35s var(--e);cursor:default}
-.cert-item:hover{background:var(--accent-gl2);transform:translateY(-2px)}
-.cert-item-logo{height:36px;width:auto;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cert-item-logo img{max-height:100%;width:auto;object-fit:contain;transition:transform .4s var(--e)}
-.cert-item:hover .cert-item-logo img{transform:scale(1.08)}
-.cert-item-txt{font-size:11.5px;color:var(--sub);font-weight:500;line-height:1.3;max-width:120px}
+.certs-strip{max-width:1200px;margin:-20px auto 0;padding:0 32px 6px;position:relative;z-index:10}
+.certs-card{background:#fff;border-radius:22px;padding:26px 36px;display:flex;align-items:center;gap:34px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 20px 46px -22px rgba(15,23,42,.22)}
+.cert-q{display:flex;align-items:center;gap:24px;flex:0 0 auto}
+.cert-q-logo{height:66px;width:auto;flex-shrink:0}
+.cert-q-title{font-family:'Poppins',sans-serif;font-size:17px;font-weight:700;line-height:1.25;letter-spacing:-.01em;color:#0F172A}
+.cert-q-sub{font-size:13px;line-height:1.45;color:var(--sub);max-width:330px;margin:4px 0 10px}
+.cert-q-tags{display:flex;gap:8px;flex-wrap:wrap}
+.cert-q-tags span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-gl2);padding:6px 12px 6px 9px;border-radius:100px;white-space:nowrap}
+.cert-q-tags svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.cert-others{flex:1;display:flex;justify-content:space-around;align-items:flex-start;border-left:1px solid rgba(15,23,42,.08);padding-left:22px}
+.cert-item{display:flex;flex-direction:column;align-items:center;gap:11px}
+.cert-item-logo{height:46px;display:flex;align-items:center}
+.cert-item-logo img{max-height:100%;width:auto}
+.cert-item span{font-size:12.5px;color:var(--sub);white-space:nowrap}
+@media(max-width:520px){.cert-item span{max-width:92px}}
 
 /* FORMATIONS */
 .forms{background:radial-gradient(circle,rgba(15,23,42,.045) 1px,transparent 1.4px) 0 0/16px 16px,#F1F4F8;padding:32px 0 44px;position:relative;overflow:hidden}
@@ -604,7 +595,7 @@ header.scrolled{background:rgba(255,255,255,.55);box-shadow:0 4px 28px rgba(0,0,
 .hdr{padding:10px 18px;height:auto;display:flex;align-items:center;justify-content:space-between}
 .logo img{height:34px!important}
 .hero-grid{grid-template-columns:1fr;gap:32px}.hero-vid{height:280px;min-height:0}
-h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-inner{flex-direction:column;gap:20px;padding:24px}.cert-q{border-right:none;border-bottom:1px solid var(--bd);padding-right:0;padding-bottom:16px;width:100%;justify-content:center}.cert-others{flex-wrap:wrap;padding-left:0;gap:8px;justify-content:center}
+h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-card{flex-direction:column;align-items:stretch;gap:18px;padding:24px 28px 22px}.cert-q-sub{max-width:none}.cert-others{border-left:0;padding:16px 10px 14px;background:#F4F6F9;border-radius:14px}
 .ct-row{grid-template-columns:1fr;gap:40px}.ct-vis{height:400px;max-width:500px;margin:0 auto}.ft-cta{flex-direction:column;text-align:center;gap:16px;padding:32px 0}.ft-cta-text{font-size:18px}.ft-grid{grid-template-columns:1fr 1fr;gap:28px}
 }
 @media(min-width:1025px){.menu-toggle,.menu-backdrop,.menu-drop{display:none!important}}
@@ -613,7 +604,7 @@ h1{font-family:'Poppins',sans-serif;font-size:38px}.certs-inner{flex-direction:c
 .w{padding:0 18px}.topbar .w{flex-direction:column;gap:4px;text-align:center}
 .hdr{flex-wrap:wrap;gap:10px;height:auto;padding-top:8px;padding-bottom:8px}.nav-pill{flex-wrap:wrap;justify-content:center;border-radius:16px;padding:4px;gap:2px}.nav-pill a{padding:6px 12px;font-size:12px}.nav-cta{width:100%;justify-content:center;margin-top:4px}
 .hero{padding:20px 0 24px}.hero-stats{gap:16px;margin-bottom:24px;justify-content:center}.hero-stat{align-items:center;flex-wrap:wrap}.hero-stat-n{font-size:28px}.hero-stat-u{font-size:16px}.hero-stat-l{width:100%}.hero-stat-sep{height:28px}h1{font-family:'Poppins',sans-serif;font-size:30px}.hero-vid{height:240px;min-height:0}.hero-btns{flex-direction:row;gap:8px;justify-content:center;flex-wrap:wrap}.hero-btns a{font-size:12px;padding:10px 16px;border-radius:10px}.hero-btns svg{width:14px;height:14px}
-.sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.certs-strip{padding:0 12px;margin-top:-12px;margin-bottom:14px}.certs-inner{padding:16px;border-radius:14px;flex-direction:column;gap:12px}.cert-q{flex-direction:row;text-align:left;gap:12px;border-right:none;border-bottom:none;padding-right:0;padding-bottom:0;width:100%}.cert-q-logo{width:48px;height:36px}.cert-q-title{font-size:12px;white-space:normal}.cert-q-sub{font-size:9px;line-height:1.35}.cert-q-tags{flex-wrap:wrap;gap:4px}.cert-q-tag{font-size:8px;padding:2px 7px 2px 5px}.cert-others{flex-direction:row;justify-content:space-between;padding-left:0;gap:0;border-top:1px solid var(--bd);padding-top:12px}.cert-item{padding:4px 0;flex:1;justify-content:center;flex-direction:column;align-items:center;gap:6px}.cert-item-logo{height:40px}.cert-item-txt{font-size:10px;text-align:center;max-width:none}.step-opts,.fr2,.frp{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
+.sec-h2{font-family:'Poppins',sans-serif;font-size:26px}.certs-strip{padding:0 12px 4px;margin-top:-12px;margin-bottom:14px}.certs-card{gap:16px;padding:20px 18px 18px;border-radius:18px}.cert-q{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:14px;row-gap:0}.cert-q-txt{display:contents}.cert-q-logo{height:44px}.cert-q-sub{grid-column:1/-1;font-size:12.5px;margin:12px 0 10px}.cert-q-tags{grid-column:1/-1;gap:6px}.cert-q-tags span{font-size:11.5px;padding:6px 11px 6px 8px}.cert-others{padding:14px 6px 12px;justify-content:space-between}.cert-item{flex:1;gap:8px;padding:0 5px}.cert-item-logo{height:34px}.cert-item span{font-size:11px;white-space:normal;text-align:center;line-height:1.3;text-wrap:balance}.step-opts,.fr2,.frp{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
 .forms{padding:20px 0 24px}.contact{padding:20px 0 32px}.ct-row{padding:0 18px}.ct-vis{height:300px}.form-card{padding:24px}.form-hdr h2{font-size:28px}.tc{width:220px;min-width:220px;padding:16px 14px}.tc .tc-stars{font-size:11px}.tc .tc-txt{font-size:11.5px;max-height:calc(1.4em * 3);overflow:hidden;line-height:1.4;position:relative}.tc .tc-txt::after{content:'...';position:absolute;bottom:0;right:0;color:var(--accent);font-weight:800;font-size:14px;background:#fff;padding-left:2px}.tc .tc-ava,.tc .tc-avatar{width:28px;height:28px}
 .ft-grid,.ft-bottom{display:none}
 .ft-mobile{display:block;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
