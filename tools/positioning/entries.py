@@ -17,7 +17,6 @@ from specimens import spec  # noqa: E402
 PAGES = [
     # Pages formation en style Studio (02/10/2026) : le test est une ligne de « En bref », plus un bloc.
     # Accueil et catalogue : blocs retirés à la demande de Samuel.
-    'formation-anglais-niveau-2-b1-b2-rs6905.html',
     'blog/apprendre-excel-guide-debutant.html', 'blog/tableau-croise-dynamique-excel.html',
     'blog/formation-excel-en-ligne-guide.html', 'blog/formation-word-fonctions-avancees.html',
     'blog/astuces-powerpoint-presentations.html', 'blog/formation-anglais-professionnel.html',
