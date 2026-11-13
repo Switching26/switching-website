@@ -91,7 +91,7 @@
     { t: "Anglais Niveau 1 (A1-A2)", u: "/formation-anglais-niveau-1-a1-a2-rs6905.html", c: "langue", k: "anglais d\u00e9butant a1 a2 english beginner langue", i: I.globe },
     { t: "Anglais Niveau 2 (B1-B2)", u: "/formation-anglais-niveau-2-b1-b2-rs6905.html", c: "langue", k: "anglais interm\u00e9diaire b1 b2 professionnel english intermediate langue", i: I.globe },
     { t: "Anglais Niveau 3 (C1-C2)", u: "/formation-anglais-niveau-3-c1-c2-rs6905.html", c: "langue", k: "anglais avanc\u00e9 c1 c2 n\u00e9gociation english advanced langue", i: I.globe },
-    { t: "Anglais Complet (A1-C2)", c: "langue", k: "anglais complet vtest certification english all levels langue", i: I.globe },
+    { t: "Anglais Complet (A1-C2)", u: "/formation-anglais-a1-c2-parcours-complet-rs6905.html", c: "langue", k: "anglais complet vtest certification english all levels langue", i: I.globe },
     { t: "Fran\u00e7ais Niveau 1 (A1-A2)", c: "langue", k: "fran\u00e7ais fle d\u00e9butant a1 a2 french langue", i: I.chat },
     { t: "Fran\u00e7ais Niveau 2 (B1-B2)", c: "langue", k: "fran\u00e7ais fle interm\u00e9diaire b1 b2 french langue", i: I.chat },
     { t: "Fran\u00e7ais Niveau 3 (C1-C2)", c: "langue", k: "fran\u00e7ais fle avanc\u00e9 c1 c2 french langue", i: I.chat },
