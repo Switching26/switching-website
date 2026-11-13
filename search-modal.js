@@ -139,7 +139,7 @@
     { t: "Gestion de la paie avec Silae CPF", c: "compta", k: "silae paie dsn bulletin charges sociales cpf comptabilit\u00e9 salaire", i: I.invoice },
     { t: "Gestion de la paie avec Ciel Paie", c: "compta", k: "ciel paie cotisations d\u00e9clarations sociales comptabilit\u00e9 salaire", i: I.invoice },
     { t: "Gestion de la paie avec Segid", c: "compta", k: "segid paie param\u00e9trage saisie \u00e9ditions comptabilit\u00e9 salaire", i: I.invoice },
-    { t: "Secr\u00e9taire Assistant Comptable", c: "compta", k: "comptabilit\u00e9 rapprochements bancaires tva bilan secr\u00e9taire", i: I.clipboard },
+    { t: "Secr\u00e9taire comptable", u: "/formation-secretaire-comptable.html", c: "compta", k: "comptabilit\u00e9 rapprochements bancaires tva bilan secr\u00e9taire", i: I.clipboard },
     { t: "Comptabilit\u00e9 G\u00e9n\u00e9rale", c: "compta", k: "comptabilit\u00e9 \u00e9critures bilan compte r\u00e9sultat gestion", i: I.creditcard },
 
     // === INTELLIGENCE ARTIFICIELLE ===
