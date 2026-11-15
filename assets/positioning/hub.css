@@ -56,6 +56,14 @@
 .resource-grid--duo .rc-vis{width:44%;height:auto;min-height:190px;border-bottom:0;border-right:1px solid var(--bd)}
 .resource-grid--duo .rc-body{justify-content:center;padding:22px 26px}
 
+/* fiche offerte : une carte pleine largeur avec la vignette du PDF */
+.resource-grid--one{grid-template-columns:1fr}
+.resource-grid--one .resource-card{flex-direction:row}
+.rc--fiche .rc-vis{width:240px;height:auto;min-height:170px;border-bottom:0;border-right:1px solid var(--bd);overflow:hidden;place-items:start center;padding-top:20px}
+.rc--fiche .rc-vis img{display:block;width:150px;height:auto;border-radius:6px;box-shadow:0 2px 4px rgba(15,23,42,.06),0 14px 28px -16px rgba(15,23,42,.4);transform:rotate(-2deg);transition:transform .5s var(--e)}
+.rc--fiche:hover .rc-vis img{transform:rotate(0) translateY(-3px)}
+.rc--fiche .rc-body{justify-content:center;padding:22px 28px}
+
 .hub-help{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-top:28px;padding-bottom:64px}
 .hub-help::before{content:'';position:absolute;top:0;left:32px;right:32px;border-top:1px solid var(--bd)}
 .rc-intro{display:block;font-size:14.5px;color:var(--sub);line-height:1.6;margin-top:12px;max-width:440px}
@@ -100,6 +108,9 @@
 .rc-note{font-size:12px}
 .resource-link{padding-top:8px;font-size:13.5px}
 .resource-card:hover{transform:none}
+.rc--fiche .rc-vis{width:100px;min-height:0;padding-top:12px}
+.rc--fiche .rc-vis img{width:70px}
+.rc--fiche .rc-body{padding:13px 14px 13px 16px}
 .hub-help{padding-bottom:48px}
 .hub-help::before{left:18px;right:18px}
 .rc-intro{display:none}

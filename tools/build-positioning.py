@@ -129,6 +129,11 @@ hub = ('<main id="top"><section class="hub-hero w"><div class="hub-copy"><span c
        '<div class="resource-grid">' + office + '</div></section>'
        '<section class="w hub-sec" aria-labelledby="sec-more"><div class="hub-sec-h"><h2 id="sec-more">Anglais et paie</h2><p>Un test écrit et un cas guidé sur dossier fictif.</p></div>'
        '<div class="resource-grid resource-grid--duo">' + more + '</div></section>'
+       '<section class="w hub-sec" aria-labelledby="sec-fiche"><div class="hub-sec-h"><h2 id="sec-fiche">À garder sous la main</h2><p>Une fiche PDF offerte, sans email.</p></div>'
+       '<div class="resource-grid resource-grid--one"><a class="resource-card rc--fiche" href="/fiche-raccourcis-excel.html"><span class="rc-vis" aria-hidden="true"><img src="/images/fiche-raccourcis-excel.webp" alt="" width="900" height="1273" loading="lazy"></span>'
+       '<span class="rc-body"><span class="rc-meta">Fiche PDF · 1 page A4</span><h3>20 raccourcis Excel</h3><span class="rc-dom">Se déplacer · Saisir · Calculer · Mettre en forme</span>'
+       '<span class="rc-intro">Les raccourcis les plus utiles, classés en cinq thèmes, à imprimer et garder près du clavier. Pour Excel en français sur PC Windows.</span>'
+       '<span class="resource-link">Voir la fiche' + ARROW + '</span></span></a></div></section>'
        '<section class="w hub-help"><div><h2>Et après votre résultat ?</h2><p>Repérez vos points d\'appui et les notions à revoir. Vous pouvez consulter la formation correspondante ou préparer un échange avec un conseiller. Vous choisissez vous-même les informations que vous souhaitez lui transmettre.</p>'
        '<p class="note">Ces tests ne sont ni une certification ni une validation d\'admission. Le test d\'anglais porte sur l\'écrit ; un positionnement complet doit aussi tenir compte de l\'oral et de la compréhension audio.</p></div>'
        '<a class="btn btn-ghost" href="/formations.html">Explorer les formations' + ARROW + '</a></section></main>')
