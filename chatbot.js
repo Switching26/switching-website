@@ -71,7 +71,7 @@
   -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));
   animation:sfc-spin 1s linear infinite}
 .sfc-orb.sfc-busy .sfc-ring{opacity:1}
-.sfc-fly{position:fixed;z-index:10000;pointer-events:none;transform-origin:0 0;transition:transform .62s cubic-bezier(.65,0,.25,1)}
+.sfc-fly{position:fixed;z-index:10000;pointer-events:none;transform-origin:0 0;animation:none;transition:transform .62s cubic-bezier(.65,0,.25,1)}
 @keyframes sfc-spin{to{transform:rotate(360deg)}}
 @keyframes sfc-breath{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
 @keyframes sfc-wob{0%,100%{transform:scale(1,1)}25%{transform:scale(1.03,.97)}50%{transform:scale(.98,1.02)}75%{transform:scale(1.02,.98)}}
