@@ -305,6 +305,35 @@ function escapeHtml(value) {
 }
 
 // Same, plus line breaks preserved — for the free-text message block.
+// Visited page: the widget sends a bare slug ("formation-silae-paie-cpf").
+// Turn it into the page's real title + public link, so the admin mails say
+// which page it was instead of a technical name (Samuel, 19/11/2026).
+const SITE_URL = 'https://www.switching-formation.fr';
+const pageInfoCache = new Map();
+function pageInfo(slug) {
+  if (typeof slug !== 'string' || !/^[a-z0-9-]{1,120}(\/[a-z0-9-]{1,120})?$/.test(slug)) return null;
+  if (pageInfoCache.has(slug)) return pageInfoCache.get(slug);
+  let title = null;
+  try {
+    const html = fs.readFileSync(path.join(__dirname, slug + '.html'), 'utf8');
+    const m = html.match(/<title>([^<]{1,200})<\/title>/i);
+    if (m) title = m[1].replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"')
+      .replace(/\s*[|—–-]\s*Switching( Formation)?\s*$/i, '').trim();
+  } catch (e) { /* unknown page: keep the slug */ }
+  const info = { slug, title: title || slug, url: title ? SITE_URL + '/' + (slug === 'index' ? '' : slug + '.html') : null };
+  pageInfoCache.set(slug, info);
+  return info;
+}
+function pageLine(slug) {
+  const info = pageInfo(slug);
+  return info ? (info.url ? info.title + ' — ' + info.url : info.title) : null;
+}
+// Escaped text -> clickable links, only for our own site's pages.
+function linkifySite(escaped) {
+  return escaped.replace(/https:\/\/www\.switching-formation\.fr\/[a-z0-9\/.-]*/g,
+    u => '<a href="' + u + '" style="color:#0E7C80;text-decoration:underline;">' + u + '</a>');
+}
+
 function escapeHtmlMultiline(value) {
   return escapeHtml(value).replace(/\r?\n/g, '<br>');
 }
@@ -376,12 +405,12 @@ function buildAdminEmail(data, dateFR, pageLabel) {
     '{{VILLE}}': escapeHtml(data.ville || 'Non renseignée'),
     '{{ENTREPRISE}}': escapeHtml(data.entreprise || 'Non renseignée'),
     '{{MODALITE}}': escapeHtml(data.modalite || 'Non précisée'),
-    '{{MESSAGE}}': escapeHtmlMultiline(data.message || 'Aucun message'),
+    '{{MESSAGE}}': linkifySite(escapeHtmlMultiline(data.message || 'Aucun message')),
     '{{ANCIENNETE}}': escapeHtml(data.anciennete || 'Non précisé'),
     '{{MESSAGE_SECTION}}': (data.message || '').trim()
       ? `<tr><td style="padding:22px 28px 0;">
 <p style="margin:0 0 6px;font-size:9px;font-weight:700;color:#A9B4C4;text-transform:uppercase;letter-spacing:1.2px;">Son message</p>
-<p style="margin:0;font-size:14px;color:#3C4A5C;line-height:1.7;background:#F8FAFC;padding:14px 16px;border-radius:10px;border-left:3px solid #1B4F9C;">${escapeHtmlMultiline(data.message.trim())}</p>
+<p style="margin:0;font-size:14px;color:#3C4A5C;line-height:1.7;background:#F8FAFC;padding:14px 16px;border-radius:10px;border-left:3px solid #1B4F9C;">${linkifySite(escapeHtmlMultiline(data.message.trim()))}</p>
 </td></tr>`
       : '',
     '{{DATE}}': dateFR,
@@ -1021,7 +1050,8 @@ function buildTranscriptHtml(messages) {
 function buildChatNotifyEmail(convId, page, dateFR, messages) {
   let html = TEMPLATE_CHAT_NOTIFY;
   html = html.split('{{CONV_ID}}').join(String(convId));
-  html = html.split('{{PAGE}}').join(page || 'Non précisée');
+  const pi = pageInfo(page);
+  html = html.split('{{PAGE}}').join(pi ? linkifySite(escapeHtml(pageLine(page))) : escapeHtml(page || 'Non précisée'));
   html = html.split('{{DATE}}').join(dateFR);
   html = html.split('{{TRANSCRIPT}}').join(buildTranscriptHtml(messages));
   return html;
@@ -1284,7 +1314,7 @@ app.post('/api/chat', async (req, res) => {
 
     const contextPage = typeof page === 'string' && /^[a-z0-9-]{1,120}$/.test(page) ? page : null;
     const systemPrompt = CHAT_SYSTEM_PROMPT + (contextPage
-      ? '\n\nPage consultée (indice seulement, formation à confirmer avec le prospect) : ' + contextPage
+      ? '\n\nPage consultée (indice seulement, formation à confirmer avec le prospect) : ' + pageInfo(contextPage).title + ' (' + contextPage + ')'
       : '');
     const fullText = await claudeCode.complete(trimmed, systemPrompt);
     console.log('Chat API OK — length:', fullText.length);
@@ -1336,7 +1366,7 @@ app.post('/api/chat', async (req, res) => {
         // they get the same clamping/validation as the plain form.
         const data = clampSubmission(JSON.parse(submitMatch[1]));
         data.source = 'chatbot';
-        data.message = [data.message, contextPage ? 'Page consultée : ' + contextPage : null].filter(Boolean).join('\n').slice(0, 4000);
+        data.message = [data.message, contextPage ? 'Page consultée : ' + pageLine(contextPage) : null].filter(Boolean).join('\n').slice(0, 4000);
         if (data.email && !isPlausibleEmail(data.email)) delete data.email;
         // Same bot filter as the plain form: the visitor still sees the normal
         // end of conversation, but nothing is stored or mailed.
