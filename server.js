@@ -113,7 +113,7 @@ CATALOGUE DE FORMATIONS (7 domaines, 57 formations) :
 
 4. WEB & DIGITAL (9 formations) : WordPress, WooCommerce, Marketing digital, Réseaux sociaux & Ads, Réseaux sociaux, Développeur Web, Développeur informatique, SEO, SEA Google Ads
 
-5. COMPTABILITÉ & PAIE (5 formations) : Gestion de la paie Silae (CPF/RNCP), Gestion de la paie Ciel Paie, Gestion de la paie Segid, Secrétaire comptable, Comptabilité Générale
+5. COMPTABILITÉ & PAIE (5 formations) : Gestion de la paie Silae (CPF/RNCP ; certification officielle Silae incluse dans le tarif, délivrée par l'éditeur Silae, passée à distance en fin de formation, nouveau passage possible 4 semaines après un échec), Gestion de la paie Ciel Paie, Gestion de la paie Segid, Secrétaire comptable, Comptabilité Générale
 
 6. INTELLIGENCE ARTIFICIELLE (9 formations) : ChatGPT (Gratuit & Plus), Midjourney PRO, IA conversationnelle cycle de vente (RS6792), Copilot Microsoft 365, L'Art de créer des vidéos avec l'IA, Contenus rédactionnels & visuels IA (26h, RS6776), IA Business Pro OptimIA, Contenus rédactionnels & visuels IA (10h, RS6776), CapCut Montages vidéos IA
 
