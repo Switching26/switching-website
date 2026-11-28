@@ -157,7 +157,7 @@ ld = {'@context': 'https://schema.org', '@type': 'WebPage', 'name': TITLE, 'desc
       'url': url, 'inLanguage': 'fr',
       'publisher': {'@type': 'Organization', 'name': 'Switching Formation', 'url': SITE}}
 page = src
-page = sub1(r'<title>.*?</title>', f'<title>{esc(TITLE)} | Switching Formation</title>', page)
+page = sub1(r'<title>.*?</title>', f'<title>{esc(TITLE + " | Switching Formation" if len(TITLE) + 22 <= 60 else TITLE)}</title>', page)
 page = sub1(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(DESC, quote=True)}">', page)
 page = sub1(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{url}">', page)
 page = sub1(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{esc(TITLE, quote=True)}">', page)

@@ -24,12 +24,12 @@ def head(title, description, filename, extra=''):
     return f'''<!doctype html>
 <html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{esc(title)} | Switching Formation</title>
+<title>{esc(title + ' | Switching Formation' if len(title) + 22 <= 60 else title)}</title>
 <meta name="description" content="{esc(description, quote=True)}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title, quote=True)}">
 <meta property="og:description" content="{esc(description, quote=True)}"><meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#FAFBFC"><link rel="icon" href="/images/fav-sf-web.PNG">
+<meta name="theme-color" content="#FAFBFC"><link rel="icon" type="image/png" href="/images/favicon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/positioning/base.css"><link rel="stylesheet" href="/assets/positioning/entry.css"><link rel="stylesheet" href="/end-block.css"><link rel="stylesheet" href="/nav-glass.css?v=6">{extra}
